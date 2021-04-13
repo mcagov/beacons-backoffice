@@ -64,5 +64,17 @@
   "lint-staged": {
     "*.{js, jsx, ts, tsx}": "eslint --cache --fix",
     "*.{js,jsx,json,ts,tsx,yml,md,html,scss,css}": "prettier --write"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
