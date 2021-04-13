@@ -48,3 +48,8 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+
+## Deployment
+
+This application is deployed as a static website to AWS S3 via Github actions per commit to main for developement. Staging and production must be deployed manually via clicking deploy, again in Github actions. 
+
