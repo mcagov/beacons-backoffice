@@ -3,7 +3,7 @@ import Navigation from "components/navigation";
 import BeaconRecords from "pages/beacon-records";
 import Home from "pages/home";
 import React, { FunctionComponent } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
 
 const App: FunctionComponent = () => {

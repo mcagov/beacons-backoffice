@@ -28,7 +28,7 @@ const Navigation: FunctionComponent = (): JSX.Element => {
           <Button color="inherit" href="/">
             Overview
           </Button>
-          <Button color="inherit" href="/beacon-records">
+          <Button color="inherit" href="/#/beacon-records">
             Beacon records
           </Button>
         </Toolbar>
