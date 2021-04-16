@@ -1,4 +1,4 @@
-name: CI/CD pipeline - development backoffice
+name: CI/CD pipeline - staging backoffice
 
 on: workflow_dispatch
 
