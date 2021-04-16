@@ -1,7 +1,6 @@
 name: CI/CD pipeline - development backoffice
 
-on:
-  push:
+on: push
 
 jobs:
   install_dependencies:
