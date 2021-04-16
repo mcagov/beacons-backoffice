@@ -1,4 +1,4 @@
-import { Paper } from "@material-ui/core";
+import { Button, Paper } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import PageContent from "components/page-content";
 import PageHeader from "components/page-header";
@@ -24,7 +24,10 @@ const Home: FunctionComponent = (): JSX.Element => {
       </PageHeader>
       <PageContent>
         <Paper className={classes.paper}>
-          Example content for overview page
+          Example content for overview page{" "}
+          <Button variant="contained" color="secondary">
+            Default
+          </Button>
         </Paper>
       </PageContent>
     </div>
