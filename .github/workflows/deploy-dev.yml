@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: "14"
       - name: Install npm dependencies
-        run: npm install -g create-react-app && npm ci
+        run: npm ci && npm i react-scripts@3.4.1 -g
         env:
           CYPRESS_INSTALL_BINARY: 0
       - name: Cache dependencies
