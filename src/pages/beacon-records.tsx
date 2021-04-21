@@ -20,9 +20,7 @@ const BeaconRecords: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <PageHeader>
-        <div>Beacon records page header</div>
-      </PageHeader>
+      <PageHeader>Beacon records</PageHeader>
       <PageContent>
         <Paper className={classes.paper}>
           <BeaconsTable />
