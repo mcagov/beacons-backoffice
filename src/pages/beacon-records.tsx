@@ -1,8 +1,9 @@
 import { Paper } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import PageContent from "components/page-content";
-import PageHeader from "components/page-header";
+import PageContent from "components/PageContent";
+import PageHeader from "components/PageHeader";
 import React, { FunctionComponent } from "react";
+import { BeaconsTable } from "../components/BeaconsTable";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,7 +25,7 @@ const BeaconRecords: FunctionComponent = (): JSX.Element => {
       </PageHeader>
       <PageContent>
         <Paper className={classes.paper}>
-          Example content area for beacon records page
+          <BeaconsTable />
         </Paper>
       </PageContent>
     </div>

@@ -1,5 +1,5 @@
-import Footer from "components/footer";
-import Navigation from "components/navigation";
+import Footer from "components/Footer";
+import Navigation from "components/Navigation";
 import BeaconRecords from "pages/beacon-records";
 import Home from "pages/home";
 import React, { FunctionComponent } from "react";
