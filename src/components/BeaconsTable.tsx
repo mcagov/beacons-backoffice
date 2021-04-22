@@ -24,6 +24,7 @@ import React, {
 } from "react";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
+import { formatDate } from "../use-cases/formatDate";
 
 interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
@@ -97,7 +98,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
 
   const tableData = state.beacons.map((beacon: IBeacon) => {
     return {
-      date: beacon.registeredDate.toString(),
+      date: formatDate(beacon.registeredDate),
       status: beacon.status,
       hexId: beacon.hexId,
       owner: beacon.owner.fullName,
