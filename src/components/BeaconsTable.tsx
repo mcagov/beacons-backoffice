@@ -18,7 +18,6 @@ import MaterialTable, { Icons } from "material-table";
 import React, {
   forwardRef,
   FunctionComponent,
-  useCallback,
   useEffect,
   useState,
 } from "react";
@@ -75,26 +74,26 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     beacons: [],
   });
 
-  const fetchBeacons = useCallback(async () => {
-    setState({ ...state, isLoading: true });
-    try {
-      const beacons = await beaconsGateway.getAllBeacons();
-      setState({
-        ...state,
-        isLoading: false,
-        error: false,
-        beacons,
-      });
-    } catch (error) {
-      setState({
-        ...state,
-        isLoading: false,
-        error: error?.message,
-      });
-    }
-  }, [state, beaconsGateway]);
-
   useEffect((): void => {
+    const fetchBeacons = async () => {
+      setState({ ...state, isLoading: true });
+      try {
+        const beacons = await beaconsGateway.getAllBeacons();
+        setState({
+          ...state,
+          isLoading: false,
+          error: false,
+          beacons,
+        });
+      } catch (error) {
+        setState({
+          ...state,
+          isLoading: false,
+          error: error?.message,
+        });
+      }
+    };
+
     fetchBeacons(); // TODO: What events should cause new beacons to be fetched?  Currently once on first render
   }, []);
 
