@@ -83,6 +83,8 @@
   },
   "homepage": ".",
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.7"
+    "@types/faker": "^5.5.3",
+    "@types/react-router-dom": "^5.1.7",
+    "faker": "^5.5.3"
   }
 }
