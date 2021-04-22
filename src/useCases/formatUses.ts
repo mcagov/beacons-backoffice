@@ -1,4 +1,4 @@
-import { IUse, Purposes } from "../entities/IUse";
+import { IUse } from "../entities/IUse";
 import { titleCase } from "../utils";
 
 export const formatUses = (uses: IUse[]): string =>
@@ -9,7 +9,6 @@ export const formatUses = (uses: IUse[]): string =>
 
 const formatUse = (use: IUse): string => {
   const formattedActivity = titleCase(use.activity);
-  const formattedPurpose =
-    use.purpose === Purposes.Null ? "" : ` (${titleCase(use.purpose)})`;
+  const formattedPurpose = use.purpose ? ` (${titleCase(use.purpose)})` : "";
   return formattedActivity + formattedPurpose;
 };

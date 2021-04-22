@@ -1,6 +1,6 @@
 export interface IUse {
   environment: Environments;
-  purpose: string;
+  purpose?: string;
   activity: string;
   moreDetails: string;
 }
@@ -14,7 +14,6 @@ export enum Environments {
 export enum Purposes {
   Commercial = "COMMERCIAL",
   Pleasure = "PLEASURE",
-  Null = "Null",
 }
 
 export enum Activities {

@@ -25,8 +25,8 @@ import React, {
 } from "react";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { formatDate } from "../use-cases/formatDate";
-import { formatUses } from "../use-cases/formatUses";
+import { formatDate } from "../useCases/formatDate";
+import { formatUses } from "../useCases/formatUses";
 import { titleCase } from "../utils";
 
 interface IBeaconsTableProps {

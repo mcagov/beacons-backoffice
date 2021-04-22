@@ -42,7 +42,6 @@ describe("formatUses()", () => {
         },
         {
           environment: Environments.Land,
-          purpose: Purposes.Null,
           activity: Activities.ClimbingMountaineering,
           moreDetails: "Hiking at the weekends",
         },
