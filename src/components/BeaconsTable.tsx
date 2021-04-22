@@ -14,7 +14,7 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import MaterialTable, { Icons } from "material-table";
+import MaterialTable, { Icons, MTableBodyRow } from "material-table";
 import React, {
   forwardRef,
   FunctionComponent,
@@ -95,7 +95,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     };
 
     fetchBeacons(); // TODO: What events should cause new beacons to be fetched?  Currently once on first render
-  }, []);
+  }, []); // eslint-disable-line
 
   const tableData = state.beacons.map((beacon: IBeacon) => {
     return {
@@ -149,9 +149,13 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
             title=""
             options={{
               filtering: true,
+              pageSize: 20,
             }}
             components={{
               Container: (props) => <Paper {...props} elevation={0} />,
+              Row: (props) => (
+                <MTableBodyRow {...props} data-testid="beacons-table-row" />
+              ),
             }}
           />
         </div>

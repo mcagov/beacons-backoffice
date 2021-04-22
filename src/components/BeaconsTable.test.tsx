@@ -14,6 +14,7 @@ describe("<BeaconsTable>", () => {
 
   it("renders a table", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
+
     expect((await screen.findAllByRole("table")).length).toBeGreaterThan(1);
   });
 
@@ -27,11 +28,19 @@ describe("<BeaconsTable>", () => {
 
   it("displays the returned beacon data in the table", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
+
     expect(await screen.findByText(testBeacons[0].hexId)).toBeVisible();
+  });
+
+  it("displays 20 rows per page", async () => {
+    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
+
+    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(20);
   });
 
   it("can click on the hex ID to see more details about the beacon", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
+
     const hexIdField = await screen.findByText(testBeacons[0].hexId);
 
     expect(hexIdField.getAttribute("href")).toBe(

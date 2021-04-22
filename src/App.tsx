@@ -1,4 +1,3 @@
-import Footer from "components/Footer";
 import Navigation from "components/Navigation";
 import BeaconRecords from "pages/beacon-records";
 import Home from "pages/home";
@@ -21,7 +20,7 @@ const App: FunctionComponent = () => {
             <BeaconRecords beaconsGateway={beaconsGateway} />
           </Route>
         </Switch>
-        <Footer />
+        {/*<Footer />*/}
       </Router>
     </div>
   );
