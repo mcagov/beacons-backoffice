@@ -15,15 +15,29 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import MaterialTable, { Icons } from "material-table";
-import React, { forwardRef, FunctionComponent } from "react";
+import React, {
+  forwardRef,
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { IBeacon } from "../entities/IBeacon";
+import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 
 interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
 }
 
+interface IBeaconsTableState {
+  isLoading: Boolean;
+  error: Boolean;
+  beacons: IBeacon[];
+}
+
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
   beaconsGateway,
-}: IBeaconsTableProps): JSX.Element => {
+}): JSX.Element => {
   const tableIcons: Icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -52,7 +66,44 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
 
-  const beacons = beaconsGateway.getAllBeacons();
+  const [state, setState] = useState<IBeaconsTableState>({
+    isLoading: true,
+    error: false,
+    beacons: [],
+  });
+
+  const fetchBeacons = useCallback(async () => {
+    setState({ ...state, isLoading: true });
+    try {
+      const beacons = await beaconsGateway.getAllBeacons();
+      setState({
+        ...state,
+        isLoading: false,
+        error: false,
+        beacons,
+      });
+    } catch (error) {
+      setState({
+        ...state,
+        isLoading: false,
+        error: error?.message,
+      });
+    }
+  }, [state, beaconsGateway]);
+
+  useEffect((): void => {
+    fetchBeacons(); // TODO: What events should cause new beacons to be fetched?  Currently once on first render
+  }, []);
+
+  const tableData = state.beacons.map((beacon: IBeacon) => {
+    return {
+      date: beacon.registeredDate.toString(),
+      status: beacon.status,
+      hexId: beacon.hexId,
+      owner: beacon.owner.fullName,
+      uses: "Fishing (Pleasure)", // TODO: Utility fn to concat/format uses
+    };
+  });
 
   return (
     <>
@@ -92,29 +143,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
                 sorting: true,
               },
             ]}
-            data={[
-              {
-                date: "29 Apr 21",
-                status: "New",
-                hexId: "1D0456789123456",
-                owner: "Loerm Ipsum",
-                uses: "Fishing (Pleasure)",
-              },
-              {
-                date: "29 Apr 21",
-                status: "Update",
-                hexId: "1D0456789123455",
-                owner: "Loerm Ipsum 2",
-                uses: "Fishing (Commerical)",
-              },
-              {
-                date: "27 Apr 21",
-                status: "New",
-                hexId: "1D0456789123454",
-                owner: "Loerm Ipsum 3",
-                uses: "Fishing (Pleasure)",
-              },
-            ]}
+            data={tableData}
             title=""
             options={{
               filtering: true,
