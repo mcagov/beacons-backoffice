@@ -1,3 +1,4 @@
+import faker from "faker";
 import { BeaconStatuses } from "../entities/IBeacon";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
@@ -71,5 +72,9 @@ const ukHexIds = [
 ];
 
 export const testBeacons = new Array(21).fill(beacon).map((beacon, i) => {
-  return { ...beacon, hexId: ukHexIds[i] };
+  return {
+    ...beacon,
+    hexId: ukHexIds[i],
+    owner: { ...beacon.owner, fullName: faker.name.findName() },
+  };
 });
