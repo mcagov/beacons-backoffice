@@ -5,26 +5,26 @@ import {
   iCanSeeTheText,
 } from "../common/selectors";
 
-describe("Beacon page", () => {
+describe("As a Registry team member, on the beacon page, I can", () => {
   beforeEach(() => {
     givenIAmAt("/#/beacon");
   });
 
-  it("displays the Hex ID of the beacon", () => {
+  it("see the Hex ID of the beacon", () => {
     iCanSeeTheText("Hex ID/UIN");
   });
 
-  it("shows the beacon Summary", () => {
+  it("see the beacon Summary", () => {
     iCanSeeTheText("Summary");
   });
 
-  it("displays the Owner & Emergency Contacts tab", () => {
+  it("see the Owner & Emergency Contacts tab", () => {
     givenIHaveClickedTheTabContaining("Owner & Emergency Contacts");
     iCanSeeTheText("Hello I am owner of boat");
     iCanNotSeeTheText("Hello I am beacon use");
   });
 
-  it("displays the Registered Uses tab", () => {
+  it("see the Registered Uses tab", () => {
     givenIHaveClickedTheTabContaining("Registered Uses");
     iCanSeeTheText("Hello I am beacon use");
     iCanNotSeeTheText("Hello I am owner of boat");
