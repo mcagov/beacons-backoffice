@@ -1,3 +1,5 @@
+import { BeaconsGateway } from "./BeaconsGateway";
+
 describe("BeaconsGateway", () => {
   const BEACONS_SERVICE_URL = "http://beacons.com"; // TODO: Update
 
