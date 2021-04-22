@@ -25,6 +25,7 @@ import React, {
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { formatDate } from "../use-cases/formatDate";
+import { formatUses } from "../use-cases/formatUses";
 
 interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
@@ -102,7 +103,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       status: beacon.status,
       hexId: beacon.hexId,
       owner: beacon.owner.fullName,
-      uses: "Fishing (Pleasure)", // TODO: Utility fn to concat/format uses
+      uses: formatUses(beacon.uses),
     };
   });
 

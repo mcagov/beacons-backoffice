@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { BeaconStatuses, IBeacon } from "../entities/IBeacon";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
-import { IUse } from "../entities/IUse";
+import { Environments, IUse } from "../entities/IUse";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { BeaconsTable } from "./BeaconsTable";
 
@@ -47,7 +47,7 @@ const owner: IOwner = {
 
 const uses: IUse[] = [
   {
-    environment: "MARITIME",
+    environment: Environments.Maritime,
     purpose: "COMMERCIAL",
     activity: "SAILING",
     moreDetails: "I take people out in my yacht.",

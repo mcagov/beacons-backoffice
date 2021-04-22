@@ -1,7 +1,7 @@
 import { BeaconStatuses, IBeacon } from "../entities/IBeacon";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
-import { IUse } from "../entities/IUse";
+import { Activities, Environments, IUse, Purposes } from "../entities/IUse";
 import { IBeaconsGateway } from "./IBeaconsGateway";
 
 export class BeaconsGateway implements IBeaconsGateway {
@@ -20,9 +20,9 @@ export class BeaconsGateway implements IBeaconsGateway {
 
     const uses: IUse[] = [
       {
-        environment: "MARITIME",
-        purpose: "COMMERCIAL",
-        activity: "SAILING",
+        environment: Environments.Maritime,
+        purpose: Purposes.Commercial,
+        activity: Activities.FishingVessel,
         moreDetails: "I take people out in my yacht.",
       },
     ];
