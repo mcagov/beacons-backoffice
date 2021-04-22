@@ -4,6 +4,7 @@ import PageContent from "components/PageContent";
 import PageHeader from "components/PageHeader";
 import React, { FunctionComponent } from "react";
 import { BeaconsTable } from "../components/BeaconsTable";
+import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,14 +17,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const BeaconRecords: FunctionComponent = (): JSX.Element => {
+interface BeaconRecordsProps {
+  beaconsGateway: IBeaconsGateway;
+}
+
+const BeaconRecords: FunctionComponent<BeaconRecordsProps> = ({
+  beaconsGateway,
+}): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <PageHeader>Beacon records</PageHeader>
       <PageContent>
         <Paper className={classes.paper}>
-          <BeaconsTable />
+          <BeaconsTable beaconsGateway={beaconsGateway} />
         </Paper>
       </PageContent>
     </div>

@@ -5,8 +5,10 @@ import Home from "pages/home";
 import React, { FunctionComponent } from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
+import { BeaconsGateway } from "./gateways/BeaconsGateway";
 
 const App: FunctionComponent = () => {
+  const beaconsGateway = new BeaconsGateway();
   return (
     <div>
       <Router>
@@ -16,7 +18,7 @@ const App: FunctionComponent = () => {
             <Home />
           </Route>
           <Route path="/beacon-records">
-            <BeaconRecords />
+            <BeaconRecords beaconsGateway={beaconsGateway} />
           </Route>
         </Switch>
         <Footer />
