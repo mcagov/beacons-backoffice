@@ -110,64 +110,56 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
   });
 
   return (
-    <>
-      <div className="govuk-grid-row ">
-        <div className="govuk-grid-column-full">
-          <MaterialTable
-            icons={tableIcons}
-            columns={[
-              {
-                title: "Date",
-                field: "date",
-                filtering: false,
-                sorting: true,
-                defaultSort: "desc",
-              },
-              {
-                title: "Status",
-                field: "status",
-                sorting: true,
-                defaultFilter: "New",
-              },
-              {
-                title: "Hex ID",
-                field: "hexId",
-                filtering: false,
-                sorting: true,
-                render: (rowData) => (
-                  <Link href={"/beacons/" + rowData.hexId}>
-                    {rowData.hexId}
-                  </Link>
-                ),
-              },
-              {
-                title: "Owner details",
-                field: "owner",
-                filtering: false,
-                sorting: true,
-              },
-              {
-                title: "Beacon use",
-                field: "uses",
-                sorting: true,
-              },
-            ]}
-            data={tableData}
-            title=""
-            options={{
-              filtering: true,
-              search: true,
-              pageSize: 20,
-            }}
-            components={{
-              Container: (props) => <Paper {...props} elevation={0} />,
-              Row: (props) => (
-                <MTableBodyRow {...props} data-testid="beacons-table-row" />
-              ),
-            }}
-          />
-        </div>
-      </div>
-    </>
+    <MaterialTable
+      icons={tableIcons}
+      columns={[
+        {
+          title: "Date",
+          field: "date",
+          filtering: false,
+          sorting: true,
+          defaultSort: "desc",
+        },
+        {
+          title: "Status",
+          field: "status",
+          sorting: true,
+          defaultFilter: "New",
+        },
+        {
+          title: "Hex ID",
+          field: "hexId",
+          filtering: false,
+          sorting: true,
+          render: (rowData) => (
+            <Link href={"/beacons/" + rowData.hexId}>{rowData.hexId}</Link>
+          ),
+        },
+        {
+          title: "Owner details",
+          field: "owner",
+          filtering: false,
+          sorting: true,
+        },
+        {
+          title: "Beacon use",
+          field: "uses",
+          sorting: true,
+        },
+      ]}
+      data={tableData}
+      title=""
+      options={{
+        filtering: true,
+        search: true,
+        pageSize: 20,
+      }}
+      components={{
+        Container: (props) => <Paper {...props} elevation={0} />,
+        Row: (props) => (
+          <MTableBodyRow {...props} data-testid="beacons-table-row" />
+        ),
+      }}
+    />
   );
 };

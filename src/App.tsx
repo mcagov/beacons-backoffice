@@ -6,11 +6,12 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
 import Beacon from "./pages/beacon";
 import { BeaconsGateway } from "./gateways/BeaconsGateway";
+import Footer from "./components/Footer";
 
 const App: FunctionComponent = () => {
   const beaconsGateway = new BeaconsGateway();
   return (
-    <div>
+    <>
       <Router>
         <Navigation />
         <Switch>
@@ -24,9 +25,9 @@ const App: FunctionComponent = () => {
             <Beacon />
           </Route>
         </Switch>
-        {/*<Footer />*/}
       </Router>
-    </div>
+      <Footer />
+    </>
   );
 };
 

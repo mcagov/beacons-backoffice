@@ -26,6 +26,33 @@ const Home: FunctionComponent = (): JSX.Element => {
         <Paper className={classes.paper}>
           Example content for overview page
         </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
       </PageContent>
     </div>
   );
