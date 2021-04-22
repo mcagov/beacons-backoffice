@@ -1,4 +1,4 @@
-interface IOwner {
+export interface IOwner {
   fullName: string;
   email: string;
   telephoneNumber: string;

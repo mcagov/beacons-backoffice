@@ -1,5 +1,11 @@
+import { BeaconStatuses, IBeacon } from "../entities/IBeacon";
+import { IEmergencyContact } from "../entities/IEmergencyContact";
+import { IOwner } from "../entities/IOwner";
+import { IUse } from "../entities/IUse";
+import { IBeaconsGateway } from "./IBeaconsGateway";
+
 export class BeaconsGateway implements IBeaconsGateway {
-  public getAllBeacons(): Beacon[] {
+  public async getAllBeacons(): Promise<IBeacon[]> {
     // TODO: Replace with API call
     const owner: IOwner = {
       fullName: "Steve Stevington",
@@ -31,6 +37,8 @@ export class BeaconsGateway implements IBeaconsGateway {
 
     const beacon = {
       hexId: "1D0...",
+      registeredDate: new Date("21 April 2021"),
+      status: BeaconStatuses.new,
       manufacturer: "OceanSignal",
       model: "EPIRB",
       manufacturerSerialNumber: "123ABC",

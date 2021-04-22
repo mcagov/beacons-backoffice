@@ -1,4 +1,4 @@
-interface IUse {
+export interface IUse {
   environment: string;
   purpose: string;
   activity: string;

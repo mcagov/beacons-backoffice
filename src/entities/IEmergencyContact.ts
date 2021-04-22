@@ -1,4 +1,4 @@
-interface IEmergencyContact {
+export interface IEmergencyContact {
   fullName: string;
   telephoneNumber: string;
   alternativeTelephoneNumber: string;

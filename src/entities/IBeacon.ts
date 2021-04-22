@@ -1,5 +1,11 @@
-interface Beacon {
+import { IEmergencyContact } from "./IEmergencyContact";
+import { IOwner } from "./IOwner";
+import { IUse } from "./IUse";
+
+export interface IBeacon {
   hexId: string;
+  registeredDate: Date;
+  status: string;
   manufacturer: string;
   model: string;
   manufacturerSerialNumber: string;
@@ -9,4 +15,8 @@ interface Beacon {
   uses: IUse[];
   owner: IOwner;
   emergencyContacts: IEmergencyContact[];
+}
+
+export enum BeaconStatuses {
+  new = "NEW",
 }
