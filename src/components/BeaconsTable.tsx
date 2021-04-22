@@ -1,4 +1,4 @@
-import { Paper } from "@material-ui/core";
+import { Link, Paper } from "@material-ui/core";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -26,6 +26,7 @@ import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { formatDate } from "../use-cases/formatDate";
 import { formatUses } from "../use-cases/formatUses";
+import { titleCase } from "../utils";
 
 interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
@@ -100,8 +101,8 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
   const tableData = state.beacons.map((beacon: IBeacon) => {
     return {
       date: formatDate(beacon.registeredDate),
-      status: beacon.status,
-      hexId: beacon.hexId,
+      status: titleCase(beacon.status),
+      hexId: <Link href={"/beacons/" + beacon.hexId}>{beacon.hexId}</Link>,
       owner: beacon.owner.fullName,
       uses: formatUses(beacon.uses),
     };
