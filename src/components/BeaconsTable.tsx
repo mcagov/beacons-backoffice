@@ -17,7 +17,13 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import MaterialTable, { Icons } from "material-table";
 import React, { forwardRef, FunctionComponent } from "react";
 
-export const BeaconsTable: FunctionComponent = (): JSX.Element => {
+interface IBeaconsTableProps {
+  beaconsGateway: IBeaconsGateway;
+}
+
+export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
+  beaconsGateway,
+}: IBeaconsTableProps): JSX.Element => {
   const tableIcons: Icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -45,6 +51,8 @@ export const BeaconsTable: FunctionComponent = (): JSX.Element => {
     )),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
+
+  const beacons = beaconsGateway.getAllBeacons();
 
   return (
     <>
