@@ -5,7 +5,7 @@ export const formatDate = (date: Date): string => {
 
 export const titleCase = (text: string): string => {
   return text
-    .replace("_", " ")
+    .replace(/_/g, " ")
     .split(" ")
     .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");

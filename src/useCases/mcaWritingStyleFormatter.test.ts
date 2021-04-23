@@ -20,6 +20,7 @@ describe("titleCase()", () => {
   const expectations = [
     { in: "fish and chips", out: "Fish And Chips" },
     { in: "fish_and_chips", out: "Fish And Chips" },
+    { in: "HOT_AIR_BALLOON", out: "Hot Air Balloon" },
   ];
 
   expectations.forEach((expectation) => {
