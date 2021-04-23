@@ -35,27 +35,17 @@ describe("<BeaconsTable>", () => {
 
   it("displays 20 rows per page", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
-    const testBeaconsWithStatusNew = testBeacons.filter(
-      (beacon) => beacon.status === "NEW"
-    );
 
-    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(
-      testBeaconsWithStatusNew.length
-    );
+    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(20);
   });
 
   it("can click on the hex ID to see more details about the beacon", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
-    const testBeaconsWithStatusNew = testBeacons.filter(
-      (beacon) => beacon.status === "NEW"
-    );
 
-    const hexIdField = await screen.findByText(
-      testBeaconsWithStatusNew[0].hexId
-    );
+    const hexIdField = await screen.findByText(testBeacons[0].hexId);
 
     expect(hexIdField.getAttribute("href")).toBe(
-      "/beacons/" + testBeaconsWithStatusNew[0].id
+      "/beacons/" + testBeacons[0].id
     );
   });
 });

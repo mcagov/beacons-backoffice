@@ -152,7 +152,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       options={{
         filtering: true,
         search: true,
-        pageSize: 20,
+        pageSize: 10,
       }}
       components={{
         Container: (props) => <Paper {...props} elevation={0} />,
