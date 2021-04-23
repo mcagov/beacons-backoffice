@@ -1,9 +1,9 @@
 import { Paper, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import PageContent from "components/page-content";
-import PageHeader from "components/page-header";
 import React, { FunctionComponent } from "react";
 import { TabPanel } from "../components/TabPanel";
+import PageContent from "../components/PageContent";
+import PageHeader from "../components/PageHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

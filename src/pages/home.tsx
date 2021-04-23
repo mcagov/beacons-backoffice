@@ -1,8 +1,8 @@
 import { Paper } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import PageContent from "components/page-content";
-import PageHeader from "components/page-header";
 import React, { FunctionComponent } from "react";
+import PageContent from "../components/PageContent";
+import PageHeader from "../components/PageHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,6 +23,33 @@ const Home: FunctionComponent = (): JSX.Element => {
         <div>Overview page header</div>
       </PageHeader>
       <PageContent>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
+        <Paper className={classes.paper}>
+          Example content for overview page
+        </Paper>
         <Paper className={classes.paper}>
           Example content for overview page
         </Paper>

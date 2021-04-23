@@ -1,8 +1,12 @@
 import { Paper } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import PageContent from "components/page-content";
-import PageHeader from "components/page-header";
+
 import React, { FunctionComponent } from "react";
+
+import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
+import PageContent from "../components/PageContent";
+import { BeaconsTable } from "../components/BeaconsTable";
+import PageHeader from "../components/PageHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,16 +19,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const BeaconRecords: FunctionComponent = (): JSX.Element => {
+interface BeaconRecordsProps {
+  beaconsGateway: IBeaconsGateway;
+}
+
+const BeaconRecords: FunctionComponent<BeaconRecordsProps> = ({
+  beaconsGateway,
+}): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <PageHeader>
-        <div>Beacon records page header</div>
-      </PageHeader>
+      <PageHeader>Beacon records</PageHeader>
       <PageContent>
         <Paper className={classes.paper}>
-          Example content area for beacon records page
+          <BeaconsTable beaconsGateway={beaconsGateway} />
         </Paper>
       </PageContent>
     </div>
