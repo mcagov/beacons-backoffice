@@ -1,7 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { testBeacons } from "../gateways/BeaconsGateway.testData";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { BeaconsTable } from "./BeaconsTable";
+import { BeaconsTable, formatUses } from "./BeaconsTable";
+import { Activities, Environments, Purposes } from "../entities/IUse";
 
 describe("<BeaconsTable>", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
@@ -46,5 +47,61 @@ describe("<BeaconsTable>", () => {
     expect(hexIdField.getAttribute("href")).toBe(
       "/beacons/" + testBeacons[0].id
     );
+  });
+});
+
+describe("formatUses()", () => {
+  const expectations = [
+    { in: [], out: "" },
+    {
+      in: [
+        {
+          environment: Environments.Maritime,
+          purpose: Purposes.Commercial,
+          activity: Activities.FishingVessel,
+          moreDetails: "Bottom trawling for fish fingers",
+        },
+      ],
+      out: "Fishing Vessel (Commercial)",
+    },
+    {
+      in: [
+        {
+          environment: Environments.Maritime,
+          purpose: Purposes.Commercial,
+          activity: Activities.FishingVessel,
+          moreDetails: "Bottom trawling for fish fingers",
+        },
+        {
+          environment: Environments.Aviation,
+          purpose: Purposes.Pleasure,
+          activity: Activities.Glider,
+          moreDetails: "Fly at the local gliding club every fortnight",
+        },
+      ],
+      out: "Fishing Vessel (Commercial), Glider (Pleasure)",
+    },
+    {
+      in: [
+        {
+          environment: Environments.Maritime,
+          purpose: Purposes.Commercial,
+          activity: Activities.FishingVessel,
+          moreDetails: "Bottom trawling for fish fingers",
+        },
+        {
+          environment: Environments.Land,
+          activity: Activities.ClimbingMountaineering,
+          moreDetails: "Hiking at the weekends",
+        },
+      ],
+      out: "Fishing Vessel (Commercial), Climbing Mountaineering",
+    },
+  ];
+
+  expectations.forEach((expectation) => {
+    it(`formats ${expectation.in} ==> ${expectation.out}`, () => {
+      expect(formatUses(expectation.in)).toEqual(expectation.out);
+    });
   });
 });
