@@ -22,6 +22,16 @@ const uses: IUse[] = [
     activity: Activities.FishingVessel,
     moreDetails: "I take people out in my yacht.",
   },
+  {
+    environment: Environments.Land,
+    activity: Activities.ClimbingMountaineering,
+    moreDetails: "",
+  },
+  {
+    environment: Environments.Aviation,
+    activity: Activities.Glider,
+    moreDetails: "",
+  },
 ];
 
 const emergencyContacts: IEmergencyContact[] = [
@@ -77,6 +87,12 @@ export const testBeacons = new Array(21).fill(beacon).map((beacon, i) => {
     ...beacon,
     id: faker.datatype.uuid(),
     hexId: ukHexIds[i],
+    registeredDate: faker.date.between(
+      new Date("1 January 2021"),
+      new Date("23 April 2021")
+    ),
+    status: faker.random.arrayElement(["NEW", "VERIFIED", "PROBLEM"]),
+    uses: [faker.random.arrayElement(uses)],
     owner: { ...beacon.owner, fullName: faker.name.findName() },
   };
 });
