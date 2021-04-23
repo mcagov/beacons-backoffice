@@ -33,6 +33,7 @@ const emergencyContacts: IEmergencyContact[] = [
 ];
 
 const beacon = {
+  id: "1234",
   hexId: "1D0EA08C52FFBFF",
   registeredDate: new Date("21 April 2021"),
   status: BeaconStatuses.new,
@@ -74,6 +75,7 @@ const ukHexIds = [
 export const testBeacons = new Array(21).fill(beacon).map((beacon, i) => {
   return {
     ...beacon,
+    id: faker.datatype.uuid(),
     hexId: ukHexIds[i],
     owner: { ...beacon.owner, fullName: faker.name.findName() },
   };

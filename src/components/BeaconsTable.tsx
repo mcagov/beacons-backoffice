@@ -106,6 +106,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       hexId: beacon.hexId,
       owner: beacon.owner.fullName,
       uses: formatUses(beacon.uses),
+      id: beacon.id,
     };
   });
 
@@ -132,7 +133,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           filtering: false,
           sorting: true,
           render: (rowData) => (
-            <Link href={"/beacons/" + rowData.hexId}>{rowData.hexId}</Link>
+            <Link href={"/beacons/" + rowData.id}>{rowData.hexId}</Link>
           ),
         },
         {

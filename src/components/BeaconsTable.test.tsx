@@ -15,7 +15,7 @@ describe("<BeaconsTable>", () => {
   it("renders a table", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
-    expect((await screen.findAllByRole("table")).length).toBeGreaterThan(1);
+    expect((await screen.findAllByRole("table")).length).toBeGreaterThan(0);
   });
 
   it("queries the injected gateway for beacon data", async () => {
@@ -44,7 +44,7 @@ describe("<BeaconsTable>", () => {
     const hexIdField = await screen.findByText(testBeacons[0].hexId);
 
     expect(hexIdField.getAttribute("href")).toBe(
-      "/beacons/" + testBeacons[0].hexId
+      "/beacons/" + testBeacons[0].id
     );
   });
 });
