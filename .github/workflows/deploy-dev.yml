@@ -77,8 +77,9 @@ jobs:
       - name: terraform apply
         id: tf-apply
         working-directory: terraform
-        run: |
-          terraform apply -auto-approve -var-file=config.tfvars
-          echo ${{ steps.tf-apply.outputs.stdout }}
+        run: terraform apply -auto-approve -var-file=config.tfvars
+      - name: print tf outputs
+        working-directory: terraform
+        run: echo ${{ steps.tf-apply.outputs.stdout }}
       - name: Deploy app build to S3 bucket
         run: aws s3 sync ./build/ s3://mca-beacons-backoffice-dev --delete
