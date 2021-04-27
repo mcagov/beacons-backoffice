@@ -1,12 +1,12 @@
 import Navigation from "components/Navigation";
-import BeaconRecords from "pages/beacon-records";
-import Home from "pages/home";
+import BeaconRecords from "pages/BeaconRecords";
+import Home from "pages/Home";
 import React, { FunctionComponent } from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
-import Beacon from "./pages/beacon";
-import { BeaconsGateway } from "./gateways/BeaconsGateway";
 import Footer from "./components/Footer";
+import { BeaconsGateway } from "./gateways/BeaconsGateway";
+import Beacon from "./pages/Beacon";
 
 const App: FunctionComponent = () => {
   const beaconsGateway = new BeaconsGateway();
