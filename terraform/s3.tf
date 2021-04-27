@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "backoffice-static" {
+resource "aws_s3_bucket" "backoffice_static" {
   bucket        = "${module.beacons_label.name}-${module.beacons_label.environment}"
   tags          = module.beacons_label.tags
   force_destroy = true
@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "backoffice-static" {
 data "aws_iam_policy_document" "s3_policy" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.backoffice-static.arn}/*"]
+    resources = ["${aws_s3_bucket.backoffice_static.arn}/*"]
 
     principals {
       type        = "AWS"
@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "s3_policy" {
   }
 }
 
-resource "aws_s3_bucket_policy" "example" {
-  bucket = aws_s3_bucket.backoffice-static.id
+resource "aws_s3_bucket_policy" "s3_policy" {
+  bucket = aws_s3_bucket.backoffice_static.id
   policy = data.aws_iam_policy_document.s3_policy.json
 }
