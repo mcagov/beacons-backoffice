@@ -3,7 +3,7 @@ terraform {
     bucket         = "mca-beacons-backoffice-terraform-state"
     key            = "global/s3/terraform.tfstate"
     region         = "eu-west-2"
-    dynamodb_table = "mca-beacons-backoffice-terraform-locks"
+    dynamodb_table = "beacons-terraform-state-lock"
     encrypt        = true
   }
 }
