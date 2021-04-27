@@ -2,7 +2,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   tags        = module.beacons_label.tags
   origin {
     domain_name = aws_s3_bucket.backoffice-static.bucket_regional_domain_name
-    origin_id   = var.name
+    origin_id   = aws_s3_bucket.backoffice-static.bucket
   }
 
   enabled             = true
@@ -11,7 +11,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = var.name
+    target_origin_id = aws_s3_bucket.backoffice-static.bucket
 
     forwarded_values {
       query_string = true
