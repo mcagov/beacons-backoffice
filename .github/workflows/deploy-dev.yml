@@ -1,4 +1,4 @@
-name: CI/CD pipeline - development backoffice
+name: Development backoffice
 
 on: push
 
