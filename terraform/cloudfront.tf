@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     max_ttl                = 86400 // 1 day
   }
 
-  price_class = "PriceClass_100"
+  price_class = "PriceClass_100" // Least expensive option, caches in North America and Europe
 
   viewer_certificate {
     cloudfront_default_certificate = true
