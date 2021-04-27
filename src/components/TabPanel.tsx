@@ -1,4 +1,3 @@
-import { Paper } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { ReactNode } from "react";
 
@@ -29,7 +28,7 @@ export const TabPanel = ({
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
     >
-      {value === index && <Paper className={classes.paper}>{children}</Paper>}
+      {value === index && <>{children}</>}
     </div>
   );
 };
