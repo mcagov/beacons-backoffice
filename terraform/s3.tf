@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "backoffice-static" {
   }
 }
 
-data "aws_iam_policy_document" "s3_policy" {
+data "aws_iam_policy_document" "document" {
   statement {
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.backoffice-static.arn}/*"]
@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "s3_policy" {
   }
 }
 
-resource "aws_s3_bucket_policy" "example" {
+resource "aws_s3_bucket_policy" "policy" {
   bucket = aws_s3_bucket.backoffice-static.id
-  policy = data.aws_iam_policy_document.s3_policy.json
+  policy = data.aws_iam_policy_document.document.json
 }
