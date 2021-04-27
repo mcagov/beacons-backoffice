@@ -1,9 +1,9 @@
 output "s3_bucket_name" {
-  value = aws_s3_bucket.prod.id
+  value = aws_s3_bucket.backoffice-static.id
 }
 
 output "s3_website_address" {
-  value = aws_s3_bucket.prod.website_endpoint
+  value = aws_s3_bucket.backoffice-static.website_endpoint
 }
 
 output "cloudfront_distribution_address" {

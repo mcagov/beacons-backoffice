@@ -1,5 +1,7 @@
-resource "aws_s3_bucket" "prod" {
-  bucket = var.name
+resource "aws_s3_bucket" "backoffice-static" {
+  bucket = "${module.beacons_label.name}-${module.beacons_label.environment}"
+  tags        = module.beacons_label.tags
+  force_destroy = true
   acl    = "public-read"
   cors_rule {
     allowed_headers = ["*"]
@@ -19,7 +21,7 @@ resource "aws_s3_bucket" "prod" {
             "AWS": "*"
          },
          "Action": "s3:GetObject",
-         "Resource": "arn:aws:s3:::${var.name}/*"
+         "Resource": "arn:aws:s3:::${module.beacons_label.name}-${module.beacons_label.environment}/*"
     }]
 }
 EOF

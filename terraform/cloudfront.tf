@@ -1,6 +1,7 @@
 resource "aws_cloudfront_distribution" "s3_distribution" {
+  tags        = module.beacons_label.tags
   origin {
-    domain_name = aws_s3_bucket.prod.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.backoffice-static.bucket_regional_domain_name
     origin_id   = var.name
   }
 
