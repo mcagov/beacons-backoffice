@@ -16,17 +16,17 @@ jobs:
       - name: Run tests
         run: npm run test
 
-  cypress_tests:
-    name: Cypress tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v2
-        with:
-          start: npm run start
-          build: npm run build
-          wait-on: "http://localhost:3000"
+  #  cypress_tests:
+  #    name: Cypress tests
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - uses: actions/checkout@v2
+  #      - name: Run Cypress tests
+  #        uses: cypress-io/github-action@v2
+  #        with:
+  #          start: npm run start
+  #          build: npm run build
+  #          wait-on: "http://localhost:3000"
 
   prettier_check:
     name: Prettier check
@@ -57,7 +57,7 @@ jobs:
   deploy:
     name: Deploy Development Environment
     runs-on: ubuntu-latest
-    needs: [unit_tests, cypress_tests, lint_check, prettier_check]
+    needs: [unit_tests, lint_check, prettier_check]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/f/https'
     env:
       TF_WORKSPACE: dev
