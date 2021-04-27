@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "backoffice_static" {
   bucket        = "${module.beacons_label.name}-${module.beacons_label.environment}"
   tags          = module.beacons_label.tags
-  force_destroy = true
   acl           = "public-read"
 
   website {
