@@ -1,6 +1,6 @@
 name: CI/CD pipeline - development backoffice
 
-on: push
+on: workflow_dispatch
 
 jobs:
   unit_tests:
