@@ -69,7 +69,8 @@
   },
   "lint-staged": {
     "*.{js, jsx, ts, tsx}": "eslint --cache --fix",
-    "*.{js,jsx,json,ts,tsx,yml,md,html,scss,css}": "prettier --write"
+    "*.{js,jsx,json,ts,tsx,yml,md,html,scss,css}": "prettier --write",
+    "*.{tf}": "terraform fmt --recursive"
   },
   "browserslist": {
     "production": [
