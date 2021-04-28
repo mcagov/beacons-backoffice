@@ -23,10 +23,10 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { IBeacon } from "../entities/IBeacon";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { formatDate, titleCase } from "../useCases/mcaWritingStyleFormatter";
-import { IUse } from "../entities/IUse";
+import { IBeacon } from "../../entities/IBeacon";
+import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
+import { formatDate, titleCase } from "../../useCases/mcaWritingStyleFormatter";
+import { IUse } from "../../entities/IUse";
 
 interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
@@ -38,7 +38,7 @@ interface IBeaconsTableState {
   beacons: IBeacon[];
 }
 
-export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
+export const Table: FunctionComponent<IBeaconsTableProps> = ({
   beaconsGateway,
 }): JSX.Element => {
   const tableIcons: Icons = {

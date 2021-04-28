@@ -1,12 +1,12 @@
-import Navigation from "components/Navigation";
-import BeaconRecords from "pages/beacon-records";
-import Home from "pages/home";
+import { Navigation } from "components/layout/Navigation";
+import { BeaconRecords } from "components/BeaconRecords";
+import { Home } from "components/Home";
 import React, { FunctionComponent } from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
-import Beacon from "./pages/beacon";
+import { Beacon } from "./components/Beacon";
 import { BeaconsGateway } from "./gateways/BeaconsGateway";
-import Footer from "./components/Footer";
+import { Footer } from "./components/layout/Footer";
 import { AuthWrapper } from "./components/auth/AuthWrapper";
 import { RequireAuth } from "components/auth/RequireAuth";
 

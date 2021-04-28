@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PageHeader: FunctionComponent<PageHeaderProps> = ({
+export const PageHeader: FunctionComponent<PageHeaderProps> = ({
   children,
 }: PageHeaderProps): JSX.Element => {
   const classes = useStyles();
@@ -28,5 +28,3 @@ const PageHeader: FunctionComponent<PageHeaderProps> = ({
     </div>
   );
 };
-
-export default PageHeader;

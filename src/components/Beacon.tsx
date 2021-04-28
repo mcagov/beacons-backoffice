@@ -1,9 +1,9 @@
 import { Paper, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FunctionComponent } from "react";
-import { TabPanel } from "./TabPanel";
-import PageContent from "../components/PageContent";
-import PageHeader from "../components/PageHeader";
+import { TabPanel } from "./layout/TabPanel";
+import { PageContent } from "./layout/PageContent";
+import { PageHeader } from "./layout/PageHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Beacon: FunctionComponent = (): JSX.Element => {
+export const Beacon: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();
   const hexId = "Example Hex Id";
 
@@ -50,5 +50,3 @@ const Beacon: FunctionComponent = (): JSX.Element => {
     </div>
   );
 };
-
-export default Beacon;

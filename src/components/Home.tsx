@@ -1,8 +1,8 @@
 import { Paper } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FunctionComponent } from "react";
-import PageContent from "../components/PageContent";
-import PageHeader from "../components/PageHeader";
+import { PageContent } from "./layout/PageContent";
+import { PageHeader } from "./layout/PageHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Home: FunctionComponent = (): JSX.Element => {
+export const Home: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -57,5 +57,3 @@ const Home: FunctionComponent = (): JSX.Element => {
     </div>
   );
 };
-
-export default Home;

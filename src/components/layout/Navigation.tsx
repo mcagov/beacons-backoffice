@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Navigation: FunctionComponent = (): JSX.Element => {
+export const Navigation: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -36,5 +36,3 @@ const Navigation: FunctionComponent = (): JSX.Element => {
     </div>
   );
 };
-
-export default Navigation;

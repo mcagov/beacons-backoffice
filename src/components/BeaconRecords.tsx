@@ -4,9 +4,9 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FunctionComponent } from "react";
 
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import PageContent from "../components/PageContent";
-import { BeaconsTable } from "./BeaconsTable";
-import PageHeader from "../components/PageHeader";
+import { PageContent } from "./layout/PageContent";
+import { Table } from "./layout/Table";
+import { PageHeader } from "./layout/PageHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +23,7 @@ interface BeaconRecordsProps {
   beaconsGateway: IBeaconsGateway;
 }
 
-const BeaconRecords: FunctionComponent<BeaconRecordsProps> = ({
+export const BeaconRecords: FunctionComponent<BeaconRecordsProps> = ({
   beaconsGateway,
 }): JSX.Element => {
   const classes = useStyles();
@@ -32,11 +32,9 @@ const BeaconRecords: FunctionComponent<BeaconRecordsProps> = ({
       <PageHeader>Beacon records</PageHeader>
       <PageContent>
         <Paper className={classes.paper}>
-          <BeaconsTable beaconsGateway={beaconsGateway} />
+          <Table beaconsGateway={beaconsGateway} />
         </Paper>
       </PageContent>
     </div>
   );
 };
-
-export default BeaconRecords;

@@ -16,11 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PageContent: FunctionComponent<PageContentProps> = ({
+export const PageContent: FunctionComponent<PageContentProps> = ({
   children,
 }: PageContentProps): JSX.Element => {
   const classes = useStyles();
   return <Box className={classes.root}>{children}</Box>;
 };
-
-export default PageContent;
