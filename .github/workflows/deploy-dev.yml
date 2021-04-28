@@ -51,6 +51,7 @@ jobs:
     env:
       TF_WORKSPACE: dev
       REACT_APP_AAD_CLIENT_ID: ${{ secrets.AAD_CLIENT_ID }}
+      REACT_APP_API_URL: ${{ secrets.API_URL }}
     steps:
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
