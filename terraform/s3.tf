@@ -1,16 +1,7 @@
-resource "aws_s3_bucket" "backoffice-static" {
-  bucket        = "${module.beacons_label.name}-${module.beacons_label.environment}"
-  tags          = module.beacons_label.tags
-  force_destroy = true
-  acl           = "public-read"
-
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["PUT", "POST"]
-    allowed_origins = ["*"]
-    expose_headers  = ["ETag"]
-    max_age_seconds = 3000
-  }
+resource "aws_s3_bucket" "backoffice_static" {
+  bucket = "${module.beacons_label.name}-${module.beacons_label.environment}"
+  tags   = module.beacons_label.tags
+  acl    = "public-read"
 
   website {
     index_document = "index.html"
@@ -18,10 +9,10 @@ resource "aws_s3_bucket" "backoffice-static" {
   }
 }
 
-data "aws_iam_policy_document" "document" {
+data "aws_iam_policy_document" "s3_policy" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.backoffice-static.arn}/*"]
+    resources = ["${aws_s3_bucket.backoffice_static.arn}/*"]
 
     principals {
       type        = "AWS"
@@ -30,7 +21,7 @@ data "aws_iam_policy_document" "document" {
   }
 }
 
-resource "aws_s3_bucket_policy" "policy" {
-  bucket = aws_s3_bucket.backoffice-static.id
-  policy = data.aws_iam_policy_document.document.json
+resource "aws_s3_bucket_policy" "s3_policy" {
+  bucket = aws_s3_bucket.backoffice_static.id
+  policy = data.aws_iam_policy_document.s3_policy.json
 }
