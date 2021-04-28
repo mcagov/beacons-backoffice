@@ -5,7 +5,7 @@ import React, { FunctionComponent } from "react";
 
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { PageContent } from "./layout/PageContent";
-import { Table } from "./layout/Table";
+import { BeaconsTable } from "./BeaconsTable";
 import { PageHeader } from "./layout/PageHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,7 +32,7 @@ export const BeaconRecords: FunctionComponent<BeaconRecordsProps> = ({
       <PageHeader>Beacon records</PageHeader>
       <PageContent>
         <Paper className={classes.paper}>
-          <Table beaconsGateway={beaconsGateway} />
+          <BeaconsTable beaconsGateway={beaconsGateway} />
         </Paper>
       </PageContent>
     </div>

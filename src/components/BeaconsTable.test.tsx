@@ -1,10 +1,10 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { testBeacons } from "../../gateways/BeaconsGateway.testData";
-import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
-import { Table, formatUses } from "./Table";
-import { Activities, Environments, Purposes } from "../../entities/IUse";
+import { testBeacons } from "../gateways/BeaconsGateway.testData";
+import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
+import { BeaconsTable, formatUses } from "./BeaconsTable";
+import { Activities, Environments, Purposes } from "../entities/IUse";
 
-describe("<Table>", () => {
+describe("<BeaconsTable>", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
 
   beforeEach(() => {
@@ -14,13 +14,13 @@ describe("<Table>", () => {
   });
 
   it("renders a table", async () => {
-    render(<Table beaconsGateway={beaconsGatewayDouble} />);
+    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
     expect((await screen.findAllByRole("table")).length).toBeGreaterThan(0);
   });
 
   it("queries the injected gateway for beacon data", async () => {
-    render(<Table beaconsGateway={beaconsGatewayDouble} />);
+    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
     await waitFor(() => {
       expect(beaconsGatewayDouble.getAllBeacons).toHaveBeenCalled();
@@ -28,19 +28,19 @@ describe("<Table>", () => {
   });
 
   it("displays the returned beacon data in the table", async () => {
-    render(<Table beaconsGateway={beaconsGatewayDouble} />);
+    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
     expect(await screen.findByText(testBeacons[0].hexId)).toBeVisible();
   });
 
   it("displays 20 rows per page", async () => {
-    render(<Table beaconsGateway={beaconsGatewayDouble} />);
+    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
     expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(20);
   });
 
   it("can click on the hex ID to see more details about the beacon", async () => {
-    render(<Table beaconsGateway={beaconsGatewayDouble} />);
+    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
     const hexIdField = await screen.findByText(testBeacons[0].hexId);
 
