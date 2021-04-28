@@ -72,11 +72,10 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Build
         run: npm ci && npm run build
-      - name: terraform init
+      - name: Initialize Terraform
         working-directory: terraform
         run: terraform init
-      - name: terraform apply
-        id: tf-apply
+      - name: Create resources
         working-directory: terraform
         run: terraform apply -auto-approve -var-file=config.tfvars
       - name: Deploy app build to S3 bucket
