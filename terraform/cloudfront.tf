@@ -33,13 +33,13 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   price_class = "PriceClass_100" // Least expensive option, caches in North America and Europe
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = data.aws_acm_certificate.cloudfront_certificate.arn
   }
 
   restrictions {
     geo_restriction {
       restriction_type = "none"
-      locations = []
+      locations        = []
     }
   }
 }
