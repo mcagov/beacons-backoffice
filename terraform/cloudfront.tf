@@ -11,6 +11,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   enabled             = true
   default_root_object = "index.html"
 
+  aliases = [var.cloudfront_domain_name]
+
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
@@ -33,13 +35,14 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   price_class = "PriceClass_100" // Least expensive option, caches in North America and Europe
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = "arn:aws:acm:us-east-1:232705206979:certificate/91e17b33-5a3b-4ac9-a386-68711286c363"
+    ssl_support_method  = "sni-only"
   }
 
   restrictions {
     geo_restriction {
       restriction_type = "none"
-      locations = []
+      locations        = []
     }
   }
 }
