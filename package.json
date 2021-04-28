@@ -10,11 +10,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write '**/*.{js,jsx,json,ts,tsx,yml,md,html,scss,css}'",
-    "format:check": "prettier --check '**/*.{js,jsx,json,ts,tsx,yml,md,html,scss,css}'",
-    "cypress:open": "cypress open",
-    "cypress:watch": "cypress open --config watchForFileChanges=true",
-    "cypress:run": "cypress run",
-    "cypress:run:firefox": "cypress run --browser firefox"
+    "format:check": "prettier --check '**/*.{js,jsx,json,ts,tsx,yml,md,html,scss,css}'"
   },
   "husky": {
     "hooks": {
@@ -39,7 +35,6 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
-    "cypress": "^6.9.1",
     "date-fns": "^2.21.1",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
