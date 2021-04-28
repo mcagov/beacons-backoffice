@@ -2,10 +2,11 @@ import React, { FunctionComponent } from "react";
 
 import { MsalProvider } from "@azure/msal-react";
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
+import { applicationConfig } from "config";
 
 const configuration: Configuration = {
   auth: {
-    clientId: process.env.REACT_APP_AAD_CLIENT_ID as string,
+    clientId: applicationConfig.azureADClientId as string,
   },
 };
 
