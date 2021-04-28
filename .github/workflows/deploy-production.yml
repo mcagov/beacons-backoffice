@@ -67,6 +67,6 @@ jobs:
         run: terraform init
       - name: Create resources
         working-directory: terraform
-        run: terraform apply -auto-approve -var-file=config.tfvars
+        run: terraform apply -auto-approve -var-file=production.tfvars
       - name: Deploy app build to S3 bucket
         run: aws s3 sync ./build/ s3://mca-beacons-backoffice-production --delete
