@@ -11,6 +11,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   enabled             = true
   default_root_object = "index.html"
 
+  aliases = [var.cloudfront_domain_name]
+
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
