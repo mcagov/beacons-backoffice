@@ -15,6 +15,8 @@ const owner: IOwner = {
   postcode: "BS8 7NW",
 };
 
+const owners: IOwner[] = [owner];
+
 const uses: IUse[] = [
   {
     environment: Environments.Maritime,
@@ -44,7 +46,7 @@ const beacon = {
   batteryExpiryDate: new Date("1 April 2022"),
   lastServicedDate: new Date("1 April 2019"),
   uses: uses,
-  owner: owner,
+  owners: owners,
   emergencyContacts: emergencyContacts,
 };
 

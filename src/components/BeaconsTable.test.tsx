@@ -10,6 +10,7 @@ describe("<BeaconsTable>", () => {
   beforeEach(() => {
     beaconsGatewayDouble = {
       getAllBeacons: jest.fn().mockResolvedValue(testBeacons),
+      getBeacon: jest.fn(),
     };
   });
 

@@ -103,7 +103,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       date: formatDate(beacon.registeredDate),
       status: titleCase(beacon.status),
       hexId: beacon.hexId,
-      owner: beacon.owner.fullName,
+      owner: beacon.owners[0].fullName,
       uses: formatUses(beacon.uses),
       id: beacon.id,
     };
