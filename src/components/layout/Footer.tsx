@@ -1,9 +1,9 @@
 import AppBar from "@material-ui/core/AppBar";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import React, { FunctionComponent } from "react";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 1,
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Footer: FunctionComponent = (): JSX.Element => {
+export const Footer: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -36,5 +36,3 @@ const Footer: FunctionComponent = (): JSX.Element => {
     </div>
   );
 };
-
-export default Footer;
