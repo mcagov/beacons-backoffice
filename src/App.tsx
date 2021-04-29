@@ -6,8 +6,8 @@ import { BeaconsGateway } from "./gateways/BeaconsGateway";
 import { Footer } from "./components/layout/Footer";
 import { AuthWrapper } from "./components/auth/AuthWrapper";
 import { RequireAuth } from "components/auth/RequireAuth";
-import { BeaconRecords } from "./components/BeaconRecords";
-import { Beacon } from "./components/Beacon";
+import { BeaconRecordsListView } from "./views/BeaconRecordsListView";
+import { SingleBeaconRecordView } from "./views/SingleBeaconRecordView";
 import { Home } from "./components/Home";
 
 const App: FunctionComponent = () => {
@@ -23,10 +23,10 @@ const App: FunctionComponent = () => {
               <Home />
             </Route>
             <Route path="/beacon-records">
-              <BeaconRecords beaconsGateway={beaconsGateway} />
+              <BeaconRecordsListView beaconsGateway={beaconsGateway} />
             </Route>
             <Route path="/beacon">
-              <Beacon />
+              <SingleBeaconRecordView />
             </Route>
           </Switch>
         </RequireAuth>
