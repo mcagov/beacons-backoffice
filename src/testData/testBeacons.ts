@@ -1,16 +1,18 @@
-import { BeaconStatuses, IBeacon } from "../entities/IBeacon";
-import { testUses } from "./testUses";
-import { testOwners } from "./testOwner";
-import { testEmergencyContacts } from "./testEmergencyContacts";
 import faker from "faker";
+import { BeaconStatuses, BeaconTypes, IBeacon } from "../entities/IBeacon";
+import { testEmergencyContacts } from "./testEmergencyContacts";
+import { testOwners } from "./testOwner";
+import { testUses } from "./testUses";
 
 export const testSingleBeacon: IBeacon = {
   id: "f48e8212-2e10-4154-95c7-bdfd061bcfd2",
   hexId: "1D0EA08C52FFBFF",
+  type: BeaconTypes.Epirb,
+  protocolCode: "AX7098",
   registeredDate: new Date("21 April 2021"),
-  status: BeaconStatuses.new,
+  status: BeaconStatuses.New,
   manufacturer: "OceanSignal",
-  model: "EPIRB",
+  model: "Excelsior",
   manufacturerSerialNumber: "123ABC",
   chkCode: "456QWE",
   batteryExpiryDate: new Date("1 April 2022"),

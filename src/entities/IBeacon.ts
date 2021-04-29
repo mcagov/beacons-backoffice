@@ -5,6 +5,8 @@ import { IUse } from "./IUse";
 export interface IBeacon {
   id: string;
   hexId: string;
+  type: BeaconTypes;
+  protocolCode: string;
   registeredDate: Date;
   status: string;
   manufacturer: string;
@@ -19,5 +21,11 @@ export interface IBeacon {
 }
 
 export enum BeaconStatuses {
-  new = "NEW",
+  New = "NEW",
+}
+
+export enum BeaconTypes {
+  Epirb = "EPIRB",
+  Plb = "PLB",
+  Elt = "ELT",
 }
