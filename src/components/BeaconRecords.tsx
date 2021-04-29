@@ -7,10 +7,6 @@ import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { PageContent } from "./layout/PageContent";
 import { BeaconsTable } from "./BeaconsTable";
 import { PageHeader } from "./layout/PageHeader";
-import {
-  GetBeaconsInTableFormat,
-  IUseCase,
-} from "../useCases/GetBeaconsInTableFormat";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,11 +20,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface BeaconRecordsProps {
-  getBeaconsInTableFormat: IUseCase;
+  beaconsGateway: IBeaconsGateway;
 }
 
 export const BeaconRecords: FunctionComponent<BeaconRecordsProps> = ({
-  getBeaconsInTableFormat,
+  beaconsGateway,
 }): JSX.Element => {
   const classes = useStyles();
   return (
@@ -36,7 +32,7 @@ export const BeaconRecords: FunctionComponent<BeaconRecordsProps> = ({
       <PageHeader>Beacon records</PageHeader>
       <PageContent>
         <Paper className={classes.paper}>
-          <BeaconsTable getBeaconsInTableFormat={getBeaconsInTableFormat} />
+          <BeaconsTable beaconsGateway={beaconsGateway} />
         </Paper>
       </PageContent>
     </div>

@@ -16,6 +16,8 @@ import {
   Search,
   ViewColumn,
 } from "@material-ui/icons";
+import { IUse } from "entities/IUse";
+import { IBeaconsGateway } from "gateways/IBeaconsGateway";
 import MaterialTable, { Icons, MTableBodyRow } from "material-table";
 import React, {
   forwardRef,
@@ -23,21 +25,29 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { IBeacon } from "../entities/IBeacon";
-import { IUseCase } from "../useCases/GetBeaconsInTableFormat";
+import { formatDate, titleCase } from "useCases/mcaWritingStyleFormatter";
+
+interface BeaconTableListRow {
+  hexId: string;
+  owner: string;
+  uses: string;
+  id: string;
+  date: string;
+  status: string;
+}
 
 interface IBeaconsTableProps {
-  getBeaconsInTableFormat: IUseCase;
+  beaconsGateway: IBeaconsGateway;
 }
 
 interface IBeaconsTableState {
   isLoading: Boolean;
   error: Boolean;
-  beacons: IBeacon[];
+  beacons: BeaconTableListRow[];
 }
 
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
-  getBeaconsInTableFormat,
+  beaconsGateway,
 }): JSX.Element => {
   const tableIcons: Icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -77,7 +87,16 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     const fetchBeacons = async () => {
       setState({ ...state, isLoading: true });
       try {
-        const beacons = await getBeaconsInTableFormat.execute();
+        const response = await beaconsGateway.getAllBeacons();
+
+        const beacons = response.data.map((item: any) => ({
+          date: formatDate(item.attributes.createdDate),
+          status: titleCase(item.attributes.status),
+          hexId: item.attributes.hexId,
+          owner: item.attributes.owner.fullName,
+          uses: formatUses(item.attributes.uses),
+          id: item.id,
+        }));
         setState({
           ...state,
           isLoading: false,
@@ -149,4 +168,16 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       }}
     />
   );
+};
+
+export const formatUses = (uses: IUse[]): string =>
+  uses.reduce((formattedUses, use, index, uses) => {
+    if (index === uses.length - 1) return formattedUses + formatUse(use);
+    return formattedUses + formatUse(use) + ", ";
+  }, "");
+
+const formatUse = (use: IUse): string => {
+  const formattedActivity = titleCase(use.activity);
+  const formattedPurpose = use.purpose ? ` (${titleCase(use.purpose)})` : "";
+  return formattedActivity + formattedPurpose;
 };

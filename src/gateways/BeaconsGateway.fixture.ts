@@ -50,9 +50,9 @@ export const beaconsGatewayFixture = Object.freeze({
     },
     {
       type: "beacon",
-      id: "97b306aa-cbd0-4f09-aa24-2d876b983efb",
+      id: "97b306aa-cbd0-4f09-aa24-2d876b983efc",
       attributes: {
-        hexId: "Hex me",
+        hexId: "Hex me difficultly",
         status: "NEW",
         manufacturer: "Ocean Signal",
         createdDate: "2020-02-01T00:00",
@@ -94,9 +94,9 @@ export const beaconsGatewayFixture = Object.freeze({
     },
     {
       type: "beacon",
-      id: "97b306aa-cbd0-4f09-aa24-2d876b983efb",
+      id: "97b306aa-cbd0-4f09-aa24-2d876b983efd",
       attributes: {
-        hexId: "Hex me",
+        hexId: "Hex me beacon",
         status: "NEW",
         manufacturer: "Ocean Signal",
         createdDate: "2020-02-01T00:00",

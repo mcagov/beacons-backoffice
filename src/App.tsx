@@ -9,13 +9,9 @@ import { RequireAuth } from "components/auth/RequireAuth";
 import { BeaconRecords } from "./components/BeaconRecords";
 import { Beacon } from "./components/Beacon";
 import { Home } from "./components/Home";
-import { GetBeaconsInTableFormat } from "./useCases/GetBeaconsInTableFormat";
 
 const App: FunctionComponent = () => {
   const beaconsGateway = new BeaconsGateway();
-  const useCases = {
-    getBeaconsInTableFormat: new GetBeaconsInTableFormat(beaconsGateway),
-  };
 
   return (
     <AuthWrapper>
@@ -27,9 +23,7 @@ const App: FunctionComponent = () => {
               <Home />
             </Route>
             <Route path="/beacon-records">
-              <BeaconRecords
-                getBeaconsInTableFormat={useCases.getBeaconsInTableFormat}
-              />
+              <BeaconRecords beaconsGateway={beaconsGateway} />
             </Route>
             <Route path="/beacon">
               <Beacon />
