@@ -1,4 +1,5 @@
-export const formatDate = (date: Date): string => {
+export const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
   const [, month, day, year] = date.toDateString().split(" ");
   return `${parseInt(day)} ${month} ${year.slice(2)}`;
 };

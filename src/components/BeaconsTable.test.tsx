@@ -1,15 +1,15 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { testBeacons } from "../gateways/BeaconsGateway.testData";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { BeaconsTable, formatUses } from "./BeaconsTable";
-import { Activities, Environments, Purposes } from "../entities/IUse";
+import { Activities, Environments, Purposes } from "entities/IUse";
+import { IBeaconsGateway } from "gateways/IBeaconsGateway";
+import { beaconsGatewayFixture } from "gateways/BeaconsGateway.fixture";
 
 describe("<BeaconsTable>", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
 
   beforeEach(() => {
     beaconsGatewayDouble = {
-      getAllBeacons: jest.fn().mockResolvedValue(testBeacons),
+      getAllBeacons: jest.fn().mockResolvedValue(beaconsGatewayFixture),
     };
   });
 
@@ -30,22 +30,22 @@ describe("<BeaconsTable>", () => {
   it("displays the returned beacon data in the table", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
-    expect(await screen.findByText(testBeacons[0].hexId)).toBeVisible();
+    expect(await screen.findByText("Hex me difficultly")).toBeVisible();
   });
 
-  it("displays 20 rows per page", async () => {
+  it("displays 3 rows when 3 beacons are returned from the gateway", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
-    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(20);
+    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(3);
   });
 
   it("can click on the hex ID to see more details about the beacon", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
-    const hexIdField = await screen.findByText(testBeacons[0].hexId);
+    const hexIdField = await screen.findByText("Hex me");
 
     expect(hexIdField.getAttribute("href")).toBe(
-      "/beacons/" + testBeacons[0].id
+      "/beacons/97b306aa-cbd0-4f09-aa24-2d876b983efb"
     );
   });
 });
