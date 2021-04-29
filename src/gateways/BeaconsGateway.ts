@@ -1,9 +1,11 @@
 import { IBeaconsGateway } from "./IBeaconsGateway";
-import { beaconsGatewayFixture } from "./BeaconsGateway.fixture";
+import { applicationConfig } from "../config";
+import axios from "axios";
 
 export class BeaconsGateway implements IBeaconsGateway {
   public async getAllBeacons(): Promise<any> {
-    // TODO: Replace with API call
-    return beaconsGatewayFixture;
+    const response = await axios.get(`${applicationConfig.apiUrl}/beacons`);
+
+    return response.data;
   }
 }

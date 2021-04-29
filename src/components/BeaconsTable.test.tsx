@@ -1,107 +1,76 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { testBeacons } from "../gateways/BeaconsGateway.testData";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { BeaconsTable, formatUses } from "./BeaconsTable";
-import { Activities, Environments, Purposes } from "../entities/IUse";
+import { BeaconsTable } from "./BeaconsTable";
+import { IUseCase } from "../useCases/GetBeaconsInTableFormat";
 
 describe("<BeaconsTable>", () => {
-  let beaconsGatewayDouble: IBeaconsGateway;
+  let getBeaconsInTableFormatDouble: IUseCase;
 
   beforeEach(() => {
-    beaconsGatewayDouble = {
-      getAllBeacons: jest.fn().mockResolvedValue(testBeacons),
+    getBeaconsInTableFormatDouble = {
+      execute: jest.fn().mockResolvedValue([
+        {
+          date: "1 Feb 20",
+          hexId: "Hex me difficultly",
+          id: "97b306aa-cbd0-4f09-aa24-2d876b983efb",
+          owner: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
+          status: "New",
+          uses: "Sailing",
+        },
+        {
+          date: "9 Aug 20",
+          hexId: "Hex not difficultly",
+          id: "97b306aa-cbd0-4f09-aa24-2d876b983efc",
+          owner: "Vice-Admiral Horatio Nelson, 2st Viscount Nelson",
+          status: "New",
+          uses: "Surfing",
+        },
+      ]),
     };
   });
 
   it("renders a table", async () => {
-    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
+    render(
+      <BeaconsTable getBeaconsInTableFormat={getBeaconsInTableFormatDouble} />
+    );
 
     expect((await screen.findAllByRole("table")).length).toBeGreaterThan(0);
   });
 
   it("queries the injected gateway for beacon data", async () => {
-    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
+    render(
+      <BeaconsTable getBeaconsInTableFormat={getBeaconsInTableFormatDouble} />
+    );
 
     await waitFor(() => {
-      expect(beaconsGatewayDouble.getAllBeacons).toHaveBeenCalled();
+      expect(getBeaconsInTableFormatDouble.execute).toHaveBeenCalled();
     });
   });
 
   it("displays the returned beacon data in the table", async () => {
-    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
+    render(
+      <BeaconsTable getBeaconsInTableFormat={getBeaconsInTableFormatDouble} />
+    );
 
-    expect(await screen.findByText(testBeacons[0].hexId)).toBeVisible();
+    expect(await screen.findByText("Hex me difficultly")).toBeVisible();
   });
 
-  it("displays 20 rows per page", async () => {
-    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
+  it("displays 2 rows when 2 beacons are given", async () => {
+    render(
+      <BeaconsTable getBeaconsInTableFormat={getBeaconsInTableFormatDouble} />
+    );
 
-    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(20);
+    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(2);
   });
 
   it("can click on the hex ID to see more details about the beacon", async () => {
-    render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
+    render(
+      <BeaconsTable getBeaconsInTableFormat={getBeaconsInTableFormatDouble} />
+    );
 
-    const hexIdField = await screen.findByText(testBeacons[0].hexId);
+    const hexIdField = await screen.findByText("Hex me difficultly");
 
     expect(hexIdField.getAttribute("href")).toBe(
-      "/beacons/" + testBeacons[0].id
+      "/beacons/97b306aa-cbd0-4f09-aa24-2d876b983efb"
     );
-  });
-});
-
-describe("formatUses()", () => {
-  const expectations = [
-    { in: [], out: "" },
-    {
-      in: [
-        {
-          environment: Environments.Maritime,
-          purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
-          moreDetails: "Bottom trawling for fish fingers",
-        },
-      ],
-      out: "Fishing Vessel (Commercial)",
-    },
-    {
-      in: [
-        {
-          environment: Environments.Maritime,
-          purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
-          moreDetails: "Bottom trawling for fish fingers",
-        },
-        {
-          environment: Environments.Aviation,
-          purpose: Purposes.Pleasure,
-          activity: Activities.Glider,
-          moreDetails: "Fly at the local gliding club every fortnight",
-        },
-      ],
-      out: "Fishing Vessel (Commercial), Glider (Pleasure)",
-    },
-    {
-      in: [
-        {
-          environment: Environments.Maritime,
-          purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
-          moreDetails: "Bottom trawling for fish fingers",
-        },
-        {
-          environment: Environments.Land,
-          activity: Activities.ClimbingMountaineering,
-          moreDetails: "Hiking at the weekends",
-        },
-      ],
-      out: "Fishing Vessel (Commercial), Climbing Mountaineering",
-    },
-  ];
-
-  expectations.forEach((expectation) => {
-    it(`formats ${expectation.in} ==> ${expectation.out}`, () => {
-      expect(formatUses(expectation.in)).toEqual(expectation.out);
-    });
   });
 });

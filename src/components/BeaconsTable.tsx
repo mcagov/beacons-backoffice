@@ -24,12 +24,10 @@ import React, {
   useState,
 } from "react";
 import { IBeacon } from "../entities/IBeacon";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { formatDate, titleCase } from "../useCases/mcaWritingStyleFormatter";
-import { IUse } from "../entities/IUse";
+import { IUseCase } from "../useCases/GetBeaconsInTableFormat";
 
 interface IBeaconsTableProps {
-  beaconsGateway: IBeaconsGateway;
+  getBeaconsInTableFormat: IUseCase;
 }
 
 interface IBeaconsTableState {
@@ -39,7 +37,7 @@ interface IBeaconsTableState {
 }
 
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
-  beaconsGateway,
+  getBeaconsInTableFormat,
 }): JSX.Element => {
   const tableIcons: Icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -79,7 +77,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     const fetchBeacons = async () => {
       setState({ ...state, isLoading: true });
       try {
-        const beacons = await beaconsGateway.getAllBeacons();
+        const beacons = await getBeaconsInTableFormat.execute();
         setState({
           ...state,
           isLoading: false,
@@ -97,17 +95,6 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
 
     fetchBeacons(); // TODO: What events should cause new beacons to be fetched?  Currently once on first render
   }, []); // eslint-disable-line
-
-  const tableData = state.beacons.map((beacon: IBeacon) => {
-    return {
-      date: formatDate(beacon.registeredDate),
-      status: titleCase(beacon.status),
-      hexId: beacon.hexId,
-      owner: beacon.owner.fullName,
-      uses: formatUses(beacon.uses),
-      id: beacon.id,
-    };
-  });
 
   return (
     <MaterialTable
@@ -147,7 +134,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           sorting: true,
         },
       ]}
-      data={tableData}
+      data={state.beacons}
       title=""
       options={{
         filtering: true,
@@ -162,16 +149,4 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       }}
     />
   );
-};
-
-export const formatUses = (uses: IUse[]): string =>
-  uses.reduce((formattedUses, use, index, uses) => {
-    if (index === uses.length - 1) return formattedUses + formatUse(use);
-    return formattedUses + formatUse(use) + ", ";
-  }, "");
-
-const formatUse = (use: IUse): string => {
-  const formattedActivity = titleCase(use.activity);
-  const formattedPurpose = use.purpose ? ` (${titleCase(use.purpose)})` : "";
-  return formattedActivity + formattedPurpose;
 };

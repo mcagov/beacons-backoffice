@@ -1,9 +1,9 @@
-import { ListBeaconsTable } from "./ListBeaconsTable";
+import { GetBeaconsInTableFormat } from "./GetBeaconsInTableFormat";
 import { beaconsGatewayFixture } from "../gateways/BeaconsGateway.fixture";
 
-describe("ListBeaconsTable", () => {
+describe("GetBeaconsInTableFormat", () => {
   it("returns an empty array when executed", async () => {
-    const listBeaconsUseCase = new ListBeaconsTable({
+    const listBeaconsUseCase = new GetBeaconsInTableFormat({
       getAllBeacons: jest.fn().mockImplementation(() => ({ data: [] })),
     });
 
@@ -12,7 +12,7 @@ describe("ListBeaconsTable", () => {
   });
 
   it("returns the beacon table list row array", async () => {
-    const listBeaconsUseCase = new ListBeaconsTable({
+    const listBeaconsUseCase = new GetBeaconsInTableFormat({
       getAllBeacons: jest.fn().mockImplementation(() => beaconsGatewayFixture),
     });
 

@@ -11,7 +11,11 @@ interface BeaconTableListRow {
   status: string;
 }
 
-export class ListBeaconsTable {
+export interface IUseCase {
+  execute: () => any;
+}
+
+export class GetBeaconsInTableFormat implements IUseCase {
   gateway: IBeaconsGateway;
 
   constructor(gateway: IBeaconsGateway) {
@@ -21,19 +25,14 @@ export class ListBeaconsTable {
   async execute(): Promise<BeaconTableListRow[]> {
     const results: any = await this.gateway.getAllBeacons();
 
-    let outputs: BeaconTableListRow[] = [];
-    results.data.forEach((item: any) => {
-      outputs.push({
-        date: this.formatDate(item.attributes.createdDate),
-        status: this.titleCase(item.attributes.status),
-        hexId: item.attributes.hexId,
-        owner: item.attributes.owner.fullName,
-        uses: this.formatUses(item.attributes.uses),
-        id: item.id,
-      });
-    });
-
-    return outputs;
+    return results.data.map((item: any) => ({
+      date: this.formatDate(item.attributes.createdDate),
+      status: this.titleCase(item.attributes.status),
+      hexId: item.attributes.hexId,
+      owner: item.attributes.owner.fullName,
+      uses: this.formatUses(item.attributes.uses),
+      id: item.id,
+    }));
   }
 
   private formatUses(uses: IUse[]): string {
