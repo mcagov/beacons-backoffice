@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { testBeacons } from "../gateways/BeaconsGateway.testData";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { BeaconsTable, formatUses } from "./BeaconsTable";
 import { Activities, Environments, Purposes } from "../entities/IUse";
+import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
+import { testBeacons } from "../testData/testBeacons";
+import { BeaconsTable, formatUses } from "./BeaconsTable";
 
 describe("<BeaconsTable>", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
