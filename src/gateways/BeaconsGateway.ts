@@ -1,6 +1,6 @@
 import { IBeacon } from "../entities/IBeacon";
-import { IBeaconsGateway } from "./IBeaconsGateway";
 import { testBeacons, testSingleBeacon } from "../testData/testBeacons";
+import { IBeaconsGateway } from "./IBeaconsGateway";
 
 export class BeaconsGateway implements IBeaconsGateway {
   public async getAllBeacons(): Promise<IBeacon[]> {

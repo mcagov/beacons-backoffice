@@ -1,12 +1,10 @@
 import { Paper } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-
 import React, { FunctionComponent } from "react";
-
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { PageContent } from "../components/layout/PageContent";
 import { BeaconsTable } from "../components/BeaconsTable";
+import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
+import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
