@@ -24,9 +24,9 @@ import React, {
   useState,
 } from "react";
 import { IBeacon } from "../entities/IBeacon";
+import { IUse } from "../entities/IUse";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { formatDate, titleCase } from "../useCases/mcaWritingStyleFormatter";
-import { IUse } from "../entities/IUse";
 
 interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
