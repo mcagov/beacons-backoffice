@@ -1,4 +1,3 @@
-import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "./IBeaconsGateway";
 import { beaconsGatewayFixture } from "./BeaconsGateway.fixture";
 
