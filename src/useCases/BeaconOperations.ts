@@ -10,7 +10,7 @@ export class BeaconOperations {
 
   public async getBeacon(id: string): Promise<IBeacon> {
     try {
-      return this.beaconsGateway.getBeacon(id);
+      return await this.beaconsGateway.getBeacon(id);
     } catch (e) {
       throw new Error(e);
     }

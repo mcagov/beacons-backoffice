@@ -3,10 +3,14 @@ import { testSingleBeacon } from "../testData/testBeacons";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 
 describe("beaconOperations", () => {
-  const beaconsGatewayDouble: IBeaconsGateway = {
-    getBeacon: jest.fn().mockResolvedValue(testSingleBeacon),
-    getAllBeacons: jest.fn(),
-  };
+  let beaconsGatewayDouble: IBeaconsGateway;
+
+  beforeEach(() => {
+    beaconsGatewayDouble = {
+      getBeacon: jest.fn().mockResolvedValue(testSingleBeacon),
+      getAllBeacons: jest.fn(),
+    };
+  });
 
   describe("getBeacon()", () => {
     it("calls the injected BeaconsGateway", () => {
@@ -15,6 +19,13 @@ describe("beaconOperations", () => {
       beaconOperations.getBeacon(testSingleBeacon.id);
 
       expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalled();
+    });
+
+    it("retrieves a beacon by its id", async () => {
+      const beaconOperations = new BeaconOperations(beaconsGatewayDouble);
+      const beacon = beaconOperations.getBeacon(testSingleBeacon.id);
+
+      await expect(beacon).resolves.toStrictEqual(testSingleBeacon);
     });
 
     it("returns a rejected promise if beacon ID not found", async () => {
@@ -28,15 +39,5 @@ describe("beaconOperations", () => {
 
       await expect(tryAndFindNonexistingBeacon).rejects.toThrowError();
     });
-
-    xit("retrieves a beacon by its id", async () => {
-      const beaconOperations = new BeaconOperations(beaconsGatewayDouble);
-      const beacon = beaconOperations.getBeacon(testSingleBeacon.id);
-      console.log(beacon);
-
-      await expect(beacon).resolves.toStrictEqual(testSingleBeacon);
-    });
-
-    xit("handles unrecognized ids", () => {});
   });
 });
