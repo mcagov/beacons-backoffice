@@ -198,7 +198,7 @@ interface IPanelError {
 const PanelError: FunctionComponent<IPanelError> = ({
   message,
 }): JSX.Element => (
-  <div>
+  <div role="alert">
     <ErrorOutlineIcon />
     <Typography>{message}</Typography>
   </div>

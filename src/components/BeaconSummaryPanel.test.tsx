@@ -51,6 +51,7 @@ describe("BeaconSummary", () => {
         />
       );
 
+      expect(await screen.findByRole("alert")).toBeVisible();
       expect(await screen.findByText("Beacon not found!")).toBeVisible();
     });
 
