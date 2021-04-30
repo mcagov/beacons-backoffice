@@ -13,9 +13,8 @@ import {
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { IBeacon } from "../entities/IBeacon";
-import { IUse } from "../entities/IUse";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { formatDate, titleCase } from "../useCases/mcaWritingStyleFormatter";
+import { formatDate, formatUses } from "../useCases/mcaWritingStyleFormatter";
 import { FieldValue } from "./FieldValue";
 
 interface IBeaconSummaryProps {
@@ -186,18 +185,6 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
       )}
     </Paper>
   );
-};
-
-export const formatUses = (uses: IUse[]): string =>
-  uses.reduce((formattedUses, use, index, uses) => {
-    if (index === uses.length - 1) return formattedUses + formatUse(use);
-    return formattedUses + formatUse(use) + ", ";
-  }, "");
-
-const formatUse = (use: IUse): string => {
-  const formattedActivity = titleCase(use.activity);
-  const formattedPurpose = use.purpose ? ` (${titleCase(use.purpose)})` : "";
-  return formattedActivity + formattedPurpose;
 };
 
 interface IPanelError {

@@ -1,8 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { Activities, Environments, Purposes } from "entities/IUse";
 import { beaconsGatewayFixture } from "gateways/BeaconsGateway.fixture";
 import { IBeaconsGateway } from "gateways/IBeaconsGateway";
-import { BeaconsTable, formatUses } from "./BeaconsTable";
+import { BeaconsTable } from "./BeaconsTable";
 
 describe("<BeaconsTable>", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
@@ -48,61 +47,5 @@ describe("<BeaconsTable>", () => {
     expect(hexIdField.getAttribute("href")).toBe(
       "/beacons/97b306aa-cbd0-4f09-aa24-2d876b983efb"
     );
-  });
-});
-
-describe("formatUses()", () => {
-  const expectations = [
-    { in: [], out: "" },
-    {
-      in: [
-        {
-          environment: Environments.Maritime,
-          purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
-          moreDetails: "Bottom trawling for fish fingers",
-        },
-      ],
-      out: "Fishing Vessel (Commercial)",
-    },
-    {
-      in: [
-        {
-          environment: Environments.Maritime,
-          purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
-          moreDetails: "Bottom trawling for fish fingers",
-        },
-        {
-          environment: Environments.Aviation,
-          purpose: Purposes.Pleasure,
-          activity: Activities.Glider,
-          moreDetails: "Fly at the local gliding club every fortnight",
-        },
-      ],
-      out: "Fishing Vessel (Commercial), Glider (Pleasure)",
-    },
-    {
-      in: [
-        {
-          environment: Environments.Maritime,
-          purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
-          moreDetails: "Bottom trawling for fish fingers",
-        },
-        {
-          environment: Environments.Land,
-          activity: Activities.ClimbingMountaineering,
-          moreDetails: "Hiking at the weekends",
-        },
-      ],
-      out: "Fishing Vessel (Commercial), Climbing Mountaineering",
-    },
-  ];
-
-  expectations.forEach((expectation) => {
-    it(`formats ${expectation.in} ==> ${expectation.out}`, () => {
-      expect(formatUses(expectation.in)).toEqual(expectation.out);
-    });
   });
 });
