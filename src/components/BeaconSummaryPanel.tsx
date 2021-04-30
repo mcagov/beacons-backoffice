@@ -14,7 +14,11 @@ import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { formatDate, formatUses } from "../useCases/mcaWritingStyleFormatter";
+import {
+  formatDate,
+  formatOwners,
+  formatUses,
+} from "../useCases/mcaWritingStyleFormatter";
 import { FieldValue } from "./FieldValue";
 
 interface IBeaconSummaryProps {
@@ -152,7 +156,7 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
                       </TableCell>
                       <TableCell>
                         <FieldValue>
-                          {JSON.stringify(state.beacon?.owners)}
+                          {formatOwners(state.beacon?.owners)}
                         </FieldValue>
                       </TableCell>
                     </TableRow>

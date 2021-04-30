@@ -36,7 +36,7 @@ describe("BeaconSummary", () => {
       );
 
       expect(
-        await screen.findByText(testSingleBeacon.protocolCode)
+        await screen.findByText(testSingleBeacon.protocolCode as string)
       ).toBeVisible();
     });
 
