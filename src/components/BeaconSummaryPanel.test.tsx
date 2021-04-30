@@ -3,7 +3,7 @@ import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { testSingleBeacon } from "../testData/testBeacons";
 import { BeaconSummaryPanel } from "./BeaconSummaryPanel";
 
-describe("BeaconSummary", () => {
+describe("BeaconSummaryPanel", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
 
   beforeEach(() => {
@@ -13,65 +13,64 @@ describe("BeaconSummary", () => {
     };
   });
 
-  describe("BeaconSummary", () => {
-    it("calls the injected BeaconsGateway", async () => {
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={testSingleBeacon.id}
-        />
-      );
+  it("calls the injected BeaconsGateway", async () => {
+    render(
+      <BeaconSummaryPanel
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={testSingleBeacon.id}
+      />
+    );
 
-      await waitFor(() => {
-        expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalled();
-      });
+    await waitFor(() => {
+      expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalled();
     });
+  });
 
-    it("retrieves the beacon summary data by beacon id", async () => {
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={testSingleBeacon.id}
-        />
-      );
+  it("retrieves the beacon summary data by beacon id", async () => {
+    render(
+      <BeaconSummaryPanel
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={testSingleBeacon.id}
+      />
+    );
 
-      expect(
-        await screen.findByText(testSingleBeacon.protocolCode as string)
-      ).toBeVisible();
+    expect(
+      await screen.findByText(testSingleBeacon.protocolCode as string)
+    ).toBeVisible();
+  });
+
+  it("displays an error if beacon lookup fails for any reason", async () => {
+    beaconsGatewayDouble.getBeacon = jest.fn().mockImplementation(() => {
+      throw Error();
     });
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    render(
+      <BeaconSummaryPanel
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={"doesn't exist"}
+      />
+    );
 
-    it("displays an error beacon lookup fails for any reason", async () => {
-      beaconsGatewayDouble.getBeacon = jest.fn().mockImplementation(() => {
-        throw Error();
-      });
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={"doesn't exist"}
-        />
-      );
+    expect(await screen.findByRole("alert")).toBeVisible();
+    expect(await screen.findByText("An error occurred")).toBeVisible();
+  });
 
-      expect(await screen.findByRole("alert")).toBeVisible();
-      expect(await screen.findByText("An error occurred")).toBeVisible();
-    });
+  it("displays undefined fields as 'NO DATA ENTERED'", async () => {
+    const beaconWithUndefinedField = {
+      ...testSingleBeacon,
+      protocolCode: undefined,
+    };
+    beaconsGatewayDouble.getBeacon = jest
+      .fn()
+      .mockResolvedValue(beaconWithUndefinedField);
 
-    it("displays undefined fields as 'NO DATA ENTERED'", async () => {
-      const beaconWithUndefinedField = {
-        ...testSingleBeacon,
-        protocolCode: undefined,
-      };
-      beaconsGatewayDouble.getBeacon = jest
-        .fn()
-        .mockResolvedValue(beaconWithUndefinedField);
+    render(
+      <BeaconSummaryPanel
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={testSingleBeacon.id}
+      />
+    );
 
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={testSingleBeacon.id}
-        />
-      );
-
-      expect(await screen.findByText("NO DATA ENTERED")).toBeVisible();
-    });
+    expect(await screen.findByText("NO DATA ENTERED")).toBeVisible();
   });
 });
