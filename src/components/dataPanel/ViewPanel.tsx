@@ -13,7 +13,7 @@ import { FieldValue } from "./FieldValue";
 
 interface IField {
   key: string;
-  value: any;
+  value: string | undefined;
 }
 
 interface ViewPanelProps {
@@ -74,14 +74,3 @@ const TwoColumns: FunctionComponent<ViewPanelProps> = ({
     </Grid>
   );
 };
-
-export const entityToFieldMap = (
-  entity: Record<string, any>,
-  map: Record<string, string>
-) =>
-  Object.entries(entity).map(([key, value]) => {
-    return {
-      key: map[key],
-      value: value,
-    };
-  });
