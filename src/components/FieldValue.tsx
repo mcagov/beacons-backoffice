@@ -12,6 +12,6 @@ export const FieldValue: FunctionComponent<IFieldValueProps> = ({ children }) =>
     </Typography>
   ) : (
     <Typography>
-      <i>{children}</i>
+      <b>{children}</b>
     </Typography>
   );

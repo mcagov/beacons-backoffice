@@ -8,11 +8,11 @@ describe("FieldValue", () => {
     expect(screen.getByText("NO DATA ENTERED")).toBeVisible();
   });
 
-  it("renders string values in italics", () => {
+  it("renders string values in bold", () => {
     render(<FieldValue>Actual beacon data field</FieldValue>);
 
     expect(screen.getByText("Actual beacon data field")).toHaveStyle(
-      "font-style: italic"
+      "font-weight: bold"
     );
   });
 });

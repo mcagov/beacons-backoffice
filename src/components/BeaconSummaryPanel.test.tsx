@@ -53,5 +53,24 @@ describe("BeaconSummary", () => {
 
       expect(await screen.findByText("Beacon not found!")).toBeVisible();
     });
+
+    it("displays undefined fields as 'NO DATA ENTERED'", async () => {
+      const beaconWithUndefinedField = {
+        ...testSingleBeacon,
+        protocolCode: undefined,
+      };
+      beaconsGatewayDouble.getBeacon = jest
+        .fn()
+        .mockResolvedValue(beaconWithUndefinedField);
+
+      render(
+        <BeaconSummaryPanel
+          beaconsGateway={beaconsGatewayDouble}
+          beaconId={testSingleBeacon.id}
+        />
+      );
+
+      expect(await screen.findByText("NO DATA ENTERED")).toBeVisible();
+    });
   });
 });

@@ -1,6 +1,7 @@
 import {
   CardHeader,
   CircularProgress,
+  Grid,
   Paper,
   Table,
   TableBody,
@@ -15,6 +16,7 @@ import { IBeacon } from "../entities/IBeacon";
 import { IUse } from "../entities/IUse";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { formatDate, titleCase } from "../useCases/mcaWritingStyleFormatter";
+import { FieldValue } from "./FieldValue";
 
 interface IBeaconSummaryProps {
   beaconsGateway: IBeaconsGateway;
@@ -61,82 +63,124 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
       <CardHeader title="Summary" />
       {state.isError && <PanelError message={state.errorMessage as string} />}
       {state.beacon ? (
-        <TableContainer>
-          <Table size="small">
-            <TableBody>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <Typography>Manufacturer:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{state.beacon?.manufacturer}</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <Typography>Model:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{state.beacon?.model}</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <Typography>Beacon type:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{state.beacon?.type}</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <Typography>Protocol code:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{state.beacon?.protocolCode}</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <Typography>Serial number:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>
-                    {state.beacon?.manufacturerSerialNumber}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <Typography>CHK code:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{state.beacon?.chkCode}</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <Typography>Battery expiry date:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>
-                    {formatDate(state.beacon?.batteryExpiryDate)}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <Typography>Last service date:</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>
-                    {formatDate(state.beacon?.lastServicedDate)}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <>
+          <Grid container>
+            <Grid item xs={6}>
+              <TableContainer>
+                <Table size="small">
+                  <TableBody>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Manufacturer:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>{state.beacon?.manufacturer}</FieldValue>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Model:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>{state.beacon?.model}</FieldValue>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Beacon type:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>{state.beacon?.type}</FieldValue>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Protocol code:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>{state.beacon?.protocolCode}</FieldValue>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Serial number:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>
+                          {state.beacon?.manufacturerSerialNumber}
+                        </FieldValue>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>CHK code:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>{state.beacon?.chkCode}</FieldValue>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Battery expiry date:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>
+                          {formatDate(state.beacon?.batteryExpiryDate)}
+                        </FieldValue>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Last service date:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>
+                          {formatDate(state.beacon?.lastServicedDate)}
+                        </FieldValue>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+            <Grid item xs={6}>
+              <TableContainer>
+                <Table size="small">
+                  <TableBody>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Owner(s):</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>
+                          {JSON.stringify(state.beacon?.owners)}
+                        </FieldValue>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Emergency contacts:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>{`${state.beacon?.emergencyContacts.length} listed`}</FieldValue>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        <Typography>Registered uses:</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <FieldValue>
+                          {formatUses(state.beacon?.uses)}
+                        </FieldValue>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Grid>
+        </>
       ) : (
         <CircularProgress />
       )}
