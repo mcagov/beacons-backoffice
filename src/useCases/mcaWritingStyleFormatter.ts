@@ -1,3 +1,4 @@
+import { IOwner } from "../entities/IOwner";
 import { IUse } from "../entities/IUse";
 
 export const formatDate = (dateString: string): string => {
@@ -25,3 +26,6 @@ export const titleCase = (text: string): string => {
     .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 };
+
+export const formatOwners = (owners: IOwner[]): string =>
+  owners.map((owner) => owner.fullName).join(", ");

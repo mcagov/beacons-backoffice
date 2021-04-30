@@ -1,5 +1,10 @@
 import { Activities, Environments, Purposes } from "../entities/IUse";
-import { formatDate, formatUses, titleCase } from "./mcaWritingStyleFormatter";
+import {
+  formatDate,
+  formatOwners,
+  formatUses,
+  titleCase,
+} from "./mcaWritingStyleFormatter";
 
 describe("formatDate()", () => {
   const expectations = [
@@ -85,6 +90,58 @@ describe("formatUses()", () => {
   expectations.forEach((expectation) => {
     it(`formats ${expectation.in} ==> ${expectation.out}`, () => {
       expect(formatUses(expectation.in)).toEqual(expectation.out);
+    });
+  });
+});
+
+describe("formatOwners()", () => {
+  const expectations = [
+    { in: [], out: "" },
+    {
+      in: [
+        {
+          fullName: "Steve Stevington",
+          email: "steve@thestevingtons.com",
+          telephoneNumber: "07826 543728",
+          addressLine1: "FFF",
+          addressLine2: "59 Stevenswood Road",
+          townOrCity: "Bristol",
+          county: "",
+          postcode: "BS8 9NW",
+        },
+      ],
+      out: "Steve Stevington",
+    },
+    {
+      in: [
+        {
+          fullName: "Steve Stevington",
+          email: "steve@thestevingtons.com",
+          telephoneNumber: "07826 543728",
+          addressLine1: "FFF",
+          addressLine2: "59 Stevenswood Road",
+          townOrCity: "Bristol",
+          county: "",
+          postcode: "BS8 9NW",
+        },
+        {
+          fullName: "Prunella Stevington",
+          email: "prunella@thestevingtons.com",
+          telephoneNumber: "07826 543728",
+          addressLine1: "FFF",
+          addressLine2: "59 Stevenswood Road",
+          townOrCity: "Bristol",
+          county: "",
+          postcode: "BS8 9NW",
+        },
+      ],
+      out: "Steve Stevington, Prunella Stevington",
+    },
+  ];
+
+  expectations.forEach((expectation) => {
+    it(`formats ${expectation.in} ==> ${expectation.out}`, () => {
+      expect(formatOwners(expectation.in)).toEqual(expectation.out);
     });
   });
 });
