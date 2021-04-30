@@ -16,7 +16,6 @@ import {
   Search,
   ViewColumn,
 } from "@material-ui/icons";
-import { IUse } from "entities/IUse";
 import { IBeaconsGateway } from "gateways/IBeaconsGateway";
 import MaterialTable, { Icons, MTableBodyRow } from "material-table";
 import React, {
@@ -25,7 +24,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { formatDate, titleCase } from "useCases/mcaWritingStyleFormatter";
+import {
+  formatDate,
+  formatUses,
+  titleCase,
+} from "useCases/mcaWritingStyleFormatter";
 
 interface BeaconTableListRow {
   hexId: string;
@@ -168,16 +171,4 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       }}
     />
   );
-};
-
-export const formatUses = (uses: IUse[]): string =>
-  uses.reduce((formattedUses, use, index, uses) => {
-    if (index === uses.length - 1) return formattedUses + formatUse(use);
-    return formattedUses + formatUse(use) + ", ";
-  }, "");
-
-const formatUse = (use: IUse): string => {
-  const formattedActivity = titleCase(use.activity);
-  const formattedPurpose = use.purpose ? ` (${titleCase(use.purpose)})` : "";
-  return formattedActivity + formattedPurpose;
 };

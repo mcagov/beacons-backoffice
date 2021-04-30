@@ -1,10 +1,10 @@
-import { fireEvent, screen, render } from "@testing-library/react";
-import { Beacon } from "./Beacon";
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
+import { SingleBeaconRecordView } from "./SingleBeaconRecordView";
 
 describe("Beacon record page", () => {
   it("Displays correct Tab panel", () => {
-    render(<Beacon />);
+    render(<SingleBeaconRecordView />);
 
     const leftClick = { button: 1 };
 

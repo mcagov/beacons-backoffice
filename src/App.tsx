@@ -1,17 +1,33 @@
-import { Navigation } from "./components/layout/Navigation";
-import React, { FunctionComponent } from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.scss";
-import { BeaconsGateway } from "./gateways/BeaconsGateway";
-import { Footer } from "./components/layout/Footer";
-import { AuthWrapper } from "./components/auth/AuthWrapper";
 import { RequireAuth } from "components/auth/RequireAuth";
-import { BeaconRecords } from "./components/BeaconRecords";
-import { Beacon } from "./components/Beacon";
+import React, { FunctionComponent } from "react";
+import {
+  HashRouter as Router,
+  Route,
+  Switch,
+  useParams,
+} from "react-router-dom";
+import "./App.scss";
+import { AuthWrapper } from "./components/auth/AuthWrapper";
 import { Home } from "./components/Home";
+import { Footer } from "./components/layout/Footer";
+import { Navigation } from "./components/layout/Navigation";
+import { BeaconsGateway } from "./gateways/BeaconsGateway";
+import { BeaconRecordsListView } from "./views/BeaconRecordsListView";
+import { SingleBeaconRecordView } from "./views/SingleBeaconRecordView";
+
+interface ResourceParams {
+  id: string;
+}
 
 const App: FunctionComponent = () => {
   const beaconsGateway = new BeaconsGateway();
+
+  const SingleBeaconRecordViewWithParam: FunctionComponent = () => {
+    const { id } = useParams<ResourceParams>();
+    return (
+      <SingleBeaconRecordView beaconsGateway={beaconsGateway} beaconId={id} />
+    );
+  };
 
   return (
     <AuthWrapper>
@@ -23,10 +39,10 @@ const App: FunctionComponent = () => {
               <Home />
             </Route>
             <Route path="/beacon-records">
-              <BeaconRecords beaconsGateway={beaconsGateway} />
+              <BeaconRecordsListView beaconsGateway={beaconsGateway} />
             </Route>
-            <Route path="/beacon">
-              <Beacon />
+            <Route path="/beacon/:id">
+              <SingleBeaconRecordViewWithParam />
             </Route>
           </Switch>
         </RequireAuth>

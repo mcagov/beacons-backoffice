@@ -1,8 +1,7 @@
-import React, { FunctionComponent } from "react";
-
-import { MsalProvider } from "@azure/msal-react";
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
+import { MsalProvider } from "@azure/msal-react";
 import { applicationConfig } from "config";
+import React, { FunctionComponent } from "react";
 
 const configuration: Configuration = {
   auth: {
