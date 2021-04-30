@@ -1,9 +1,9 @@
-import { IBeacon } from "../entities/IBeacon";
-import { testBeacons, testSingleBeacon } from "../testData/testBeacons";
-import { IBeaconsGateway } from "./IBeaconsGateway";
-import { applicationConfig } from "../config";
 import axios from "axios";
 import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
+import { applicationConfig } from "../config";
+import { IBeacon } from "../entities/IBeacon";
+import { testSingleBeacon } from "../testData/testBeacons";
+import { IBeaconsGateway } from "./IBeaconsGateway";
 
 export class BeaconsGateway implements IBeaconsGateway {
   public async getAllBeacons(): Promise<IBeaconSearchResult> {
