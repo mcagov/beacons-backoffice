@@ -29,3 +29,8 @@ export const titleCase = (text: string): string => {
 
 export const formatOwners = (owners: IOwner[]): string =>
   owners.map((owner) => owner.fullName).join(", ");
+
+export enum Style {
+  NoData = "NO DATA ENTERED",
+  KeyValueSeparator = ":",
+}

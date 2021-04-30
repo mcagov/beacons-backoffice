@@ -1,5 +1,6 @@
 import { Typography } from "@material-ui/core";
 import { FunctionComponent } from "react";
+import { Style } from "../../useCases/mcaWritingStyleFormatter";
 
 interface IFieldValueProps {
   children: string | undefined;
@@ -8,7 +9,7 @@ interface IFieldValueProps {
 export const FieldValue: FunctionComponent<IFieldValueProps> = ({ children }) =>
   typeof children === "undefined" ? (
     <Typography>
-      <i>NO DATA ENTERED</i>
+      <i>{Style.NoData}</i>
     </Typography>
   ) : (
     <Typography>
