@@ -13,6 +13,6 @@ export const FieldValue: FunctionComponent<IFieldValueProps> = ({ children }) =>
     </Typography>
   ) : (
     <Typography>
-      <b>{children}</b>
+      <b>{children.toLocaleUpperCase()}</b>
     </Typography>
   );

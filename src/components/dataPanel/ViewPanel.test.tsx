@@ -20,7 +20,7 @@ describe("ViewPanel", () => {
     render(<ViewPanel fields={fields} />);
 
     expect(screen.getByText("Manufacturer:")).toBeVisible();
-    expect(screen.getByText("Ocean Signal")).toBeVisible();
+    expect(screen.getByText(/Ocean Signal/i)).toBeVisible();
   });
 
   it("renders two fields", () => {
@@ -38,9 +38,9 @@ describe("ViewPanel", () => {
     render(<ViewPanel fields={fields} />);
 
     expect(screen.getByText("Manufacturer:")).toBeVisible();
-    expect(screen.getByText("Ocean Signal")).toBeVisible();
+    expect(screen.getByText(/Ocean Signal/i)).toBeVisible();
     expect(screen.getByText("Model:")).toBeVisible();
-    expect(screen.getByText("Excelsior EPIRB")).toBeVisible();
+    expect(screen.getByText(/Excelsior EPIRB/i)).toBeVisible();
   });
 
   it("renders undefined fields", () => {
