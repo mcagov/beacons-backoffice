@@ -13,8 +13,8 @@ export interface IBeacon {
   model: string;
   manufacturerSerialNumber: string;
   chkCode: string;
-  batteryExpiryDate: Date;
-  lastServicedDate: Date;
+  batteryExpiryDate: string;
+  lastServicedDate: string;
   uses: IUse[];
   owners: IOwner[];
   emergencyContacts: IEmergencyContact[];
