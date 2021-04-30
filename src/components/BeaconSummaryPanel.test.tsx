@@ -40,9 +40,9 @@ describe("BeaconSummary", () => {
       ).toBeVisible();
     });
 
-    it("displays an error if beacon ID is not found", async () => {
+    it("displays an error beacon lookup fails for any reason", async () => {
       beaconsGatewayDouble.getBeacon = jest.fn().mockImplementation(() => {
-        throw ReferenceError("Beacon not found!");
+        throw Error();
       });
       render(
         <BeaconSummaryPanel
@@ -52,7 +52,7 @@ describe("BeaconSummary", () => {
       );
 
       expect(await screen.findByRole("alert")).toBeVisible();
-      expect(await screen.findByText("Beacon not found!")).toBeVisible();
+      expect(await screen.findByText("An error occurred")).toBeVisible();
     });
 
     it("displays undefined fields as 'NO DATA ENTERED'", async () => {
