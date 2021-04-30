@@ -7,7 +7,7 @@ export interface IBeacon {
   hexId: string;
   type?: BeaconTypes;
   protocolCode?: string;
-  registeredDate: Date;
+  registeredDate: string;
   status: string;
   manufacturer: string;
   model: string;
@@ -29,21 +29,3 @@ export enum BeaconTypes {
   Plb = "PLB",
   Elt = "ELT",
 }
-
-export const beaconKeyToFieldNameMap: Record<keyof IBeacon, string> = {
-  id: "Unique ID",
-  hexId: "Hex ID/UIN",
-  type: "Beacon type",
-  protocolCode: "Protocol code",
-  registeredDate: "Registered date",
-  status: "Status",
-  manufacturer: "Manufacturer",
-  model: "Model",
-  manufacturerSerialNumber: "Manufacturer serial number",
-  chkCode: "CHK code",
-  batteryExpiryDate: "Battery expiry date",
-  lastServicedDate: "Last serviced date",
-  uses: "Registered uses",
-  owners: "Owner(s)",
-  emergencyContacts: "Emergency contacts",
-};

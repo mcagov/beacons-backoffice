@@ -1,3 +1,4 @@
+import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
 import { IUse } from "../entities/IUse";
 
@@ -29,6 +30,10 @@ export const titleCase = (text: string): string => {
 
 export const formatOwners = (owners: IOwner[]): string =>
   owners.map((owner) => owner.fullName).join(", ");
+
+export const formatEmergencyContacts = (
+  emergencyContacts: IEmergencyContact[]
+): string => `${emergencyContacts.length} listed`;
 
 export enum Style {
   NoData = "NO DATA ENTERED",
