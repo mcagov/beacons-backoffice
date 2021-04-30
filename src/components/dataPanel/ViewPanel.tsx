@@ -11,8 +11,13 @@ import React, { FunctionComponent } from "react";
 import { Style } from "../../useCases/mcaWritingStyleFormatter";
 import { FieldValue } from "./FieldValue";
 
+interface IField {
+  key: string;
+  value: any;
+}
+
 interface ViewPanelProps {
-  fields: Record<string, any>[];
+  fields: IField[];
   columns?: 1 | 2;
   splitAfter?: number;
 }
@@ -70,115 +75,13 @@ const TwoColumns: FunctionComponent<ViewPanelProps> = ({
   );
 };
 
-// return (
-//   <Grid container>
-//     <Grid item xs={6}>
-//       <TableContainer>
-//         <Table size="small">
-//           <TableBody>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Manufacturer:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>{fields?.manufacturer}</FieldValue>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Model:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>{fields?.model}</FieldValue>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Beacon type:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>{fields?.type}</FieldValue>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Protocol code:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>{fields?.protocolCode}</FieldValue>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Serial number:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>{fields?.manufacturerSerialNumber}</FieldValue>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>CHK code:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>{fields?.chkCode}</FieldValue>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Battery expiry date:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>
-//                   {formatDate(fields?.batteryExpiryDate)}
-//                 </FieldValue>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Last service date:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>
-//                   {formatDate(fields?.lastServicedDate)}
-//                 </FieldValue>
-//               </TableCell>
-//             </TableRow>
-//           </TableBody>
-//         </Table>
-//       </TableContainer>
-//     </Grid>
-//     <Grid item xs={6}>
-//       <TableContainer>
-//         <Table size="small">
-//           <TableBody>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Owner(s):</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>{formatOwners(fields?.owners)}</FieldValue>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Emergency contacts:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>{`${fields?.emergencyContacts.length} listed`}</FieldValue>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow>
-//               <TableCell component="th" scope="row">
-//                 <Typography>Registered uses:</Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <FieldValue>{formatUses(fields?.uses)}</FieldValue>
-//               </TableCell>
-//             </TableRow>
-//           </TableBody>
-//         </Table>
-//       </TableContainer>
-//     </Grid>
-//   </Grid>
-//);
+export const entityToFieldMap = (
+  entity: Record<string, any>,
+  map: Record<string, string>
+) =>
+  Object.entries(entity).map(([key, value]) => {
+    return {
+      key: map[key],
+      value: value,
+    };
+  });

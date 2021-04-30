@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import { beaconKeyToFieldNameMap } from "../../entities/IBeacon";
 import { Style } from "../../useCases/mcaWritingStyleFormatter";
-import { ViewPanel } from "./ViewPanel";
+import { entityToFieldMap, ViewPanel } from "./ViewPanel";
 
 describe("ViewPanel", () => {
   it("renders empty with no data", () => {
@@ -138,5 +139,26 @@ describe("ViewPanel", () => {
     render(<ViewPanel fields={fields} columns={2} splitAfter={1} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
+  });
+});
+
+describe("entityToFieldMap", () => {
+  it("maps an empty entity to an empty array", () => {
+    const entity = {};
+
+    const fields = entityToFieldMap(entity, beaconKeyToFieldNameMap);
+
+    expect(fields).toStrictEqual([]);
+  });
+
+  it("maps a partial beacon entity to an array of data fields", () => {
+    const entity = { model: "Excelsior EPIRB", manufacturer: "Ocean Signal" };
+
+    const fields = entityToFieldMap(entity, beaconKeyToFieldNameMap);
+
+    expect(fields).toStrictEqual([
+      { key: beaconKeyToFieldNameMap.model, value: entity.model },
+      { key: beaconKeyToFieldNameMap.manufacturer, value: entity.manufacturer },
+    ]);
   });
 });
