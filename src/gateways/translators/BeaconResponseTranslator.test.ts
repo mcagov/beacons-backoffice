@@ -28,8 +28,8 @@ describe("BeaconResponseTranslator", () => {
     newTranslatedBeacon.model = "EPIRB2";
     const beaconTranslator = new BeaconResponseTranslator();
 
-    expect(beaconTranslator.translate(beaconApiResponse)).toStrictEqual(
-      translatedBeacon
+    expect(beaconTranslator.translate(newResponse)).toStrictEqual(
+      newTranslatedBeacon
     );
   });
 });
