@@ -1,7 +1,7 @@
 import { IBeacon } from "../../entities/IBeacon";
 import { IEmergencyContact } from "../../entities/IEmergencyContact";
 import { IOwner } from "../../entities/IOwner";
-import { Environments } from "../../entities/IUse";
+import { IUse } from "../../entities/IUse";
 import { IBeaconResponse } from "./IBeaconResponse";
 
 export class BeaconResponseTranslator {
@@ -20,14 +20,7 @@ export class BeaconResponseTranslator {
       status: beaconApiResponse.data.attributes.status,
       owners: this.translateOwners(beaconApiResponse),
       emergencyContacts: this.translateEmergencyContacts(beaconApiResponse),
-      uses: [
-        {
-          id: "1",
-          environment: Environments.Maritime,
-          activity: "SAILING",
-          moreDetails: "More details of this vessel",
-        },
-      ],
+      uses: this.translateUses(beaconApiResponse),
     };
   }
 
@@ -74,5 +67,18 @@ export class BeaconResponseTranslator {
           emergencyContact.attributes.alternativeTelephoneNumber,
       };
     });
+  }
+
+  private translateUses(beaconApiResponse: IBeaconResponse): IUse[] {
+    return (beaconApiResponse.included
+      .filter((entity) => entity.type === "beaconUse")
+      .map((use) => {
+        return {
+          id: use.id,
+          environment: use.attributes.environment,
+          activity: use.attributes.activity,
+          moreDetails: use.attributes.moreDetails,
+        };
+      }) as unknown) as IUse[];
   }
 }
