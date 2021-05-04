@@ -1,10 +1,6 @@
-export interface IBeaconResponse {
-  meta: Record<string, string>;
-  links: {
-    self: string;
-    next: string;
-    last: string;
-  };
+import { IApiResponse } from "./IApiResponse";
+
+export interface IBeaconResponse extends IApiResponse {
   data: {
     type: string;
     id: string;
@@ -46,12 +42,4 @@ export interface IBeaconResponse {
       self: string;
     };
   };
-  included: {
-    type: string;
-    id: string;
-    attributes: Record<string, string>;
-    links: {
-      self: string;
-    };
-  }[];
 }
