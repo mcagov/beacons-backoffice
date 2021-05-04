@@ -1,10 +1,10 @@
 import faker from "faker";
 import { BeaconStatuses, BeaconTypes, IBeacon } from "../entities/IBeacon";
-import { testEmergencyContacts } from "./testEmergencyContacts";
-import { testOwners } from "./testOwner";
-import { testUses } from "./testUses";
+import { emergencyContactsFixture } from "./emergencyContacts.fixture";
+import { testOwners } from "./owner.fixture";
+import { usesFixture } from "./uses.fixture";
 
-export const testSingleBeacon: IBeacon = {
+export const beaconFixture: IBeacon = {
   id: "f48e8212-2e10-4154-95c7-bdfd061bcfd2",
   hexId: "1D0EA08C52FFBFF",
   type: BeaconTypes.Epirb,
@@ -17,9 +17,9 @@ export const testSingleBeacon: IBeacon = {
   chkCode: "456QWE",
   batteryExpiryDate: "2020-02-01T00:00",
   lastServicedDate: "2020-02-01T00:00",
-  uses: testUses,
+  uses: usesFixture,
   owners: testOwners,
-  emergencyContacts: testEmergencyContacts,
+  emergencyContacts: emergencyContactsFixture,
 };
 
 const ukHexIds = [
@@ -46,8 +46,8 @@ const ukHexIds = [
   "1D0B96E3E1DD78E",
 ];
 
-export const testBeacons = new Array(21)
-  .fill(testSingleBeacon)
+export const beaconsFixture = new Array(21)
+  .fill(beaconFixture)
   .map((beacon, i) => {
     return {
       ...beacon,
