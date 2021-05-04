@@ -22,9 +22,10 @@ describe("BeaconResponseTranslator", () => {
   });
 
   it("translates a different single beacon API response payload to an IBeacon", () => {
-    const differentModel = "EPIRB2";
-    beaconApiResponse.data.attributes.model = differentModel;
-    translatedBeacon.model = differentModel;
+    const newResponse = { ...beaconApiResponse };
+    const newTranslatedBeacon = { ...translatedBeacon };
+    newResponse.data.attributes.model = "EPIRB2";
+    newTranslatedBeacon.model = "EPIRB2";
     const beaconTranslator = new BeaconResponseTranslator();
 
     expect(beaconTranslator.translate(beaconApiResponse)).toStrictEqual(
