@@ -3,15 +3,22 @@ import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "./IBeaconsGateway";
+import { IBeaconResponseTranslator } from "./translators/BeaconResponseTranslator";
 
 export class BeaconsGateway implements IBeaconsGateway {
   timeoutMs = 10000;
+  private _translator;
+
+  public constructor(beaconResponseTranslator: IBeaconResponseTranslator) {
+    this._translator = beaconResponseTranslator;
+  }
 
   public async getAllBeacons(): Promise<IBeaconSearchResult> {
     try {
       const response = await axios.get(`${applicationConfig.apiUrl}/beacons`, {
         timeout: this.timeoutMs,
       });
+      // TODO: Add translate step to /beacons endpoint
       return response.data;
     } catch (e) {
       throw Error(e);
@@ -24,7 +31,7 @@ export class BeaconsGateway implements IBeaconsGateway {
         `${applicationConfig.apiUrl}/beacon/${beaconId}`,
         { timeout: this.timeoutMs }
       );
-      return response.data;
+      return this._translator.translate(response.data);
     } catch (e) {
       throw Error(e);
     }

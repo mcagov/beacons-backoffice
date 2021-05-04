@@ -4,20 +4,26 @@ import { IOwner } from "../../entities/IOwner";
 import { IUse } from "../../entities/IUse";
 import { IBeaconResponse } from "./IBeaconResponse";
 
-export class BeaconResponseTranslator {
+export interface IBeaconResponseTranslator {
+  translate: (beaconApiResponse: IBeaconResponse) => IBeacon;
+}
+
+export class BeaconResponseTranslator implements IBeaconResponseTranslator {
   public translate(beaconApiResponse: IBeaconResponse): IBeacon {
     return {
+      id: beaconApiResponse.data.id,
+      hexId: beaconApiResponse.data.attributes.hexId,
+      type: beaconApiResponse.data.attributes.type,
+      manufacturer: beaconApiResponse.data.attributes.manufacturer,
+      model: beaconApiResponse.data.attributes.model,
+      status: beaconApiResponse.data.attributes.status,
+      registeredDate: beaconApiResponse.data.attributes.createdDate,
       batteryExpiryDate: beaconApiResponse.data.attributes.batteryExpiryDate,
       chkCode: beaconApiResponse.data.attributes.chkCode,
-      hexId: beaconApiResponse.data.attributes.hexId,
-      id: beaconApiResponse.data.id,
+      protocolCode: beaconApiResponse.data.attributes.protocolCode,
       lastServicedDate: beaconApiResponse.data.attributes.lastServicedDate,
-      manufacturer: beaconApiResponse.data.attributes.manufacturer,
       manufacturerSerialNumber:
         beaconApiResponse.data.attributes.manufacturerSerialNumber,
-      model: beaconApiResponse.data.attributes.model,
-      registeredDate: beaconApiResponse.data.attributes.createdDate,
-      status: beaconApiResponse.data.attributes.status,
       owners: this.translateOwners(beaconApiResponse),
       emergencyContacts: this.translateEmergencyContacts(beaconApiResponse),
       uses: this.translateUses(beaconApiResponse),
@@ -57,7 +63,7 @@ export class BeaconResponseTranslator {
       const emergencyContact = beaconApiResponse.included.find(
         (entity) =>
           entity.type === "beaconPerson" && entity.id === emergencyContactId
-      );
+      )!;
 
       return {
         id: emergencyContactId,
@@ -76,6 +82,7 @@ export class BeaconResponseTranslator {
         return {
           id: use.id,
           environment: use.attributes.environment,
+          purpose: use.attributes.purpose,
           activity: use.attributes.activity,
           moreDetails: use.attributes.moreDetails,
         };

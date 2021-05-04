@@ -12,6 +12,7 @@ import { Home } from "./components/Home";
 import { Footer } from "./components/layout/Footer";
 import { Navigation } from "./components/layout/Navigation";
 import { BeaconsGateway } from "./gateways/BeaconsGateway";
+import { BeaconResponseTranslator } from "./gateways/translators/BeaconResponseTranslator";
 import { BeaconRecordsListView } from "./views/BeaconRecordsListView";
 import { SingleBeaconRecordView } from "./views/SingleBeaconRecordView";
 
@@ -20,7 +21,8 @@ interface ResourceParams {
 }
 
 const App: FunctionComponent = () => {
-  const beaconsGateway = new BeaconsGateway();
+  const beaconResponseTranslator = new BeaconResponseTranslator();
+  const beaconsGateway = new BeaconsGateway(beaconResponseTranslator);
 
   const SingleBeaconRecordViewWithParam: FunctionComponent = () => {
     const { id } = useParams<ResourceParams>();

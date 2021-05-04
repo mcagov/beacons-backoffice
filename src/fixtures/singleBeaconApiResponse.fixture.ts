@@ -7,15 +7,17 @@ export const singleBeaconApiResponse = Object.freeze({
   },
   data: {
     type: "beacon",
-    id: "97b306aa-cbd0-4f09-aa24-2d876b983efb",
+    id: "f48e8212-2e10-4154-95c7-bdfd061bcfd2",
     attributes: {
-      hexId: "Hex me",
+      hexId: "1D0EA08C52FFBFF",
       status: "NEW",
+      type: "EPIRB",
+      protocolCode: "AX7098",
       manufacturer: "Ocean Signal",
-      createdDate: "2020-02-01T00:00",
-      model: "EPIRB1",
+      createdDate: "2018-06-08T00:00",
+      model: "Excelsior",
       manufacturerSerialNumber: "1407312904",
-      chkCode: "9480B",
+      chkCode: "456QWE",
       batteryExpiryDate: "2020-02-01T00:00",
       lastServicedDate: "2020-02-01T00:00",
     },
@@ -32,7 +34,10 @@ export const singleBeaconApiResponse = Object.freeze({
           self: "IDK",
           related: "IDK",
         },
-        data: { type: "beaconPerson", id: "1" },
+        data: {
+          type: "beaconPerson",
+          id: "cb2e9fd2-45bb-4865-a04c-add5bb7c34a7",
+        },
       },
       emergencyContacts: {
         links: {
@@ -40,8 +45,8 @@ export const singleBeaconApiResponse = Object.freeze({
           related: "IDK",
         },
         data: [
-          { type: "beaconPerson", id: "2" },
-          { type: "beaconPerson", id: "3" },
+          { type: "beaconPerson", id: "5ffd1b86-d347-49e2-b821-4550c72666c1" },
+          { type: "beaconPerson", id: "3851e8c7-6e4e-4827-ab8f-b904f845582f" },
         ],
       },
     },
@@ -52,11 +57,12 @@ export const singleBeaconApiResponse = Object.freeze({
   included: [
     {
       type: "beaconUse",
-      id: "1",
+      id: "e00036c4-e3f4-46bb-aa9e-1d91870d9172",
       attributes: {
         environment: "MARITIME",
-        activity: "SAILING",
-        moreDetails: "More details of this vessel",
+        purpose: "COMMERCIAL",
+        activity: "FISHING_VESSEL",
+        moreDetails: "I take people out in my yacht.",
       },
       links: {
         self: "IDK",
@@ -64,16 +70,16 @@ export const singleBeaconApiResponse = Object.freeze({
     },
     {
       type: "beaconPerson",
-      id: "1",
+      id: "cb2e9fd2-45bb-4865-a04c-add5bb7c34a7",
       attributes: {
-        fullName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
-        email: "nelson@royalnavy.mod.uk",
-        telephoneNumber: "02392 856624",
-        addressLine1: "1 The Hard",
+        fullName: "Steve Stevington",
+        email: "steve@beaconowner.com",
+        telephoneNumber: "07872536271",
+        addressLine1: "1 Beacon Square",
         addressLine2: "",
-        townOrCity: "Portsmouth",
-        county: "Hampshire",
-        postcode: "PO1 3DT",
+        townOrCity: "Beaconsfield",
+        county: "Yorkshire",
+        postcode: "BS8 7NW",
       },
       links: {
         self: "IDK",
@@ -81,7 +87,7 @@ export const singleBeaconApiResponse = Object.freeze({
     },
     {
       type: "beaconPerson",
-      id: "2",
+      id: "5ffd1b86-d347-49e2-b821-4550c72666c1",
       attributes: {
         fullName: "Lady Hamilton",
         telephoneNumber: "02392 856621",
@@ -93,7 +99,7 @@ export const singleBeaconApiResponse = Object.freeze({
     },
     {
       type: "beaconPerson",
-      id: "3",
+      id: "3851e8c7-6e4e-4827-ab8f-b904f845582f",
       attributes: {
         fullName: "Neil Hamilton",
         telephoneNumber: "04392 856626",

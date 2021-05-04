@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
+import { beaconFixture } from "../fixtures/beacons.fixture";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { testSingleBeacon } from "../testData/testBeacons";
 import { SingleBeaconRecordView } from "./SingleBeaconRecordView";
 
 describe("Beacon record page", () => {
@@ -9,7 +9,7 @@ describe("Beacon record page", () => {
 
   beforeEach(() => {
     beaconsGatewayDouble = {
-      getBeacon: jest.fn().mockResolvedValue(testSingleBeacon),
+      getBeacon: jest.fn().mockResolvedValue(beaconFixture),
       getAllBeacons: jest.fn(),
     };
   });
@@ -18,7 +18,7 @@ describe("Beacon record page", () => {
     render(
       <SingleBeaconRecordView
         beaconsGateway={beaconsGatewayDouble}
-        beaconId={testSingleBeacon.id}
+        beaconId={beaconFixture.id}
       />
     );
 
