@@ -56,6 +56,12 @@ export function makeServer({ environment = "test" } = {}) {
           data: [beacon],
         };
       });
+
+      this.get(`${applicationConfig.apiUrl}/beacon/:id`, () => {
+        return {
+          data: beacon,
+        };
+      });
     },
   });
 }
