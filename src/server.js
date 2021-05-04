@@ -9,6 +9,7 @@ export function makeServer({ environment = "test" } = {}) {
 
     routes() {
       this.get(`${applicationConfig.apiUrl}/beacons`, () => {
+        // TODO: Update manyBeaconsApiResponseFixture to match endpoint
         return {
           data: manyBeaconsApiResponseFixture,
         };
