@@ -9,6 +9,11 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
+import { makeServer } from "./server";
+
+if (process.env.NODE_ENV === "development") {
+  makeServer({ environment: "development" });
+}
 
 const theme: Theme = createMuiTheme({
   palette: {
