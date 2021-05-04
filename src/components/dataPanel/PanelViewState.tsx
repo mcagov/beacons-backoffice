@@ -16,13 +16,13 @@ interface IField {
   value: string | undefined;
 }
 
-interface ViewPanelProps {
+interface IPanelViewStateProps {
   fields: IField[];
   columns?: 1 | 2;
   splitAfter?: number;
 }
 
-export const ViewPanel: FunctionComponent<ViewPanelProps> = ({
+export const PanelViewState: FunctionComponent<IPanelViewStateProps> = ({
   fields,
   columns = 1,
   splitAfter = Math.ceil(fields.length / 2),
@@ -37,7 +37,7 @@ export const ViewPanel: FunctionComponent<ViewPanelProps> = ({
   }
 };
 
-const OneColumn: FunctionComponent<ViewPanelProps> = ({ fields }) => (
+const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
   <TableContainer>
     <Table size="small">
       <TableBody>
@@ -58,7 +58,7 @@ const OneColumn: FunctionComponent<ViewPanelProps> = ({ fields }) => (
   </TableContainer>
 );
 
-const TwoColumns: FunctionComponent<ViewPanelProps> = ({
+const TwoColumns: FunctionComponent<IPanelViewStateProps> = ({
   fields,
   splitAfter,
 }) => {

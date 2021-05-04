@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { ViewPanel } from "../components/dataPanel/ViewPanel";
+import { PanelViewState } from "../components/dataPanel/PanelViewState";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import {
@@ -102,7 +102,7 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
       case DataPanelStates.Loading:
         return <LoadingState />;
       case DataPanelStates.Viewing:
-        return <ViewPanel fields={fields} />;
+        return <PanelViewState fields={fields} />;
       case DataPanelStates.Editing:
         return <p>TODO</p>;
       case DataPanelStates.Error:

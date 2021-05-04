@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
-import { ViewPanel } from "./ViewPanel";
+import { PanelViewState } from "./PanelViewState";
 
-describe("ViewPanel", () => {
+describe("PanelViewState", () => {
   it("renders empty with no data", () => {
-    render(<ViewPanel fields={[]} />);
+    render(<PanelViewState fields={[]} />);
 
     expect(screen.queryByRole("row")).toBeNull();
   });
@@ -17,7 +17,7 @@ describe("ViewPanel", () => {
       },
     ];
 
-    render(<ViewPanel fields={fields} />);
+    render(<PanelViewState fields={fields} />);
 
     expect(screen.getByText("Manufacturer:")).toBeVisible();
     expect(screen.getByText(/Ocean Signal/i)).toBeVisible();
@@ -35,7 +35,7 @@ describe("ViewPanel", () => {
       },
     ];
 
-    render(<ViewPanel fields={fields} />);
+    render(<PanelViewState fields={fields} />);
 
     expect(screen.getByText("Manufacturer:")).toBeVisible();
     expect(screen.getByText(/Ocean Signal/i)).toBeVisible();
@@ -51,7 +51,7 @@ describe("ViewPanel", () => {
       },
     ];
 
-    render(<ViewPanel fields={fields} />);
+    render(<PanelViewState fields={fields} />);
 
     expect(screen.getByText("CHK Code:")).toBeVisible();
     expect(screen.getByText(Placeholders.NoData)).toBeVisible();
@@ -77,7 +77,7 @@ describe("ViewPanel", () => {
       },
     ];
 
-    render(<ViewPanel fields={fields} columns={2} />);
+    render(<PanelViewState fields={fields} columns={2} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
   });
@@ -106,7 +106,7 @@ describe("ViewPanel", () => {
       },
     ];
 
-    render(<ViewPanel fields={fields} columns={2} />);
+    render(<PanelViewState fields={fields} columns={2} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
   });
@@ -135,7 +135,7 @@ describe("ViewPanel", () => {
       },
     ];
 
-    render(<ViewPanel fields={fields} columns={2} splitAfter={1} />);
+    render(<PanelViewState fields={fields} columns={2} splitAfter={1} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
   });
