@@ -1,5 +1,14 @@
+import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
 import { IUse } from "../entities/IUse";
+
+export enum WritingStyle {
+  KeyValueSeparator = ":",
+}
+
+export enum Placeholders {
+  NoData = "NO DATA ENTERED",
+}
 
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -29,3 +38,16 @@ export const titleCase = (text: string): string => {
 
 export const formatOwners = (owners: IOwner[]): string =>
   owners.map((owner) => owner.fullName).join(", ");
+
+export const formatEmergencyContacts = (
+  emergencyContacts: IEmergencyContact[]
+): string => `${emergencyContacts.length} listed`;
+
+export const formatFieldValue = (value: string | undefined): JSX.Element => {
+  switch (typeof value) {
+    case "undefined":
+      return <i>{Placeholders.NoData}</i>;
+    case "string":
+      return <b>{value.toLocaleUpperCase()}</b>;
+  }
+};

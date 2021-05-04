@@ -9,7 +9,7 @@ export const testSingleBeacon: IBeacon = {
   hexId: "1D0EA08C52FFBFF",
   type: BeaconTypes.Epirb,
   protocolCode: "AX7098",
-  registeredDate: new Date("21 April 2021"),
+  registeredDate: "2018-06-08T00:00",
   status: BeaconStatuses.New,
   manufacturer: "OceanSignal",
   model: "Excelsior",

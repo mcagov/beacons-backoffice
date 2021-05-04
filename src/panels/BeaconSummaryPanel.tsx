@@ -1,0 +1,138 @@
+import {
+  Box,
+  CardHeader,
+  CircularProgress,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { PanelViewState } from "../components/dataPanel/PanelViewState";
+import { IBeacon } from "../entities/IBeacon";
+import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
+import {
+  formatEmergencyContacts,
+  formatOwners,
+  formatUses,
+} from "../useCases/mcaWritingStyleFormatter";
+
+interface IBeaconSummaryProps {
+  beaconsGateway: IBeaconsGateway;
+  beaconId: string;
+}
+
+enum DataPanelStates {
+  Loading = "LOADING",
+  Viewing = "VIEWING",
+  Editing = "EDITING",
+  Error = "ERROR",
+}
+
+export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
+  beaconsGateway,
+  beaconId,
+}): JSX.Element => {
+  const [state, setState] = useState<DataPanelStates>(DataPanelStates.Loading);
+  const [beacon, setBeacon] = useState<IBeacon>({} as IBeacon);
+
+  useEffect((): void => {
+    const fetchBeacon = async (id: string) => {
+      try {
+        const beacon = await beaconsGateway.getBeacon(id);
+        setBeacon(beacon);
+        setState(DataPanelStates.Viewing);
+      } catch (error) {
+        console.error(error);
+        setState(DataPanelStates.Error);
+      }
+    };
+
+    fetchBeacon(beaconId);
+  }, []); // eslint-disable-line
+
+  const fields = [
+    {
+      key: "Manufacturer",
+      value: beacon?.manufacturer,
+    },
+    {
+      key: "Model",
+      value: beacon?.model,
+    },
+    {
+      key: "Beacon type",
+      value: beacon?.type,
+    },
+    {
+      key: "Protocol code",
+      value: beacon?.protocolCode,
+    },
+    {
+      key: "Serial number",
+      value: beacon?.manufacturerSerialNumber,
+    },
+    {
+      key: "CHK code",
+      value: beacon?.chkCode,
+    },
+    {
+      key: "Battery expiry date",
+      value: beacon?.batteryExpiryDate,
+    },
+    {
+      key: "Last serviced date",
+      value: beacon?.lastServicedDate,
+    },
+    {
+      key: "Owner(s)",
+      value: formatOwners(beacon?.owners || []),
+    },
+    {
+      key: "Emergency contacts",
+      value: formatEmergencyContacts(beacon?.emergencyContacts || []),
+    },
+    {
+      key: "Registered uses",
+      value: formatUses(beacon?.uses || []),
+    },
+  ];
+
+  const renderState = (state: DataPanelStates) => {
+    switch (state) {
+      case DataPanelStates.Loading:
+        return <LoadingState />;
+      case DataPanelStates.Viewing:
+        return <PanelViewState fields={fields} />;
+      case DataPanelStates.Editing:
+        return <p>TODO</p>;
+      case DataPanelStates.Error:
+        return <ErrorState message="An error occurred" />;
+    }
+  };
+
+  return (
+    <Paper>
+      <CardHeader title="Summary" />
+      {renderState(state)}
+    </Paper>
+  );
+};
+
+interface IPanelError {
+  message: string;
+}
+
+const LoadingState: FunctionComponent = () => (
+  <Box textAlign="center">
+    <CircularProgress />
+  </Box>
+);
+
+const ErrorState: FunctionComponent<IPanelError> = ({
+  message,
+}): JSX.Element => (
+  <Box role="alert" textAlign="center">
+    <ErrorOutlineIcon />
+    <Typography>{message}</Typography>
+  </Box>
+);

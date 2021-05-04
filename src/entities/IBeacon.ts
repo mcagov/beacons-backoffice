@@ -7,7 +7,7 @@ export interface IBeacon {
   hexId: string;
   type?: BeaconTypes;
   protocolCode?: string;
-  registeredDate: Date;
+  registeredDate: string;
   status: string;
   manufacturer: string;
   model: string;
