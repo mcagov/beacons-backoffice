@@ -102,7 +102,7 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
       case DataPanelStates.Loading:
         return <LoadingState />;
       case DataPanelStates.Viewing:
-        return <PanelViewState fields={fields} />;
+        return <PanelViewState fields={fields} columns={2} splitAfter={8} />;
       case DataPanelStates.Editing:
         return <p>TODO</p>;
       case DataPanelStates.Error:
