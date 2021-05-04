@@ -1,12 +1,10 @@
 import { IBeacon } from "../../entities/IBeacon";
 import { Environments } from "../../entities/IUse";
-import {
-  BeaconResponseTranslator,
-  IBeaconApiResponse,
-} from "./BeaconResponseTranslator";
+import { BeaconResponseTranslator } from "./BeaconResponseTranslator";
+import { IBeaconResponse } from "./IBeaconResponse";
 
 describe("BeaconResponseTranslator", () => {
-  let beaconApiResponse: IBeaconApiResponse;
+  let beaconApiResponse: IBeaconResponse;
   let translatedBeacon: IBeacon;
 
   beforeEach(() => {

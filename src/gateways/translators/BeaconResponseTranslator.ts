@@ -1,8 +1,11 @@
 import { IBeacon } from "../../entities/IBeacon";
+import { IEmergencyContact } from "../../entities/IEmergencyContact";
+import { IOwner } from "../../entities/IOwner";
 import { Environments } from "../../entities/IUse";
+import { IBeaconResponse } from "./IBeaconResponse";
 
 export class BeaconResponseTranslator {
-  public translate(beaconApiResponse: IBeaconApiResponse): IBeacon {
+  public translate(beaconApiResponse: IBeaconResponse): IBeacon {
     return {
       batteryExpiryDate: beaconApiResponse.data.attributes.batteryExpiryDate,
       chkCode: beaconApiResponse.data.attributes.chkCode,
@@ -15,33 +18,8 @@ export class BeaconResponseTranslator {
       model: beaconApiResponse.data.attributes.model,
       registeredDate: beaconApiResponse.data.attributes.createdDate,
       status: beaconApiResponse.data.attributes.status,
-      owners: [
-        {
-          id: "1",
-          fullName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
-          email: "nelson@royalnavy.mod.uk",
-          telephoneNumber: "02392 856624",
-          addressLine1: "1 The Hard",
-          addressLine2: "",
-          townOrCity: "Portsmouth",
-          county: "Hampshire",
-          postcode: "PO1 3DT",
-        },
-      ],
-      emergencyContacts: [
-        {
-          id: "2",
-          fullName: "Lady Hamilton",
-          telephoneNumber: "02392 856621",
-          alternativeTelephoneNumber: "02392 856622",
-        },
-        {
-          id: "3",
-          fullName: "Neil Hamilton",
-          telephoneNumber: "04392 856626",
-          alternativeTelephoneNumber: "04392 856625",
-        },
-      ],
+      owners: this.translateOwners(beaconApiResponse),
+      emergencyContacts: this.translateEmergencyContacts(beaconApiResponse),
       uses: [
         {
           id: "1",
@@ -52,62 +30,49 @@ export class BeaconResponseTranslator {
       ],
     };
   }
-}
 
-export interface IBeaconApiResponse {
-  meta: Record<string, string>;
-  links: {
-    self: string;
-    next: string;
-    last: string;
-  };
-  data: {
-    type: string;
-    id: string;
-    attributes: {
-      hexId: string;
-      status: string;
-      manufacturer: string;
-      createdDate: string;
-      model: string;
-      manufacturerSerialNumber: string;
-      chkCode: string;
-      batteryExpiryDate: string;
-      lastServicedDate: string;
-    };
-    relationships: {
-      uses: {
-        links: {
-          self: string;
-          related: string;
+  private translateOwners(beaconApiResponse: IBeaconResponse): IOwner[] {
+    const ownerId = beaconApiResponse.data.relationships.owner.data.id;
+
+    return beaconApiResponse.included
+      .filter(
+        (entity) => entity.type === "beaconPerson" && entity.id === ownerId
+      )
+      .map((owner) => {
+        return {
+          id: owner.id,
+          fullName: owner.attributes.fullName,
+          email: owner.attributes.email,
+          telephoneNumber: owner.attributes.telephoneNumber,
+          addressLine1: owner.attributes.addressLine1,
+          addressLine2: owner.attributes.addressLine2,
+          townOrCity: owner.attributes.townOrCity,
+          county: owner.attributes.county,
+          postcode: owner.attributes.postcode,
         };
-        data: { type: string; id: string }[];
+      });
+  }
+
+  private translateEmergencyContacts(
+    beaconApiResponse: IBeaconResponse
+  ): IEmergencyContact[] {
+    const emergencyContactIds = beaconApiResponse.data.relationships.emergencyContacts.data.map(
+      (relationship) => relationship.id
+    );
+
+    return emergencyContactIds.map((emergencyContactId) => {
+      const emergencyContact = beaconApiResponse.included.find(
+        (entity) =>
+          entity.type === "beaconPerson" && entity.id === emergencyContactId
+      );
+
+      return {
+        id: emergencyContactId,
+        fullName: emergencyContact.attributes.fullName,
+        telephoneNumber: emergencyContact.attributes.telephoneNumber,
+        alternativeTelephoneNumber:
+          emergencyContact.attributes.alternativeTelephoneNumber,
       };
-      owner: {
-        links: {
-          self: string;
-          related: string;
-        };
-        data: { type: string; id: string };
-      };
-      emergencyContacts: {
-        links: {
-          self: string;
-          related: string;
-        };
-        data: { type: string; id: string }[];
-      };
-    };
-    links: {
-      self: string;
-    };
-  };
-  included: {
-    type: string;
-    id: string;
-    attributes: Record<string, string | undefined>;
-    links: {
-      self: string;
-    };
-  }[];
+    });
+  }
 }
