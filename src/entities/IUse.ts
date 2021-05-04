@@ -1,4 +1,5 @@
 export interface IUse {
+  id: string;
   environment: Environments;
   purpose?: string;
   activity: string;

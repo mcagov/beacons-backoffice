@@ -58,9 +58,7 @@ export function makeServer({ environment = "test" } = {}) {
       });
 
       this.get(`${applicationConfig.apiUrl}/beacon/:id`, () => {
-        return {
-          data: beacon,
-        };
+        return beacon;
       });
     },
   });
