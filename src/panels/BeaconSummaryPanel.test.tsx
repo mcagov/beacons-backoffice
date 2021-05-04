@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { testSingleBeacon } from "../testData/testBeacons";
+import { Style } from "../useCases/mcaWritingStyleFormatter";
 import { BeaconSummaryPanel } from "./BeaconSummaryPanel";
 
 describe("BeaconSummaryPanel", () => {
@@ -43,7 +44,7 @@ describe("BeaconSummaryPanel", () => {
     beaconsGatewayDouble.getBeacon = jest.fn().mockImplementation(() => {
       throw Error();
     });
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "error").mockImplementation(() => {}); // Avoid console error failing test
     render(
       <BeaconSummaryPanel
         beaconsGateway={beaconsGatewayDouble}
@@ -71,6 +72,6 @@ describe("BeaconSummaryPanel", () => {
       />
     );
 
-    expect(await screen.findByText("NO DATA ENTERED")).toBeVisible();
+    expect(await screen.findByText(Style.NoData)).toBeVisible();
   });
 });
