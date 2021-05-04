@@ -11,9 +11,11 @@ import React, { FunctionComponent } from "react";
 import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
 import { FieldValue } from "./FieldValue";
 
+type IFieldValue = string | undefined;
+
 interface IField {
   key: string;
-  value: string | undefined;
+  value: IFieldValue | IFieldValue[];
 }
 
 interface IPanelViewStateProps {
@@ -41,18 +43,24 @@ const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
   <TableContainer>
     <Table size="small">
       <TableBody>
-        {fields.map((field, index) => (
-          <TableRow key={index}>
-            <TableCell component="th" scope="row">
-              <Typography>
-                {field.key + WritingStyle.KeyValueSeparator}
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <FieldValue>{field.value}</FieldValue>
-            </TableCell>
-          </TableRow>
-        ))}
+        {fields.map((field, index) => {
+          const valuesAsArray =
+            field.value instanceof Array ? field.value : [field.value];
+          return (
+            <TableRow key={index}>
+              <TableCell component="th" scope="row">
+                <Typography>
+                  {field.key + WritingStyle.KeyValueSeparator}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                {valuesAsArray.map((value, index) => (
+                  <FieldValue key={index}>{value}</FieldValue>
+                ))}
+              </TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   </TableContainer>
