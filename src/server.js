@@ -1,6 +1,6 @@
 import { createServer } from "miragejs";
 import { applicationConfig } from "./config";
-import { singleBeaconApiResponse } from "./fixtures/singleBeaconApiResponse.fixture";
+import { singleBeaconApiResponseFixture } from "./fixtures/singleBeaconApiResponse.fixture";
 import { manyBeaconsApiResponseFixture } from "./fixtures/manyBeaconsApiResponse.fixture";
 
 export function makeServer({ environment = "test" } = {}) {
@@ -15,7 +15,7 @@ export function makeServer({ environment = "test" } = {}) {
       });
 
       this.get(`${applicationConfig.apiUrl}/beacon/:id`, () => {
-        return singleBeaconApiResponse;
+        return singleBeaconApiResponseFixture;
       });
     },
   });

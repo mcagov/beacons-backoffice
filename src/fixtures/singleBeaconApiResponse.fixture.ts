@@ -1,4 +1,4 @@
-export const singleBeaconApiResponse = Object.freeze({
+export const singleBeaconApiResponseFixture = Object.freeze({
   meta: {},
   links: {
     self: "IDK",

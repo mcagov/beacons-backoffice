@@ -1,6 +1,6 @@
 import { IBeacon } from "../../entities/IBeacon";
 import { beaconFixture } from "../../fixtures/beacons.fixture";
-import { singleBeaconApiResponse } from "../../fixtures/singleBeaconApiResponse.fixture";
+import { singleBeaconApiResponseFixture } from "../../fixtures/singleBeaconApiResponse.fixture";
 import { BeaconResponseTranslator } from "./BeaconResponseTranslator";
 import { IBeaconResponse } from "./IBeaconResponse";
 
@@ -9,7 +9,7 @@ describe("BeaconResponseTranslator", () => {
   let translatedBeacon: IBeacon;
 
   beforeEach(() => {
-    beaconApiResponse = singleBeaconApiResponse;
+    beaconApiResponse = singleBeaconApiResponseFixture;
     translatedBeacon = beaconFixture;
   });
 
