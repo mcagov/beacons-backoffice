@@ -1,8 +1,9 @@
 import {
   Box,
+  Card,
+  CardContent,
   CardHeader,
   CircularProgress,
-  Paper,
   Typography,
 } from "@material-ui/core";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
@@ -111,10 +112,12 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
   };
 
   return (
-    <Paper>
-      <CardHeader title="Summary" />
-      {renderState(state)}
-    </Paper>
+    <Card>
+      <CardContent>
+        <CardHeader title="Summary" />
+        {renderState(state)}
+      </CardContent>
+    </Card>
   );
 };
 
