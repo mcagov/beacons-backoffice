@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Style } from "../../useCases/mcaWritingStyleFormatter";
+import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
 import { ViewPanel } from "./ViewPanel";
 
 describe("ViewPanel", () => {
@@ -54,7 +54,7 @@ describe("ViewPanel", () => {
     render(<ViewPanel fields={fields} />);
 
     expect(screen.getByText("CHK Code:")).toBeVisible();
-    expect(screen.getByText(Style.NoData)).toBeVisible();
+    expect(screen.getByText(Placeholders.NoData)).toBeVisible();
   });
 
   it("can split into two even columns", () => {

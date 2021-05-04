@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
-import { Style } from "../../useCases/mcaWritingStyleFormatter";
+import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
 import { FieldValue } from "./FieldValue";
 
 interface IField {
@@ -44,7 +44,9 @@ const OneColumn: FunctionComponent<ViewPanelProps> = ({ fields }) => (
         {fields.map((field, index) => (
           <TableRow key={index}>
             <TableCell component="th" scope="row">
-              <Typography>{field.key + Style.KeyValueSeparator}</Typography>
+              <Typography>
+                {field.key + WritingStyle.KeyValueSeparator}
+              </Typography>
             </TableCell>
             <TableCell>
               <FieldValue>{field.value}</FieldValue>

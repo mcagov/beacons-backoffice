@@ -1,11 +1,12 @@
 import { render, screen } from "@testing-library/react";
+import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
 import { FieldValue } from "./FieldValue";
 
 describe("FieldValue", () => {
-  it("renders undefined values as 'NO DATA ENTERED'", () => {
+  it("renders undefined values as the MCA 'NO DATA' placeholder", () => {
     render(<FieldValue>{undefined}</FieldValue>);
 
-    expect(screen.getByText("NO DATA ENTERED")).toBeVisible();
+    expect(screen.getByText(Placeholders.NoData)).toBeVisible();
   });
 
   it("renders string values in bold", () => {

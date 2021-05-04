@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { testSingleBeacon } from "../testData/testBeacons";
-import { Style } from "../useCases/mcaWritingStyleFormatter";
+import { Placeholders } from "../useCases/mcaWritingStyleFormatter";
 import { BeaconSummaryPanel } from "./BeaconSummaryPanel";
 
 describe("BeaconSummaryPanel", () => {
@@ -72,6 +72,6 @@ describe("BeaconSummaryPanel", () => {
       />
     );
 
-    expect(await screen.findByText(Style.NoData)).toBeVisible();
+    expect(await screen.findByText(Placeholders.NoData)).toBeVisible();
   });
 });

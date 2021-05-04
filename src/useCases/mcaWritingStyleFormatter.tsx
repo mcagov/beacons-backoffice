@@ -2,6 +2,14 @@ import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
 import { IUse } from "../entities/IUse";
 
+export enum WritingStyle {
+  KeyValueSeparator = ":",
+}
+
+export enum Placeholders {
+  NoData = "NO DATA ENTERED",
+}
+
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   const [, month, day, year] = date.toDateString().split(" ");
@@ -35,7 +43,11 @@ export const formatEmergencyContacts = (
   emergencyContacts: IEmergencyContact[]
 ): string => `${emergencyContacts.length} listed`;
 
-export enum Style {
-  NoData = "NO DATA ENTERED",
-  KeyValueSeparator = ":",
-}
+export const formatFieldValue = (value: string | undefined): JSX.Element => {
+  switch (typeof value) {
+    case "undefined":
+      return <i>{Placeholders.NoData}</i>;
+    case "string":
+      return <b>{value.toLocaleUpperCase()}</b>;
+  }
+};
