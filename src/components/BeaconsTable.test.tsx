@@ -1,15 +1,15 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { testBeacons } from "../gateways/BeaconsGateway.testData";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { BeaconsTable, formatUses } from "./BeaconsTable";
-import { Activities, Environments, Purposes } from "../entities/IUse";
+import { beaconsGatewayFixture } from "gateways/BeaconsGateway.fixture";
+import { IBeaconsGateway } from "gateways/IBeaconsGateway";
+import { BeaconsTable } from "./BeaconsTable";
 
 describe("<BeaconsTable>", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
 
   beforeEach(() => {
     beaconsGatewayDouble = {
-      getAllBeacons: jest.fn().mockResolvedValue(testBeacons),
+      getAllBeacons: jest.fn().mockResolvedValue(beaconsGatewayFixture),
+      getBeacon: jest.fn(),
     };
   });
 
@@ -30,78 +30,22 @@ describe("<BeaconsTable>", () => {
   it("displays the returned beacon data in the table", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
-    expect(await screen.findByText(testBeacons[0].hexId)).toBeVisible();
+    expect(await screen.findByText("Hex me difficultly")).toBeVisible();
   });
 
-  it("displays 20 rows per page", async () => {
+  it("displays 3 rows when 3 beacons are returned from the gateway", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
-    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(20);
+    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(3);
   });
 
   it("can click on the hex ID to see more details about the beacon", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
-    const hexIdField = await screen.findByText(testBeacons[0].hexId);
+    const hexIdField = await screen.findByText("Hex me");
 
     expect(hexIdField.getAttribute("href")).toBe(
-      "/beacons/" + testBeacons[0].id
+      "/beacons/97b306aa-cbd0-4f09-aa24-2d876b983efb"
     );
-  });
-});
-
-describe("formatUses()", () => {
-  const expectations = [
-    { in: [], out: "" },
-    {
-      in: [
-        {
-          environment: Environments.Maritime,
-          purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
-          moreDetails: "Bottom trawling for fish fingers",
-        },
-      ],
-      out: "Fishing Vessel (Commercial)",
-    },
-    {
-      in: [
-        {
-          environment: Environments.Maritime,
-          purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
-          moreDetails: "Bottom trawling for fish fingers",
-        },
-        {
-          environment: Environments.Aviation,
-          purpose: Purposes.Pleasure,
-          activity: Activities.Glider,
-          moreDetails: "Fly at the local gliding club every fortnight",
-        },
-      ],
-      out: "Fishing Vessel (Commercial), Glider (Pleasure)",
-    },
-    {
-      in: [
-        {
-          environment: Environments.Maritime,
-          purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
-          moreDetails: "Bottom trawling for fish fingers",
-        },
-        {
-          environment: Environments.Land,
-          activity: Activities.ClimbingMountaineering,
-          moreDetails: "Hiking at the weekends",
-        },
-      ],
-      out: "Fishing Vessel (Commercial), Climbing Mountaineering",
-    },
-  ];
-
-  expectations.forEach((expectation) => {
-    it(`formats ${expectation.in} ==> ${expectation.out}`, () => {
-      expect(formatUses(expectation.in)).toEqual(expectation.out);
-    });
   });
 });

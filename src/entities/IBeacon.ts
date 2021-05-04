@@ -1,24 +1,31 @@
-import { v4 as uuid } from "uuid";
 import { IEmergencyContact } from "./IEmergencyContact";
 import { IOwner } from "./IOwner";
 import { IUse } from "./IUse";
 
 export interface IBeacon {
-  id: typeof uuid;
+  id: string;
   hexId: string;
-  registeredDate: Date;
+  type?: BeaconTypes;
+  protocolCode?: string;
+  registeredDate: string;
   status: string;
   manufacturer: string;
   model: string;
   manufacturerSerialNumber: string;
   chkCode: string;
-  batteryExpiryDate: Date;
-  lastServicedDate: Date;
+  batteryExpiryDate: string;
+  lastServicedDate: string;
   uses: IUse[];
-  owner: IOwner;
+  owners: IOwner[];
   emergencyContacts: IEmergencyContact[];
 }
 
 export enum BeaconStatuses {
-  new = "NEW",
+  New = "NEW",
+}
+
+export enum BeaconTypes {
+  Epirb = "EPIRB",
+  Plb = "PLB",
+  Elt = "ELT",
 }

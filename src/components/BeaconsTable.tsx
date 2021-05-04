@@ -16,6 +16,7 @@ import {
   Search,
   ViewColumn,
 } from "@material-ui/icons";
+import { IBeaconsGateway } from "gateways/IBeaconsGateway";
 import MaterialTable, { Icons, MTableBodyRow } from "material-table";
 import React, {
   forwardRef,
@@ -23,10 +24,20 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { IBeacon } from "../entities/IBeacon";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { formatDate, titleCase } from "../useCases/mcaWritingStyleFormatter";
-import { IUse } from "../entities/IUse";
+import {
+  formatDate,
+  formatUses,
+  titleCase,
+} from "useCases/mcaWritingStyleFormatter";
+
+interface BeaconTableListRow {
+  hexId: string;
+  owner: string;
+  uses: string;
+  id: string;
+  date: string;
+  status: string;
+}
 
 interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
@@ -35,7 +46,7 @@ interface IBeaconsTableProps {
 interface IBeaconsTableState {
   isLoading: Boolean;
   error: Boolean;
-  beacons: IBeacon[];
+  beacons: BeaconTableListRow[];
 }
 
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
@@ -79,7 +90,16 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     const fetchBeacons = async () => {
       setState({ ...state, isLoading: true });
       try {
-        const beacons = await beaconsGateway.getAllBeacons();
+        const response = await beaconsGateway.getAllBeacons();
+
+        const beacons = response.data.map((item: any) => ({
+          date: formatDate(item.attributes.createdDate),
+          status: titleCase(item.attributes.status),
+          hexId: item.attributes.hexId,
+          owner: item.attributes.owner.fullName,
+          uses: formatUses(item.attributes.uses),
+          id: item.id,
+        }));
         setState({
           ...state,
           isLoading: false,
@@ -97,17 +117,6 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
 
     fetchBeacons(); // TODO: What events should cause new beacons to be fetched?  Currently once on first render
   }, []); // eslint-disable-line
-
-  const tableData = state.beacons.map((beacon: IBeacon) => {
-    return {
-      date: formatDate(beacon.registeredDate),
-      status: titleCase(beacon.status),
-      hexId: beacon.hexId,
-      owner: beacon.owner.fullName,
-      uses: formatUses(beacon.uses),
-      id: beacon.id,
-    };
-  });
 
   return (
     <MaterialTable
@@ -147,7 +156,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           sorting: true,
         },
       ]}
-      data={tableData}
+      data={state.beacons}
       title=""
       options={{
         filtering: true,
@@ -162,16 +171,4 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       }}
     />
   );
-};
-
-export const formatUses = (uses: IUse[]): string =>
-  uses.reduce((formattedUses, use, index, uses) => {
-    if (index === uses.length - 1) return formattedUses + formatUse(use);
-    return formattedUses + formatUse(use) + ", ";
-  }, "");
-
-const formatUse = (use: IUse): string => {
-  const formattedActivity = titleCase(use.activity);
-  const formattedPurpose = use.purpose ? ` (${titleCase(use.purpose)})` : "";
-  return formattedActivity + formattedPurpose;
 };
