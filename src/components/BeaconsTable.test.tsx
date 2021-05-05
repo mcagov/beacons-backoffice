@@ -45,7 +45,7 @@ describe("<BeaconsTable>", () => {
     const hexIdField = await screen.findByText("Hex me");
 
     expect(hexIdField.getAttribute("href")).toBe(
-      "/beacons/97b306aa-cbd0-4f09-aa24-2d876b983efb"
+      "/#/beacons/97b306aa-cbd0-4f09-aa24-2d876b983efb"
     );
   });
 });
