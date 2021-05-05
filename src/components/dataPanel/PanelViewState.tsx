@@ -13,7 +13,7 @@ import { FieldValue } from "./FieldValue";
 
 type IFieldValue = string | undefined;
 
-interface IField {
+export interface IField {
   key: string;
   value: IFieldValue | IFieldValue[];
 }

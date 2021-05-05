@@ -16,7 +16,7 @@ export const EmergencyContactSummaryPanel = () => {
   return (
     <>
       {fields.map((field, index) => (
-        <Card>
+        <Card key={index}>
           <CardContent>
             <CardHeader title={`Emergency Contact ${index + 1}`} />
             <PanelViewState fields={field} />

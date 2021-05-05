@@ -58,7 +58,10 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
         <TabPanel value={value} index={0}>
           <Grid direction="row" container justify="space-between" spacing={1}>
             <Grid item xs={6}>
-              <OwnerSummaryPanel />
+              <OwnerSummaryPanel
+                beaconsGateway={beaconsGateway}
+                beaconId={beaconId}
+              />
             </Grid>
             <Grid item xs={6}>
               <EmergencyContactSummaryPanel />
