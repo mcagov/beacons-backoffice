@@ -76,7 +76,7 @@ export class BeaconResponseTranslator implements IBeaconResponseTranslator {
   }
 
   private translateUses(beaconApiResponse: IBeaconResponse): IUse[] {
-    return (beaconApiResponse.included
+    return beaconApiResponse.included
       .filter((entity) => entity.type === "beaconUse")
       .map((use) => {
         return {
@@ -86,6 +86,6 @@ export class BeaconResponseTranslator implements IBeaconResponseTranslator {
           activity: use.attributes.activity,
           moreDetails: use.attributes.moreDetails,
         };
-      }) as unknown) as IUse[];
+      });
   }
 }
