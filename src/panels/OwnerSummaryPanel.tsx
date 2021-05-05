@@ -1,5 +1,8 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { PanelViewState } from "components/dataPanel/PanelViewState";
+import {
+  DataPanelStates,
+  PanelViewState,
+} from "components/dataPanel/PanelViewState";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { IOwner } from "../entities/IOwner";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";

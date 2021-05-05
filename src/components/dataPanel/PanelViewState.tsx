@@ -24,6 +24,13 @@ interface IPanelViewStateProps {
   splitAfter?: number;
 }
 
+export enum DataPanelStates {
+  Loading = "LOADING",
+  Viewing = "VIEWING",
+  Editing = "EDITING",
+  Error = "ERROR",
+}
+
 export const PanelViewState: FunctionComponent<IPanelViewStateProps> = ({
   fields,
   columns = 1,
