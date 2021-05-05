@@ -18,8 +18,6 @@ if (
   makeServer();
 }
 
-console.log(process.env.NODE_ENV);
-
 const theme: Theme = createMuiTheme({
   palette: {
     primary: {
