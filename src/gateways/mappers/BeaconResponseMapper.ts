@@ -5,11 +5,11 @@ import { IUse } from "../../entities/IUse";
 import { IBeaconResponse } from "./IBeaconResponse";
 
 export interface IBeaconResponseMapper {
-  translate: (beaconApiResponse: IBeaconResponse) => IBeacon;
+  map: (beaconApiResponse: IBeaconResponse) => IBeacon;
 }
 
 export class BeaconResponseMapper implements IBeaconResponseMapper {
-  public translate(beaconApiResponse: IBeaconResponse): IBeacon {
+  public map(beaconApiResponse: IBeaconResponse): IBeacon {
     return {
       id: beaconApiResponse.data.id,
       hexId: beaconApiResponse.data.attributes.hexId,
@@ -24,13 +24,13 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       lastServicedDate: beaconApiResponse.data.attributes.lastServicedDate,
       manufacturerSerialNumber:
         beaconApiResponse.data.attributes.manufacturerSerialNumber,
-      owners: this.translateOwners(beaconApiResponse),
-      emergencyContacts: this.translateEmergencyContacts(beaconApiResponse),
-      uses: this.translateUses(beaconApiResponse),
+      owners: this.mapOwners(beaconApiResponse),
+      emergencyContacts: this.mapEmergencyContacts(beaconApiResponse),
+      uses: this.mapUses(beaconApiResponse),
     };
   }
 
-  private translateOwners(beaconApiResponse: IBeaconResponse): IOwner[] {
+  private mapOwners(beaconApiResponse: IBeaconResponse): IOwner[] {
     const ownerId = beaconApiResponse.data.relationships.owner.data.id;
 
     return beaconApiResponse.included
@@ -52,7 +52,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       });
   }
 
-  private translateEmergencyContacts(
+  private mapEmergencyContacts(
     beaconApiResponse: IBeaconResponse
   ): IEmergencyContact[] {
     const emergencyContactIds = beaconApiResponse.data.relationships.emergencyContacts.data.map(
@@ -75,7 +75,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
     });
   }
 
-  private translateUses(beaconApiResponse: IBeaconResponse): IUse[] {
+  private mapUses(beaconApiResponse: IBeaconResponse): IUse[] {
     return beaconApiResponse.included
       .filter((entity) => entity.type === "beaconUse")
       .map((use) => {

@@ -1,14 +1,14 @@
 import axios from "axios";
 import { applicationConfig } from "../config";
 import { BeaconsGateway } from "./BeaconsGateway";
-import { IBeaconResponseMapper } from "./translators/BeaconResponseMapper";
+import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
 jest.mock("axios");
 jest.useFakeTimers();
 
 describe("BeaconsGateway", () => {
-  const beaconResponseTranslator: IBeaconResponseMapper = {
-    translate: jest.fn(),
+  const beaconResponseMapper: IBeaconResponseMapper = {
+    map: jest.fn(),
   };
 
   describe("getAllBeacons()", () => {
@@ -17,7 +17,7 @@ describe("BeaconsGateway", () => {
     });
 
     it("queries the correct endpoint", () => {
-      const gateway = new BeaconsGateway(beaconResponseTranslator);
+      const gateway = new BeaconsGateway(beaconResponseMapper);
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
@@ -30,7 +30,7 @@ describe("BeaconsGateway", () => {
     });
 
     it("handles errors", async () => {
-      const gateway = new BeaconsGateway(beaconResponseTranslator);
+      const gateway = new BeaconsGateway(beaconResponseMapper);
 
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.reject(new Error()));
@@ -45,7 +45,7 @@ describe("BeaconsGateway", () => {
     });
 
     it("queries the correct endpoint", () => {
-      const gateway = new BeaconsGateway(beaconResponseTranslator);
+      const gateway = new BeaconsGateway(beaconResponseMapper);
       const beaconId = "f48e8212-2e10-4154-95c7-bdfd061bcfd2";
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
@@ -59,7 +59,7 @@ describe("BeaconsGateway", () => {
     });
 
     it("handles errors", async () => {
-      const gateway = new BeaconsGateway(beaconResponseTranslator);
+      const gateway = new BeaconsGateway(beaconResponseMapper);
 
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.reject(new Error()));

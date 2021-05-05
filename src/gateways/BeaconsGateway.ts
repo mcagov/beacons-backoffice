@@ -3,14 +3,14 @@ import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "./IBeaconsGateway";
-import { IBeaconResponseMapper } from "./translators/BeaconResponseMapper";
+import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
 export class BeaconsGateway implements IBeaconsGateway {
   timeoutMs = 10000;
-  private _translator;
+  private _beaconResponseMapper;
 
-  public constructor(beaconResponseTranslator: IBeaconResponseMapper) {
-    this._translator = beaconResponseTranslator;
+  public constructor(beaconResponseMapper: IBeaconResponseMapper) {
+    this._beaconResponseMapper = beaconResponseMapper;
   }
 
   public async getAllBeacons(): Promise<IBeaconSearchResult> {
@@ -18,7 +18,7 @@ export class BeaconsGateway implements IBeaconsGateway {
       const response = await axios.get(`${applicationConfig.apiUrl}/beacons`, {
         timeout: this.timeoutMs,
       });
-      // TODO: Add translate step to /beacons endpoint
+      // TODO: Add map step to /beacons endpoint
       return response.data;
     } catch (e) {
       throw Error(e);
@@ -31,7 +31,7 @@ export class BeaconsGateway implements IBeaconsGateway {
         `${applicationConfig.apiUrl}/beacon/${beaconId}`,
         { timeout: this.timeoutMs }
       );
-      return this._translator.translate(response.data);
+      return this._beaconResponseMapper.map(response.data);
     } catch (e) {
       throw Error(e);
     }
