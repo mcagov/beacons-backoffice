@@ -64,17 +64,6 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
               <EmergencyContactSummaryPanel />
             </Grid>
           </Grid>
-          {/*
-              <Paper>
-                <List>
-                  <ListItem key="99" divider alignItems="flex-start">
-                    <ListItemText primary="LABEL" />
-                    <ListItemText primary="DATA" />
-                  </ListItem>
-                </List>
-              </Paper>
-            </Grid>
-          </Grid> */}
         </TabPanel>
         <TabPanel value={value} index={1}>
           Hello I am beacon use
