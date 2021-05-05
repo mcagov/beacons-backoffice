@@ -1,12 +1,7 @@
-import {
-  Box,
-  CardHeader,
-  CircularProgress,
-  Paper,
-  Typography,
-} from "@material-ui/core";
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import { CardHeader, Paper } from "@material-ui/core";
+import { FunctionComponent, useEffect, useState } from "react";
+import { ErrorState } from "../components/dataPanel/PanelErrorState";
+import { LoadingState } from "../components/dataPanel/PanelLoadingState";
 import { PanelViewState } from "../components/dataPanel/PanelViewState";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
@@ -117,22 +112,3 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
     </Paper>
   );
 };
-
-interface IPanelError {
-  message: string;
-}
-
-const LoadingState: FunctionComponent = () => (
-  <Box textAlign="center">
-    <CircularProgress />
-  </Box>
-);
-
-const ErrorState: FunctionComponent<IPanelError> = ({
-  message,
-}): JSX.Element => (
-  <Box role="alert" textAlign="center">
-    <ErrorOutlineIcon />
-    <Typography>{message}</Typography>
-  </Box>
-);
