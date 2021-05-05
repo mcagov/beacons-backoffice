@@ -53,7 +53,7 @@ describe("BeaconsGateway", () => {
       gateway.getBeacon(beaconId);
 
       expect(axios.get).toHaveBeenCalledWith(
-        `${applicationConfig.apiUrl}/beacon/${beaconId}`,
+        `${applicationConfig.apiUrl}/beacons/${beaconId}`,
         expect.anything()
       );
     });
