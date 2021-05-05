@@ -4,6 +4,11 @@ import { singleBeaconApiResponseFixture } from "./fixtures/singleBeaconApiRespon
 import { manyBeaconsApiResponseFixture } from "./fixtures/manyBeaconsApiResponse.fixture";
 
 export function makeServer({ environment = "development" } = {}) {
+  const authDomains = [
+    "https://*.msftauth.net/**",
+    "https://login.live.com/**",
+    "https://login.microsoftonline.com/**",
+  ];
   return createServer({
     environment,
 
@@ -18,6 +23,8 @@ export function makeServer({ environment = "development" } = {}) {
       this.get(`${applicationConfig.apiUrl}/beacon/:id`, () => {
         return singleBeaconApiResponseFixture;
       });
+
+      this.passthrough(...authDomains);
     },
   });
 }
