@@ -1,10 +1,5 @@
 export const singleBeaconApiResponseFixture = Object.freeze({
   meta: {},
-  links: {
-    self: "IDK",
-    next: "IDK",
-    last: "IDK",
-  },
   data: {
     type: "beacon",
     id: "f48e8212-2e10-4154-95c7-bdfd061bcfd2",
@@ -23,35 +18,20 @@ export const singleBeaconApiResponseFixture = Object.freeze({
     },
     relationships: {
       uses: {
-        links: {
-          self: "IDK",
-          related: "IDK",
-        },
         data: [{ type: "beaconUse", id: "1" }],
       },
       owner: {
-        links: {
-          self: "IDK",
-          related: "IDK",
-        },
         data: {
           type: "beaconPerson",
           id: "cb2e9fd2-45bb-4865-a04c-add5bb7c34a7",
         },
       },
       emergencyContacts: {
-        links: {
-          self: "IDK",
-          related: "IDK",
-        },
         data: [
           { type: "beaconPerson", id: "5ffd1b86-d347-49e2-b821-4550c72666c1" },
           { type: "beaconPerson", id: "3851e8c7-6e4e-4827-ab8f-b904f845582f" },
         ],
       },
-    },
-    links: {
-      self: "IDK",
     },
   },
   included: [
@@ -63,9 +43,6 @@ export const singleBeaconApiResponseFixture = Object.freeze({
         purpose: "COMMERCIAL",
         activity: "FISHING_VESSEL",
         moreDetails: "I take people out in my yacht.",
-      },
-      links: {
-        self: "IDK",
       },
     },
     {
@@ -81,9 +58,6 @@ export const singleBeaconApiResponseFixture = Object.freeze({
         county: "Yorkshire",
         postcode: "BS8 7NW",
       },
-      links: {
-        self: "IDK",
-      },
     },
     {
       type: "beaconPerson",
@@ -93,9 +67,6 @@ export const singleBeaconApiResponseFixture = Object.freeze({
         telephoneNumber: "02392 856621",
         alternativeTelephoneNumber: "02392 856622",
       },
-      links: {
-        self: "IDK",
-      },
     },
     {
       type: "beaconPerson",
@@ -104,9 +75,6 @@ export const singleBeaconApiResponseFixture = Object.freeze({
         fullName: "Neil Hamilton",
         telephoneNumber: "04392 856626",
         alternativeTelephoneNumber: "04392 856625",
-      },
-      links: {
-        self: "IDK",
       },
     },
   ],

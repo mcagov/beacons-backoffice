@@ -19,29 +19,14 @@ export interface IBeaconResponse extends IApiResponse {
     };
     relationships: {
       uses: {
-        links: {
-          self: string;
-          related: string;
-        };
         data: { type: string; id: string }[];
       };
       owner: {
-        links: {
-          self: string;
-          related: string;
-        };
         data: { type: string; id: string };
       };
       emergencyContacts: {
-        links: {
-          self: string;
-          related: string;
-        };
         data: { type: string; id: string }[];
       };
-    };
-    links: {
-      self: string;
     };
   };
 }
