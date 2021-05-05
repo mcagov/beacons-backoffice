@@ -4,7 +4,7 @@ import { emergencyContactsFixture } from "./emergencyContacts.fixture";
 import { testOwners } from "./owner.fixture";
 import { usesFixture } from "./uses.fixture";
 
-export const beaconFixture: IBeacon = {
+export const beaconFixture: IBeacon = Object.freeze({
   id: "f48e8212-2e10-4154-95c7-bdfd061bcfd2",
   hexId: "1D0EA08C52FFBFF",
   type: BeaconTypes.Epirb,
@@ -20,7 +20,7 @@ export const beaconFixture: IBeacon = {
   uses: usesFixture,
   owners: testOwners,
   emergencyContacts: emergencyContactsFixture,
-};
+});
 
 const ukHexIds = [
   "1D04FF28FD28123",
