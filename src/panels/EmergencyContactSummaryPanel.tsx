@@ -27,6 +27,7 @@ export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSum
           setEmergencyContacts(beacon.emergencyContacts);
         }
       } catch (error) {
+        // TODO: Confirm with UCD what user feedback should be displayed if an error has occured when fetching a beacon
         console.error(error);
       }
     };
@@ -36,7 +37,7 @@ export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSum
     return () => {
       isMounted = false;
     };
-  }, [beaconId]);
+  }, [beaconId, beaconsGateway]);
 
   const fields = emergencyContacts.map((emergencyContact) => [
     { key: "Name", value: emergencyContact.fullName },

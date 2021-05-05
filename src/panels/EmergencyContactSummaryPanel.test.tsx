@@ -48,7 +48,7 @@ describe("Emergency Contact Summary Panel", () => {
     expect(await screen.findByText(/Emergency Contact 2/i)).toBeInTheDocument();
   });
 
-  it("should display notice when no emergency contacts exist", async () => {
+  it("should display a notice when no emergency contacts exist", async () => {
     const noEmergencyContactBeacon = { ...beaconFixture };
     noEmergencyContactBeacon.emergencyContacts = [];
 
