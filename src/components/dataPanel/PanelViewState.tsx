@@ -11,15 +11,24 @@ import React, { FunctionComponent } from "react";
 import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
 import { FieldValue } from "./FieldValue";
 
-interface IField {
+type IFieldValue = string | undefined;
+
+export interface IField {
   key: string;
-  value: string | undefined;
+  value: IFieldValue | IFieldValue[];
 }
 
 interface IPanelViewStateProps {
   fields: IField[];
   columns?: 1 | 2;
   splitAfter?: number;
+}
+
+export enum DataPanelStates {
+  Loading = "LOADING",
+  Viewing = "VIEWING",
+  Editing = "EDITING",
+  Error = "ERROR",
 }
 
 export const PanelViewState: FunctionComponent<IPanelViewStateProps> = ({
@@ -42,18 +51,24 @@ const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
   <TableContainer>
     <Table size="small">
       <TableBody>
-        {fields.map((field, index) => (
-          <TableRow key={index}>
-            <TableCell component="th" scope="row">
-              <Typography>
-                {field.key + WritingStyle.KeyValueSeparator}
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <FieldValue>{field.value}</FieldValue>
-            </TableCell>
-          </TableRow>
-        ))}
+        {fields.map((field, index) => {
+          const valuesAsArray =
+            field.value instanceof Array ? field.value : [field.value];
+          return (
+            <TableRow key={index}>
+              <TableCell component="th" scope="row">
+                <Typography>
+                  {field.key + WritingStyle.KeyValueSeparator}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                {valuesAsArray.map((value, index) => (
+                  <FieldValue key={index}>{value}</FieldValue>
+                ))}
+              </TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   </TableContainer>

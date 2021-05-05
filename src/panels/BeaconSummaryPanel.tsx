@@ -1,13 +1,17 @@
 import {
   Box,
+  Card,
+  CardContent,
   CardHeader,
   CircularProgress,
-  Paper,
   Typography,
 } from "@material-ui/core";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { PanelViewState } from "../components/dataPanel/PanelViewState";
+import {
+  DataPanelStates,
+  PanelViewState,
+} from "../components/dataPanel/PanelViewState";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import {
@@ -19,13 +23,6 @@ import {
 interface IBeaconSummaryProps {
   beaconsGateway: IBeaconsGateway;
   beaconId: string;
-}
-
-enum DataPanelStates {
-  Loading = "LOADING",
-  Viewing = "VIEWING",
-  Editing = "EDITING",
-  Error = "ERROR",
 }
 
 export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
@@ -111,10 +108,12 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
   };
 
   return (
-    <Paper>
-      <CardHeader title="Summary" />
-      {renderState(state)}
-    </Paper>
+    <Card>
+      <CardContent>
+        <CardHeader title="Summary" />
+        {renderState(state)}
+      </CardContent>
+    </Card>
   );
 };
 

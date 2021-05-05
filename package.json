@@ -17,8 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "git diff HEAD --quiet && npm run test -- --watchAll=false"
+      "pre-commit": "lint-staged"
     }
   },
   "dependencies": {
