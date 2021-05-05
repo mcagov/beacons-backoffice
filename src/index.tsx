@@ -11,9 +11,14 @@ import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
 import { makeServer } from "./server";
 
-if (process.env.NODE_ENV === "development") {
+if (
+  process.env.NODE_ENV === "development" &&
+  process.env.REACT_NO_API_STUB === "true"
+) {
   makeServer();
 }
+
+console.log(process.env.NODE_ENV);
 
 const theme: Theme = createMuiTheme({
   palette: {
