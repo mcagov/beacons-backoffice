@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs } from "@material-ui/core";
+import { Grid, Paper, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { OwnerSummaryPanel } from "panels/OwnerSummaryPanel";
 import React, { FunctionComponent } from "react";
@@ -7,6 +7,7 @@ import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { BeaconSummaryPanel } from "../panels/BeaconSummaryPanel";
+import { EmergencyContactSummaryPanel } from "../panels/EmergencyContactSummaryPanel";
 
 interface ISingleBeaconRecordViewProps {
   beaconsGateway: IBeaconsGateway;
@@ -55,8 +56,15 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           <Tab label={`${numberOfUses} Registered Uses`} />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <OwnerSummaryPanel />
-          {/* <Grid item xs={6}>
+          <Grid direction="row" container justify="space-between" spacing={1}>
+            <Grid item xs={6}>
+              <OwnerSummaryPanel />
+            </Grid>
+            <Grid item xs={6}>
+              <EmergencyContactSummaryPanel />
+            </Grid>
+          </Grid>
+          {/*
               <Paper>
                 <List>
                   <ListItem key="99" divider alignItems="flex-start">
