@@ -21,6 +21,6 @@ describe("Owner Summary Panel", () => {
       />
     );
 
-    expect(await screen.findByText(/Steve Stevington/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Steve Stevington/i)).toBeVisible();
   });
 });

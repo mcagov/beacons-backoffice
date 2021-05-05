@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { IField, PanelViewState } from "components/dataPanel/PanelViewState";
+import { PanelViewState } from "components/dataPanel/PanelViewState";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 
 interface EmergencyContactSummaryPanelProps {
@@ -12,33 +13,39 @@ export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSum
   beaconsGateway,
   beaconId,
 }) => {
-  const [fields, setFields] = useState<IField[][]>([]);
+  const [emergencyContacts, setEmergencyContacts] = useState<
+    IEmergencyContact[]
+  >([]);
 
-  useEffect((): void => {
+  useEffect((): Destructor => {
+    let isMounted = true;
+
     const fetchBeacon = async (id: string) => {
       try {
         const beacon = await beaconsGateway.getBeacon(id);
-        const emergencyContacts = beacon.emergencyContacts.map(
-          (emergencyContact) => [
-            { key: "Name", value: emergencyContact.fullName },
-            {
-              key: "Telephone",
-              value: [
-                emergencyContact.telephoneNumber,
-                emergencyContact.alternativeTelephoneNumber,
-              ],
-            },
-          ]
-        );
-
-        setFields(emergencyContacts);
+        if (isMounted) {
+          setEmergencyContacts(beacon.emergencyContacts);
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchBeacon(beaconId);
-  }, []);
+
+    return () => (isMounted = false);
+  }, [beaconId]);
+
+  const fields = emergencyContacts.map((emergencyContact) => [
+    { key: "Name", value: emergencyContact.fullName },
+    {
+      key: "Telephone",
+      value: [
+        emergencyContact.telephoneNumber,
+        emergencyContact.alternativeTelephoneNumber,
+      ],
+    },
+  ]);
 
   if (fields.length > 0) {
     return (

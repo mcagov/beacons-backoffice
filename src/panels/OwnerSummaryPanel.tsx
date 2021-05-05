@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { IField, PanelViewState } from "components/dataPanel/PanelViewState";
+import { PanelViewState } from "components/dataPanel/PanelViewState";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { IOwner } from "../entities/IOwner";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 
 interface OwnerSummaryPanelProps {
@@ -12,31 +13,42 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
   beaconsGateway,
   beaconId,
 }) => {
-  const [fields, setFields] = useState<IField[]>([]);
+  const [owner, setOwner] = useState<IOwner>();
 
-  useEffect((): void => {
+  useEffect((): Destructor => {
+    let isMounted = true;
     const fetchBeacon = async (id: string) => {
-      const beacon = await beaconsGateway.getBeacon(id);
-      const owner = beacon.owners[0];
-      setFields([
-        { key: "Name", value: owner.fullName },
-        { key: "Telephone", value: owner.telephoneNumber },
-        { key: "Email", value: owner.email },
-        {
-          key: "Address",
-          value: [
-            owner.addressLine1,
-            owner.addressLine2,
-            owner.townOrCity,
-            owner.county,
-            owner.postcode,
-          ],
-        },
-      ]);
+      try {
+        const beacon = await beaconsGateway.getBeacon(id);
+
+        if (isMounted) {
+          setOwner(beacon.owners[0]);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchBeacon(beaconId);
-  }, [beaconId, beaconsGateway]);
+
+    return () => (isMounted = false);
+  }, []);
+
+  const fields = [
+    { key: "Name", value: owner?.fullName },
+    { key: "Telephone", value: owner?.telephoneNumber },
+    { key: "Email", value: owner?.email },
+    {
+      key: "Address",
+      value: [
+        owner?.addressLine1,
+        owner?.addressLine2,
+        owner?.townOrCity,
+        owner?.county,
+        owner?.postcode,
+      ],
+    },
+  ];
 
   return (
     <Card>
