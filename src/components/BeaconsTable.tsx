@@ -141,7 +141,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           filtering: false,
           sorting: true,
           render: (rowData) => (
-            <Link href={"/beacons/" + rowData.id}>{rowData.hexId}</Link>
+            <Link href={"/#/beacons/" + rowData.id}>{rowData.hexId}</Link>
           ),
         },
         {

@@ -12,6 +12,7 @@ import { Home } from "./components/Home";
 import { Footer } from "./components/layout/Footer";
 import { Navigation } from "./components/layout/Navigation";
 import { BeaconsGateway } from "./gateways/BeaconsGateway";
+import { BeaconResponseMapper } from "./gateways/mappers/BeaconResponseMapper";
 import { BeaconRecordsListView } from "./views/BeaconRecordsListView";
 import { SingleBeaconRecordView } from "./views/SingleBeaconRecordView";
 
@@ -20,7 +21,8 @@ interface ResourceParams {
 }
 
 const App: FunctionComponent = () => {
-  const beaconsGateway = new BeaconsGateway();
+  const beaconResponseMapper = new BeaconResponseMapper();
+  const beaconsGateway = new BeaconsGateway(beaconResponseMapper);
 
   const SingleBeaconRecordViewWithParam: FunctionComponent = () => {
     const { id } = useParams<ResourceParams>();
@@ -41,7 +43,7 @@ const App: FunctionComponent = () => {
             <Route path="/beacon-records">
               <BeaconRecordsListView beaconsGateway={beaconsGateway} />
             </Route>
-            <Route path="/beacon/:id">
+            <Route path="/beacons/:id">
               <SingleBeaconRecordViewWithParam />
             </Route>
           </Switch>

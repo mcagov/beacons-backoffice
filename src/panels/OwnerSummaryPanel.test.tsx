@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
+import { beaconFixture } from "fixtures/beacons.fixture";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { testSingleBeacon } from "../testData/testBeacons";
 import { OwnerSummaryPanel } from "./OwnerSummaryPanel";
 
 describe("Owner Summary Panel", () => {
@@ -8,7 +8,7 @@ describe("Owner Summary Panel", () => {
 
   beforeEach(() => {
     beaconsGatewayDouble = {
-      getBeacon: jest.fn().mockResolvedValue(testSingleBeacon),
+      getBeacon: jest.fn().mockResolvedValue(beaconFixture),
       getAllBeacons: jest.fn(),
     };
   });
@@ -17,7 +17,7 @@ describe("Owner Summary Panel", () => {
     render(
       <OwnerSummaryPanel
         beaconsGateway={beaconsGatewayDouble}
-        beaconId={testSingleBeacon.id}
+        beaconId={beaconFixture.id}
       />
     );
 

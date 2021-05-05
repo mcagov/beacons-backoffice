@@ -9,6 +9,14 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
+import { makeServer } from "./server";
+
+if (
+  process.env.NODE_ENV === "development" &&
+  process.env.REACT_APP_NO_API_STUB !== "true"
+) {
+  makeServer();
+}
 
 const theme: Theme = createMuiTheme({
   palette: {

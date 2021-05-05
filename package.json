@@ -5,6 +5,7 @@
   "scripts": {
     "postinstall": "cp .env.example .env.local",
     "start": "react-scripts start",
+    "start:no-api-stub": "REACT_APP_NO_API_STUB=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:watch": "react-scripts test --watch",
@@ -47,6 +48,7 @@
     "jest-canvas-mock": "^2.3.1",
     "lint-staged": "^10.5.4",
     "material-table": "^1.69.3",
+    "miragejs": "^0.1.41",
     "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
     "prettier-plugin-organize-imports": "^1.1.1",

@@ -29,6 +29,7 @@ export const PanelViewState: FunctionComponent<IPanelViewStateProps> = ({
   columns = 1,
   splitAfter = Math.ceil(fields.length / 2),
 }) => {
+  columns = splitAfter ? 2 : columns;
   switch (columns) {
     case 1:
       return <OneColumn fields={fields} />;
