@@ -64,7 +64,10 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
               />
             </Grid>
             <Grid item xs={6}>
-              <EmergencyContactSummaryPanel />
+              <EmergencyContactSummaryPanel
+                beaconsGateway={beaconsGateway}
+                beaconId={beaconId}
+              />
             </Grid>
           </Grid>
         </TabPanel>
