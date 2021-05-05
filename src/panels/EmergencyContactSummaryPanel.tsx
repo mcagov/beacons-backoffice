@@ -17,7 +17,7 @@ export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSum
     IEmergencyContact[]
   >([]);
 
-  useEffect((): Destructor => {
+  useEffect((): (() => void) => {
     let isMounted = true;
 
     const fetchBeacon = async (id: string) => {
@@ -33,7 +33,9 @@ export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSum
 
     fetchBeacon(beaconId);
 
-    return () => (isMounted = false);
+    return () => {
+      isMounted = false;
+    };
   }, [beaconId]);
 
   const fields = emergencyContacts.map((emergencyContact) => [

@@ -15,7 +15,7 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
 }) => {
   const [owner, setOwner] = useState<IOwner>();
 
-  useEffect((): Destructor => {
+  useEffect((): (() => void) => {
     let isMounted = true;
     const fetchBeacon = async (id: string) => {
       try {
@@ -31,7 +31,9 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
 
     fetchBeacon(beaconId);
 
-    return () => (isMounted = false);
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const fields = [
