@@ -10,11 +10,7 @@ import {
 import React, { FunctionComponent } from "react";
 import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
 import { FieldValue } from "./FieldValue";
-
-interface IField {
-  key: string;
-  value: string | undefined;
-}
+import { IField } from "./IField";
 
 interface IPanelViewStateProps {
   fields: IField[];
@@ -46,7 +42,7 @@ const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
           <TableRow key={index}>
             <TableCell component="th" scope="row">
               <Typography>
-                {field.key + WritingStyle.KeyValueSeparator}
+                {field.displayKey + WritingStyle.KeyValueSeparator}
               </Typography>
             </TableCell>
             <TableCell>

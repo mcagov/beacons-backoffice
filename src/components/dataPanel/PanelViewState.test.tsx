@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
+import { IField } from "./IField";
 import { PanelViewState } from "./PanelViewState";
 
 describe("PanelViewState", () => {
@@ -10,9 +11,10 @@ describe("PanelViewState", () => {
   });
 
   it("renders one field", () => {
-    const fields = [
+    const fields: IField[] = [
       {
-        key: "Manufacturer",
+        key: "manufacturer",
+        displayKey: "Manufacturer",
         value: "Ocean Signal",
       },
     ];
@@ -24,13 +26,15 @@ describe("PanelViewState", () => {
   });
 
   it("renders two fields", () => {
-    const fields = [
+    const fields: IField[] = [
       {
-        key: "Manufacturer",
+        key: "manufacturer",
+        displayKey: "Manufacturer",
         value: "Ocean Signal",
       },
       {
-        key: "Model",
+        key: "model",
+        displayKey: "Model",
         value: "Excelsior EPIRB",
       },
     ];
@@ -44,9 +48,10 @@ describe("PanelViewState", () => {
   });
 
   it("renders undefined fields", () => {
-    const fields = [
+    const fields: IField[] = [
       {
-        key: "CHK Code",
+        key: "chkCode",
+        displayKey: "CHK Code",
         value: undefined,
       },
     ];
@@ -58,21 +63,25 @@ describe("PanelViewState", () => {
   });
 
   it("can split into two even columns", () => {
-    const fields = [
+    const fields: IField[] = [
       {
-        key: "Manufacturer",
+        key: "manufacter",
+        displayKey: "Manufacturer",
         value: "Ocean Signal",
       },
       {
-        key: "Model",
+        key: "model",
+        displayKey: "Model",
         value: "Excelsior EPIRB",
       },
       {
-        key: "CHK Code",
+        key: "chkCode",
+        displayKey: "CHK Code",
         value: undefined,
       },
       {
-        key: "Type",
+        key: "type",
+        displayKey: "Type",
         value: "EPIRB",
       },
     ];
@@ -83,25 +92,30 @@ describe("PanelViewState", () => {
   });
 
   it("can split into two columns when there are an odd number of fields", () => {
-    const fields = [
+    const fields: IField[] = [
       {
-        key: "Manufacturer",
+        key: "manufacturer",
+        displayKey: "Manufacturer",
         value: "Ocean Signal",
       },
       {
-        key: "Model",
+        key: "model",
+        displayKey: "Model",
         value: "Excelsior EPIRB",
       },
       {
-        key: "CHK Code",
+        key: "chkCode",
+        displayKey: "CHK Code",
         value: undefined,
       },
       {
-        key: "Type",
+        key: "type",
+        displayKey: "Type",
         value: "EPIRB",
       },
       {
-        key: "Hex ID",
+        key: "hexId",
+        displayKey: "Hex ID",
         value: "1D0...",
       },
     ];
@@ -112,25 +126,30 @@ describe("PanelViewState", () => {
   });
 
   it("can split into two columns on a given index", () => {
-    const fields = [
+    const fields: IField[] = [
       {
-        key: "Manufacturer",
+        key: "manufacturer",
+        displayKey: "Manufacturer",
         value: "Ocean Signal",
       },
       {
-        key: "Model",
+        key: "model",
+        displayKey: "Model",
         value: "Excelsior EPIRB",
       },
       {
-        key: "CHK Code",
+        key: "chkCode",
+        displayKey: "CHK Code",
         value: undefined,
       },
       {
-        key: "Type",
+        key: "type",
+        displayKey: "Type",
         value: "EPIRB",
       },
       {
-        key: "Hex ID",
+        key: "hexId",
+        displayKey: "Hex ID",
         value: "1D0...",
       },
     ];
