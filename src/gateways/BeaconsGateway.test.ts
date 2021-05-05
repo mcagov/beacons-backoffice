@@ -1,13 +1,13 @@
 import axios from "axios";
 import { applicationConfig } from "../config";
 import { BeaconsGateway } from "./BeaconsGateway";
-import { IBeaconResponseTranslator } from "./translators/BeaconResponseTranslator";
+import { IBeaconResponseMapper } from "./translators/BeaconResponseMapper";
 
 jest.mock("axios");
 jest.useFakeTimers();
 
 describe("BeaconsGateway", () => {
-  const beaconResponseTranslator: IBeaconResponseTranslator = {
+  const beaconResponseTranslator: IBeaconResponseMapper = {
     translate: jest.fn(),
   };
 

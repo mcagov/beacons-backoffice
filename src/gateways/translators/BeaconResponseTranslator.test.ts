@@ -1,10 +1,10 @@
 import { IBeacon } from "../../entities/IBeacon";
 import { beaconFixture } from "../../fixtures/beacons.fixture";
 import { singleBeaconApiResponseFixture } from "../../fixtures/singleBeaconApiResponse.fixture";
-import { BeaconResponseTranslator } from "./BeaconResponseTranslator";
+import { BeaconResponseMapper } from "./BeaconResponseMapper";
 import { IBeaconResponse } from "./IBeaconResponse";
 
-describe("BeaconResponseTranslator", () => {
+describe("BeaconResponseMapper", () => {
   let beaconApiResponse: IBeaconResponse;
   let translatedBeacon: IBeacon;
 
@@ -14,7 +14,7 @@ describe("BeaconResponseTranslator", () => {
   });
 
   it("translates a single beacon API response payload to an IBeacon", () => {
-    const beaconTranslator = new BeaconResponseTranslator();
+    const beaconTranslator = new BeaconResponseMapper();
 
     expect(beaconTranslator.translate(beaconApiResponse)).toStrictEqual(
       translatedBeacon
@@ -26,7 +26,7 @@ describe("BeaconResponseTranslator", () => {
     const newTranslatedBeacon = { ...translatedBeacon };
     newResponse.data.attributes.model = "EPIRB2";
     newTranslatedBeacon.model = "EPIRB2";
-    const beaconTranslator = new BeaconResponseTranslator();
+    const beaconTranslator = new BeaconResponseMapper();
 
     expect(beaconTranslator.translate(newResponse)).toStrictEqual(
       newTranslatedBeacon

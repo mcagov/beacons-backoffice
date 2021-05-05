@@ -4,11 +4,11 @@ import { IOwner } from "../../entities/IOwner";
 import { IUse } from "../../entities/IUse";
 import { IBeaconResponse } from "./IBeaconResponse";
 
-export interface IBeaconResponseTranslator {
+export interface IBeaconResponseMapper {
   translate: (beaconApiResponse: IBeaconResponse) => IBeacon;
 }
 
-export class BeaconResponseTranslator implements IBeaconResponseTranslator {
+export class BeaconResponseMapper implements IBeaconResponseMapper {
   public translate(beaconApiResponse: IBeaconResponse): IBeacon {
     return {
       id: beaconApiResponse.data.id,

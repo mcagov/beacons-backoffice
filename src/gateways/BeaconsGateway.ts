@@ -3,13 +3,13 @@ import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "./IBeaconsGateway";
-import { IBeaconResponseTranslator } from "./translators/BeaconResponseTranslator";
+import { IBeaconResponseMapper } from "./translators/BeaconResponseMapper";
 
 export class BeaconsGateway implements IBeaconsGateway {
   timeoutMs = 10000;
   private _translator;
 
-  public constructor(beaconResponseTranslator: IBeaconResponseTranslator) {
+  public constructor(beaconResponseTranslator: IBeaconResponseMapper) {
     this._translator = beaconResponseTranslator;
   }
 
