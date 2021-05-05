@@ -3,7 +3,7 @@ import { applicationConfig } from "./config";
 import { singleBeaconApiResponseFixture } from "./fixtures/singleBeaconApiResponse.fixture";
 import { manyBeaconsApiResponseFixture } from "./fixtures/manyBeaconsApiResponse.fixture";
 
-export function makeServer({ environment = "test" } = {}) {
+export function makeServer({ environment = "development" } = {}) {
   return createServer({
     environment,
 
