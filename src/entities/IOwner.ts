@@ -1,4 +1,5 @@
 export interface IOwner {
+  id: string;
   fullName: string;
   email: string;
   telephoneNumber: string;

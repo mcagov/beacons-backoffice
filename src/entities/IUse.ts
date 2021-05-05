@@ -1,4 +1,5 @@
 export interface IUse {
+  id: string;
   environment: Environments;
   purpose?: string;
   activity: string;
@@ -17,7 +18,7 @@ export enum Purposes {
 }
 
 export enum Activities {
-  FishingVessel = "FISHING VESSEL",
+  FishingVessel = "FISHING_VESSEL",
   ClimbingMountaineering = "CLIMBING_MOUNTAINEERING",
   Glider = "GLIDER",
 }

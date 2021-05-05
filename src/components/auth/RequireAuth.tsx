@@ -28,7 +28,10 @@ export const RequireAuth: FunctionComponent<RequireAuthProps> = ({
 
 const ErrorComponent: FunctionComponent<MsalAuthenticationResult> = ({
   error,
-}) => <p>An Error Occurred: {error}</p>;
+}) => {
+  console.error(error);
+  return <p>An Error Occurred: {JSON.stringify(error)}</p>;
+};
 
 const LoadingComponent: FunctionComponent = () => (
   <p>Authentication in progress...</p>

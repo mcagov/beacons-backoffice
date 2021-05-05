@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs } from "@material-ui/core";
+import { Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FunctionComponent } from "react";
 import { PageContent } from "../components/layout/PageContent";
@@ -43,12 +43,10 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
         Hex ID/UIN: <b>{hexId}</b>
       </PageHeader>
       <PageContent>
-        <Paper className={classes.paper}>
-          <BeaconSummaryPanel
-            beaconsGateway={beaconsGateway}
-            beaconId={beaconId}
-          />
-        </Paper>
+        <BeaconSummaryPanel
+          beaconsGateway={beaconsGateway}
+          beaconId={beaconId}
+        />
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Owner & Emergency Contacts" />
           <Tab label={`${numberOfUses} Registered Uses`} />
