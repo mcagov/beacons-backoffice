@@ -63,7 +63,11 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       const emergencyContact = beaconApiResponse.included.find(
         (entity) =>
           entity.type === "beaconPerson" && entity.id === emergencyContactId
-      )!;
+      );
+
+      if (!emergencyContact)
+        throw ReferenceError(`${emergencyContactId} is defined as a relationship but not found in "included".  This is 
+      likely to be a problem with the API response`);
 
       return {
         id: emergencyContactId,
