@@ -13,6 +13,7 @@ export function makeServer({ environment = "development" } = {}) {
     environment,
 
     routes() {
+      console.log("Mirage: ", `${applicationConfig.apiUrl}/beacons`);
       this.get(`${applicationConfig.apiUrl}/beacons`, () => {
         // TODO: Update manyBeaconsApiResponseFixture to match endpoint
         return {
@@ -20,7 +21,7 @@ export function makeServer({ environment = "development" } = {}) {
         };
       });
 
-      this.get(`${applicationConfig.apiUrl}/beacon/:id`, () => {
+      this.get(`${applicationConfig.apiUrl}/beacons/:id`, () => {
         return singleBeaconApiResponseFixture;
       });
 
