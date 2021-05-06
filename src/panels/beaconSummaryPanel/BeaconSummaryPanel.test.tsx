@@ -12,6 +12,7 @@ describe("BeaconSummaryPanel", () => {
     beaconsGatewayDouble = {
       getBeacon: jest.fn().mockResolvedValue(beaconFixture),
       getAllBeacons: jest.fn(),
+      saveBeacon: jest.fn(),
     };
   });
 
@@ -161,6 +162,33 @@ describe("BeaconSummaryPanel", () => {
       expect(
         await screen.findByLabelText(/battery expiry date/i)
       ).toBeVisible();
+    });
+
+    it("calls the BeaconGateway object correctly to save edits", async () => {
+      beaconsGatewayDouble.saveBeacon = jest.fn().mockResolvedValue(true);
+      render(
+        <BeaconSummaryPanel
+          beaconsGateway={beaconsGatewayDouble}
+          beaconId={beaconFixture.id}
+        />
+      );
+      const editButton = await screen.findByText(/edit summary/i);
+      userEvent.click(editButton);
+      const editableField = await screen.findByDisplayValue(
+        beaconFixture.manufacturer
+      );
+      userEvent.clear(editableField);
+      userEvent.type(editableField, "ACME Inc.");
+      const saveButton = screen.getByRole("button", { name: "Save" });
+      userEvent.click(saveButton);
+      const editedBeaconFixture = {
+        ...beaconFixture,
+        manufacturer: "ACME Inc.",
+      };
+
+      expect(beaconsGatewayDouble.saveBeacon).toHaveBeenCalledWith(
+        editedBeaconFixture
+      );
     });
   });
 });

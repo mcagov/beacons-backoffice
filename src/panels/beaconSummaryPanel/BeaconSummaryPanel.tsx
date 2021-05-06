@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { EditPanelButton } from "../../components/dataPanel/EditPanelButton";
 import { ErrorState } from "../../components/dataPanel/PanelErrorState";
 import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
@@ -40,6 +40,15 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
 
     fetchBeacon(beaconId);
   }, []); // eslint-disable-line
+
+  const handleSave = (beacon: IBeacon): void => {
+    setState(DataPanelStates.Loading);
+    beaconsGateway.saveBeacon(beacon).then((success) => {
+      success
+        ? setState(DataPanelStates.Viewing)
+        : setState(DataPanelStates.Error);
+    });
+  };
 
   const fields = [
     {
@@ -98,14 +107,14 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
             <EditPanelButton onClick={() => setState(DataPanelStates.Editing)}>
               Edit summary
             </EditPanelButton>
-            <PanelViewingState fields={fields} columns={2} splitAfter={8} />;
+            <PanelViewingState fields={fields} columns={2} splitAfter={8} />
           </>
         );
       case DataPanelStates.Editing:
         return (
           <EditingState
             beacon={beacon}
-            onSave={() => {}}
+            onSave={(beacon: IBeacon) => handleSave(beacon)}
             onCancel={() => setState(DataPanelStates.Viewing)}
           />
         );

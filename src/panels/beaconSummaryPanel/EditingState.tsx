@@ -42,31 +42,33 @@ export const EditingState: FunctionComponent<{
   }
 
   return (
-    <Grid container direction="row" justify="space-around" alignItems="stretch">
-      <Grid item xs={6}>
-        <Formik
-          initialValues={{
-            manufacturer: beacon.manufacturer,
-            model: beacon.model,
-            type: beacon.type,
-            protocolCode: beacon.protocolCode || "",
-            manufacturerSerialNumber: beacon.manufacturerSerialNumber,
-            chkCode: beacon.chkCode,
-            batteryExpiryDate: beacon.batteryExpiryDate.slice(0, 10),
-            lastServicedDate: beacon.lastServicedDate.slice(0, 10),
-          }}
-          onSubmit={(
-            values: Values,
-            { setSubmitting }: FormikHelpers<Values>
-          ) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 500);
-          }}
-        >
-          {(props) => (
-            <Form>
+    <Formik
+      initialValues={{
+        manufacturer: beacon.manufacturer,
+        model: beacon.model,
+        type: beacon.type,
+        protocolCode: beacon.protocolCode || "",
+        manufacturerSerialNumber: beacon.manufacturerSerialNumber,
+        chkCode: beacon.chkCode,
+        batteryExpiryDate: beacon.batteryExpiryDate.slice(0, 10),
+        lastServicedDate: beacon.lastServicedDate.slice(0, 10),
+      }}
+      onSubmit={(values: Values, { setSubmitting }: FormikHelpers<Values>) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+        }, 500);
+      }}
+    >
+      {(props) => (
+        <Form>
+          <Grid
+            container
+            direction="row"
+            justify="space-around"
+            alignItems="stretch"
+          >
+            <Grid item xs={6}>
               <TableContainer>
                 <Table size="small">
                   <TableBody>
@@ -219,42 +221,48 @@ export const EditingState: FunctionComponent<{
                   </TableBody>
                 </Table>
               </TableContainer>
-            </Form>
-          )}
-        </Formik>
-      </Grid>
-      <Grid item xs={6}>
-        <PanelViewingState
-          columns={1}
-          fields={[
-            {
-              key: "Owner(s)",
-              value: formatOwners(beacon.owners),
-            },
-            {
-              key: "Emergency contacts",
-              value: formatEmergencyContacts(beacon.emergencyContacts),
-            },
-            {
-              key: "Registered uses",
-              value: formatUses(beacon.uses),
-            },
-          ]}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <Divider />
-        <Button
-          onClick={() => onSave(beacon)}
-          color="secondary"
-          variant="contained"
-          disableElevation
-        >
-          Save
-        </Button>
-        <Button onClick={onCancel}>Cancel</Button>
-      </Grid>
-    </Grid>
+            </Grid>
+            <Grid item xs={6}>
+              <PanelViewingState
+                columns={1}
+                fields={[
+                  {
+                    key: "Owner(s)",
+                    value: formatOwners(beacon.owners),
+                  },
+                  {
+                    key: "Emergency contacts",
+                    value: formatEmergencyContacts(beacon.emergencyContacts),
+                  },
+                  {
+                    key: "Registered uses",
+                    value: formatUses(beacon.uses),
+                  },
+                ]}
+              />
+            </Grid>
+            <Grid
+              item
+              alignContent={"flex-start"}
+              justify={"space-evenly"}
+              xs={12}
+            >
+              <Divider />
+              <Button
+                name="save"
+                type="submit"
+                color="secondary"
+                variant="contained"
+                disableElevation
+              >
+                Save
+              </Button>
+              <Button onClick={onCancel}>Cancel</Button>
+            </Grid>
+          </Grid>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
