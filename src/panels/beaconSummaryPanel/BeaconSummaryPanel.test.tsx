@@ -76,7 +76,7 @@ describe("BeaconSummaryPanel", () => {
     expect(await screen.findByText(Placeholders.NoData)).toBeVisible();
   });
 
-  it("allows user to edit selected fields", async () => {
+  it("allows user to edit basic string input fields", async () => {
     render(
       <BeaconSummaryPanel
         beaconsGateway={beaconsGatewayDouble}
@@ -92,9 +92,15 @@ describe("BeaconSummaryPanel", () => {
     ).toBeVisible();
     expect(await screen.findByDisplayValue(beaconFixture.model)).toBeVisible();
     expect(await screen.findByDisplayValue(beaconFixture.type)).toBeVisible();
+    expect(
+      await screen.findByDisplayValue(beaconFixture.manufacturerSerialNumber)
+    ).toBeVisible();
+    expect(
+      await screen.findByDisplayValue(beaconFixture.chkCode)
+    ).toBeVisible();
   });
 
-  it("user can type text in editable fields", async () => {
+  it("user can type text in basic string input fields", async () => {
     render(
       <BeaconSummaryPanel
         beaconsGateway={beaconsGatewayDouble}
@@ -111,5 +117,13 @@ describe("BeaconSummaryPanel", () => {
     userEvent.type(editableField, "ACME Inc.");
 
     expect(await screen.findByDisplayValue("ACME Inc.")).toBeVisible();
+  });
+
+  xit("allows user to edit fields for which the current value is undefined", () => {
+    // TODO
+  });
+
+  xit("allows user to edit date fields", () => {
+    // TODO
   });
 });

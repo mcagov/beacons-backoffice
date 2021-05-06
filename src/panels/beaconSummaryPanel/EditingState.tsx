@@ -13,14 +13,20 @@ export const EditingState: FunctionComponent<{
     manufacturer: string;
     model: string;
     type: string;
+    protocolCode: string;
+    manufacturerSerialNumber: string;
+    chkCode: string;
   }
 
   return (
     <Formik
       initialValues={{
-        manufacturer: "Ocean Signal",
-        model: "Excelsior",
-        type: "EPIRB",
+        manufacturer: beacon.manufacturer,
+        model: beacon.model,
+        type: beacon.type,
+        protocolCode: beacon.protocolCode || "",
+        manufacturerSerialNumber: beacon.manufacturerSerialNumber,
+        chkCode: beacon.chkCode,
       }}
       onSubmit={(values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         setTimeout(() => {
@@ -37,14 +43,41 @@ export const EditingState: FunctionComponent<{
             </Typography>
           </label>
           <Field id="manufacturer" name="manufacturer" type="string" />
+
           <label htmlFor="model">
             <Typography>{"Model" + WritingStyle.KeyValueSeparator}</Typography>
           </label>
           <Field id="model" name="model" type="string" />
+
           <label htmlFor="type">
             <Typography>{"Type" + WritingStyle.KeyValueSeparator}</Typography>
           </label>
           <Field id="type" name="type" type="string" />
+
+          <label htmlFor="protocolCode">
+            <Typography>
+              {"Protocol code" + WritingStyle.KeyValueSeparator}
+            </Typography>
+          </label>
+          <Field id="protocolCode" name="protocolCode" type="string" />
+
+          <label htmlFor="manufacturerSerialNumber">
+            <Typography>
+              {"Manufacturer serial number" + WritingStyle.KeyValueSeparator}
+            </Typography>
+          </label>
+          <Field
+            id="manufacturerSerialNumber"
+            name="manufacturerSerialNumber"
+            type="string"
+          />
+
+          <label htmlFor="chkCode">
+            <Typography>
+              {"CHK code" + WritingStyle.KeyValueSeparator}
+            </Typography>
+          </label>
+          <Field id="chkCode" name="chkCode" type="string" />
         </Form>
       )}
     </Formik>
