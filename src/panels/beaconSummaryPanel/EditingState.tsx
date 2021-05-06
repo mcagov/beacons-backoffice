@@ -2,7 +2,11 @@ import { Typography } from "@material-ui/core";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
 import { IBeacon } from "../../entities/IBeacon";
-import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
+import {
+  beaconOwnerDidNotDisclose,
+  Placeholders,
+  WritingStyle,
+} from "../../useCases/mcaWritingStyleFormatter";
 
 export const EditingState: FunctionComponent<{
   beacon: IBeacon;
@@ -16,6 +20,8 @@ export const EditingState: FunctionComponent<{
     protocolCode: string;
     manufacturerSerialNumber: string;
     chkCode: string;
+    batteryExpiryDate: string;
+    lastServicedDate: string;
   }
 
   return (
@@ -27,6 +33,8 @@ export const EditingState: FunctionComponent<{
         protocolCode: beacon.protocolCode || "",
         manufacturerSerialNumber: beacon.manufacturerSerialNumber,
         chkCode: beacon.chkCode,
+        batteryExpiryDate: beacon.batteryExpiryDate.slice(0, 10),
+        lastServicedDate: beacon.lastServicedDate.slice(0, 10),
       }}
       onSubmit={(values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         setTimeout(() => {
@@ -77,7 +85,31 @@ export const EditingState: FunctionComponent<{
               {"CHK code" + WritingStyle.KeyValueSeparator}
             </Typography>
           </label>
-          <Field id="chkCode" name="chkCode" type="string" />
+          <Field
+            id="chkCode"
+            name="chkCode"
+            type="string"
+            placeholder={
+              // TODO: Use this universally on all IBeacon fields (and make them optional) to cater for ETL data?
+              beaconOwnerDidNotDisclose(props.values.chkCode)
+                ? Placeholders.NoData
+                : ""
+            }
+          />
+
+          <label htmlFor="batteryExpiryDate">
+            <Typography>
+              {"Battery expiry date" + WritingStyle.KeyValueSeparator}
+            </Typography>
+          </label>
+          <Field id="batteryExpiryDate" name="batteryExpiryDate" type="date" />
+
+          <label htmlFor="lastServicedDate">
+            <Typography>
+              {"Last serviced date" + WritingStyle.KeyValueSeparator}
+            </Typography>
+          </label>
+          <Field id="lastServicedDate" name="lastServicedDate" type="date" />
         </Form>
       )}
     </Formik>

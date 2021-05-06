@@ -119,11 +119,42 @@ describe("BeaconSummaryPanel", () => {
     expect(await screen.findByDisplayValue("ACME Inc.")).toBeVisible();
   });
 
-  xit("allows user to edit fields for which the current value is undefined", () => {
-    // TODO
+  it("allows user to edit fields for which the current value is undefined", async () => {
+    const beaconFixtureWithUndefinedField = {
+      ...beaconFixture,
+      chkCode: undefined,
+    };
+    beaconsGatewayDouble.getBeacon = jest
+      .fn()
+      .mockResolvedValue(beaconFixtureWithUndefinedField);
+    render(
+      <BeaconSummaryPanel
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={beaconFixture.id}
+      />
+    );
+    const editButton = await screen.findByText(/edit summary/i);
+    userEvent.click(editButton);
+    const fieldWithUndefinedValue = await screen.findByPlaceholderText(
+      Placeholders.NoData
+    );
+
+    userEvent.type(fieldWithUndefinedValue, "A valid CHK code");
+
+    expect(await screen.findByDisplayValue("A valid CHK code")).toBeVisible();
   });
 
-  xit("allows user to edit date fields", () => {
-    // TODO
+  it("allows user to edit date fields", async () => {
+    render(
+      <BeaconSummaryPanel
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={beaconFixture.id}
+      />
+    );
+    const editButton = await screen.findByText(/edit summary/i);
+    userEvent.click(editButton);
+
+    // Use findByLabelText rather than findByDisplayValue because date display format is likely to be brittle
+    expect(await screen.findByLabelText(/battery expiry date/i)).toBeVisible();
   });
 });
