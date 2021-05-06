@@ -95,15 +95,19 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
       case DataPanelStates.Viewing:
         return (
           <>
-            <EditPanelButton
-              onClick={() => setState(DataPanelStates.Editing)}
-            />
+            <EditPanelButton onClick={() => setState(DataPanelStates.Editing)}>
+              Edit summary
+            </EditPanelButton>
             <PanelViewingState fields={fields} columns={2} splitAfter={8} />;
           </>
         );
       case DataPanelStates.Editing:
         return (
-          <EditingState beacon={beacon} onSave={() => {}} onCancel={() => {}} />
+          <EditingState
+            beacon={beacon}
+            onSave={() => {}}
+            onCancel={() => setState(DataPanelStates.Viewing)}
+          />
         );
       case DataPanelStates.Error:
         return <ErrorState message="An error occurred" />;

@@ -1,15 +1,20 @@
 import {
+  Button,
+  Divider,
   Grid,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableRow,
+  TextField,
   Typography,
 } from "@material-ui/core";
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
-import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
+import {
+  PanelViewingState,
+  TableCellWithoutLines,
+} from "../../components/dataPanel/PanelViewingState";
 import { IBeacon } from "../../entities/IBeacon";
 import {
   beaconOwnerDidNotDisclose,
@@ -66,7 +71,7 @@ export const EditingState: FunctionComponent<{
                 <Table size="small">
                   <TableBody>
                     <TabulatedRow
-                      rowKey={
+                      displayKey={
                         <label htmlFor="manufacturer">
                           <Typography>
                             {"Manufacturer" + WritingStyle.KeyValueSeparator}
@@ -74,37 +79,53 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field
+                        <TextField
+                          size="small"
                           id="manufacturer"
                           name="manufacturer"
                           type="string"
+                          value={props.values.manufacturer}
                         />
                       }
                     />
                     <TabulatedRow
-                      rowKey={
+                      displayKey={
                         <label htmlFor="model">
                           <Typography>
                             {"Model" + WritingStyle.KeyValueSeparator}
                           </Typography>
                         </label>
                       }
-                      value={<Field id="model" name="model" type="string" />}
+                      value={
+                        <TextField
+                          value={props.values.model}
+                          id="model"
+                          name="model"
+                          type="string"
+                        />
+                      }
                     />
 
                     <TabulatedRow
-                      rowKey={
+                      displayKey={
                         <label htmlFor="type">
                           <Typography>
                             {"Type" + WritingStyle.KeyValueSeparator}
                           </Typography>
                         </label>
                       }
-                      value={<Field id="type" name="type" type="string" />}
+                      value={
+                        <TextField
+                          value={props.values.type}
+                          id="type"
+                          name="type"
+                          type="string"
+                        />
+                      }
                     />
 
                     <TabulatedRow
-                      rowKey={
+                      displayKey={
                         <label htmlFor="protocolCode">
                           <Typography>
                             {"Protocol code" + WritingStyle.KeyValueSeparator}
@@ -112,7 +133,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field
+                        <TextField
+                          value={props.values.protocolCode}
                           id="protocolCode"
                           name="protocolCode"
                           type="string"
@@ -121,7 +143,7 @@ export const EditingState: FunctionComponent<{
                     />
 
                     <TabulatedRow
-                      rowKey={
+                      displayKey={
                         <label htmlFor="manufacturerSerialNumber">
                           <Typography>
                             {"Manufacturer serial number" +
@@ -130,7 +152,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field
+                        <TextField
+                          value={props.values.manufacturerSerialNumber}
                           id="manufacturerSerialNumber"
                           name="manufacturerSerialNumber"
                           type="string"
@@ -139,7 +162,7 @@ export const EditingState: FunctionComponent<{
                     />
 
                     <TabulatedRow
-                      rowKey={
+                      displayKey={
                         <label htmlFor="chkCode">
                           <Typography>
                             {"CHK code" + WritingStyle.KeyValueSeparator}
@@ -147,7 +170,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field
+                        <TextField
+                          value={props.values.chkCode}
                           id="chkCode"
                           name="chkCode"
                           type="string"
@@ -162,7 +186,7 @@ export const EditingState: FunctionComponent<{
                     />
 
                     <TabulatedRow
-                      rowKey={
+                      displayKey={
                         <label htmlFor="batteryExpiryDate">
                           <Typography>
                             {"Battery expiry date" +
@@ -171,7 +195,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field
+                        <TextField
+                          value={props.values.batteryExpiryDate}
                           id="batteryExpiryDate"
                           name="batteryExpiryDate"
                           type="date"
@@ -180,7 +205,7 @@ export const EditingState: FunctionComponent<{
                     />
 
                     <TabulatedRow
-                      rowKey={
+                      displayKey={
                         <label htmlFor="lastServicedDate">
                           <Typography>
                             {"Last serviced date" +
@@ -189,7 +214,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field
+                        <TextField
+                          value={props.values.lastServicedDate}
                           id="lastServicedDate"
                           name="lastServicedDate"
                           type="date"
@@ -222,18 +248,25 @@ export const EditingState: FunctionComponent<{
           ]}
         />
       </Grid>
+      <Grid item xs={12}>
+        <Divider />
+        <Button color="secondary" variant="contained" disableElevation>
+          Save
+        </Button>
+        <Button onClick={onCancel}>Cancel</Button>
+      </Grid>
     </Grid>
   );
 };
 
 const TabulatedRow: FunctionComponent<{
-  rowKey: JSX.Element;
+  displayKey: JSX.Element;
   value: JSX.Element;
-}> = ({ rowKey, value }) => (
+}> = ({ displayKey, value }) => (
   <TableRow>
-    <TableCell component="th" scope="row">
-      {rowKey}
-    </TableCell>
-    <TableCell>{value}</TableCell>
+    <TableCellWithoutLines component="th" scope="row">
+      {displayKey}
+    </TableCellWithoutLines>
+    <TableCellWithoutLines>{value}</TableCellWithoutLines>
   </TableRow>
 );
