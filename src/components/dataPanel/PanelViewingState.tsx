@@ -23,7 +23,6 @@ export const PanelViewingState: FunctionComponent<IPanelViewStateProps> = ({
   columns = 1,
   splitAfter = Math.ceil(fields.length / 2),
 }) => {
-  columns = splitAfter ? 2 : columns;
   switch (columns) {
     case 1:
       return <OneColumn fields={fields} />;
@@ -42,7 +41,7 @@ const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
           <TableRow key={index}>
             <TableCell component="th" scope="row">
               <Typography>
-                {field.displayKey + WritingStyle.KeyValueSeparator}
+                {field.key + WritingStyle.KeyValueSeparator}
               </Typography>
             </TableCell>
             <TableCell>

@@ -13,8 +13,7 @@ describe("PanelViewingState", () => {
   it("renders one field", () => {
     const fields: IField[] = [
       {
-        key: "manufacturer",
-        displayKey: "Manufacturer",
+        key: "Manufacturer",
         value: "Ocean Signal",
       },
     ];
@@ -28,13 +27,11 @@ describe("PanelViewingState", () => {
   it("renders two fields", () => {
     const fields: IField[] = [
       {
-        key: "manufacturer",
-        displayKey: "Manufacturer",
+        key: "Manufacturer",
         value: "Ocean Signal",
       },
       {
-        key: "model",
-        displayKey: "Model",
+        key: "Model",
         value: "Excelsior EPIRB",
       },
     ];
@@ -50,8 +47,7 @@ describe("PanelViewingState", () => {
   it("renders undefined fields", () => {
     const fields: IField[] = [
       {
-        key: "chkCode",
-        displayKey: "CHK Code",
+        key: "CHK Code",
         value: undefined,
       },
     ];
@@ -65,23 +61,19 @@ describe("PanelViewingState", () => {
   it("can split into two even columns", () => {
     const fields: IField[] = [
       {
-        key: "manufacter",
-        displayKey: "Manufacturer",
+        key: "Manufacturer",
         value: "Ocean Signal",
       },
       {
-        key: "model",
-        displayKey: "Model",
+        key: "Model",
         value: "Excelsior EPIRB",
       },
       {
-        key: "chkCode",
-        displayKey: "CHK Code",
+        key: "CHK Code",
         value: undefined,
       },
       {
-        key: "type",
-        displayKey: "Type",
+        key: "Type",
         value: "EPIRB",
       },
     ];
@@ -94,28 +86,23 @@ describe("PanelViewingState", () => {
   it("can split into two columns when there are an odd number of fields", () => {
     const fields: IField[] = [
       {
-        key: "manufacturer",
-        displayKey: "Manufacturer",
+        key: "Manufacturer",
         value: "Ocean Signal",
       },
       {
-        key: "model",
-        displayKey: "Model",
+        key: "Model",
         value: "Excelsior EPIRB",
       },
       {
-        key: "chkCode",
-        displayKey: "CHK Code",
+        key: "CHK Code",
         value: undefined,
       },
       {
-        key: "type",
-        displayKey: "Type",
+        key: "Type",
         value: "EPIRB",
       },
       {
-        key: "hexId",
-        displayKey: "Hex ID",
+        key: "Hex ID",
         value: "1D0...",
       },
     ];
@@ -128,28 +115,23 @@ describe("PanelViewingState", () => {
   it("can split into two columns on a given index", () => {
     const fields: IField[] = [
       {
-        key: "manufacturer",
-        displayKey: "Manufacturer",
+        key: "Manufacturer",
         value: "Ocean Signal",
       },
       {
-        key: "model",
-        displayKey: "Model",
+        key: "Model",
         value: "Excelsior EPIRB",
       },
       {
-        key: "chkCode",
-        displayKey: "CHK Code",
+        key: "CHK Code",
         value: undefined,
       },
       {
-        key: "type",
-        displayKey: "Type",
+        key: "Type",
         value: "EPIRB",
       },
       {
-        key: "hexId",
-        displayKey: "Hex ID",
+        key: "Hex ID",
         value: "1D0...",
       },
     ];
