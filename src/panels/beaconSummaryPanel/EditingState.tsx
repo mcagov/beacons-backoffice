@@ -2,14 +2,14 @@ import {
   Button,
   Divider,
   Grid,
+  Input,
   Table,
   TableBody,
   TableContainer,
   TableRow,
-  TextField,
   Typography,
 } from "@material-ui/core";
-import { Form, Formik, FormikHelpers } from "formik";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
 import {
   PanelViewingState,
@@ -27,7 +27,7 @@ import {
 
 export const EditingState: FunctionComponent<{
   beacon: IBeacon;
-  onSave: () => void;
+  onSave: (beacon: IBeacon) => void;
   onCancel: () => void;
 }> = ({ beacon, onSave, onCancel }) => {
   interface Values {
@@ -79,12 +79,11 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <TextField
-                          size="small"
+                        <Field
+                          as={Input}
                           id="manufacturer"
                           name="manufacturer"
                           type="string"
-                          value={props.values.manufacturer}
                         />
                       }
                     />
@@ -97,8 +96,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <TextField
-                          value={props.values.model}
+                        <Field
+                          as={Input}
                           id="model"
                           name="model"
                           type="string"
@@ -115,12 +114,7 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <TextField
-                          value={props.values.type}
-                          id="type"
-                          name="type"
-                          type="string"
-                        />
+                        <Field as={Input} id="type" name="type" type="string" />
                       }
                     />
 
@@ -133,8 +127,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <TextField
-                          value={props.values.protocolCode}
+                        <Field
+                          as={Input}
                           id="protocolCode"
                           name="protocolCode"
                           type="string"
@@ -152,8 +146,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <TextField
-                          value={props.values.manufacturerSerialNumber}
+                        <Field
+                          as={Input}
                           id="manufacturerSerialNumber"
                           name="manufacturerSerialNumber"
                           type="string"
@@ -170,8 +164,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <TextField
-                          value={props.values.chkCode}
+                        <Field
+                          as={Input}
                           id="chkCode"
                           name="chkCode"
                           type="string"
@@ -195,8 +189,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <TextField
-                          value={props.values.batteryExpiryDate}
+                        <Field
+                          as={Input}
                           id="batteryExpiryDate"
                           name="batteryExpiryDate"
                           type="date"
@@ -214,8 +208,8 @@ export const EditingState: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <TextField
-                          value={props.values.lastServicedDate}
+                        <Field
+                          as={Input}
                           id="lastServicedDate"
                           name="lastServicedDate"
                           type="date"
@@ -250,7 +244,12 @@ export const EditingState: FunctionComponent<{
       </Grid>
       <Grid item xs={12}>
         <Divider />
-        <Button color="secondary" variant="contained" disableElevation>
+        <Button
+          onClick={() => onSave(beacon)}
+          color="secondary"
+          variant="contained"
+          disableElevation
+        >
           Save
         </Button>
         <Button onClick={onCancel}>Cancel</Button>
