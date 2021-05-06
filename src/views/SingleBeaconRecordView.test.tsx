@@ -24,13 +24,15 @@ describe("Beacon record page", () => {
 
     const leftClick = { button: 1 };
 
-    expect(screen.queryByText("Hello I am beacon use")).toBeNull();
+    expect(screen.queryByText(/Owner/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Owner/)).toBeInTheDocument();
+    expect(screen.queryByText("Primary use")).toBeNull();
 
     fireEvent.click(
       screen.getByText("Registered Uses", { exact: false }),
       leftClick
     );
 
-    expect(await screen.findByText("Hello I am beacon use")).toBeDefined();
+    expect(await screen.findByText("Primary use")).toBeDefined();
   });
 });

@@ -1,7 +1,9 @@
 import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { IBeacon } from "entities/IBeacon";
 import { OwnerSummaryPanel } from "panels/OwnerSummaryPanel";
-import React, { FunctionComponent } from "react";
+import { UsesSummaryPanel } from "panels/UsesSummaryPanel";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
@@ -32,12 +34,28 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
   const classes = useStyles();
   const hexId = "Example Hex Id";
 
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const handleChange = (event: React.ChangeEvent<{}>, tab: number) => {
+    setSelectedTab(tab);
   };
 
-  const numberOfUses = 3;
+  const [beacon, setBeacon] = useState<IBeacon>();
+  let numberOfUses: number = 0;
+
+  useEffect((): void => {
+    const fetchBeacon = async (id: string) => {
+      try {
+        const beacon = await beaconsGateway.getBeacon(id);
+
+        setBeacon(beacon);
+        numberOfUses = beacon.uses.length;
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBeacon(beaconId);
+  }, [beaconId, beaconsGateway]);
 
   return (
     <div className={classes.root}>
@@ -49,11 +67,11 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           beaconsGateway={beaconsGateway}
           beaconId={beaconId}
         />
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs value={selectedTab} onChange={handleChange}>
           <Tab label="Owner & Emergency Contacts" />
           <Tab label={`${numberOfUses} Registered Uses`} />
         </Tabs>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={selectedTab} index={0}>
           <Grid direction="row" container justify="space-between" spacing={1}>
             <Grid item xs={6}>
               <OwnerSummaryPanel
@@ -69,8 +87,8 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
             </Grid>
           </Grid>
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          Hello I am beacon use
+        <TabPanel value={selectedTab} index={1}>
+          <UsesSummaryPanel uses={beacon ? beacon.uses : []} />
         </TabPanel>
       </PageContent>
     </div>
