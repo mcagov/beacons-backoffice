@@ -1,10 +1,11 @@
 import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { OwnerSummaryPanel } from "panels/OwnerSummaryPanel";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
+import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { BeaconSummaryPanel } from "../panels/BeaconSummaryPanel";
 import { EmergencyContactSummaryPanel } from "../panels/EmergencyContactSummaryPanel";
@@ -30,20 +31,33 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
   beaconId,
 }): JSX.Element => {
   const classes = useStyles();
-  const hexId = "Example Hex Id";
 
   const [value, setValue] = React.useState(0);
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
 
-  const numberOfUses = 3;
+  const [beacon, setBeacon] = useState<IBeacon>({} as IBeacon);
+
+  useEffect((): void => {
+    const fetchBeacon = async (id: string) => {
+      try {
+        const beacon = await beaconsGateway.getBeacon(id);
+        setBeacon(beacon);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBeacon(beaconId);
+  }, [beaconId, beaconsGateway]); // eslint-disable-line
+
+  const hexId = beacon?.hexId || "";
+  const numberOfUses = beacon?.uses?.length.toString() || "";
 
   return (
     <div className={classes.root}>
-      <PageHeader>
-        Hex ID/UIN: <b>{hexId}</b>
-      </PageHeader>
+      <PageHeader>Hex ID/UIN: {hexId}</PageHeader>
       <PageContent>
         <BeaconSummaryPanel
           beaconsGateway={beaconsGateway}

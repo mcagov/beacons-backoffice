@@ -33,4 +33,30 @@ describe("Beacon record page", () => {
 
     expect(await screen.findByText("Hello I am beacon use")).toBeDefined();
   });
+
+  it("Displays beacon's hex ID", async () => {
+    render(
+      <SingleBeaconRecordView
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={beaconFixture.id}
+      />
+    );
+    const hexId = beaconFixture.hexId;
+
+    expect(await screen.findByText(`Hex ID/UIN: ${hexId}`)).toBeDefined();
+  });
+
+  it("Displays the number of uses a beacon has", async () => {
+    render(
+      <SingleBeaconRecordView
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={beaconFixture.id}
+      />
+    );
+    const numberOfUses = beaconFixture.uses.length;
+
+    expect(
+      await screen.findByText(`${numberOfUses} Registered Uses`)
+    ).toBeDefined();
+  });
 });
