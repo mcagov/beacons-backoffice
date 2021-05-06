@@ -25,6 +25,10 @@ export function makeServer({ environment = "development" } = {}) {
         return singleBeaconApiResponseFixture;
       });
 
+      this.patch(`${applicationConfig.apiUrl}/beacons/:id`, () => {
+        return true;
+      });
+
       this.passthrough(...authDomains);
     },
   });

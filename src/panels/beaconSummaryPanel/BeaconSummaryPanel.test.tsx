@@ -10,7 +10,7 @@ describe("BeaconSummaryPanel", () => {
 
   beforeEach(() => {
     beaconsGatewayDouble = {
-      getBeacon: jest.fn().mockResolvedValue(beaconFixture),
+      getBeacon: jest.fn().mockResolvedValueOnce(beaconFixture),
       getAllBeacons: jest.fn(),
       saveBeacon: jest.fn(),
     };
@@ -165,6 +165,10 @@ describe("BeaconSummaryPanel", () => {
     });
 
     it("calls the BeaconGateway object correctly to save edits", async () => {
+      const editedBeaconFixture = {
+        ...beaconFixture,
+        manufacturer: "ACME Inc.",
+      };
       beaconsGatewayDouble.saveBeacon = jest.fn().mockResolvedValue(true);
       render(
         <BeaconSummaryPanel
@@ -180,17 +184,43 @@ describe("BeaconSummaryPanel", () => {
       userEvent.clear(editableField);
       userEvent.type(editableField, "ACME Inc.");
       const saveButton = screen.getByRole("button", { name: "Save" });
+
       userEvent.click(saveButton);
-      const editedBeaconFixture = {
-        ...beaconFixture,
-        manufacturer: "ACME Inc.",
-      };
 
       await waitFor(() => {
         expect(beaconsGatewayDouble.saveBeacon).toHaveBeenCalledWith(
           editedBeaconFixture
         );
       });
+    });
+
+    it("displays the edited data in viewing state when successful", async () => {
+      const editedBeaconFixture = {
+        ...beaconFixture,
+        manufacturer: "ACME Inc.",
+      };
+      beaconsGatewayDouble.saveBeacon = jest.fn().mockResolvedValue(true);
+      beaconsGatewayDouble.getBeacon = jest
+        .fn()
+        .mockResolvedValueOnce(beaconFixture)
+        .mockResolvedValueOnce(editedBeaconFixture);
+      render(
+        <BeaconSummaryPanel
+          beaconsGateway={beaconsGatewayDouble}
+          beaconId={beaconFixture.id}
+        />
+      );
+      const editButton = await screen.findByText(/edit summary/i);
+      userEvent.click(editButton);
+      const editableField = await screen.findByDisplayValue(
+        beaconFixture.manufacturer
+      );
+      userEvent.clear(editableField);
+      userEvent.type(editableField, "ACME Inc.");
+      const saveButton = screen.getByRole("button", { name: "Save" });
+      userEvent.click(saveButton);
+
+      expect(await screen.findByText("ACME Inc.")).toBeVisible();
     });
   });
 });

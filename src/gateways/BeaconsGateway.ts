@@ -37,11 +37,14 @@ export class BeaconsGateway implements IBeaconsGateway {
     }
   }
 
-  public async saveBeacon(beacon: IBeacon): Promise<boolean> {
+  public async saveBeacon(
+    beaconId: string,
+    updatedFields: Partial<IBeacon>
+  ): Promise<boolean> {
     try {
-      const response = await axios.post(
-        `${applicationConfig.apiUrl}/beacons/${beacon.id}`,
-        {}
+      const response = await axios.patch(
+        `${applicationConfig.apiUrl}/beacons/${beaconId}`,
+        updatedFields
       );
       return this.successful(response);
     } catch (e) {

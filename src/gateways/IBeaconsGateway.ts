@@ -4,5 +4,8 @@ import { IBeacon } from "../entities/IBeacon";
 export interface IBeaconsGateway {
   getAllBeacons: () => Promise<IBeaconSearchResult>;
   getBeacon: (id: string) => Promise<IBeacon>;
-  saveBeacon: (beacon: IBeacon) => Promise<Boolean>;
+  saveBeacon: (
+    beaconId: string,
+    updatedFields: Partial<IBeacon>
+  ) => Promise<Boolean>;
 }
