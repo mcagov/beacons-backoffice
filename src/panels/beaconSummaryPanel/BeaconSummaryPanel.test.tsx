@@ -186,9 +186,11 @@ describe("BeaconSummaryPanel", () => {
         manufacturer: "ACME Inc.",
       };
 
-      expect(beaconsGatewayDouble.saveBeacon).toHaveBeenCalledWith(
-        editedBeaconFixture
-      );
+      await waitFor(() => {
+        expect(beaconsGatewayDouble.saveBeacon).toHaveBeenCalledWith(
+          editedBeaconFixture
+        );
+      });
     });
   });
 });

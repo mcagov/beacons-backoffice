@@ -30,34 +30,23 @@ export const EditingState: FunctionComponent<{
   onSave: (beacon: IBeacon) => void;
   onCancel: () => void;
 }> = ({ beacon, onSave, onCancel }) => {
-  interface Values {
-    manufacturer: string;
-    model: string;
-    type: string;
-    protocolCode: string;
-    manufacturerSerialNumber: string;
-    chkCode: string;
-    batteryExpiryDate: string;
-    lastServicedDate: string;
-  }
-
   return (
     <Formik
       initialValues={{
-        manufacturer: beacon.manufacturer,
-        model: beacon.model,
-        type: beacon.type,
-        protocolCode: beacon.protocolCode || "",
-        manufacturerSerialNumber: beacon.manufacturerSerialNumber,
-        chkCode: beacon.chkCode,
-        batteryExpiryDate: beacon.batteryExpiryDate.slice(0, 10),
-        lastServicedDate: beacon.lastServicedDate.slice(0, 10),
+        ...beacon,
+        batteryExpiryDate: yyyyMmDdFormat(beacon.batteryExpiryDate),
+        lastServicedDate: yyyyMmDdFormat(beacon.lastServicedDate),
       }}
-      onSubmit={(values: Values, { setSubmitting }: FormikHelpers<Values>) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 500);
+      onSubmit={(
+        values: IBeacon,
+        { setSubmitting }: FormikHelpers<IBeacon>
+      ) => {
+        onSave({
+          ...values,
+          batteryExpiryDate: shortISOFormat(values.batteryExpiryDate),
+          lastServicedDate: shortISOFormat(values.lastServicedDate),
+        });
+        setSubmitting(false);
       }}
     >
       {(props) => (
@@ -277,3 +266,9 @@ const TabulatedRow: FunctionComponent<{
     <TableCellWithoutLines>{value}</TableCellWithoutLines>
   </TableRow>
 );
+
+const shortISOFormat = (dateString: string) =>
+  new Date(dateString).toISOString().slice(0, 16);
+
+const yyyyMmDdFormat = (dateString: string) =>
+  new Date(dateString).toISOString().slice(0, 10);
