@@ -31,25 +31,31 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
   }
 
   private mapOwners(beaconApiResponse: IBeaconResponse): IOwner[] {
-    const ownerId = beaconApiResponse.data.relationships.owner.data.id;
+    const ownerIds = beaconApiResponse.data.relationships.owner.data.map(
+      (owner) => owner.id
+    );
 
-    return beaconApiResponse.included
-      .filter(
+    return ownerIds.map((ownerId) => {
+      const owner = beaconApiResponse.included.find(
         (entity) => entity.type === "beaconPerson" && entity.id === ownerId
-      )
-      .map((owner) => {
-        return {
-          id: owner.id,
-          fullName: owner.attributes.fullName,
-          email: owner.attributes.email,
-          telephoneNumber: owner.attributes.telephoneNumber,
-          addressLine1: owner.attributes.addressLine1,
-          addressLine2: owner.attributes.addressLine2,
-          townOrCity: owner.attributes.townOrCity,
-          county: owner.attributes.county,
-          postcode: owner.attributes.postcode,
-        };
-      });
+      );
+
+      if (!owner)
+        throw ReferenceError(`Owner: ${ownerId} is defined as a relationship but not found in "included".  This is 
+      likely to be a problem with the API response`);
+
+      return {
+        id: owner.id,
+        fullName: owner.attributes.fullName,
+        email: owner.attributes.email,
+        telephoneNumber: owner.attributes.telephoneNumber,
+        addressLine1: owner.attributes.addressLine1,
+        addressLine2: owner.attributes.addressLine2,
+        townOrCity: owner.attributes.townOrCity,
+        county: owner.attributes.county,
+        postcode: owner.attributes.postcode,
+      };
+    });
   }
 
   private mapEmergencyContacts(
@@ -66,7 +72,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       );
 
       if (!emergencyContact)
-        throw ReferenceError(`${emergencyContactId} is defined as a relationship but not found in "included".  This is 
+        throw ReferenceError(`Emergency contact: ${emergencyContactId} is defined as a relationship but not found in "included".  This is 
       likely to be a problem with the API response`);
 
       return {
