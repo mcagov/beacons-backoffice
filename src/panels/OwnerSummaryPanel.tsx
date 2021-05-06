@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  TextField,
+} from "@material-ui/core";
 import {
   DataPanelStates,
   PanelViewState,
@@ -42,6 +48,24 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
     };
   }, [beaconId, beaconsGateway]);
 
+  const handleSubmit = (event: any) => {
+    const owner: IOwner = {
+      id: "",
+      fullName: event.form.owner_name,
+      email: "",
+      telephoneNumber: "",
+      addressLine1: "",
+      addressLine2: "",
+      townOrCity: "",
+      county: "",
+      postcode: "",
+    };
+
+    setState(DataPanelStates.Viewing);
+
+    event.preventDefault();
+  };
+
   const fields = [
     { key: "Name", value: owner?.fullName },
     { key: "Telephone", value: owner?.telephoneNumber },
@@ -62,11 +86,72 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
   const renderState = () => {
     switch (state) {
       case DataPanelStates.Viewing:
-        return <PanelViewState fields={fields} splitAfter={fields.length} />;
+        return (
+          <>
+            <PanelViewState fields={fields} splitAfter={fields.length} />
+            <Button
+              onClick={() => {
+                setState(DataPanelStates.Editing);
+              }}
+            >
+              Edit
+            </Button>
+          </>
+        );
       case DataPanelStates.Editing:
-        return <p>TODO</p>;
+        return (
+          <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+            <TextField
+              id="owner_name"
+              label="Owner name"
+              value={owner?.fullName}
+            />
+            <TextField
+              id="owner_telephone"
+              label="Owner telephone number"
+              value={owner?.telephoneNumber}
+            />
+            <TextField
+              id="owner_email"
+              label="Owner email"
+              value={owner?.email}
+            />
+            <TextField
+              id="owner_address_line_1"
+              label="Address line 1"
+              value={owner?.addressLine1}
+            />
+            <TextField
+              id="owner_address_line_2"
+              label="Address line 2"
+              value={owner?.addressLine2}
+            />
+            <TextField
+              id="owner_town_or_city"
+              label="Town or city"
+              value={owner?.townOrCity}
+            />
+            <TextField id="owner_county" label="County" value={owner?.county} />
+            <TextField
+              id="owner_postcode"
+              label="Postcode"
+              value={owner?.postcode}
+            />
+            <Button type="submit">Save owner</Button>
+          </form>
+        );
       case DataPanelStates.Error:
-        return <></>;
+        return (
+          <>
+            <Button
+              onClick={() => {
+                setState(DataPanelStates.Editing);
+              }}
+            >
+              Edit
+            </Button>
+          </>
+        );
     }
   };
 
