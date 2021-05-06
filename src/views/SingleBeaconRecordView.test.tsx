@@ -22,17 +22,15 @@ describe("Beacon record page", () => {
       />
     );
 
+    expect(await screen.findByText(/emergency contact 1/i)).toBeInTheDocument();
+    expect(screen.queryByText(/primary use/i)).toBeNull();
+
     const leftClick = { button: 1 };
-
-    expect(screen.queryByText(/Owner/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Owner/)).toBeInTheDocument();
-    expect(screen.queryByText("Primary use")).toBeNull();
-
     fireEvent.click(
-      screen.getByText("Registered Uses", { exact: false }),
+      screen.getByText("0 Registered Uses", { exact: false }),
       leftClick
     );
 
-    expect(await screen.findByText("Primary use")).toBeDefined();
+    expect(await screen.findByText(/primary use/i)).toBeInTheDocument();
   });
 });
