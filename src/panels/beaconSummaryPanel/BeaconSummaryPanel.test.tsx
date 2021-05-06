@@ -1,7 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { beaconFixture } from "../fixtures/beacons.fixture";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { Placeholders } from "../useCases/mcaWritingStyleFormatter";
+import userEvent from "@testing-library/user-event";
+import { beaconFixture } from "../../fixtures/beacons.fixture";
+import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
+import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
 import { BeaconSummaryPanel } from "./BeaconSummaryPanel";
 
 describe("BeaconSummaryPanel", () => {
@@ -73,5 +74,42 @@ describe("BeaconSummaryPanel", () => {
     );
 
     expect(await screen.findByText(Placeholders.NoData)).toBeVisible();
+  });
+
+  it("allows user to edit selected fields", async () => {
+    render(
+      <BeaconSummaryPanel
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={beaconFixture.id}
+      />
+    );
+    const editButton = await screen.findByText(/edit summary/i);
+
+    userEvent.click(editButton);
+
+    expect(
+      await screen.findByDisplayValue(beaconFixture.manufacturer)
+    ).toBeVisible();
+    expect(await screen.findByDisplayValue(beaconFixture.model)).toBeVisible();
+    expect(await screen.findByDisplayValue(beaconFixture.type)).toBeVisible();
+  });
+
+  it("user can type text in editable fields", async () => {
+    render(
+      <BeaconSummaryPanel
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={beaconFixture.id}
+      />
+    );
+    const editButton = await screen.findByText(/edit summary/i);
+    userEvent.click(editButton);
+    const editableField = await screen.findByDisplayValue(
+      beaconFixture.manufacturer
+    );
+
+    userEvent.clear(editableField);
+    userEvent.type(editableField, "ACME Inc.");
+
+    expect(await screen.findByDisplayValue("ACME Inc.")).toBeVisible();
   });
 });

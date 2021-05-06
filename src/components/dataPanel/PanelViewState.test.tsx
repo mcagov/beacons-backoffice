@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
 import { IField } from "./IField";
-import { PanelViewState } from "./PanelViewState";
+import { PanelViewingState } from "./PanelViewingState";
 
-describe("PanelViewState", () => {
+describe("PanelViewingState", () => {
   it("renders empty with no data", () => {
-    render(<PanelViewState fields={[]} />);
+    render(<PanelViewingState fields={[]} />);
 
     expect(screen.queryByRole("row")).toBeNull();
   });
@@ -19,7 +19,7 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} />);
+    render(<PanelViewingState fields={fields} />);
 
     expect(screen.getByText("Manufacturer:")).toBeVisible();
     expect(screen.getByText(/Ocean Signal/i)).toBeVisible();
@@ -39,7 +39,7 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} />);
+    render(<PanelViewingState fields={fields} />);
 
     expect(screen.getByText("Manufacturer:")).toBeVisible();
     expect(screen.getByText(/Ocean Signal/i)).toBeVisible();
@@ -56,7 +56,7 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} />);
+    render(<PanelViewingState fields={fields} />);
 
     expect(screen.getByText("CHK Code:")).toBeVisible();
     expect(screen.getByText(Placeholders.NoData)).toBeVisible();
@@ -86,7 +86,7 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} columns={2} />);
+    render(<PanelViewingState fields={fields} columns={2} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
   });
@@ -120,7 +120,7 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} columns={2} />);
+    render(<PanelViewingState fields={fields} columns={2} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
   });
@@ -154,7 +154,7 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} columns={2} splitAfter={1} />);
+    render(<PanelViewingState fields={fields} columns={2} splitAfter={1} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
   });

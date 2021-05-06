@@ -12,13 +12,13 @@ import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
 import { FieldValue } from "./FieldValue";
 import { IField } from "./IField";
 
-interface IPanelViewStateProps {
+export interface IPanelViewStateProps {
   fields: IField[];
   columns?: 1 | 2;
   splitAfter?: number;
 }
 
-export const PanelViewState: FunctionComponent<IPanelViewStateProps> = ({
+export const PanelViewingState: FunctionComponent<IPanelViewStateProps> = ({
   fields,
   columns = 1,
   splitAfter = Math.ceil(fields.length / 2),

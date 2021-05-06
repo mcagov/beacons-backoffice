@@ -1,15 +1,17 @@
 import { CardHeader, Paper } from "@material-ui/core";
-import { FunctionComponent, useEffect, useState } from "react";
-import { ErrorState } from "../components/dataPanel/PanelErrorState";
-import { LoadingState } from "../components/dataPanel/PanelLoadingState";
-import { PanelViewState } from "../components/dataPanel/PanelViewState";
-import { IBeacon } from "../entities/IBeacon";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { EditPanelButton } from "../../components/dataPanel/EditPanelButton";
+import { ErrorState } from "../../components/dataPanel/PanelErrorState";
+import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
+import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
+import { IBeacon } from "../../entities/IBeacon";
+import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
 import {
   formatEmergencyContacts,
   formatOwners,
   formatUses,
-} from "../useCases/mcaWritingStyleFormatter";
+} from "../../useCases/mcaWritingStyleFormatter";
+import { EditingState } from "./EditingState";
 
 interface IBeaconSummaryProps {
   beaconsGateway: IBeaconsGateway;
@@ -47,47 +49,58 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
 
   const fields = [
     {
-      key: "Manufacturer",
+      key: "manufacturer",
+      displayKey: "Manufacturer",
       value: beacon?.manufacturer,
     },
     {
-      key: "Model",
+      key: "model",
+      displayKey: "Model",
       value: beacon?.model,
     },
     {
-      key: "Beacon type",
+      key: "type",
+      displayKey: "Beacon type",
       value: beacon?.type,
     },
     {
-      key: "Protocol code",
+      key: "protocolCode",
+      displayKey: "Protocol code",
       value: beacon?.protocolCode,
     },
     {
-      key: "Serial number",
+      key: "manufacturerSerialNumber",
+      displayKey: "Serial number",
       value: beacon?.manufacturerSerialNumber,
     },
     {
-      key: "CHK code",
+      key: "chkCode",
+      displayKey: "CHK code",
       value: beacon?.chkCode,
     },
     {
-      key: "Battery expiry date",
+      key: "batteryExpiryDate",
+      displayKey: "Battery expiry date",
       value: beacon?.batteryExpiryDate,
     },
     {
-      key: "Last serviced date",
+      key: "lastServicedDate",
+      displayKey: "Last serviced date",
       value: beacon?.lastServicedDate,
     },
     {
-      key: "Owner(s)",
+      key: "owners",
+      displayKey: "Owner(s)",
       value: formatOwners(beacon?.owners || []),
     },
     {
-      key: "Emergency contacts",
+      key: "emergencyContacts",
+      displayKey: "Emergency contacts",
       value: formatEmergencyContacts(beacon?.emergencyContacts || []),
     },
     {
-      key: "Registered uses",
+      key: "uses",
+      displayKey: "Registered uses",
       value: formatUses(beacon?.uses || []),
     },
   ];
@@ -97,9 +110,18 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
       case DataPanelStates.Loading:
         return <LoadingState />;
       case DataPanelStates.Viewing:
-        return <PanelViewState fields={fields} columns={2} splitAfter={8} />;
+        return (
+          <>
+            <EditPanelButton
+              onClick={() => setState(DataPanelStates.Editing)}
+            />
+            <PanelViewingState fields={fields} columns={2} splitAfter={8} />;
+          </>
+        );
       case DataPanelStates.Editing:
-        return <p>TODO</p>;
+        return (
+          <EditingState beacon={beacon} onSave={() => {}} onCancel={() => {}} />
+        );
       case DataPanelStates.Error:
         return <ErrorState message="An error occurred" />;
     }

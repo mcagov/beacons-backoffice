@@ -13,8 +13,9 @@ import { makeServer } from "./server";
 
 if (
   process.env.NODE_ENV === "development" &&
-  process.env.REACT_NO_API_STUB !== "true"
+  process.env.REACT_APP_NO_API_STUB !== "true"
 ) {
+  console.log("Stubbing the Beacons API using Mirage...");
   makeServer();
 }
 
