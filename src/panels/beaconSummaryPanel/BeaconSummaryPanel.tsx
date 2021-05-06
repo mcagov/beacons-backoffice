@@ -12,7 +12,6 @@ import {
   formatOwners,
   formatUses,
 } from "../../useCases/mcaWritingStyleFormatter";
-import { DataPanelStates } from "../components/dataPanel/PanelViewState";
 import { EditingState } from "./EditingState";
 
 interface IBeaconSummaryProps {
