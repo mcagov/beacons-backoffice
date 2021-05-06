@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
@@ -35,5 +35,21 @@ export class BeaconsGateway implements IBeaconsGateway {
     } catch (e) {
       throw Error(e);
     }
+  }
+
+  public async saveBeacon(beacon: IBeacon): Promise<boolean> {
+    try {
+      const response = await axios.post(
+        `${applicationConfig.apiUrl}/beacons/${beacon.id}`,
+        {}
+      );
+      return this.successful(response);
+    } catch (e) {
+      throw Error(e);
+    }
+  }
+
+  private successful(response: AxiosResponse) {
+    return 200 >= response.status && response.status <= 299;
   }
 }
