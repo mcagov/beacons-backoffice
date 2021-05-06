@@ -22,7 +22,7 @@ export interface IBeaconResponse extends IApiResponse {
         data: { type: string; id: string }[];
       };
       owner: {
-        data: { type: string; id: string };
+        data: { type: string; id: string }[];
       };
       emergencyContacts: {
         data: { type: string; id: string }[];

@@ -24,7 +24,6 @@ describe("Beacon record page", () => {
 
     const leftClick = { button: 1 };
 
-    expect(screen.getByText("Hello I am owner of boat")).toBeDefined();
     expect(screen.queryByText("Hello I am beacon use")).toBeNull();
 
     fireEvent.click(
@@ -33,6 +32,5 @@ describe("Beacon record page", () => {
     );
 
     expect(await screen.findByText("Hello I am beacon use")).toBeDefined();
-    expect(screen.queryByText("Hello I am owner of boat")).toBeNull();
   });
 });

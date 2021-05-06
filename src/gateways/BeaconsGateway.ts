@@ -28,7 +28,7 @@ export class BeaconsGateway implements IBeaconsGateway {
   public async getBeacon(beaconId: string): Promise<IBeacon> {
     try {
       const response = await axios.get(
-        `${applicationConfig.apiUrl}/beacon/${beaconId}`,
+        `${applicationConfig.apiUrl}/beacons/${beaconId}`,
         { timeout: this.timeoutMs }
       );
       return this._beaconResponseMapper.map(response.data);

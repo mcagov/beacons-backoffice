@@ -21,10 +21,12 @@ export const singleBeaconApiResponseFixture = Object.freeze({
         data: [{ type: "beaconUse", id: "1" }],
       },
       owner: {
-        data: {
-          type: "beaconPerson",
-          id: "cb2e9fd2-45bb-4865-a04c-add5bb7c34a7",
-        },
+        data: [
+          {
+            type: "beaconPerson",
+            id: "cb2e9fd2-45bb-4865-a04c-add5bb7c34a7",
+          },
+        ],
       },
       emergencyContacts: {
         data: [

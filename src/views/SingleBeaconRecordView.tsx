@@ -1,11 +1,13 @@
-import { Tab, Tabs } from "@material-ui/core";
+import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { OwnerSummaryPanel } from "panels/OwnerSummaryPanel";
 import React, { FunctionComponent } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { BeaconSummaryPanel } from "../panels/beaconSummaryPanel/BeaconSummaryPanel";
+import { EmergencyContactSummaryPanel } from "../panels/EmergencyContactSummaryPanel";
 
 interface ISingleBeaconRecordViewProps {
   beaconsGateway: IBeaconsGateway;
@@ -52,7 +54,20 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           <Tab label={`${numberOfUses} Registered Uses`} />
         </Tabs>
         <TabPanel value={value} index={0}>
-          Hello I am owner of boat
+          <Grid direction="row" container justify="space-between" spacing={1}>
+            <Grid item xs={6}>
+              <OwnerSummaryPanel
+                beaconsGateway={beaconsGateway}
+                beaconId={beaconId}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <EmergencyContactSummaryPanel
+                beaconsGateway={beaconsGateway}
+                beaconId={beaconId}
+              />
+            </Grid>
+          </Grid>
         </TabPanel>
         <TabPanel value={value} index={1}>
           Hello I am beacon use

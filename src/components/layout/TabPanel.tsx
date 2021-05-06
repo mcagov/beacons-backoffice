@@ -1,5 +1,3 @@
-import { Paper } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { ReactNode } from "react";
 
 interface TabPanelProps {
@@ -8,20 +6,11 @@ interface TabPanelProps {
   index: number;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paper: {
-      padding: theme.spacing(2),
-    },
-  })
-);
-
 export const TabPanel = ({
   children,
   value,
   index,
 }: TabPanelProps): JSX.Element => {
-  const classes = useStyles();
   return (
     <div
       role="tabpanel"
@@ -29,7 +18,7 @@ export const TabPanel = ({
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
     >
-      {value === index && <Paper className={classes.paper}>{children}</Paper>}
+      {value === index && <>{children}</>}
     </div>
   );
 };
