@@ -1,4 +1,12 @@
-import { Grid, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography,
+} from "@material-ui/core";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
@@ -54,84 +62,143 @@ export const EditingState: FunctionComponent<{
         >
           {(props) => (
             <Form>
-              <label htmlFor="manufacturer">
-                <Typography>
-                  {"Manufacturer" + WritingStyle.KeyValueSeparator}
-                </Typography>
-              </label>
-              <Field id="manufacturer" name="manufacturer" type="string" />
+              <TableContainer>
+                <Table size="small">
+                  <TableBody>
+                    <TabulatedRow
+                      rowKey={
+                        <label htmlFor="manufacturer">
+                          <Typography>
+                            {"Manufacturer" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field
+                          id="manufacturer"
+                          name="manufacturer"
+                          type="string"
+                        />
+                      }
+                    />
+                    <TabulatedRow
+                      rowKey={
+                        <label htmlFor="model">
+                          <Typography>
+                            {"Model" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={<Field id="model" name="model" type="string" />}
+                    />
 
-              <label htmlFor="model">
-                <Typography>
-                  {"Model" + WritingStyle.KeyValueSeparator}
-                </Typography>
-              </label>
-              <Field id="model" name="model" type="string" />
+                    <TabulatedRow
+                      rowKey={
+                        <label htmlFor="type">
+                          <Typography>
+                            {"Type" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={<Field id="type" name="type" type="string" />}
+                    />
 
-              <label htmlFor="type">
-                <Typography>
-                  {"Type" + WritingStyle.KeyValueSeparator}
-                </Typography>
-              </label>
-              <Field id="type" name="type" type="string" />
+                    <TabulatedRow
+                      rowKey={
+                        <label htmlFor="protocolCode">
+                          <Typography>
+                            {"Protocol code" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field
+                          id="protocolCode"
+                          name="protocolCode"
+                          type="string"
+                        />
+                      }
+                    />
 
-              <label htmlFor="protocolCode">
-                <Typography>
-                  {"Protocol code" + WritingStyle.KeyValueSeparator}
-                </Typography>
-              </label>
-              <Field id="protocolCode" name="protocolCode" type="string" />
+                    <TabulatedRow
+                      rowKey={
+                        <label htmlFor="manufacturerSerialNumber">
+                          <Typography>
+                            {"Manufacturer serial number" +
+                              WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field
+                          id="manufacturerSerialNumber"
+                          name="manufacturerSerialNumber"
+                          type="string"
+                        />
+                      }
+                    />
 
-              <label htmlFor="manufacturerSerialNumber">
-                <Typography>
-                  {"Manufacturer serial number" +
-                    WritingStyle.KeyValueSeparator}
-                </Typography>
-              </label>
-              <Field
-                id="manufacturerSerialNumber"
-                name="manufacturerSerialNumber"
-                type="string"
-              />
+                    <TabulatedRow
+                      rowKey={
+                        <label htmlFor="chkCode">
+                          <Typography>
+                            {"CHK code" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field
+                          id="chkCode"
+                          name="chkCode"
+                          type="string"
+                          placeholder={
+                            // TODO: Use this universally on all IBeacon fields (and make them optional) to cater for ETL data?
+                            beaconOwnerDidNotDisclose(props.values.chkCode)
+                              ? Placeholders.NoData
+                              : ""
+                          }
+                        />
+                      }
+                    />
 
-              <label htmlFor="chkCode">
-                <Typography>
-                  {"CHK code" + WritingStyle.KeyValueSeparator}
-                </Typography>
-              </label>
-              <Field
-                id="chkCode"
-                name="chkCode"
-                type="string"
-                placeholder={
-                  // TODO: Use this universally on all IBeacon fields (and make them optional) to cater for ETL data?
-                  beaconOwnerDidNotDisclose(props.values.chkCode)
-                    ? Placeholders.NoData
-                    : ""
-                }
-              />
+                    <TabulatedRow
+                      rowKey={
+                        <label htmlFor="batteryExpiryDate">
+                          <Typography>
+                            {"Battery expiry date" +
+                              WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field
+                          id="batteryExpiryDate"
+                          name="batteryExpiryDate"
+                          type="date"
+                        />
+                      }
+                    />
 
-              <label htmlFor="batteryExpiryDate">
-                <Typography>
-                  {"Battery expiry date" + WritingStyle.KeyValueSeparator}
-                </Typography>
-              </label>
-              <Field
-                id="batteryExpiryDate"
-                name="batteryExpiryDate"
-                type="date"
-              />
-
-              <label htmlFor="lastServicedDate">
-                <Typography>
-                  {"Last serviced date" + WritingStyle.KeyValueSeparator}
-                </Typography>
-              </label>
-              <Field
-                id="lastServicedDate"
-                name="lastServicedDate"
-                type="date"
-              />
+                    <TabulatedRow
+                      rowKey={
+                        <label htmlFor="lastServicedDate">
+                          <Typography>
+                            {"Last serviced date" +
+                              WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field
+                          id="lastServicedDate"
+                          name="lastServicedDate"
+                          type="date"
+                        />
+                      }
+                    />
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Form>
           )}
         </Formik>
@@ -158,3 +225,15 @@ export const EditingState: FunctionComponent<{
     </Grid>
   );
 };
+
+const TabulatedRow: FunctionComponent<{
+  rowKey: JSX.Element;
+  value: JSX.Element;
+}> = ({ rowKey, value }) => (
+  <TableRow>
+    <TableCell component="th" scope="row">
+      {rowKey}
+    </TableCell>
+    <TableCell>{value}</TableCell>
+  </TableRow>
+);
