@@ -44,6 +44,7 @@ describe("formatUses()", () => {
     {
       in: [
         {
+          id: "1",
           environment: Environments.Maritime,
           purpose: Purposes.Commercial,
           activity: Activities.FishingVessel,
@@ -55,12 +56,14 @@ describe("formatUses()", () => {
     {
       in: [
         {
+          id: "1",
           environment: Environments.Maritime,
           purpose: Purposes.Commercial,
           activity: Activities.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
         },
         {
+          id: "2",
           environment: Environments.Aviation,
           purpose: Purposes.Pleasure,
           activity: Activities.Glider,
@@ -72,12 +75,14 @@ describe("formatUses()", () => {
     {
       in: [
         {
+          id: "1",
           environment: Environments.Maritime,
           purpose: Purposes.Commercial,
           activity: Activities.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
         },
         {
+          id: "2",
           environment: Environments.Land,
           activity: Activities.ClimbingMountaineering,
           moreDetails: "Hiking at the weekends",
@@ -100,6 +105,7 @@ describe("formatOwners()", () => {
     {
       in: [
         {
+          id: "1",
           fullName: "Steve Stevington",
           email: "steve@thestevingtons.com",
           telephoneNumber: "07826 543728",
@@ -115,6 +121,7 @@ describe("formatOwners()", () => {
     {
       in: [
         {
+          id: "1",
           fullName: "Steve Stevington",
           email: "steve@thestevingtons.com",
           telephoneNumber: "07826 543728",
@@ -125,6 +132,7 @@ describe("formatOwners()", () => {
           postcode: "BS8 9NW",
         },
         {
+          id: "2",
           fullName: "Prunella Stevington",
           email: "prunella@thestevingtons.com",
           telephoneNumber: "07826 543728",
