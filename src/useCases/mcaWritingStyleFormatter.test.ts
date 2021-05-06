@@ -3,6 +3,7 @@ import {
   formatDate,
   formatOwners,
   formatUses,
+  isNoData,
   titleCase,
 } from "./mcaWritingStyleFormatter";
 
@@ -44,6 +45,7 @@ describe("formatUses()", () => {
     {
       in: [
         {
+          id: "1",
           environment: Environments.Maritime,
           purpose: Purposes.Commercial,
           activity: Activities.FishingVessel,
@@ -55,12 +57,14 @@ describe("formatUses()", () => {
     {
       in: [
         {
+          id: "1",
           environment: Environments.Maritime,
           purpose: Purposes.Commercial,
           activity: Activities.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
         },
         {
+          id: "2",
           environment: Environments.Aviation,
           purpose: Purposes.Pleasure,
           activity: Activities.Glider,
@@ -72,12 +76,14 @@ describe("formatUses()", () => {
     {
       in: [
         {
+          id: "1",
           environment: Environments.Maritime,
           purpose: Purposes.Commercial,
           activity: Activities.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
         },
         {
+          id: "2",
           environment: Environments.Land,
           activity: Activities.ClimbingMountaineering,
           moreDetails: "Hiking at the weekends",
@@ -100,6 +106,7 @@ describe("formatOwners()", () => {
     {
       in: [
         {
+          id: "1",
           fullName: "Steve Stevington",
           email: "steve@thestevingtons.com",
           telephoneNumber: "07826 543728",
@@ -115,6 +122,7 @@ describe("formatOwners()", () => {
     {
       in: [
         {
+          id: "1",
           fullName: "Steve Stevington",
           email: "steve@thestevingtons.com",
           telephoneNumber: "07826 543728",
@@ -125,6 +133,7 @@ describe("formatOwners()", () => {
           postcode: "BS8 9NW",
         },
         {
+          id: "2",
           fullName: "Prunella Stevington",
           email: "prunella@thestevingtons.com",
           telephoneNumber: "07826 543728",
@@ -142,6 +151,24 @@ describe("formatOwners()", () => {
   expectations.forEach((expectation) => {
     it(`formats ${expectation.in} ==> ${expectation.out}`, () => {
       expect(formatOwners(expectation.in)).toEqual(expectation.out);
+    });
+  });
+});
+
+describe("isNoData()", () => {
+  const expectations = [
+    { in: undefined, out: true },
+    { in: "", out: true },
+    { in: " ", out: true },
+    { in: " d a t a w i t h s p a c e s", out: false },
+    { in: "-", out: false },
+    { in: "data", out: false },
+    { in: "0", out: false },
+  ];
+
+  expectations.forEach((expectation) => {
+    it(`${expectation.in} ===> ${expectation.out}`, () => {
+      expect(isNoData(expectation.in)).toBe(expectation.out);
     });
   });
 });

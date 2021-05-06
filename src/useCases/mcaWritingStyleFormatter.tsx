@@ -51,3 +51,7 @@ export const formatFieldValue = (value: string | undefined): JSX.Element => {
       return <b>{value.toLocaleUpperCase()}</b>;
   }
 };
+
+export const isNoData = (value: string | undefined): Boolean => {
+  return value === undefined || value === "" || /^\s*$/.test(value);
+};
