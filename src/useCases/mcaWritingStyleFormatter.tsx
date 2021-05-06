@@ -52,6 +52,8 @@ export const formatFieldValue = (value: string | undefined): JSX.Element => {
   }
 };
 
-export const isNoData = (value: string | undefined): Boolean => {
+export const beaconOwnerDidNotDisclose = (
+  value: string | undefined
+): Boolean => {
   return value === undefined || value === "" || /^\s*$/.test(value);
 };

@@ -1,9 +1,9 @@
 import { Activities, Environments, Purposes } from "../entities/IUse";
 import {
+  beaconOwnerDidNotDisclose,
   formatDate,
   formatOwners,
   formatUses,
-  isNoData,
   titleCase,
 } from "./mcaWritingStyleFormatter";
 
@@ -155,7 +155,7 @@ describe("formatOwners()", () => {
   });
 });
 
-describe("isNoData()", () => {
+describe("beaconOwnerDidNotDisclose()", () => {
   const expectations = [
     { in: undefined, out: true },
     { in: "", out: true },
@@ -168,7 +168,7 @@ describe("isNoData()", () => {
 
   expectations.forEach((expectation) => {
     it(`${expectation.in} ===> ${expectation.out}`, () => {
-      expect(isNoData(expectation.in)).toBe(expectation.out);
+      expect(beaconOwnerDidNotDisclose(expectation.in)).toBe(expectation.out);
     });
   });
 });
