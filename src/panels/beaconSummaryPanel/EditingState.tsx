@@ -6,16 +6,17 @@ import {
   Table,
   TableBody,
   TableContainer,
-  TableRow,
   Typography,
 } from "@material-ui/core";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
-import {
-  PanelViewingState,
-  TableCellWithoutLines,
-} from "../../components/dataPanel/PanelViewingState";
+import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
+import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
 import { IBeacon } from "../../entities/IBeacon";
+import {
+  shortISOFormat,
+  yyyyMmDdFormat,
+} from "../../useCases/dateTimeConverter";
 import {
   beaconOwnerDidNotDisclose,
   formatEmergencyContacts,
@@ -254,21 +255,3 @@ export const EditingState: FunctionComponent<{
     </Formik>
   );
 };
-
-const TabulatedRow: FunctionComponent<{
-  displayKey: JSX.Element;
-  value: JSX.Element;
-}> = ({ displayKey, value }) => (
-  <TableRow>
-    <TableCellWithoutLines component="th" scope="row">
-      {displayKey}
-    </TableCellWithoutLines>
-    <TableCellWithoutLines>{value}</TableCellWithoutLines>
-  </TableRow>
-);
-
-const shortISOFormat = (dateString: string) =>
-  new Date(dateString).toISOString().slice(0, 16);
-
-const yyyyMmDdFormat = (dateString: string) =>
-  new Date(dateString).toISOString().slice(0, 10);
