@@ -62,7 +62,7 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
   const renderState = () => {
     switch (state) {
       case DataPanelStates.Viewing:
-        return <PanelViewState fields={fields} splitAfter={fields.length} />;
+        return <PanelViewState fields={fields} />;
       case DataPanelStates.Editing:
         return <p>TODO</p>;
       case DataPanelStates.Error:

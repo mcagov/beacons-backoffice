@@ -34,7 +34,7 @@ export enum DataPanelStates {
 export const PanelViewState: FunctionComponent<IPanelViewStateProps> = ({
   fields,
   columns = 1,
-  splitAfter = Math.ceil(fields.length / 2),
+  splitAfter,
 }) => {
   columns = splitAfter ? 2 : columns;
   switch (columns) {
