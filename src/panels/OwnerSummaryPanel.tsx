@@ -4,6 +4,7 @@ import {
   PanelViewState,
 } from "components/dataPanel/PanelViewState";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IOwner } from "../entities/IOwner";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 
@@ -55,6 +56,7 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
         owner?.county,
         owner?.postcode,
       ],
+      valueType: FieldValueTypes.MULTILINE,
     },
   ];
 
