@@ -134,6 +134,12 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
         otherActivityPeopleCount: use.attributes.otherActivityPeopleCount,
         mainUse: use.attributes.mainUse,
       }))
-      .sort((firstUse, secondUse) => +secondUse.mainUse - +firstUse.mainUse);
+      .sort((firstUse, secondUse) => this.mainUseSortFn(firstUse, secondUse));
+  }
+
+  private mainUseSortFn(firstUse: IUse, secondUse: IUse): number {
+    const firstUseAsNumber: number = +firstUse.mainUse;
+    const secondUseAsNumber: number = +secondUse.mainUse;
+    return secondUseAsNumber - firstUseAsNumber;
   }
 }
