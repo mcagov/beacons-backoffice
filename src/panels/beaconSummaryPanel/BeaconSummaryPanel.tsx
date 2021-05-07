@@ -11,6 +11,7 @@ import {
   formatEmergencyContacts,
   formatOwners,
   formatUses,
+  Placeholders,
 } from "../../useCases/mcaWritingStyleFormatter";
 import { EditingState } from "./EditingState";
 
@@ -23,30 +24,32 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
   beaconsGateway,
   beaconId,
 }): JSX.Element => {
-  const [state, setState] = useState<DataPanelStates>(DataPanelStates.Loading);
   const [beacon, setBeacon] = useState<IBeacon>({} as IBeacon);
+  const [userState, setUserState] = useState<DataPanelStates>(
+    DataPanelStates.Viewing
+  );
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect((): void => {
     const fetchBeacon = async (id: string) => {
       try {
+        setLoading(true);
         const beacon = await beaconsGateway.getBeacon(id);
         setBeacon(beacon);
-        setState(DataPanelStates.Viewing);
+        setLoading(false);
       } catch (error) {
         console.error(error);
-        setState(DataPanelStates.Error);
+        setError(true);
       }
     };
 
     fetchBeacon(beaconId);
-  }, []); // eslint-disable-line
+  }, [userState, beaconId, beaconsGateway]);
 
   const handleSave = (beacon: IBeacon): void => {
-    setState(DataPanelStates.Loading);
-    beaconsGateway.saveBeacon(beacon).then((success) => {
-      success
-        ? setState(DataPanelStates.Viewing)
-        : setState(DataPanelStates.Error);
+    beaconsGateway.saveBeacon(beacon.id, beacon).then((success) => {
+      success ? setUserState(DataPanelStates.Viewing) : setError(true);
     });
   };
 
@@ -99,12 +102,12 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
 
   const renderState = (state: DataPanelStates) => {
     switch (state) {
-      case DataPanelStates.Loading:
-        return <LoadingState />;
       case DataPanelStates.Viewing:
         return (
           <>
-            <EditPanelButton onClick={() => setState(DataPanelStates.Editing)}>
+            <EditPanelButton
+              onClick={() => setUserState(DataPanelStates.Editing)}
+            >
               Edit summary
             </EditPanelButton>
             <PanelViewingState fields={fields} columns={2} splitAfter={8} />
@@ -115,11 +118,11 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
           <EditingState
             beacon={beacon}
             onSave={(beacon: IBeacon) => handleSave(beacon)}
-            onCancel={() => setState(DataPanelStates.Viewing)}
+            onCancel={() => setUserState(DataPanelStates.Viewing)}
           />
         );
-      case DataPanelStates.Error:
-        return <ErrorState message="An error occurred" />;
+      default:
+        return <p>I'm a DOM element</p>;
     }
   };
 
@@ -127,7 +130,11 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
     <Card>
       <CardContent>
         <CardHeader title="Summary" />
-        {renderState(state)}
+        <>
+          {error && <ErrorState message={Placeholders.UnspecifiedError} />}
+          {loading && <LoadingState />}
+          {error || loading || renderState(userState)}
+        </>
       </CardContent>
     </Card>
   );

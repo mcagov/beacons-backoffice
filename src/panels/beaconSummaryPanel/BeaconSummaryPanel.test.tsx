@@ -10,7 +10,7 @@ describe("BeaconSummaryPanel", () => {
 
   beforeEach(() => {
     beaconsGatewayDouble = {
-      getBeacon: jest.fn().mockResolvedValueOnce(beaconFixture),
+      getBeacon: jest.fn().mockResolvedValue(beaconFixture),
       getAllBeacons: jest.fn(),
       saveBeacon: jest.fn(),
     };
@@ -55,7 +55,9 @@ describe("BeaconSummaryPanel", () => {
     );
 
     expect(await screen.findByRole("alert")).toBeVisible();
-    expect(await screen.findByText("An error occurred")).toBeVisible();
+    expect(
+      await screen.findByText(Placeholders.UnspecifiedError)
+    ).toBeVisible();
   });
 
   it("displays undefined fields as 'NO DATA ENTERED'", async () => {
@@ -189,12 +191,30 @@ describe("BeaconSummaryPanel", () => {
 
       await waitFor(() => {
         expect(beaconsGatewayDouble.saveBeacon).toHaveBeenCalledWith(
+          editedBeaconFixture.id,
           editedBeaconFixture
         );
       });
     });
 
-    it("displays the edited data in viewing state when successful", async () => {
+    it("fetches beacon data on state change", async () => {
+      render(
+        <BeaconSummaryPanel
+          beaconsGateway={beaconsGatewayDouble}
+          beaconId={beaconFixture.id}
+        />
+      );
+      const editButton = await screen.findByText(/edit summary/i);
+      userEvent.click(editButton);
+      const cancelButton = await screen.findByRole("button", {
+        name: "Cancel",
+      });
+      userEvent.click(cancelButton);
+
+      expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalledTimes(3);
+    });
+
+    xit("displays the edited data in viewing state when successful", async () => {
       const editedBeaconFixture = {
         ...beaconFixture,
         manufacturer: "ACME Inc.",
