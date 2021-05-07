@@ -138,8 +138,8 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
   }
 
   private mainUseSortFn(firstUse: IUse, secondUse: IUse): number {
-    const firstUseAsNumber: number = +firstUse.mainUse;
-    const secondUseAsNumber: number = +secondUse.mainUse;
-    return secondUseAsNumber - firstUseAsNumber;
+    const firstUseMainUseAsNumber: number = +firstUse.mainUse;
+    const secondUseMainUseAsNumber: number = +secondUse.mainUse;
+    return secondUseMainUseAsNumber - firstUseMainUseAsNumber;
   }
 }
