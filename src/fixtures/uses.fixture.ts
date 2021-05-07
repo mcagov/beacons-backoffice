@@ -1,6 +1,6 @@
 import { Activities, Environments, IUse, Purposes } from "../entities/IUse";
 
-export const useFixture = (id: string, mainUse: boolean): IUse => ({
+const getUseFixture = (id: string, mainUse: boolean): IUse => ({
   id,
   environment: Environments.Maritime,
   purpose: Purposes.Commercial,
@@ -49,9 +49,9 @@ export const useFixture = (id: string, mainUse: boolean): IUse => ({
 
 export const usesFixture: IUse[] = [
   Object.freeze({
-    ...useFixture("e00036c4-e3f4-46bb-aa9e-1d91870d9172", true),
+    ...getUseFixture("e00036c4-e3f4-46bb-aa9e-1d91870d9172", true),
   }),
   Object.freeze({
-    ...useFixture("e00036c4-e3f4-46bb-aa9e-1d91870d9173", false),
+    ...getUseFixture("e00036c4-e3f4-46bb-aa9e-1d91870d9173", false),
   }),
 ];
