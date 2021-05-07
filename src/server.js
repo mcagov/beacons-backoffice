@@ -20,7 +20,7 @@ export function makeServer({ environment = "development" } = {}) {
         };
       });
 
-      this.get(`${applicationConfig.apiUrl}/beacon/:id`, () => {
+      this.get(`${applicationConfig.apiUrl}/beacons/:id`, () => {
         return singleBeaconApiResponseFixture;
       });
 
