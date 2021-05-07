@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { beaconFixture } from "../fixtures/beacons.fixture";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
@@ -12,26 +12,6 @@ describe("Beacon record page", () => {
       getBeacon: jest.fn().mockResolvedValue(beaconFixture),
       getAllBeacons: jest.fn(),
     };
-  });
-
-  it("Displays correct Tab panel", async () => {
-    render(
-      <SingleBeaconRecordView
-        beaconsGateway={beaconsGatewayDouble}
-        beaconId={beaconFixture.id}
-      />
-    );
-
-    const leftClick = { button: 1 };
-
-    expect(screen.queryByText("Hello I am beacon use")).toBeNull();
-
-    fireEvent.click(
-      screen.getByText("Registered Uses", { exact: false }),
-      leftClick
-    );
-
-    expect(await screen.findByText("Hello I am beacon use")).toBeDefined();
   });
 
   it("Displays beacon's hex ID", async () => {

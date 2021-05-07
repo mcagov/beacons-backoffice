@@ -84,7 +84,7 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           </Grid>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Hello I am beacon use
+          {""}
         </TabPanel>
       </PageContent>
     </div>

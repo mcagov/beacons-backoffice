@@ -9,13 +9,14 @@ import {
 } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
 import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
-import { FieldValue } from "./FieldValue";
+import { FieldValue, FieldValueTypes } from "./FieldValue";
 
 type IFieldValue = string | undefined;
 
 export interface IField {
   key: string;
   value: IFieldValue | IFieldValue[];
+  valueType?: FieldValueTypes;
 }
 
 interface IPanelViewStateProps {
@@ -63,7 +64,9 @@ const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
               </TableCell>
               <TableCell>
                 {valuesAsArray.map((value, index) => (
-                  <FieldValue key={index}>{value}</FieldValue>
+                  <FieldValue key={index} valueType={field.valueType}>
+                    {value}
+                  </FieldValue>
                 ))}
               </TableCell>
             </TableRow>
