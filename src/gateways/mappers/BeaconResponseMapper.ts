@@ -133,6 +133,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
         otherActivityLocation: use.attributes.otherActivityLocation,
         otherActivityPeopleCount: use.attributes.otherActivityPeopleCount,
         mainUse: use.attributes.mainUse,
-      }));
+      }))
+      .sort((use) => (use.mainUse ? -1 : 1));
   }
 }
