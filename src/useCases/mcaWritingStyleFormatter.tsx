@@ -1,3 +1,4 @@
+import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
 import { IUse } from "../entities/IUse";
@@ -10,10 +11,16 @@ export enum Placeholders {
   NoData = "NO DATA ENTERED",
 }
 
-export const formatDate = (dateString: string): string => {
+export const formatDateLong = (dateString: string): string => {
   const date = new Date(dateString);
   const [, month, day, year] = date.toDateString().split(" ");
   return `${parseInt(day)} ${month} ${year.slice(2)}`;
+};
+
+export const formatDateShort = (dateString: string): string => {
+  const date = new Date(dateString);
+  const [, month, , year] = date.toDateString().split(" ");
+  return `${month} ${year}`;
 };
 
 export const formatUses = (uses: IUse[]): string =>
@@ -43,11 +50,19 @@ export const formatEmergencyContacts = (
   emergencyContacts: IEmergencyContact[]
 ): string => `${emergencyContacts.length} listed`;
 
-export const formatFieldValue = (value: string | undefined): JSX.Element => {
+export const formatFieldValue = (
+  value: string | undefined,
+  valueType?: FieldValueTypes
+): JSX.Element => {
   switch (typeof value) {
     case "undefined":
       return <i>{Placeholders.NoData}</i>;
     case "string":
-      return <b>{value.toLocaleUpperCase()}</b>;
+      console.log(value, valueType);
+      if (valueType === FieldValueTypes.DATE) {
+        return <b>{formatDateShort(value)}</b>;
+      } else {
+        return <b>{value.toLocaleUpperCase()}</b>;
+      }
   }
 };
