@@ -36,7 +36,7 @@ export interface IUse {
   dongle?: boolean;
   beaconPosition?: string;
   workingRemotelyLocation?: string;
-  workingRemotelyPeopleCount?: string;
+  workingRemotelyPeopleCount?: number;
   windfarmLocation?: string;
   windfarmPeopleCount?: string;
   otherActivityLocation?: string;
