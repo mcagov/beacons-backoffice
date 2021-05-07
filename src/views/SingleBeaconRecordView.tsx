@@ -83,7 +83,9 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
             </Grid>
           </Grid>
         </TabPanel>
-        <TabPanel value={value} index={1}></TabPanel>
+        <TabPanel value={value} index={1}>
+          {""}
+        </TabPanel>
       </PageContent>
     </div>
   );

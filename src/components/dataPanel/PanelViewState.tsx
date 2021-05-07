@@ -53,7 +53,6 @@ const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
     <Table size="small">
       <TableBody>
         {fields.map((field, index) => {
-          console.log(field.valueType);
           const valuesAsArray =
             field.value instanceof Array ? field.value : [field.value];
           return (
