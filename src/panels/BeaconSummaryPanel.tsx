@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import {
   DataPanelStates,
   PanelViewState,
@@ -75,10 +76,12 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
     {
       key: "Battery expiry date",
       value: beacon?.batteryExpiryDate,
+      valueType: FieldValueTypes.DATE,
     },
     {
       key: "Last serviced date",
       value: beacon?.lastServicedDate,
+      valueType: FieldValueTypes.DATE,
     },
     {
       key: "Owner(s)",
