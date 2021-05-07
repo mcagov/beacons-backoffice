@@ -45,6 +45,7 @@ export const singleBeaconApiResponseFixture = Object.freeze({
         purpose: "COMMERCIAL",
         activity: "FISHING_VESSEL",
         moreDetails: "I take people out in my yacht.",
+        mainUse: true,
       },
     },
     {

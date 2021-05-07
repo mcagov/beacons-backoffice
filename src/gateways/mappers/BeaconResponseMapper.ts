@@ -88,14 +88,13 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
   private mapUses(beaconApiResponse: IBeaconResponse): IUse[] {
     return beaconApiResponse.included
       .filter((entity) => entity.type === "beaconUse")
-      .map((use) => {
-        return {
-          id: use.id,
-          environment: use.attributes.environment,
-          purpose: use.attributes.purpose,
-          activity: use.attributes.activity,
-          moreDetails: use.attributes.moreDetails,
-        };
-      });
+      .map((use) => ({
+        id: use.id,
+        environment: use.attributes.environment,
+        purpose: use.attributes.purpose,
+        activity: use.attributes.activity,
+        moreDetails: use.attributes.moreDetails,
+        mainUse: use.attributes.mainUse,
+      }));
   }
 }
