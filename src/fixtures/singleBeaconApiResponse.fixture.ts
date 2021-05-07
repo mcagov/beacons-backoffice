@@ -1,6 +1,6 @@
 import { IBeaconResponse } from "gateways/mappers/IBeaconResponse";
 
-const getUse = (mainUse: boolean) => ({
+const getUseResponseJson = (mainUse: boolean) => ({
   environment: "MARITIME",
   purpose: "COMMERCIAL",
   activity: "FISHING_VESSEL",
@@ -99,14 +99,14 @@ export const singleBeaconApiResponseFixture: Readonly<IBeaconResponse> = Object.
         type: "beaconUse",
         id: "e00036c4-e3f4-46bb-aa9e-1d91870d9173",
         attributes: {
-          ...getUse(false),
+          ...getUseResponseJson(false),
         },
       },
       {
         type: "beaconUse",
         id: "e00036c4-e3f4-46bb-aa9e-1d91870d9172",
         attributes: {
-          ...getUse(true),
+          ...getUseResponseJson(true),
         },
       },
       {
