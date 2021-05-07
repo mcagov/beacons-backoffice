@@ -176,6 +176,7 @@ describe("formatOwners()", () => {
 describe("formatFieldValue()", () => {
   const expectations = [
     { in: undefined, out: <i>{Placeholders.NoData}</i> },
+    { in: "", out: <i>{Placeholders.NoData}</i> },
     { in: "Beacons", out: <b>BEACONS</b> },
     { in: "1234", out: <b>1234</b> },
   ];
@@ -192,5 +193,9 @@ describe("formatFieldValue()", () => {
     expect(
       formatFieldValue("2021-05-06T10:00:04.285653", FieldValueTypes.DATE)
     ).toEqual(<b>May 2021</b>);
+  });
+
+  it(`formats ${FieldValueTypes.MULTILINE} values correctly i.e. will not show ${Placeholders.NoData} if value is missing`, () => {
+    expect(formatFieldValue("", FieldValueTypes.MULTILINE)).toEqual(<></>);
   });
 });

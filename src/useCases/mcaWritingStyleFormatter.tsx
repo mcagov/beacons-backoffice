@@ -54,15 +54,15 @@ export const formatFieldValue = (
   value: string | undefined,
   valueType?: FieldValueTypes
 ): JSX.Element => {
-  switch (typeof value) {
-    case "undefined":
+  if (value) {
+    if (valueType === FieldValueTypes.DATE) {
+      return <b>{formatDateShort(value)}</b>;
+    } else {
+      return <b>{value.toLocaleUpperCase()}</b>;
+    }
+  } else {
+    if (valueType !== FieldValueTypes.MULTILINE)
       return <i>{Placeholders.NoData}</i>;
-    case "string":
-      console.log(value, valueType);
-      if (valueType === FieldValueTypes.DATE) {
-        return <b>{formatDateShort(value)}</b>;
-      } else {
-        return <b>{value.toLocaleUpperCase()}</b>;
-      }
+    return <></>;
   }
 };
