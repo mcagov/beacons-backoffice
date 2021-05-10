@@ -1,6 +1,6 @@
 name: Development backoffice
 
-on: push
+on: [push, workflow_dispatch]
 
 jobs:
   unit_tests:
