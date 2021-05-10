@@ -46,13 +46,13 @@ export class BeaconsGateway implements IBeaconsGateway {
         `${applicationConfig.apiUrl}/beacons/${beaconId}`,
         updatedFields
       );
-      return this.successful(response);
+      return this.isSuccessful(response);
     } catch (e) {
       throw Error(e);
     }
   }
 
-  private successful(response: AxiosResponse) {
+  private isSuccessful(response: AxiosResponse) {
     return 200 >= response.status && response.status <= 299;
   }
 }

@@ -13,6 +13,7 @@ describe("Emergency Contact Summary Panel", () => {
     beaconsGatewayDouble = {
       getBeacon: getBeaconDouble,
       getAllBeacons: jest.fn(),
+      saveBeacon: jest.fn(),
     };
   });
 

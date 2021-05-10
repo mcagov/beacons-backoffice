@@ -8,6 +8,10 @@ import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 jest.mock("axios");
 jest.useFakeTimers();
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("BeaconsGateway", () => {
   const beaconResponseMapper: IBeaconResponseMapper = {
     map: jest.fn(),
@@ -79,7 +83,7 @@ describe("BeaconsGateway", () => {
       const gateway = new BeaconsGateway(beaconResponseMapper);
       const updatedFieldsOnly: Partial<IBeacon> = { manufacturer: "ACME Inc." };
       // @ts-ignore
-      axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
+      axios.patch.mockResolvedValue({ status: 200 });
 
       gateway.saveBeacon(beaconFixture.id, updatedFieldsOnly);
 
