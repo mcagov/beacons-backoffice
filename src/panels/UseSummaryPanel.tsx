@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
+import { IField, PanelViewState } from "components/dataPanel/PanelViewState";
 import { IUse } from "entities/IUse";
 import React, { FunctionComponent } from "react";
 
@@ -12,11 +13,13 @@ export const UseSummaryPanel: FunctionComponent<UseSummaryPanelProps> = ({
   titlePrefix,
 }: UseSummaryPanelProps): JSX.Element => {
   const title = getCardHeaderTitle(titlePrefix, use);
+  const fields = getPanelFields(use);
 
   return (
     <Card>
       <CardContent>
         <CardHeader title={title} />
+        <PanelViewState fields={fields} />
       </CardContent>
     </Card>
   );
@@ -30,3 +33,5 @@ const getCardHeaderTitle = (titlePrefix: string, use: IUse): string => {
 
   return title;
 };
+
+const getPanelFields = (use: IUse): IField[] => [];

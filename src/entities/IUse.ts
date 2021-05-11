@@ -61,4 +61,5 @@ export enum Activity {
   ClimbingMountaineering = "CLIMBING_MOUNTAINEERING",
   Glider = "GLIDER",
   SailingVessel = "SAILING_VESSEL",
+  Other = "OTHER",
 }

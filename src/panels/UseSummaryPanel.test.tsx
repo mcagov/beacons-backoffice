@@ -29,4 +29,9 @@ describe("UseSummaryPanel", () => {
       await screen.findByText("Primary use: GLIDER (PLEASURE)")
     ).toBeVisible();
   });
+
+  it("should render an other activity use", async () => {
+    use.activity = Activity.Other;
+    use.otherActivity;
+  });
 });
