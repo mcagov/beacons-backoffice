@@ -1,6 +1,7 @@
 import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { IBeacon } from "entities/IBeacon";
+import { IUsesGateway } from "gateways/IUsesGateway";
 import { OwnerSummaryPanel } from "panels/OwnerSummaryPanel";
 import { UsesSummaryPanel } from "panels/UsesSummaryPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
@@ -13,6 +14,7 @@ import { EmergencyContactSummaryPanel } from "../panels/EmergencyContactSummaryP
 
 interface ISingleBeaconRecordViewProps {
   beaconsGateway: IBeaconsGateway;
+  usesGateway: IUsesGateway;
   beaconId: string;
 }
 
@@ -29,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewProps> = ({
   beaconsGateway,
+  usesGateway,
   beaconId,
 }): JSX.Element => {
   const classes = useStyles();
@@ -85,7 +88,7 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           </Grid>
         </TabPanel>
         <TabPanel value={selectedTab} index={1}>
-          <UsesSummaryPanel uses={beacon ? beacon.uses : []} />
+          <UsesSummaryPanel usesGateway={usesGateway} beaconId={beaconId} />
         </TabPanel>
       </PageContent>
     </div>

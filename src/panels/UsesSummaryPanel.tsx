@@ -1,13 +1,15 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { IUse } from "entities/IUse";
+import { IUsesGateway } from "gateways/IUsesGateway";
 import { FunctionComponent } from "react";
 
 interface UsesSummaryPanelProps {
-  uses: IUse[];
+  usesGateway: IUsesGateway;
+  beaconId: string;
 }
 
 export const UsesSummaryPanel: FunctionComponent<UsesSummaryPanelProps> = ({
-  uses,
+  usesGateway,
+  beaconId,
 }: UsesSummaryPanelProps): JSX.Element => {
   return (
     <Card>
