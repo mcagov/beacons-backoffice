@@ -67,7 +67,3 @@ export const formatFieldValue = (
     return <></>;
   }
 };
-
-export const noDataEntered = (value: string | undefined): Boolean => {
-  return value === undefined || value === "" || /^\s*$/.test(value);
-};

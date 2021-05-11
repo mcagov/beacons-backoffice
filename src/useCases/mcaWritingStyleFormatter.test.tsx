@@ -6,7 +6,6 @@ import {
   formatFieldValue,
   formatOwners,
   formatUses,
-  noDataEntered,
   Placeholders,
   titleCase,
 } from "./mcaWritingStyleFormatter";
@@ -198,23 +197,5 @@ describe("formatFieldValue()", () => {
 
   it(`formats ${FieldValueTypes.MULTILINE} values correctly i.e. will not show ${Placeholders.NoData} if value is missing`, () => {
     expect(formatFieldValue("", FieldValueTypes.MULTILINE)).toEqual(<></>);
-  });
-});
-
-describe("noDataEntered()", () => {
-  const expectations = [
-    { in: undefined, out: true },
-    { in: "", out: true },
-    { in: " ", out: true },
-    { in: " d a t a w i t h s p a c e s", out: false },
-    { in: "-", out: false },
-    { in: "data", out: false },
-    { in: "0", out: false },
-  ];
-
-  expectations.forEach((expectation) => {
-    it(`${expectation.in} ===> ${expectation.out}`, () => {
-      expect(noDataEntered(expectation.in)).toBe(expectation.out);
-    });
   });
 });
