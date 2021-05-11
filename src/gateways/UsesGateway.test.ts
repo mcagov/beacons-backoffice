@@ -1,6 +1,8 @@
 import axios from "axios";
+import { usesFixture } from "fixtures/uses.fixture";
 import { applicationConfig } from "../config";
 import { IUsesGateway } from "./IUsesGateway";
+import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 import { UsesGateway } from "./UsesGateway";
 
 jest.mock("axios");
@@ -9,7 +11,7 @@ jest.useFakeTimers();
 describe("UsesGateway", () => {
   let gateway: IUsesGateway;
   let beaconId: string;
-  let beaconResponseMapper: Bea;
+  let beaconResponseMapper: IBeaconResponseMapper;
 
   beforeEach(() => {
     beaconResponseMapper = {
@@ -20,11 +22,21 @@ describe("UsesGateway", () => {
   });
 
   describe("fetching uses for a given beacon id", () => {
-    it("returns the uses array", async () => {});
+    it("returns the uses array", async () => {
+      // @ts-ignore
+      axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
+      // @ts-ignore
+      beaconResponseMapper.map.mockReturnValue({ uses: usesFixture });
+
+      const uses = await gateway.getUses(beaconId);
+
+      expect(uses).toStrictEqual(usesFixture);
+    });
 
     it("queries the correct endpoint", async () => {
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
+      // @ts-ignore
       beaconResponseMapper.map.mockReturnValue({ uses: [] });
 
       await gateway.getUses(beaconId);
