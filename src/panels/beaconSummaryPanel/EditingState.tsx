@@ -14,10 +14,6 @@ import { PanelViewingState } from "../../components/dataPanel/PanelViewingState"
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
 import { IBeacon } from "../../entities/IBeacon";
 import {
-  shortISOFormat,
-  yyyyMmDdFormat,
-} from "../../useCases/dateTimeConverter";
-import {
   beaconOwnerDidNotDisclose,
   formatEmergencyContacts,
   formatOwners,
@@ -33,20 +29,12 @@ export const EditingState: FunctionComponent<{
 }> = ({ beacon, onSave, onCancel }) => {
   return (
     <Formik
-      initialValues={{
-        ...beacon,
-        batteryExpiryDate: yyyyMmDdFormat(beacon.batteryExpiryDate as string),
-        lastServicedDate: yyyyMmDdFormat(beacon.lastServicedDate as string),
-      }}
+      initialValues={beacon}
       onSubmit={(
         values: IBeacon,
         { setSubmitting }: FormikHelpers<IBeacon>
       ) => {
-        onSave({
-          ...values,
-          batteryExpiryDate: shortISOFormat(values.batteryExpiryDate as string),
-          lastServicedDate: shortISOFormat(values.lastServicedDate as string),
-        });
+        onSave(values);
         setSubmitting(false);
       }}
     >
