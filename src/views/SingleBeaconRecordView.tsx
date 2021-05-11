@@ -51,7 +51,7 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
     };
 
     fetchBeacon(beaconId);
-  }, [beaconId, beaconsGateway]); // eslint-disable-line
+  }, [beaconId, beaconsGateway]);
 
   const hexId = beacon?.hexId || "";
   const numberOfUses = beacon?.uses?.length.toString() || "";
