@@ -3,6 +3,7 @@ export interface IUse {
   environment: Environments;
   purpose?: string;
   activity: string;
+  otherActivity?: string;
   callSign?: string;
   vhfRadio?: boolean;
   fixedVhfRadio?: boolean;
