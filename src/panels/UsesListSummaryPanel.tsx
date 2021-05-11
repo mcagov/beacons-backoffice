@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader } from "@material-ui/core";
 import { IUse } from "entities/IUse";
 import { IUsesGateway } from "gateways/IUsesGateway";
-import { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { UseSummaryPanel } from "./UseSummaryPanel";
 
 interface UsesListSummaryPanelProps {
   usesGateway: IUsesGateway;
@@ -12,7 +12,7 @@ export const UsesListSummaryPanel: FunctionComponent<UsesListSummaryPanelProps> 
   usesGateway,
   beaconId,
 }: UsesListSummaryPanelProps): JSX.Element => {
-  const [uses, setUses] = useState<IUse[]>();
+  const [uses, setUses] = useState<IUse[]>([]);
 
   useEffect((): (() => void) => {
     let isMounted = true;
@@ -36,10 +36,26 @@ export const UsesListSummaryPanel: FunctionComponent<UsesListSummaryPanelProps> 
   }, [beaconId, usesGateway]);
 
   return (
-    <Card>
-      <CardContent>
-        <CardHeader title="Primary use" />
-      </CardContent>
-    </Card>
+    <>
+      {uses.map((use, index) => (
+        <UseSummaryPanel
+          key={index}
+          use={use}
+          titlePrefix={getTitlePrefix(index + 1)}
+        />
+      ))}
+    </>
   );
+};
+
+const getTitlePrefix = (index: number): string => {
+  const numberToOrdinalString: Record<number, string> = {
+    1: "Primary",
+    2: "Secondary",
+    3: "Third",
+    4: "Fourth",
+    5: "Fifth",
+  };
+
+  return numberToOrdinalString[index];
 };

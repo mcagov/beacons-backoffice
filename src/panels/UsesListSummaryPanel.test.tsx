@@ -15,9 +15,10 @@ describe("Uses List Summary Panel", () => {
     beaconId = "1";
   });
 
-  it("should display the owners details", async () => {
+  it("should display the primary and secondary use", async () => {
     render(<UsesListSummaryPanel usesGateway={gateway} beaconId={beaconId} />);
 
     expect(await screen.findByText(/Primary Use/i)).toBeVisible();
+    expect(await screen.findByText(/Secondary Use/i)).toBeVisible();
   });
 });
