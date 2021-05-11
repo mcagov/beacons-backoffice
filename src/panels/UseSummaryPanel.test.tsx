@@ -16,13 +16,17 @@ describe("UseSummaryPanel", () => {
   it("should render the use with an underscore in the activity along with the title", async () => {
     render(<UseSummaryPanel use={use} titlePrefix="Primary" />);
 
-    expect(await screen.findByText("Primary use: SAILING VESSEL (PLEASURE)"));
+    expect(
+      await screen.findByText("Primary use: SAILING VESSEL (PLEASURE)")
+    ).toBeVisible();
   });
 
   it("should render the use without an underscore in the activity along with the title", async () => {
     use.activity = Activity.Glider;
     render(<UseSummaryPanel use={use} titlePrefix="Primary" />);
 
-    expect(await screen.findByText("Primary use: GLIDER (PLEASURE)"));
+    expect(
+      await screen.findByText("Primary use: GLIDER (PLEASURE)")
+    ).toBeVisible();
   });
 });

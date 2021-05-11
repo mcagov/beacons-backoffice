@@ -11,10 +11,7 @@ export const UseSummaryPanel: FunctionComponent<UseSummaryPanelProps> = ({
   use,
   titlePrefix,
 }: UseSummaryPanelProps): JSX.Element => {
-  let title = `${titlePrefix} use: ${use.activity.replace(/_/, " ")} `;
-  if (use.purpose) {
-    title += `(${use.purpose})`;
-  }
+  const title = getCardHeaderTitle(titlePrefix, use);
 
   return (
     <Card>
@@ -23,4 +20,13 @@ export const UseSummaryPanel: FunctionComponent<UseSummaryPanelProps> = ({
       </CardContent>
     </Card>
   );
+};
+
+const getCardHeaderTitle = (titlePrefix: string, use: IUse): string => {
+  let title = `${titlePrefix} use: ${use.activity.replace(/_/, " ")} `;
+  if (use.purpose) {
+    title += `(${use.purpose})`;
+  }
+
+  return title;
 };
