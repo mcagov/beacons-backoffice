@@ -1,12 +1,12 @@
 import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { Activities, Environments, Purposes } from "../entities/IUse";
 import {
-  beaconOwnerDidNotDisclose,
   formatDateLong,
   formatDateShort,
   formatFieldValue,
   formatOwners,
   formatUses,
+  noDataEntered,
   Placeholders,
   titleCase,
 } from "./mcaWritingStyleFormatter";
@@ -201,7 +201,7 @@ describe("formatFieldValue()", () => {
   });
 });
 
-describe("beaconOwnerDidNotDisclose()", () => {
+describe("noDataEntered()", () => {
   const expectations = [
     { in: undefined, out: true },
     { in: "", out: true },
@@ -214,7 +214,7 @@ describe("beaconOwnerDidNotDisclose()", () => {
 
   expectations.forEach((expectation) => {
     it(`${expectation.in} ===> ${expectation.out}`, () => {
-      expect(beaconOwnerDidNotDisclose(expectation.in)).toBe(expectation.out);
+      expect(noDataEntered(expectation.in)).toBe(expectation.out);
     });
   });
 });

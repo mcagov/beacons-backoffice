@@ -14,11 +14,10 @@ import { PanelViewingState } from "../../components/dataPanel/PanelViewingState"
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
 import { IBeacon } from "../../entities/IBeacon";
 import {
-  beaconOwnerDidNotDisclose,
   formatEmergencyContacts,
   formatOwners,
   formatUses,
-  Placeholders,
+  formPlaceholder,
   WritingStyle,
 } from "../../useCases/mcaWritingStyleFormatter";
 
@@ -64,6 +63,9 @@ export const EditingState: FunctionComponent<{
                           id="manufacturer"
                           name="manufacturer"
                           type="string"
+                          placeholder={formPlaceholder(
+                            props.values.manufacturer
+                          )}
                         />
                       }
                     />
@@ -81,6 +83,7 @@ export const EditingState: FunctionComponent<{
                           id="model"
                           name="model"
                           type="string"
+                          placeholder={formPlaceholder(props.values.model)}
                         />
                       }
                     />
@@ -112,6 +115,9 @@ export const EditingState: FunctionComponent<{
                           id="protocolCode"
                           name="protocolCode"
                           type="string"
+                          placeholder={formPlaceholder(
+                            props.values.protocolCode
+                          )}
                         />
                       }
                     />
@@ -131,6 +137,9 @@ export const EditingState: FunctionComponent<{
                           id="manufacturerSerialNumber"
                           name="manufacturerSerialNumber"
                           type="string"
+                          placeholder={formPlaceholder(
+                            props.values.manufacturerSerialNumber
+                          )}
                         />
                       }
                     />
@@ -149,12 +158,7 @@ export const EditingState: FunctionComponent<{
                           id="chkCode"
                           name="chkCode"
                           type="string"
-                          placeholder={
-                            // TODO: Use this universally on all IBeacon fields (and make them optional) to cater for ETL data?
-                            beaconOwnerDidNotDisclose(props.values.chkCode)
-                              ? Placeholders.NoData
-                              : ""
-                          }
+                          placeholder={formPlaceholder(props.values.chkCode)}
                         />
                       }
                     />
@@ -174,6 +178,9 @@ export const EditingState: FunctionComponent<{
                           id="batteryExpiryDate"
                           name="batteryExpiryDate"
                           type="date"
+                          placeholder={formPlaceholder(
+                            props.values.batteryExpiryDate
+                          )}
                         />
                       }
                     />
