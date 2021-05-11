@@ -4,8 +4,15 @@ import { formatFieldValue } from "../../useCases/mcaWritingStyleFormatter";
 
 interface IFieldValueProps {
   children: string | undefined;
+  valueType?: FieldValueTypes;
+}
+
+export enum FieldValueTypes {
+  DATE = "DATE",
+  MULTILINE = "MULTILINE",
 }
 
 export const FieldValue: FunctionComponent<IFieldValueProps> = ({
   children,
-}) => <Typography>{formatFieldValue(children)}</Typography>;
+  valueType,
+}) => <Typography>{formatFieldValue(children, valueType)}</Typography>;

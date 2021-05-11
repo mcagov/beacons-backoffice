@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
 import { PanelViewingState } from "components/dataPanel/PanelViewingState";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 
@@ -47,6 +48,7 @@ export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSum
         emergencyContact.telephoneNumber,
         emergencyContact.alternativeTelephoneNumber,
       ],
+      valueType: FieldValueTypes.MULTILINE,
     },
   ]);
 

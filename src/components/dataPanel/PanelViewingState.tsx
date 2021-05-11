@@ -10,16 +10,17 @@ import {
 } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
 import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
-import { FieldValue } from "./FieldValue";
+import { FieldValue, FieldValueTypes } from "./FieldValue";
 
 type IFieldValue = string | undefined;
 
 export interface IField {
   key: string;
   value: IFieldValue | IFieldValue[];
+  valueType?: FieldValueTypes;
 }
 
-export interface IPanelViewStateProps {
+export interface IPanelViewingStateProps {
   fields: IField[];
   columns?: 1 | 2;
   splitAfter?: number;
@@ -31,10 +32,10 @@ export const TableCellWithoutLines = withStyles({
   },
 })(TableCell);
 
-export const PanelViewingState: FunctionComponent<IPanelViewStateProps> = ({
+export const PanelViewingState: FunctionComponent<IPanelViewingStateProps> = ({
   fields,
   columns = 1,
-  splitAfter = Math.ceil(fields.length / 2),
+  splitAfter,
 }) => {
   switch (columns) {
     case 1:
@@ -46,7 +47,7 @@ export const PanelViewingState: FunctionComponent<IPanelViewStateProps> = ({
   }
 };
 
-const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
+const OneColumn: FunctionComponent<IPanelViewingStateProps> = ({ fields }) => (
   <TableContainer>
     <Table size="small">
       <TableBody>
@@ -62,7 +63,9 @@ const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
               </TableCellWithoutLines>
               <TableCellWithoutLines>
                 {valuesAsArray.map((value, index) => (
-                  <FieldValue key={index}>{value}</FieldValue>
+                  <FieldValue key={index} valueType={field.valueType}>
+                    {value}
+                  </FieldValue>
                 ))}
               </TableCellWithoutLines>
             </TableRow>
@@ -73,7 +76,7 @@ const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
   </TableContainer>
 );
 
-const TwoColumns: FunctionComponent<IPanelViewStateProps> = ({
+const TwoColumns: FunctionComponent<IPanelViewingStateProps> = ({
   fields,
   splitAfter,
 }) => {

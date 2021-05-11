@@ -25,7 +25,7 @@ import React, {
   useState,
 } from "react";
 import {
-  formatDate,
+  formatDateLong,
   formatUses,
   titleCase,
 } from "useCases/mcaWritingStyleFormatter";
@@ -93,7 +93,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
         const response = await beaconsGateway.getAllBeacons();
 
         const beacons = response.data.map((item: any) => ({
-          date: formatDate(item.attributes.createdDate),
+          date: formatDateLong(item.attributes.createdDate),
           status: titleCase(item.attributes.status),
           hexId: item.attributes.hexId,
           owner: item.attributes.owner.fullName,

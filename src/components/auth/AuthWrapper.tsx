@@ -3,9 +3,12 @@ import { MsalProvider } from "@azure/msal-react";
 import { applicationConfig } from "config";
 import React, { FunctionComponent } from "react";
 
+const authorityBaseUrl = "https://login.microsoftonline.com";
+
 const configuration: Configuration = {
   auth: {
     clientId: applicationConfig.azureADClientId as string,
+    authority: `${authorityBaseUrl}/${applicationConfig.azureADTenantId}`,
   },
 };
 

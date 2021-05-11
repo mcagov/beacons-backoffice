@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { beaconFixture } from "../fixtures/beacons.fixture";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
@@ -15,23 +15,29 @@ describe("Beacon record page", () => {
     };
   });
 
-  it("Displays correct Tab panel", async () => {
+  it("Displays beacon's hex ID", async () => {
     render(
       <SingleBeaconRecordView
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
     );
+    const hexId = beaconFixture.hexId;
 
-    const leftClick = { button: 1 };
+    expect(await screen.findByText(`Hex ID/UIN: ${hexId}`)).toBeDefined();
+  });
 
-    expect(screen.queryByText("Hello I am beacon use")).toBeNull();
-
-    fireEvent.click(
-      screen.getByText("Registered Uses", { exact: false }),
-      leftClick
+  it("Displays the number of uses a beacon has", async () => {
+    render(
+      <SingleBeaconRecordView
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={beaconFixture.id}
+      />
     );
+    const numberOfUses = beaconFixture.uses.length;
 
-    expect(await screen.findByText("Hello I am beacon use")).toBeDefined();
+    expect(
+      await screen.findByText(`${numberOfUses} Registered Uses`)
+    ).toBeDefined();
   });
 });
