@@ -48,7 +48,7 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
   }, [userState, beaconId, beaconsGateway]);
 
   const handleSave = (beacon: IBeacon): void => {
-    beaconsGateway.saveBeacon(beacon.id, beacon).then((success) => {
+    beaconsGateway.updateBeacon(beacon.id, beacon).then((success) => {
       success ? setUserState(DataPanelStates.Viewing) : setError(true);
     });
   };

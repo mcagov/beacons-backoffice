@@ -37,7 +37,7 @@ export class BeaconsGateway implements IBeaconsGateway {
     }
   }
 
-  public async saveBeacon(
+  public async updateBeacon(
     beaconId: string,
     updatedFields: Partial<IBeacon>
   ): Promise<boolean> {

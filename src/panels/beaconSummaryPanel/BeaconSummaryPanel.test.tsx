@@ -12,7 +12,7 @@ describe("BeaconSummaryPanel", () => {
     beaconsGatewayDouble = {
       getBeacon: jest.fn().mockResolvedValue(beaconFixture),
       getAllBeacons: jest.fn(),
-      saveBeacon: jest.fn(),
+      updateBeacon: jest.fn(),
     };
   });
 
@@ -175,7 +175,7 @@ describe("BeaconSummaryPanel", () => {
         ...beaconFixture,
         manufacturer: "ACME Inc.",
       };
-      beaconsGatewayDouble.saveBeacon = jest.fn().mockResolvedValue(true);
+      beaconsGatewayDouble.updateBeacon = jest.fn().mockResolvedValue(true);
       render(
         <BeaconSummaryPanel
           beaconsGateway={beaconsGatewayDouble}
@@ -194,7 +194,7 @@ describe("BeaconSummaryPanel", () => {
       userEvent.click(saveButton);
 
       await waitFor(() => {
-        expect(beaconsGatewayDouble.saveBeacon).toHaveBeenCalledWith(
+        expect(beaconsGatewayDouble.updateBeacon).toHaveBeenCalledWith(
           editedBeaconFixture.id,
           editedBeaconFixture
         );

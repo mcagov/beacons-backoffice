@@ -74,7 +74,7 @@ describe("BeaconsGateway", () => {
     });
   });
 
-  describe("saveBeacon()", () => {
+  describe("updateBeacon()", () => {
     beforeEach(() => {
       jest.clearAllMocks();
     });
@@ -85,7 +85,7 @@ describe("BeaconsGateway", () => {
       // @ts-ignore
       axios.patch.mockResolvedValue({ status: 200 });
 
-      gateway.saveBeacon(beaconFixture.id, updatedFieldsOnly);
+      gateway.updateBeacon(beaconFixture.id, updatedFieldsOnly);
 
       expect(axios.patch).toHaveBeenCalledWith(
         `${applicationConfig.apiUrl}/beacons/${beaconFixture.id}`,
@@ -99,7 +99,7 @@ describe("BeaconsGateway", () => {
       axios.patch.mockImplementationOnce(() => Promise.reject(new Error()));
 
       await expect(
-        gateway.saveBeacon(beaconFixture.id, { model: "iBeacon" })
+        gateway.updateBeacon(beaconFixture.id, { model: "iBeacon" })
       ).rejects.toThrow();
     });
   });
