@@ -9,12 +9,12 @@ interface VesselCommunicationsProps {
 export const VesselCommunications: FunctionComponent<VesselCommunicationsProps> = ({
   use,
 }: VesselCommunicationsProps): JSX.Element => {
-  const fields: IField[] = getMaritimeCommsFields(use);
+  const fields: IField[] = getVesselCommsFields(use);
 
   return <PanelViewState fields={fields} />;
 };
 
-const getMaritimeCommsFields = (use: IUse): IField[] => {
+const getVesselCommsFields = (use: IUse): IField[] => {
   const fields = [];
   let communicationTypeIndex = 1;
 

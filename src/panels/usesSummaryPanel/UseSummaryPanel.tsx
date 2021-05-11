@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { Activity, IUse } from "entities/IUse";
+import { Activities, IUse } from "entities/IUse";
 import React, { FunctionComponent, ReactNode } from "react";
 import { VesselCommunications } from "./maritime/VesselCommunications";
 import { VesselSummary } from "./maritime/VesselSummary";
@@ -30,7 +30,7 @@ export const UseSummaryPanel: FunctionComponent<UseSummaryPanelProps> = ({
 const getCardHeaderTitle = (titlePrefix: string, use: IUse): string => {
   let title = `${titlePrefix} use: `;
   title +=
-    use.activity === Activity.Other
+    use.activity === Activities.Other
       ? use.otherActivity?.toUpperCase()
       : use.activity.replace(/_/, " ");
 

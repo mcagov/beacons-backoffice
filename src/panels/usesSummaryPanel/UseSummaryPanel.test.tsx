@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Activity, Purposes } from "entities/IUse";
+import { Activities, Purposes } from "entities/IUse";
 import React from "react";
 import { UseSummaryPanel } from "./UseSummaryPanel";
 
@@ -8,7 +8,7 @@ describe("UseSummaryPanel", () => {
 
   beforeEach(() => {
     use = {
-      activity: Activity.SailingVessel,
+      activity: Activities.SailingVessel,
       purpose: Purposes.Pleasure,
     };
   });
@@ -22,7 +22,7 @@ describe("UseSummaryPanel", () => {
   });
 
   it("should render the use without an underscore in the activity along with the title", async () => {
-    use.activity = Activity.Glider;
+    use.activity = Activities.Glider;
     render(<UseSummaryPanel use={use} titlePrefix="Primary" />);
 
     expect(
@@ -31,7 +31,7 @@ describe("UseSummaryPanel", () => {
   });
 
   it("should render an other activity use", async () => {
-    use.activity = Activity.Other;
+    use.activity = Activities.Other;
     use.otherActivity = "Gliding in the sea";
 
     render(<UseSummaryPanel use={use} titlePrefix="Primary" />);

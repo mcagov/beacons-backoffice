@@ -1,10 +1,10 @@
-import { Activity, Environments, IUse, Purposes } from "../entities/IUse";
+import { Activities, Environments, IUse, Purposes } from "../entities/IUse";
 
 const getUseFixture = (id: string, mainUse: boolean): IUse => ({
   id,
   environment: Environments.Maritime,
   purpose: Purposes.Commercial,
-  activity: Activity.FishingVessel,
+  activity: Activities.FishingVessel,
   otherActivity: undefined,
   moreDetails: "I take people out in my yacht.",
   callSign: "Call me",
