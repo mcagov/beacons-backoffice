@@ -31,25 +31,31 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
   }
 
   private mapOwners(beaconApiResponse: IBeaconResponse): IOwner[] {
-    const ownerId = beaconApiResponse.data.relationships.owner.data.id;
+    const ownerIds = beaconApiResponse.data.relationships.owner.data.map(
+      (owner) => owner.id
+    );
 
-    return beaconApiResponse.included
-      .filter(
+    return ownerIds.map((ownerId) => {
+      const owner = beaconApiResponse.included.find(
         (entity) => entity.type === "beaconPerson" && entity.id === ownerId
-      )
-      .map((owner) => {
-        return {
-          id: owner.id,
-          fullName: owner.attributes.fullName,
-          email: owner.attributes.email,
-          telephoneNumber: owner.attributes.telephoneNumber,
-          addressLine1: owner.attributes.addressLine1,
-          addressLine2: owner.attributes.addressLine2,
-          townOrCity: owner.attributes.townOrCity,
-          county: owner.attributes.county,
-          postcode: owner.attributes.postcode,
-        };
-      });
+      );
+
+      if (!owner)
+        throw ReferenceError(`Owner: ${ownerId} is defined as a relationship but not found in "included".  This is 
+      likely to be a problem with the API response`);
+
+      return {
+        id: owner.id,
+        fullName: owner.attributes.fullName,
+        email: owner.attributes.email,
+        telephoneNumber: owner.attributes.telephoneNumber,
+        addressLine1: owner.attributes.addressLine1,
+        addressLine2: owner.attributes.addressLine2,
+        townOrCity: owner.attributes.townOrCity,
+        county: owner.attributes.county,
+        postcode: owner.attributes.postcode,
+      };
+    });
   }
 
   private mapEmergencyContacts(
@@ -66,7 +72,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       );
 
       if (!emergencyContact)
-        throw ReferenceError(`${emergencyContactId} is defined as a relationship but not found in "included".  This is 
+        throw ReferenceError(`Emergency contact: ${emergencyContactId} is defined as a relationship but not found in "included".  This is 
       likely to be a problem with the API response`);
 
       return {
@@ -82,14 +88,58 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
   private mapUses(beaconApiResponse: IBeaconResponse): IUse[] {
     return beaconApiResponse.included
       .filter((entity) => entity.type === "beaconUse")
-      .map((use) => {
-        return {
-          id: use.id,
-          environment: use.attributes.environment,
-          purpose: use.attributes.purpose,
-          activity: use.attributes.activity,
-          moreDetails: use.attributes.moreDetails,
-        };
-      });
+      .map((use) => ({
+        id: use.id,
+        environment: use.attributes.environment,
+        purpose: use.attributes.purpose,
+        activity: use.attributes.activity,
+        moreDetails: use.attributes.moreDetails,
+        callSign: use.attributes.callSign,
+        vhfRadio: use.attributes.vhfRadio,
+        fixedVhfRadio: use.attributes.fixedVhfRadio,
+        fixedVhfRadioValue: use.attributes.fixedVhfRadioValue,
+        portableVhfRadio: use.attributes.portableVhfRadio,
+        portableVhfRadioValue: use.attributes.portableVhfRadioValue,
+        satelliteTelephone: use.attributes.satelliteTelephone,
+        satelliteTelephoneValue: use.attributes.satelliteTelephoneValue,
+        mobileTelephone: use.attributes.mobileTelephone,
+        mobileTelephone1: use.attributes.mobileTelephone1,
+        mobileTelephone2: use.attributes.mobileTelephone2,
+        otherCommunication: use.attributes.otherCommunication,
+        otherCommunicationValue: use.attributes.otherCommunicationValue,
+        maxCapacity: use.attributes.maxCapacity,
+        vesselName: use.attributes.vesselName,
+        portLetterNumber: use.attributes.portLetterNumber,
+        homeport: use.attributes.homeport,
+        areaOfOperation: use.attributes.areaOfOperation,
+        beaconLocation: use.attributes.beaconLocation,
+        imoNumber: use.attributes.imoNumber,
+        ssrNumber: use.attributes.ssrNumber,
+        rssNumber: use.attributes.rssNumber,
+        officialNumber: use.attributes.officialNumber,
+        rigPlatformLocation: use.attributes.rigPlatformLocation,
+        aircraftManufacturer: use.attributes.aircraftManufacturer,
+        principalAirport: use.attributes.principalAirport,
+        secondaryAirport: use.attributes.secondaryAirport,
+        registrationMark: use.attributes.registrationMark,
+        hexAddress: use.attributes.hexAddress,
+        cnOrMsnNumber: use.attributes.cnOrMsnNumber,
+        dongle: use.attributes.dongle,
+        beaconPosition: use.attributes.beaconPosition,
+        workingRemotelyLocation: use.attributes.workingRemotelyLocation,
+        workingRemotelyPeopleCount: use.attributes.workingRemotelyPeopleCount,
+        windfarmLocation: use.attributes.windfarmLocation,
+        windfarmPeopleCount: use.attributes.windfarmPeopleCount,
+        otherActivityLocation: use.attributes.otherActivityLocation,
+        otherActivityPeopleCount: use.attributes.otherActivityPeopleCount,
+        mainUse: use.attributes.mainUse,
+      }))
+      .sort((firstUse, secondUse) => this.mainUseSortFn(firstUse, secondUse));
+  }
+
+  private mainUseSortFn(firstUse: IUse, secondUse: IUse): number {
+    const firstUseMainUseAsNumber: number = +firstUse.mainUse;
+    const secondUseMainUseAsNumber: number = +secondUse.mainUse;
+    return secondUseMainUseAsNumber - firstUseMainUseAsNumber;
   }
 }

@@ -23,7 +23,7 @@ export const PageHeader: FunctionComponent<PageHeaderProps> = ({
   return (
     <div className={classes.root}>
       <Grid item xs={12}>
-        {children}
+        <h2>{children}</h2>
       </Grid>
     </div>
   );

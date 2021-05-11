@@ -32,36 +32,33 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
   beaconId,
 }): JSX.Element => {
   const classes = useStyles();
-  const hexId = "Example Hex Id";
 
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const handleChange = (event: React.ChangeEvent<{}>, tab: number) => {
     setSelectedTab(tab);
   };
 
-  const [beacon, setBeacon] = useState<IBeacon>();
-  let numberOfUses: number = 0;
+  const [beacon, setBeacon] = useState<IBeacon>({} as IBeacon);
 
   useEffect((): void => {
     const fetchBeacon = async (id: string) => {
       try {
         const beacon = await beaconsGateway.getBeacon(id);
-
         setBeacon(beacon);
-        numberOfUses = beacon.uses.length;
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchBeacon(beaconId);
-  }, [beaconId, beaconsGateway]);
+  }, [beaconId, beaconsGateway]); // eslint-disable-line
+
+  const hexId = beacon?.hexId || "";
+  const numberOfUses = beacon?.uses?.length.toString() || "";
 
   return (
     <div className={classes.root}>
-      <PageHeader>
-        Hex ID/UIN: <b>{hexId}</b>
-      </PageHeader>
+      <PageHeader>Hex ID/UIN: {hexId}</PageHeader>
       <PageContent>
         <BeaconSummaryPanel
           beaconsGateway={beaconsGateway}
