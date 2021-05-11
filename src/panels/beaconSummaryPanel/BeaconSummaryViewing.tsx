@@ -7,9 +7,9 @@ import {
   formatUses,
 } from "../../useCases/mcaWritingStyleFormatter";
 
-export const ViewingState: FunctionComponent<{ beacon: IBeacon }> = ({
-  beacon,
-}) => {
+export const BeaconSummaryViewing: FunctionComponent<{
+  beacon: IBeacon;
+}> = ({ beacon }) => {
   const fields = [
     {
       key: "Manufacturer",

@@ -21,7 +21,7 @@ import {
   WritingStyle,
 } from "../../useCases/mcaWritingStyleFormatter";
 
-export const EditingState: FunctionComponent<{
+export const BeaconSummaryEditing: FunctionComponent<{
   beacon: IBeacon;
   onSave: (beacon: IBeacon) => void;
   onCancel: () => void;

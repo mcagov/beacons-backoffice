@@ -7,8 +7,8 @@ import { DataPanelStates } from "../../components/dataPanel/States";
 import { IBeacon } from "../../entities/IBeacon";
 import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
 import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
-import { EditingState } from "./EditingState";
-import { ViewingState } from "./ViewingState";
+import { BeaconSummaryEditing } from "./BeaconSummaryEditing";
+import { BeaconSummaryViewing } from "./BeaconSummaryViewing";
 
 interface IBeaconSummaryProps {
   beaconsGateway: IBeaconsGateway;
@@ -58,12 +58,12 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
             >
               Edit summary
             </EditPanelButton>
-            <ViewingState beacon={beacon} />
+            <BeaconSummaryViewing beacon={beacon} />
           </>
         );
       case DataPanelStates.Editing:
         return (
-          <EditingState
+          <BeaconSummaryEditing
             beacon={beacon}
             onSave={(beacon: IBeacon) => handleSave(beacon)}
             onCancel={() => setUserState(DataPanelStates.Viewing)}
