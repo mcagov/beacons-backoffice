@@ -58,6 +58,34 @@ describe("PanelViewingState", () => {
     expect(screen.getByText(Placeholders.NoData)).toBeVisible();
   });
 
+  it("renders an array of fields for a given key", () => {
+    const fields = [
+      {
+        key: "Address",
+        value: ["10 Smith Road", "Bristol", "BS1 97B"],
+      },
+    ];
+
+    render(<PanelViewingState fields={fields} />);
+    expect(screen.getByText(/10 Smith Road/i)).toBeVisible();
+    expect(screen.getByText(/Bristol/i)).toBeVisible();
+    expect(screen.getByText(/BS1 97B/i)).toBeVisible();
+  });
+
+  it("renders an array of values with an undefined value", () => {
+    const fields = [
+      {
+        key: "Address",
+        value: ["10 Smith Road", "Bristol", undefined],
+      },
+    ];
+
+    render(<PanelViewingState fields={fields} />);
+    expect(screen.getByText(/10 Smith Road/i)).toBeVisible();
+    expect(screen.getByText(/Bristol/i)).toBeVisible();
+    expect(screen.getByText(Placeholders.NoData)).toBeVisible();
+  });
+
   it("can split into two even columns", () => {
     const fields: IField[] = [
       {
