@@ -1,8 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "strictNullChecks": false
-  },
-  "include": ["**/*.test.ts", "**/*.test.tsx"],
-  "exclude": ["node_modules"]
-}
