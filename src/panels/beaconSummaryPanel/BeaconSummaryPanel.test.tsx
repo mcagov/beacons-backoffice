@@ -145,9 +145,7 @@ describe("BeaconSummaryPanel", () => {
       );
       const editButton = await screen.findByText(/edit summary/i);
       userEvent.click(editButton);
-      const fieldWithUndefinedValue = await screen.findByPlaceholderText(
-        Placeholders.NoData
-      );
+      const fieldWithUndefinedValue = await screen.findByDisplayValue("");
 
       userEvent.type(fieldWithUndefinedValue, "A valid CHK code");
 

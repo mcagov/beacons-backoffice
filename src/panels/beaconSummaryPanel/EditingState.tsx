@@ -17,7 +17,7 @@ import {
   formatEmergencyContacts,
   formatOwners,
   formatUses,
-  formPlaceholder,
+  Placeholders,
   WritingStyle,
 } from "../../useCases/mcaWritingStyleFormatter";
 
@@ -37,7 +37,7 @@ export const EditingState: FunctionComponent<{
         setSubmitting(false);
       }}
     >
-      {(props) => (
+      {() => (
         <Form>
           <Grid
             container
@@ -63,9 +63,7 @@ export const EditingState: FunctionComponent<{
                           id="manufacturer"
                           name="manufacturer"
                           type="string"
-                          placeholder={formPlaceholder(
-                            props.values.manufacturer
-                          )}
+                          placeholder={Placeholders.NoData}
                         />
                       }
                     />
@@ -83,7 +81,7 @@ export const EditingState: FunctionComponent<{
                           id="model"
                           name="model"
                           type="string"
-                          placeholder={formPlaceholder(props.values.model)}
+                          placeholder={Placeholders.NoData}
                         />
                       }
                     />
@@ -115,9 +113,7 @@ export const EditingState: FunctionComponent<{
                           id="protocolCode"
                           name="protocolCode"
                           type="string"
-                          placeholder={formPlaceholder(
-                            props.values.protocolCode
-                          )}
+                          placeholder={Placeholders.NoData}
                         />
                       }
                     />
@@ -137,9 +133,7 @@ export const EditingState: FunctionComponent<{
                           id="manufacturerSerialNumber"
                           name="manufacturerSerialNumber"
                           type="string"
-                          placeholder={formPlaceholder(
-                            props.values.manufacturerSerialNumber
-                          )}
+                          placeholder={Placeholders.NoData}
                         />
                       }
                     />
@@ -158,7 +152,7 @@ export const EditingState: FunctionComponent<{
                           id="chkCode"
                           name="chkCode"
                           type="string"
-                          placeholder={formPlaceholder(props.values.chkCode)}
+                          placeholder={Placeholders.NoData}
                         />
                       }
                     />
@@ -178,9 +172,7 @@ export const EditingState: FunctionComponent<{
                           id="batteryExpiryDate"
                           name="batteryExpiryDate"
                           type="date"
-                          placeholder={formPlaceholder(
-                            props.values.batteryExpiryDate
-                          )}
+                          placeholder={Placeholders.NoData}
                         />
                       }
                     />

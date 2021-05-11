@@ -71,6 +71,3 @@ export const formatFieldValue = (
 export const noDataEntered = (value: string | undefined): Boolean => {
   return value === undefined || value === "" || /^\s*$/.test(value);
 };
-
-export const formPlaceholder = (value: string | undefined) =>
-  noDataEntered(value) ? Placeholders.NoData : "";
