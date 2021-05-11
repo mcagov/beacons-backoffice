@@ -35,8 +35,8 @@ export const EditingState: FunctionComponent<{
     <Formik
       initialValues={{
         ...beacon,
-        batteryExpiryDate: yyyyMmDdFormat(beacon.batteryExpiryDate),
-        lastServicedDate: yyyyMmDdFormat(beacon.lastServicedDate),
+        batteryExpiryDate: yyyyMmDdFormat(beacon.batteryExpiryDate as string),
+        lastServicedDate: yyyyMmDdFormat(beacon.lastServicedDate as string),
       }}
       onSubmit={(
         values: IBeacon,
@@ -44,8 +44,8 @@ export const EditingState: FunctionComponent<{
       ) => {
         onSave({
           ...values,
-          batteryExpiryDate: shortISOFormat(values.batteryExpiryDate),
-          lastServicedDate: shortISOFormat(values.lastServicedDate),
+          batteryExpiryDate: shortISOFormat(values.batteryExpiryDate as string),
+          lastServicedDate: shortISOFormat(values.lastServicedDate as string),
         });
         setSubmitting(false);
       }}

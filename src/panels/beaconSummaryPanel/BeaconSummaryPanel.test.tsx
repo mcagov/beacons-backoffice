@@ -92,17 +92,21 @@ describe("BeaconSummaryPanel", () => {
       userEvent.click(editButton);
 
       expect(
-        await screen.findByDisplayValue(beaconFixture.manufacturer)
+        await screen.findByDisplayValue(beaconFixture.manufacturer as string)
       ).toBeVisible();
       expect(
-        await screen.findByDisplayValue(beaconFixture.model)
-      ).toBeVisible();
-      expect(await screen.findByDisplayValue(beaconFixture.type)).toBeVisible();
-      expect(
-        await screen.findByDisplayValue(beaconFixture.manufacturerSerialNumber)
+        await screen.findByDisplayValue(beaconFixture.model as string)
       ).toBeVisible();
       expect(
-        await screen.findByDisplayValue(beaconFixture.chkCode)
+        await screen.findByDisplayValue(beaconFixture.type as string)
+      ).toBeVisible();
+      expect(
+        await screen.findByDisplayValue(
+          beaconFixture.manufacturerSerialNumber as string
+        )
+      ).toBeVisible();
+      expect(
+        await screen.findByDisplayValue(beaconFixture.chkCode as string)
       ).toBeVisible();
     });
 
@@ -116,7 +120,7 @@ describe("BeaconSummaryPanel", () => {
       const editButton = await screen.findByText(/edit summary/i);
       userEvent.click(editButton);
       const editableField = await screen.findByDisplayValue(
-        beaconFixture.manufacturer
+        beaconFixture.manufacturer as string
       );
 
       userEvent.clear(editableField);
@@ -181,7 +185,7 @@ describe("BeaconSummaryPanel", () => {
       const editButton = await screen.findByText(/edit summary/i);
       userEvent.click(editButton);
       const editableField = await screen.findByDisplayValue(
-        beaconFixture.manufacturer
+        beaconFixture.manufacturer as string
       );
       userEvent.clear(editableField);
       userEvent.type(editableField, "ACME Inc.");
