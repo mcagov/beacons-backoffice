@@ -3,6 +3,7 @@ import { Activity, IUse } from "entities/IUse";
 import React, { FunctionComponent, ReactNode } from "react";
 import { VesselCommunications } from "./maritime/VesselCommunications";
 import { VesselSummary } from "./maritime/VesselSummary";
+import { MoreDetails } from "./MoreDetails";
 
 interface UseSummaryPanelProps {
   use: IUse;
@@ -48,5 +49,6 @@ const getMaritimeSummary = (use: IUse): ReactNode => (
   <>
     <VesselSummary use={use} />
     <VesselCommunications use={use} />
+    <MoreDetails use={use} />
   </>
 );
