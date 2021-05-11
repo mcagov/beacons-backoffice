@@ -16,10 +16,9 @@ export const UsesListSummaryPanel: FunctionComponent<UsesListSummaryPanelProps> 
 
   useEffect((): (() => void) => {
     let isMounted = true;
-    const fetchBeacon = async (id: string) => {
+    const fetchUses = async (id: string) => {
       try {
         const uses = await usesGateway.getUses(id);
-
         if (isMounted) {
           setUses(uses);
         }
@@ -28,7 +27,7 @@ export const UsesListSummaryPanel: FunctionComponent<UsesListSummaryPanelProps> 
       }
     };
 
-    fetchBeacon(beaconId);
+    fetchUses(beaconId);
 
     return () => {
       isMounted = false;

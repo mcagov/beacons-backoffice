@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { IBeacon } from "entities/IBeacon";
 import { IUsesGateway } from "gateways/IUsesGateway";
 import { OwnerSummaryPanel } from "panels/OwnerSummaryPanel";
-import { UsesListSummaryPanel } from "panels/UsesListSummaryPanel";
+import { UsesListSummaryPanel } from "panels/usesSummaryPanel/UsesListSummaryPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
