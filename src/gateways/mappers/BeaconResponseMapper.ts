@@ -2,7 +2,7 @@ import { IBeacon } from "../../entities/IBeacon";
 import { IEmergencyContact } from "../../entities/IEmergencyContact";
 import { IOwner } from "../../entities/IOwner";
 import { IUse } from "../../entities/IUse";
-import { yyyyMmDdFormat } from "../../useCases/dateTimeConverter";
+import { isoDate } from "../../useCases/dateTimeConverter";
 import { IBeaconResponse } from "./IBeaconResponse";
 
 export interface IBeaconResponseMapper {
@@ -18,15 +18,13 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       manufacturer: beaconApiResponse.data.attributes.manufacturer,
       model: beaconApiResponse.data.attributes.model,
       status: beaconApiResponse.data.attributes.status,
-      registeredDate: yyyyMmDdFormat(
-        beaconApiResponse.data.attributes.createdDate
-      ),
-      batteryExpiryDate: yyyyMmDdFormat(
+      registeredDate: isoDate(beaconApiResponse.data.attributes.createdDate),
+      batteryExpiryDate: isoDate(
         beaconApiResponse.data.attributes.batteryExpiryDate
       ),
       chkCode: beaconApiResponse.data.attributes.chkCode,
       protocolCode: beaconApiResponse.data.attributes.protocolCode,
-      lastServicedDate: yyyyMmDdFormat(
+      lastServicedDate: isoDate(
         beaconApiResponse.data.attributes.lastServicedDate
       ),
       manufacturerSerialNumber:

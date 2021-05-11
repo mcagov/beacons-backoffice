@@ -1,1 +1,1 @@
-export const yyyyMmDdFormat = (isoString: string) => isoString.slice(0, 10);
+export const isoDate = (isoDateTime: string) => isoDateTime.slice(0, 10);
