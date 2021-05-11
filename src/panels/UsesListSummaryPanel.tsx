@@ -3,15 +3,15 @@ import { IUse } from "entities/IUse";
 import { IUsesGateway } from "gateways/IUsesGateway";
 import { FunctionComponent, useEffect, useState } from "react";
 
-interface UsesSummaryPanelProps {
+interface UsesListSummaryPanelProps {
   usesGateway: IUsesGateway;
   beaconId: string;
 }
 
-export const UsesSummaryPanel: FunctionComponent<UsesSummaryPanelProps> = ({
+export const UsesListSummaryPanel: FunctionComponent<UsesListSummaryPanelProps> = ({
   usesGateway,
   beaconId,
-}: UsesSummaryPanelProps): JSX.Element => {
+}: UsesListSummaryPanelProps): JSX.Element => {
   const [uses, setUses] = useState<IUse[]>();
 
   useEffect((): (() => void) => {

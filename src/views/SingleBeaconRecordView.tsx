@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { IBeacon } from "entities/IBeacon";
 import { IUsesGateway } from "gateways/IUsesGateway";
 import { OwnerSummaryPanel } from "panels/OwnerSummaryPanel";
-import { UsesSummaryPanel } from "panels/UsesSummaryPanel";
+import { UsesListSummaryPanel } from "panels/UsesListSummaryPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
@@ -88,7 +88,7 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           </Grid>
         </TabPanel>
         <TabPanel value={selectedTab} index={1}>
-          <UsesSummaryPanel usesGateway={usesGateway} beaconId={beaconId} />
+          <UsesListSummaryPanel usesGateway={usesGateway} beaconId={beaconId} />
         </TabPanel>
       </PageContent>
     </div>

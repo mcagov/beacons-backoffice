@@ -1,5 +1,5 @@
 import { FieldValueTypes } from "../components/dataPanel/FieldValue";
-import { Activities, Environments, Purposes } from "../entities/IUse";
+import { Activity, Environments, Purposes } from "../entities/IUse";
 import {
   formatDateLong,
   formatDateShort,
@@ -66,7 +66,7 @@ describe("formatUses()", () => {
           id: "1",
           environment: Environments.Maritime,
           purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
+          activity: Activity.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
         },
       ],
@@ -78,14 +78,14 @@ describe("formatUses()", () => {
           id: "1",
           environment: Environments.Maritime,
           purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
+          activity: Activity.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
         },
         {
           id: "2",
           environment: Environments.Aviation,
           purpose: Purposes.Pleasure,
-          activity: Activities.Glider,
+          activity: Activity.Glider,
           moreDetails: "Fly at the local gliding club every fortnight",
         },
       ],
@@ -97,13 +97,13 @@ describe("formatUses()", () => {
           id: "1",
           environment: Environments.Maritime,
           purpose: Purposes.Commercial,
-          activity: Activities.FishingVessel,
+          activity: Activity.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
         },
         {
           id: "2",
           environment: Environments.Land,
-          activity: Activities.ClimbingMountaineering,
+          activity: Activity.ClimbingMountaineering,
           moreDetails: "Hiking at the weekends",
         },
       ],

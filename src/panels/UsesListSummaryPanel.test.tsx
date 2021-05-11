@@ -2,9 +2,9 @@ import { render, screen } from "@testing-library/react";
 import { usesFixture } from "fixtures/uses.fixture";
 import { IUsesGateway } from "gateways/IUsesGateway";
 import React from "react";
-import { UsesSummaryPanel } from "./UsesSummaryPanel";
+import { UsesListSummaryPanel } from "./UsesListSummaryPanel";
 
-describe("Uses Summary Panel", () => {
+describe("Uses List Summary Panel", () => {
   let gateway: IUsesGateway;
   let beaconId: string;
 
@@ -16,7 +16,7 @@ describe("Uses Summary Panel", () => {
   });
 
   it("should display the owners details", async () => {
-    render(<UsesSummaryPanel usesGateway={gateway} beaconId={beaconId} />);
+    render(<UsesListSummaryPanel usesGateway={gateway} beaconId={beaconId} />);
 
     expect(await screen.findByText(/Primary Use/i)).toBeVisible();
   });

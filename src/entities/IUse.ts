@@ -56,8 +56,9 @@ export enum Purposes {
   Pleasure = "PLEASURE",
 }
 
-export enum Activities {
+export enum Activity {
   FishingVessel = "FISHING_VESSEL",
   ClimbingMountaineering = "CLIMBING_MOUNTAINEERING",
   Glider = "GLIDER",
+  SailingVessel = "SAILING_VESSEL",
 }
