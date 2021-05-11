@@ -3,17 +3,12 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { EditPanelButton } from "../../components/dataPanel/EditPanelButton";
 import { ErrorState } from "../../components/dataPanel/PanelErrorState";
 import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
-import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { DataPanelStates } from "../../components/dataPanel/States";
 import { IBeacon } from "../../entities/IBeacon";
 import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
-import {
-  formatEmergencyContacts,
-  formatOwners,
-  formatUses,
-  Placeholders,
-} from "../../useCases/mcaWritingStyleFormatter";
+import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
 import { EditingState } from "./EditingState";
+import { ViewingState } from "./ViewingState";
 
 interface IBeaconSummaryProps {
   beaconsGateway: IBeaconsGateway;
@@ -53,53 +48,6 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
     });
   };
 
-  const fields = [
-    {
-      key: "Manufacturer",
-      value: beacon?.manufacturer,
-    },
-    {
-      key: "Model",
-      value: beacon?.model,
-    },
-    {
-      key: "Beacon type",
-      value: beacon?.type,
-    },
-    {
-      key: "Protocol code",
-      value: beacon?.protocolCode,
-    },
-    {
-      key: "Serial number",
-      value: beacon?.manufacturerSerialNumber,
-    },
-    {
-      key: "CHK code",
-      value: beacon?.chkCode,
-    },
-    {
-      key: "Battery expiry date",
-      value: beacon?.batteryExpiryDate,
-    },
-    {
-      key: "Last serviced date",
-      value: beacon?.lastServicedDate,
-    },
-    {
-      key: "Owner(s)",
-      value: formatOwners(beacon?.owners || []),
-    },
-    {
-      key: "Emergency contacts",
-      value: formatEmergencyContacts(beacon?.emergencyContacts || []),
-    },
-    {
-      key: "Registered uses",
-      value: formatUses(beacon?.uses || []),
-    },
-  ];
-
   const renderState = (state: DataPanelStates) => {
     switch (state) {
       case DataPanelStates.Viewing:
@@ -110,7 +58,7 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
             >
               Edit summary
             </EditPanelButton>
-            <PanelViewingState fields={fields} columns={2} splitAfter={8} />
+            <ViewingState beacon={beacon} />
           </>
         );
       case DataPanelStates.Editing:
@@ -122,7 +70,7 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
           />
         );
       default:
-        return <p>I'm a DOM element</p>;
+        setError(true);
     }
   };
 
