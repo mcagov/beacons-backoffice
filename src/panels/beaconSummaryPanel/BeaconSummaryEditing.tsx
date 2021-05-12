@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Divider,
   Grid,
@@ -39,13 +40,8 @@ export const BeaconSummaryEditing: FunctionComponent<{
     >
       {() => (
         <Form>
-          <Grid
-            container
-            direction="row"
-            justify="space-around"
-            alignItems="stretch"
-          >
-            <Grid item xs={6}>
+          <Grid container direction="row" justify="flex-start">
+            <Grid item xs={12} sm={6}>
               <TableContainer>
                 <Table size="small">
                   <TableBody>
@@ -199,7 +195,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                 </Table>
               </TableContainer>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <PanelViewingState
                 columns={1}
                 fields={[
@@ -219,16 +215,20 @@ export const BeaconSummaryEditing: FunctionComponent<{
               />
             </Grid>
             <Divider />
-            <Button
-              name="save"
-              type="submit"
-              color="secondary"
-              variant="contained"
-              disableElevation
-            >
-              Save
-            </Button>
-            <Button onClick={onCancel}>Cancel</Button>
+            <Box mt={2} mr={2}>
+              <Button
+                name="save"
+                type="submit"
+                color="secondary"
+                variant="contained"
+                disableElevation
+              >
+                Save
+              </Button>
+            </Box>
+            <Box mt={2}>
+              <Button onClick={onCancel}>Cancel</Button>
+            </Box>
           </Grid>
         </Form>
       )}
