@@ -6,7 +6,6 @@ import {
   TableContainer,
   TableRow,
   Typography,
-  withStyles,
 } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
 import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
@@ -25,12 +24,6 @@ export interface IPanelViewingStateProps {
   columns?: 1 | 2;
   splitAfter?: number;
 }
-
-export const TableCellWithoutLines = withStyles({
-  root: {
-    borderBottom: "none",
-  },
-})(TableCell);
 
 export const PanelViewingState: FunctionComponent<IPanelViewingStateProps> = ({
   fields,
@@ -56,18 +49,18 @@ const OneColumn: FunctionComponent<IPanelViewingStateProps> = ({ fields }) => (
             field.value instanceof Array ? field.value : [field.value];
           return (
             <TableRow key={index}>
-              <TableCellWithoutLines component="th" scope="row">
+              <TableCell component="th" scope="row">
                 <Typography>
                   {field.key + WritingStyle.KeyValueSeparator}
                 </Typography>
-              </TableCellWithoutLines>
-              <TableCellWithoutLines>
+              </TableCell>
+              <TableCell>
                 {valuesAsArray.map((value, index) => (
                   <FieldValue key={index} valueType={field.valueType}>
                     {value}
                   </FieldValue>
                 ))}
-              </TableCellWithoutLines>
+              </TableCell>
             </TableRow>
           );
         })}
