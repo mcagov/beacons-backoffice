@@ -51,19 +51,22 @@ describe("Aviation Summary", () => {
       otherCommunicationValue: "You can contact me via my partner",
     };
 
+    render(<AviationSummary use={use} />);
+
     expect(await screen.findByText("Communication type 1:")).toBeVisible();
     expect(await screen.findByText("VHF RADIO")).toBeVisible();
-    expect(await screen.findByText("FIXED VHF/DSC")).toBeVisible();
+
     expect(await screen.findByText("Communication type 2:")).toBeVisible();
-    expect(await screen.findByText("MY MMSI NUMBER")).toBeVisible();
-    expect(await screen.findByText("Communication type 3:")).toBeVisible();
-    expect(await screen.findByText("PORTABLE VHF/DSC")).toBeVisible();
-    expect(await screen.findByText("Communication type 4:")).toBeVisible();
+    expect(await screen.findByText("SATELLITE TELEPHONE")).toBeVisible();
     expect(await screen.findByText("+8707")).toBeVisible();
-    expect(await screen.findByText("Communication type 5:")).toBeVisible();
+
+    expect(await screen.findByText("Communication type 3:")).toBeVisible();
+    expect(await screen.findByText("MOBILE PHONE")).toBeVisible();
     expect(await screen.findByText("07713812667")).toBeVisible();
     expect(await screen.findByText("07713812668")).toBeVisible();
-    expect(await screen.findByText("Communication type 6:")).toBeVisible();
+
+    expect(await screen.findByText("Communication type 4:")).toBeVisible();
+    expect(await screen.findByText("OTHER")).toBeVisible();
     expect(
       await screen.findByText("YOU CAN CONTACT ME VIA MY PARTNER")
     ).toBeVisible();

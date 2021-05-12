@@ -17,6 +17,7 @@ export const AviationSummary: FunctionComponent<AviationSummaryProps> = ({
 const getAviationFields = (use: IUse): IField[] => {
   const fields: IField[] = [];
   fields.push(...getAircraftSummaryFields(use));
+  fields.push(...getAircraftCommunicationsFields(use));
 
   fields.push({
     key: "More details",
@@ -64,3 +65,60 @@ const getAircraftSummaryFields = (use: IUse): IField[] => [
     value: use?.beaconPosition,
   },
 ];
+
+const getAircraftCommunicationsFields = (use: IUse): IField[] => {
+  const fields = [];
+  let typeOfCommunicationIndex = 1;
+
+  if (use.vhfRadio) {
+    fields.push({
+      key: `Communication type ${typeOfCommunicationIndex}`,
+      value: "vhf radio",
+    });
+    typeOfCommunicationIndex++;
+  }
+
+  if (use.satelliteTelephone) {
+    fields.push(
+      {
+        key: `Communication type ${typeOfCommunicationIndex}`,
+        value: "satellite telephone",
+      },
+      {
+        key: "Phone number",
+        value: use?.satelliteTelephoneValue,
+      }
+    );
+    typeOfCommunicationIndex++;
+  }
+
+  if (use.mobileTelephone) {
+    fields.push(
+      {
+        key: `Communication type ${typeOfCommunicationIndex}`,
+        value: "mobile phone",
+      },
+      {
+        key: "Number",
+        value: [use?.mobileTelephone1, use?.mobileTelephone2],
+      }
+    );
+    typeOfCommunicationIndex++;
+  }
+
+  if (use.otherCommunication) {
+    fields.push(
+      {
+        key: `Communication type ${typeOfCommunicationIndex}`,
+        value: "Other",
+      },
+      {
+        key: "Details",
+        value: use?.otherCommunicationValue,
+      }
+    );
+    typeOfCommunicationIndex++;
+  }
+
+  return fields;
+};
