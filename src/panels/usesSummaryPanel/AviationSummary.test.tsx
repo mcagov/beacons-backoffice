@@ -1,11 +1,12 @@
 import { render, screen } from "@testing-library/react";
+import { IUse } from "entities/IUse";
 import React from "react";
 import { Placeholders } from "useCases/mcaWritingStyleFormatter";
 import { AviationSummary } from "./AviationSummary";
 
 describe("Aviation Summary", () => {
   it("should display the aircraft summary", async () => {
-    const use: any = {
+    const use: IUse = {
       maxCapacity: 10,
       aircraftManufacturer: "Boeing",
       principalAirport: "Bristol",
@@ -16,7 +17,7 @@ describe("Aviation Summary", () => {
       dongle: true,
       beaconPosition: "Stowed inside the nose of the aircraft",
       moreDetails: "In my carry bag",
-    };
+    } as IUse;
     render(<AviationSummary use={use} />);
 
     expect(await screen.findByText("10")).toBeVisible();
@@ -34,16 +35,16 @@ describe("Aviation Summary", () => {
   });
 
   it("should display NO if the beacon is not a dongle", async () => {
-    const use: any = {
+    const use: IUse = {
       dongle: false,
-    };
+    } as IUse;
     render(<AviationSummary use={use} />);
 
     expect(await screen.findByText("NO")).toBeVisible();
   });
 
   it("should display the aircraft communications", async () => {
-    const use: any = {
+    const use: IUse = {
       vhfRadio: true,
       satelliteTelephone: true,
       satelliteTelephoneValue: "+8707",
@@ -52,7 +53,7 @@ describe("Aviation Summary", () => {
       mobileTelephone2: "07713812668",
       otherCommunication: true,
       otherCommunicationValue: "You can contact me via my partner",
-    };
+    } as IUse;
 
     render(<AviationSummary use={use} />);
 
@@ -76,7 +77,7 @@ describe("Aviation Summary", () => {
   });
 
   it("should display the no data placeholder for fields that are not set", async () => {
-    const use: any = {};
+    const use: IUse = {} as IUse;
     render(<AviationSummary use={use} />);
     expect(await (await screen.findAllByText(Placeholders.NoData)).length).toBe(
       9

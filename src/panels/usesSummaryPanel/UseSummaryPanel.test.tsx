@@ -1,19 +1,14 @@
 import { render, screen } from "@testing-library/react";
-import { Activities, Purposes } from "entities/IUse";
+import { Activities, IUse, Purposes } from "entities/IUse";
 import React from "react";
 import { UseSummaryPanel } from "./UseSummaryPanel";
 
 describe("UseSummaryPanel", () => {
-  let use: any;
-
-  beforeEach(() => {
-    use = {
+  it("should render the use with an underscore in the activity along with the title", async () => {
+    const use: IUse = {
       activity: Activities.SailingVessel,
       purpose: Purposes.Pleasure,
-    };
-  });
-
-  it("should render the use with an underscore in the activity along with the title", async () => {
+    } as IUse;
     render(<UseSummaryPanel use={use} titlePrefix="Primary" />);
 
     expect(
@@ -22,7 +17,10 @@ describe("UseSummaryPanel", () => {
   });
 
   it("should render the use without an underscore in the activity along with the title", async () => {
-    use.activity = Activities.Glider;
+    const use: IUse = {
+      activity: Activities.Glider,
+      purpose: Purposes.Pleasure,
+    } as IUse;
     render(<UseSummaryPanel use={use} titlePrefix="Primary" />);
 
     expect(
@@ -31,8 +29,11 @@ describe("UseSummaryPanel", () => {
   });
 
   it("should render an other activity use", async () => {
-    use.activity = Activities.Other;
-    use.otherActivity = "Gliding in the sea";
+    const use: IUse = {
+      activity: Activities.Other,
+      purpose: Purposes.Pleasure,
+      otherActivity: "Gliding in the sea",
+    } as IUse;
 
     render(<UseSummaryPanel use={use} titlePrefix="Primary" />);
 

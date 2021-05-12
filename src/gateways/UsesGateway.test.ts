@@ -25,8 +25,9 @@ describe("UsesGateway", () => {
     it("returns the uses array", async () => {
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
-      // @ts-ignore
-      beaconResponseMapper.map.mockReturnValue({ uses: usesFixture });
+      beaconResponseMapper.map = jest
+        .fn()
+        .mockReturnValue({ uses: usesFixture });
 
       const uses = await gateway.getUses(beaconId);
 
@@ -36,8 +37,7 @@ describe("UsesGateway", () => {
     it("queries the correct endpoint", async () => {
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
-      // @ts-ignore
-      beaconResponseMapper.map.mockReturnValue({ uses: [] });
+      beaconResponseMapper.map = jest.fn().mockReturnValue({ uses: [] });
 
       await gateway.getUses(beaconId);
 

@@ -1,11 +1,12 @@
 import { render, screen } from "@testing-library/react";
+import { IUse } from "entities/IUse";
 import React from "react";
 import { Placeholders } from "useCases/mcaWritingStyleFormatter";
 import { MaritimeSummary } from "./MaritimeSummary";
 
 describe("Maritime Summary", () => {
   it("should display the vessel summary", async () => {
-    const use: any = {
+    const use: IUse = {
       maxCapacity: 10,
       vesselName: "Homeland",
       beaconLocation: "In my carry bag",
@@ -18,7 +19,7 @@ describe("Maritime Summary", () => {
       officialNumber: "Fish and Ships",
       rigPlatformLocation: "Scotland",
       moreDetails: "Red vessel, blue handles",
-    };
+    } as IUse;
 
     render(<MaritimeSummary use={use} />);
 
@@ -37,7 +38,7 @@ describe("Maritime Summary", () => {
   });
 
   it("should display the vessel communications", async () => {
-    const use: any = {
+    const use: IUse = {
       callSign: "Call me",
       vhfRadio: true,
       fixedVhfRadio: true,
@@ -51,7 +52,7 @@ describe("Maritime Summary", () => {
       mobileTelephone2: "07713812668",
       otherCommunication: true,
       otherCommunicationValue: "You can contact me via my partner",
-    };
+    } as IUse;
     render(<MaritimeSummary use={use} />);
 
     expect(await screen.findByText("CALL ME")).toBeVisible();
@@ -84,7 +85,7 @@ describe("Maritime Summary", () => {
   });
 
   it("should display the no data placeholder for fields that are not set", async () => {
-    const use: any = {};
+    const use: IUse = {} as IUse;
     render(<MaritimeSummary use={use} />);
     expect(await (await screen.findAllByText(Placeholders.NoData)).length).toBe(
       13

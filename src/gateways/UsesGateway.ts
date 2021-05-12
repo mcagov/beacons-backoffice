@@ -5,10 +5,10 @@ import { IUsesGateway } from "./IUsesGateway";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
 export class UsesGateway implements IUsesGateway {
-  private _beaconResponseMapper;
+  private _usesResponseMapper;
 
-  public constructor(beaconResponseMapper: IBeaconResponseMapper) {
-    this._beaconResponseMapper = beaconResponseMapper;
+  public constructor(usesResponseMapper: IBeaconResponseMapper) {
+    this._usesResponseMapper = usesResponseMapper;
   }
 
   public async getUses(beaconId: string): Promise<IUse[]> {
@@ -17,7 +17,7 @@ export class UsesGateway implements IUsesGateway {
         `${applicationConfig.apiUrl}/beacons/${beaconId}`,
         { timeout: applicationConfig.apiTimeoutMs }
       );
-      return this._beaconResponseMapper.map(response.data).uses;
+      return this._usesResponseMapper.map(response.data).uses;
     } catch (e) {
       throw Error(e);
     }
