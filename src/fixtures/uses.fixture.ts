@@ -47,11 +47,11 @@ const getUseFixture = (id: string, mainUse: boolean): IUse => ({
   mainUse,
 });
 
-export const usesFixture: IUse[] = [
-  Object.freeze({
+export const usesFixture: IUse[] = (() => [
+  {
     ...getUseFixture("e00036c4-e3f4-46bb-aa9e-1d91870d9172", true),
-  }),
-  Object.freeze({
+  },
+  {
     ...getUseFixture("e00036c4-e3f4-46bb-aa9e-1d91870d9173", false),
-  }),
-];
+  },
+])();

@@ -46,8 +46,8 @@ const getUseResponseJson = (mainUse: boolean) => ({
   mainUse,
 });
 
-export const singleBeaconApiResponseFixture: Readonly<IBeaconResponse> = Object.freeze(
-  {
+export const singleBeaconApiResponseFixture: IBeaconResponse = (() => {
+  return {
     meta: {},
     data: {
       type: "beacon",
@@ -142,5 +142,5 @@ export const singleBeaconApiResponseFixture: Readonly<IBeaconResponse> = Object.
         },
       },
     ],
-  }
-);
+  };
+})();

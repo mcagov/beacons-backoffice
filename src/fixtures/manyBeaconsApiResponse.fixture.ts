@@ -1,4 +1,4 @@
-export const manyBeaconsApiResponseFixture = Object.freeze([
+export const manyBeaconsApiResponseFixture = (() => [
   {
     type: "beacon",
     id: "97b306aa-cbd0-4f09-aa24-2d876b983efb",
@@ -43,4 +43,4 @@ export const manyBeaconsApiResponseFixture = Object.freeze([
       ],
     },
   },
-]);
+])();
