@@ -1,9 +1,7 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { Activities, IUse } from "entities/IUse";
+import { Activities, Environments, IUse } from "entities/IUse";
 import React, { FunctionComponent, ReactNode } from "react";
-import { VesselCommunications } from "./maritime/VesselCommunications";
-import { VesselSummary } from "./maritime/VesselSummary";
-import { MoreDetails } from "./MoreDetails";
+import { MaritimeSummary } from "./MaritimeSummary";
 
 interface UseSummaryPanelProps {
   use: IUse;
@@ -15,7 +13,7 @@ export const UseSummaryPanel: FunctionComponent<UseSummaryPanelProps> = ({
   titlePrefix,
 }: UseSummaryPanelProps): JSX.Element => {
   const title = getCardHeaderTitle(titlePrefix, use);
-  const useSummary: ReactNode = getUseSummary(use);
+  const useSummary = getUseSummary(use);
 
   return (
     <Card>
@@ -42,13 +40,24 @@ const getCardHeaderTitle = (titlePrefix: string, use: IUse): string => {
 };
 
 const getUseSummary = (use: IUse): ReactNode => {
-  return getMaritimeSummary(use);
+  switch (use.environment) {
+    case Environments.Maritime:
+      return getMaritimeSummary(use);
+
+    case Environments.Aviation:
+      return getAviationSummary(use);
+
+    case Environments.Land:
+      return getLandSummary(use);
+  }
 };
 
 const getMaritimeSummary = (use: IUse): ReactNode => (
-  <>
-    <VesselSummary use={use} />
-    <VesselCommunications use={use} />
-    <MoreDetails use={use} />
-  </>
+  <MaritimeSummary use={use} />
 );
+
+const getAviationSummary = (use: IUse): ReactNode => (
+  <AviationSummary use={use} />
+);
+
+const getLandSummary = (use: IUse): ReactNode => <LandSummary use={use} />;
