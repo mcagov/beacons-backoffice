@@ -29,7 +29,7 @@ const getUseResponseJson = (mainUse: boolean) => ({
   ssrNumber: "2",
   rssNumber: "3",
   officialNumber: "4",
-  rigPlatformLocation: "5",
+  rigPlatformLocation: "Scotland",
   aircraftManufacturer: "Boeing",
   principalAirport: "Bristol",
   secondaryAirport: "Cardiff",

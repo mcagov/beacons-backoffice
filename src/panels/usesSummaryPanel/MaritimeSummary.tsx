@@ -33,7 +33,7 @@ const getVesselSummaryFields = (use: IUse): IField[] => [
   { key: "Port Letter and Number (PLN)", value: use?.portLetterNumber },
   { key: "Homeport", value: use?.homeport },
   { key: "Area of operation", value: use?.areaOfOperation },
-  { key: "IMO number", value: `${use?.imoNumber}` },
+  { key: "IMO number", value: use?.imoNumber },
   { key: "UK Small Ships Register (SSR) number", value: use?.ssrNumber },
   {
     key: "Registry of Shipping and Seamen (RSS) number",

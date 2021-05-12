@@ -87,7 +87,7 @@ describe("Maritime Summary", () => {
     const use: any = {};
     render(<MaritimeSummary use={use} />);
     expect(await (await screen.findAllByText(Placeholders.NoData)).length).toBe(
-      12
+      13
     );
   });
 });
