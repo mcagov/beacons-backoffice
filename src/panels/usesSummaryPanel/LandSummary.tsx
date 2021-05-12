@@ -15,12 +15,11 @@ export const LandSummary: FunctionComponent<LandSummaryProps> = ({
 };
 
 const getLandFields = (use: IUse): IField[] => {
-  const fields = [];
-  fields.push(...getLandSummaryFields(use));
-  fields.push(...getLandCommunicationsFields(use));
-  fields.push({ key: "More details", value: use?.moreDetails });
-
-  return fields;
+  return [
+    ...getLandSummaryFields(use),
+    ...getLandCommunicationsFields(use),
+    { key: "More details", value: use?.moreDetails },
+  ];
 };
 
 const getLandSummaryFields = (use: IUse): IField[] => {
