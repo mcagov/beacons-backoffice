@@ -9,6 +9,12 @@ interface MaritimeSummaryProps {
 export const MaritimeSummary: FunctionComponent<MaritimeSummaryProps> = ({
   use,
 }: MaritimeSummaryProps): JSX.Element => {
+  const fields = getMaritimeFields(use);
+
+  return <PanelViewState fields={fields} />;
+};
+
+const getMaritimeFields = (use: IUse): IField[] => {
   const fields: IField[] = [];
   fields.push(...getVesselSummaryFields(use));
   fields.push(...getVesselCommunicationsFields(use));
@@ -17,7 +23,7 @@ export const MaritimeSummary: FunctionComponent<MaritimeSummaryProps> = ({
     value: use?.moreDetails,
   });
 
-  return <PanelViewState fields={fields} />;
+  return fields;
 };
 
 const getVesselSummaryFields = (use: IUse): IField[] => [

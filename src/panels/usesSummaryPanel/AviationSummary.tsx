@@ -9,6 +9,12 @@ interface AviationSummaryProps {
 export const AviationSummary: FunctionComponent<AviationSummaryProps> = ({
   use,
 }: AviationSummaryProps): JSX.Element => {
+  const fields = getAviationFields(use);
+
+  return <PanelViewState fields={fields} />;
+};
+
+const getAviationFields = (use: IUse): IField[] => {
   const fields: IField[] = [];
   fields.push(...getAircraftSummaryFields(use));
 
@@ -17,7 +23,7 @@ export const AviationSummary: FunctionComponent<AviationSummaryProps> = ({
     value: use?.moreDetails,
   });
 
-  return <PanelViewState fields={fields} />;
+  return fields;
 };
 
 const getAircraftSummaryFields = (use: IUse): IField[] => [
