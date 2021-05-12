@@ -6,7 +6,6 @@ import { IBeaconsGateway } from "./IBeaconsGateway";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
 export class BeaconsGateway implements IBeaconsGateway {
-  timeoutMs = 10000;
   private _beaconResponseMapper;
 
   public constructor(beaconResponseMapper: IBeaconResponseMapper) {
@@ -16,7 +15,7 @@ export class BeaconsGateway implements IBeaconsGateway {
   public async getAllBeacons(): Promise<IBeaconSearchResult> {
     try {
       const response = await axios.get(`${applicationConfig.apiUrl}/beacons`, {
-        timeout: this.timeoutMs,
+        timeout: applicationConfig.apiTimeoutMs,
       });
       // TODO: Add map step to /beacons endpoint
       return response.data;
@@ -29,7 +28,7 @@ export class BeaconsGateway implements IBeaconsGateway {
     try {
       const response = await axios.get(
         `${applicationConfig.apiUrl}/beacons/${beaconId}`,
-        { timeout: this.timeoutMs }
+        { timeout: applicationConfig.apiTimeoutMs }
       );
       return this._beaconResponseMapper.map(response.data);
     } catch (e) {
