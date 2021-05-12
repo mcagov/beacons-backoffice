@@ -15,24 +15,17 @@ export const UsesListSummaryPanel: FunctionComponent<UsesListSummaryPanelProps> 
 }: UsesListSummaryPanelProps): JSX.Element => {
   const [uses, setUses] = useState<IUse[]>([]);
 
-  useEffect((): (() => void) => {
-    let isMounted = true;
+  useEffect((): void => {
     const fetchUses = async (id: string) => {
       try {
         const uses = await usesGateway.getUses(id);
-        if (isMounted) {
-          setUses(uses);
-        }
+        setUses(uses);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchUses(beaconId);
-
-    return () => {
-      isMounted = false;
-    };
   }, [beaconId, usesGateway]);
 
   return (

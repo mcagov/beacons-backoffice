@@ -20,16 +20,13 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
   const [state, setState] = useState<DataPanelStates>(DataPanelStates.Loading);
   const [owner, setOwner] = useState<IOwner>();
 
-  useEffect((): (() => void) => {
-    let isMounted = true;
+  useEffect((): void => {
     const fetchBeacon = async (id: string) => {
       try {
         const beacon = await beaconsGateway.getBeacon(id);
 
-        if (isMounted) {
-          setOwner(beacon.owners[0]);
-          setState(DataPanelStates.Viewing);
-        }
+        setOwner(beacon.owners[0]);
+        setState(DataPanelStates.Viewing);
       } catch (error) {
         console.error(error);
         setState(DataPanelStates.Error);
@@ -37,10 +34,6 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
     };
 
     fetchBeacon(beaconId);
-
-    return () => {
-      isMounted = false;
-    };
   }, [beaconId, beaconsGateway]);
 
   const fields = [
