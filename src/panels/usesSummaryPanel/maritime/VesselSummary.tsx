@@ -10,7 +10,7 @@ export const VesselSummary: FunctionComponent<VesselSummaryProps> = ({
   use,
 }: VesselSummaryProps): JSX.Element => {
   const fields: IField[] = [
-    { key: "Max persons onboard", value: `${use?.maxCapacity}` },
+    { key: "Max persons onboard", value: `${use.maxCapacity || ""}` },
     { key: "Vessel name", value: use?.vesselName },
     { key: "Beacon position", value: use?.beaconLocation },
     { key: "Port Letter and Number (PLN)", value: use?.portLetterNumber },
