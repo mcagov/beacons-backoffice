@@ -38,4 +38,17 @@ describe("Aviation Summary", () => {
 
     expect(await screen.findByText("NO")).toBeVisible();
   });
+
+  it("should display the aircraft communications", async () => {
+    const use: any = {
+      vhfRadio: true,
+      satelliteTelephone: true,
+      satelliteTelephoneValue: "+8707",
+      mobileTelephone: true,
+      mobileTelephone1: "07713812667",
+      mobileTelephone2: "07713812668",
+      otherCommunication: true,
+      otherCommunicationValue: "You can contact me via my partner",
+    };
+  });
 });

@@ -47,6 +47,8 @@ describe("Maritime Summary", () => {
       mobileTelephone: true,
       mobileTelephone1: "07713812667",
       mobileTelephone2: "07713812668",
+      otherCommunication: true,
+      otherCommunicationValue: "You can contact me via my partner",
     };
     render(<MaritimeSummary use={use} />);
 
@@ -62,6 +64,10 @@ describe("Maritime Summary", () => {
     expect(await screen.findByText("Communication type 5:")).toBeVisible();
     expect(await screen.findByText("07713812667")).toBeVisible();
     expect(await screen.findByText("07713812668")).toBeVisible();
+    expect(await screen.findByText("Communication type 6:")).toBeVisible();
+    expect(
+      await screen.findByText("YOU CAN CONTACT ME VIA MY PARTNER")
+    ).toBeVisible();
   });
 
   it("should display the more details summary", async () => {

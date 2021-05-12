@@ -109,5 +109,19 @@ const getVesselCommunicationsFields = (use: IUse): IField[] => {
     communicationTypeIndex++;
   }
 
+  if (use.otherCommunication) {
+    fields.push(
+      {
+        key: `Communication type ${communicationTypeIndex}`,
+        value: "Other",
+      },
+      {
+        key: "Details",
+        value: use?.otherCommunicationValue,
+      }
+    );
+    communicationTypeIndex++;
+  }
+
   return fields;
 };
