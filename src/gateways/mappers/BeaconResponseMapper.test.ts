@@ -17,7 +17,9 @@ describe("BeaconResponseMapper", () => {
   it("maps a single beacon API response payload to an IBeacon", () => {
     const responseMapper = new BeaconResponseMapper();
 
-    expect(responseMapper.map(beaconApiResponse)).toStrictEqual(expectedBeacon);
+    const mappedBeacon = responseMapper.map(beaconApiResponse);
+
+    expect(mappedBeacon).toStrictEqual(expectedBeacon);
   });
 
   it("maps a different single beacon API response payload to an IBeacon", () => {
@@ -25,8 +27,8 @@ describe("BeaconResponseMapper", () => {
     expectedBeacon.model = "EPIRB2";
     const responseMapper = new BeaconResponseMapper();
 
-    const beacon = responseMapper.map(beaconApiResponse);
+    const mappedBeacon = responseMapper.map(beaconApiResponse);
 
-    expect(beacon).toStrictEqual(expectedBeacon);
+    expect(mappedBeacon).toStrictEqual(expectedBeacon);
   });
 });
