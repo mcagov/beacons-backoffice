@@ -47,14 +47,15 @@ const getVesselSummaryFields = (use: IUse): IField[] => [
     key: "Windfarm or rig platform location",
     value: use?.rigPlatformLocation,
   },
-  {
-    key: "Call sign",
-    value: use?.callSign,
-  },
 ];
 
 const getVesselCommunicationsFields = (use: IUse): IField[] => {
   const fields = [];
+  fields.push({
+    key: "Call sign",
+    value: use?.callSign,
+  });
+
   let typeOfCommunicationIndex = 1;
 
   if (use.vhfRadio) {
