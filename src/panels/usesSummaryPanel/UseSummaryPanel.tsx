@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
 import { Activities, Environments, IUse } from "entities/IUse";
 import React, { FunctionComponent, ReactNode } from "react";
+import { AviationSummary } from "./AviationSummary";
 import { MaritimeSummary } from "./MaritimeSummary";
 
 interface UseSummaryPanelProps {
