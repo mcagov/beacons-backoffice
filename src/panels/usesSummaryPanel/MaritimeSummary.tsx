@@ -1,4 +1,7 @@
-import { IField, PanelViewState } from "components/dataPanel/PanelViewState";
+import {
+  IField,
+  PanelViewingState,
+} from "components/dataPanel/PanelViewingState";
 import { IUse } from "entities/IUse";
 import { FunctionComponent } from "react";
 
@@ -11,7 +14,7 @@ export const MaritimeSummary: FunctionComponent<MaritimeSummaryProps> = ({
 }: MaritimeSummaryProps): JSX.Element => {
   const fields = getMaritimeFields(use);
 
-  return <PanelViewState fields={fields} />;
+  return <PanelViewingState fields={fields} />;
 };
 
 const getMaritimeFields = (use: IUse): IField[] => {

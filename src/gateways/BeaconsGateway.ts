@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
@@ -39,20 +39,16 @@ export class BeaconsGateway implements IBeaconsGateway {
   public async updateBeacon(
     beaconId: string,
     updatedFields: Partial<IBeacon>
-  ): Promise<boolean> {
+  ): Promise<IBeacon> {
     try {
       // TODO: add a this._beaconRequestMapper object to map an IBeacon to the format the API expects to receive.
       const response = await axios.patch(
         `${applicationConfig.apiUrl}/beacons/${beaconId}`,
         updatedFields
       );
-      return this.isSuccessful(response);
+      return response.data;
     } catch (e) {
       throw Error(e);
     }
-  }
-
-  private isSuccessful(response: AxiosResponse) {
-    return 200 >= response.status && response.status <= 299;
   }
 }

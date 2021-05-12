@@ -7,5 +7,5 @@ export interface IBeaconsGateway {
   updateBeacon: (
     beaconId: string,
     updatedFields: Partial<IBeacon>
-  ) => Promise<Boolean>;
+  ) => Promise<IBeacon>;
 }
