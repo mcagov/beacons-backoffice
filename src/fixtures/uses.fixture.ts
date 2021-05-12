@@ -30,7 +30,7 @@ const getUseFixture = (id: string, mainUse: boolean): IUse => ({
   ssrNumber: "2",
   rssNumber: "3",
   officialNumber: "4",
-  rigPlatformLocation: "5",
+  rigPlatformLocation: "Scotland",
   aircraftManufacturer: "Boeing",
   principalAirport: "Bristol",
   secondaryAirport: "Cardiff",
