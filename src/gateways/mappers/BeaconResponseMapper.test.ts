@@ -28,4 +28,16 @@ describe("BeaconResponseMapper", () => {
 
     expect(responseMapper.map(newResponse)).toStrictEqual(newMappedBeacon);
   });
+
+  it("replaces undefined values with empty strings", () => {
+    beaconApiResponse.data.attributes.batteryExpiryDate = undefined;
+    beaconApiResponse.data.attributes.protocolCode = undefined;
+    expectedBeacon.batteryExpiryDate = "";
+    expectedBeacon.protocolCode = "";
+    const responseMapper = new BeaconResponseMapper();
+
+    const mappedBeacon = responseMapper.map(beaconApiResponse);
+
+    expect(mappedBeacon).toStrictEqual(expectedBeacon);
+  });
 });
