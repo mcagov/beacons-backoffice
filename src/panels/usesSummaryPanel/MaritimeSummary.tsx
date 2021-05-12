@@ -55,42 +55,42 @@ const getVesselSummaryFields = (use: IUse): IField[] => [
 
 const getVesselCommunicationsFields = (use: IUse): IField[] => {
   const fields = [];
-  let communicationTypeIndex = 1;
+  let typeOfCommunicationIndex = 1;
 
   if (use.vhfRadio) {
     fields.push({
-      key: `Communication type ${communicationTypeIndex}`,
+      key: `Communication type ${typeOfCommunicationIndex}`,
       value: "vhf radio",
     });
-    communicationTypeIndex++;
+    typeOfCommunicationIndex++;
   }
 
   if (use.fixedVhfRadio) {
     fields.push(
       {
-        key: `Communication type ${communicationTypeIndex}`,
+        key: `Communication type ${typeOfCommunicationIndex}`,
         value: "fixed vhf/dsc",
       },
       { key: "MMSI", value: use?.fixedVhfRadioValue }
     );
-    communicationTypeIndex++;
+    typeOfCommunicationIndex++;
   }
 
   if (use.portableVhfRadio) {
     fields.push(
       {
-        key: `Communication type ${communicationTypeIndex}`,
+        key: `Communication type ${typeOfCommunicationIndex}`,
         value: "portable vhf/dsc",
       },
       { key: "Portable MMSI", value: use?.portableVhfRadioValue }
     );
-    communicationTypeIndex++;
+    typeOfCommunicationIndex++;
   }
 
   if (use.satelliteTelephone) {
     fields.push(
       {
-        key: `Communication type ${communicationTypeIndex}`,
+        key: `Communication type ${typeOfCommunicationIndex}`,
         value: "satellite telephone",
       },
       {
@@ -98,13 +98,13 @@ const getVesselCommunicationsFields = (use: IUse): IField[] => {
         value: use?.satelliteTelephoneValue,
       }
     );
-    communicationTypeIndex++;
+    typeOfCommunicationIndex++;
   }
 
   if (use.mobileTelephone) {
     fields.push(
       {
-        key: `Communication type ${communicationTypeIndex}`,
+        key: `Communication type ${typeOfCommunicationIndex}`,
         value: "mobile phone",
       },
       {
@@ -112,13 +112,13 @@ const getVesselCommunicationsFields = (use: IUse): IField[] => {
         value: [use?.mobileTelephone1, use?.mobileTelephone2],
       }
     );
-    communicationTypeIndex++;
+    typeOfCommunicationIndex++;
   }
 
   if (use.otherCommunication) {
     fields.push(
       {
-        key: `Communication type ${communicationTypeIndex}`,
+        key: `Communication type ${typeOfCommunicationIndex}`,
         value: "Other",
       },
       {
@@ -126,7 +126,7 @@ const getVesselCommunicationsFields = (use: IUse): IField[] => {
         value: use?.otherCommunicationValue,
       }
     );
-    communicationTypeIndex++;
+    typeOfCommunicationIndex++;
   }
 
   return fields;
