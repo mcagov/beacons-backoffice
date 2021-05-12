@@ -61,4 +61,8 @@ export enum Activities {
   FishingVessel = "FISHING_VESSEL",
   ClimbingMountaineering = "CLIMBING_MOUNTAINEERING",
   Glider = "GLIDER",
+  SailingVessel = "SAILING_VESSEL",
+  Other = "OTHER",
+  WorkingRemotely = "WORKING_REMOTELY",
+  Windfarm = "WINDFARM",
 }
