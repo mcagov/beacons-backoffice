@@ -44,6 +44,7 @@ const getUseFixture = (id: string, mainUse: boolean): IUse =>
     workingRemotelyPeopleCount: 1,
     windfarmLocation: "Scotland",
     windfarmPeopleCount: "100",
+    otherActivity: "Zorbing",
     otherActivityLocation: "Manchester",
     otherActivityPeopleCount: "10",
     mainUse,

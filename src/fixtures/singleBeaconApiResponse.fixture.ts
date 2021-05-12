@@ -43,6 +43,7 @@ const getUseResponseJson = (mainUse: boolean) =>
     workingRemotelyPeopleCount: 1,
     windfarmLocation: "Scotland",
     windfarmPeopleCount: "100",
+    otherActivity: "Zorbing",
     otherActivityLocation: "Manchester",
     otherActivityPeopleCount: "10",
     mainUse,
