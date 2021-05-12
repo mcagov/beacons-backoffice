@@ -1,4 +1,6 @@
-export const beaconsGatewayFixture = Object.freeze({
+import { deepFreeze } from "../utils";
+
+export const beaconsGatewayFixture = deepFreeze({
   meta: {
     count: 1,
     pageSize: 1,

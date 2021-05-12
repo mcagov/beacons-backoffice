@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { beaconFixture } from "fixtures/beacons.fixture";
 import { emergencyContactsFixture } from "fixtures/emergencyContacts.fixture";
+import * as _ from "lodash";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { EmergencyContactSummaryPanel } from "./EmergencyContactSummaryPanel";
 
@@ -30,7 +31,7 @@ describe("Emergency Contact Summary Panel", () => {
   });
 
   it("should change the index of the emergency contact", async () => {
-    const twoEmergencyContactBeacon = { ...beaconFixture };
+    const twoEmergencyContactBeacon = _.cloneDeep(beaconFixture);
     twoEmergencyContactBeacon.emergencyContacts.push(
       ...emergencyContactsFixture
     );
