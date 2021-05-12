@@ -5,6 +5,7 @@ const getUseFixture = (id: string, mainUse: boolean): IUse => ({
   environment: Environments.Maritime,
   purpose: Purposes.Commercial,
   activity: Activities.FishingVessel,
+  otherActivity: undefined,
   moreDetails: "I take people out in my yacht.",
   callSign: "Call me",
   vhfRadio: true,

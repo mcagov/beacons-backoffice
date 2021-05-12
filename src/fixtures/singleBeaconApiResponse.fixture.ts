@@ -4,6 +4,7 @@ const getUseResponseJson = (mainUse: boolean) => ({
   environment: "MARITIME",
   purpose: "COMMERCIAL",
   activity: "FISHING_VESSEL",
+  otherActivity: undefined,
   moreDetails: "I take people out in my yacht.",
   callSign: "Call me",
   vhfRadio: true,

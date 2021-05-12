@@ -98,6 +98,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
         environment: use.attributes.environment,
         purpose: use.attributes.purpose,
         activity: use.attributes.activity,
+        otherActivity: use.attributes.otherActivity,
         moreDetails: use.attributes.moreDetails,
         callSign: use.attributes.callSign,
         vhfRadio: use.attributes.vhfRadio,
