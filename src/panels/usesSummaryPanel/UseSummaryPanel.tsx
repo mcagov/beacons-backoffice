@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { Activities, Environments, IUse } from "entities/IUse";
+import { Environments, IUse } from "entities/IUse";
 import React, { FunctionComponent, ReactNode } from "react";
+import { formatUse } from "useCases/mcaWritingStyleFormatter";
 import { AviationSummary } from "./AviationSummary";
 import { LandSummary } from "./LandSummary";
 import { MaritimeSummary } from "./MaritimeSummary";
@@ -14,52 +15,32 @@ export const UseSummaryPanel: FunctionComponent<UseSummaryPanelProps> = ({
   use,
   titlePrefix,
 }: UseSummaryPanelProps): JSX.Element => {
-  const title = getCardHeaderTitle(titlePrefix, use);
-  const useSummary = getUseSummary(use);
-
   return (
     <Card>
       <CardContent>
-        <CardHeader title={title} />
-        {useSummary}
+        <CardHeader title={cardHeaderTitle(titlePrefix, use)} />
+        {useSummary(use)}
       </CardContent>
     </Card>
   );
 };
 
-const getCardHeaderTitle = (titlePrefix: string, use: IUse): string => {
-  let title = `${titlePrefix} use: `;
-  title +=
-    use.activity === Activities.Other
-      ? use.otherActivity?.toUpperCase()
-      : use.activity.replace(/_/, " ");
+const cardHeaderTitle = (titlePrefix: string, use: IUse): string => {
+  const usePrefix = `${titlePrefix} use: `;
+  const useOverview = formatUse(use).toUpperCase();
 
-  if (use.purpose) {
-    title += ` (${use.purpose})`;
-  }
-
-  return title;
+  return usePrefix + useOverview;
 };
 
-const getUseSummary = (use: IUse): ReactNode => {
+const useSummary = (use: IUse): ReactNode => {
   switch (use.environment) {
     case Environments.Maritime:
-      return getMaritimeSummary(use);
+      return <MaritimeSummary use={use} />;
 
     case Environments.Aviation:
-      return getAviationSummary(use);
+      return <AviationSummary use={use} />;
 
     case Environments.Land:
-      return getLandSummary(use);
+      return <LandSummary use={use} />;
   }
 };
-
-const getMaritimeSummary = (use: IUse): ReactNode => (
-  <MaritimeSummary use={use} />
-);
-
-const getAviationSummary = (use: IUse): ReactNode => (
-  <AviationSummary use={use} />
-);
-
-const getLandSummary = (use: IUse): ReactNode => <LandSummary use={use} />;
