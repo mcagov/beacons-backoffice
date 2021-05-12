@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import { IBeacon } from "../../entities/IBeacon";
 import { beaconFixture } from "../../fixtures/beacons.fixture";
 import { singleBeaconApiResponseFixture } from "../../fixtures/singleBeaconApiResponse.fixture";
@@ -6,26 +7,26 @@ import { IBeaconResponse } from "./IBeaconResponse";
 
 describe("BeaconResponseMapper", () => {
   let beaconApiResponse: IBeaconResponse;
-  let mappedBeacon: IBeacon;
+  let expectedBeacon: IBeacon;
 
   beforeEach(() => {
-    beaconApiResponse = singleBeaconApiResponseFixture;
-    mappedBeacon = beaconFixture;
+    beaconApiResponse = _.cloneDeep(singleBeaconApiResponseFixture);
+    expectedBeacon = _.cloneDeep(beaconFixture);
   });
 
   it("maps a single beacon API response payload to an IBeacon", () => {
     const responseMapper = new BeaconResponseMapper();
 
-    expect(responseMapper.map(beaconApiResponse)).toStrictEqual(mappedBeacon);
+    expect(responseMapper.map(beaconApiResponse)).toStrictEqual(expectedBeacon);
   });
 
   it("maps a different single beacon API response payload to an IBeacon", () => {
-    const newResponse = { ...beaconApiResponse };
-    const newMappedBeacon = { ...mappedBeacon };
-    newResponse.data.attributes.model = "EPIRB2";
-    newMappedBeacon.model = "EPIRB2";
+    beaconApiResponse.data.attributes.model = "EPIRB2";
+    expectedBeacon.model = "EPIRB2";
     const responseMapper = new BeaconResponseMapper();
 
-    expect(responseMapper.map(newResponse)).toStrictEqual(newMappedBeacon);
+    const beacon = responseMapper.map(beaconApiResponse);
+
+    expect(beacon).toStrictEqual(expectedBeacon);
   });
 });
