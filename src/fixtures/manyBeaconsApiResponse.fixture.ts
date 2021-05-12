@@ -1,4 +1,6 @@
-export const manyBeaconsApiResponseFixture = Object.freeze([
+import { deepFreeze } from "../utils";
+
+export const manyBeaconsApiResponseFixture = deepFreeze([
   {
     type: "beacon",
     id: "97b306aa-cbd0-4f09-aa24-2d876b983efb",

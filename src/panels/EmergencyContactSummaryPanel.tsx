@@ -18,15 +18,11 @@ export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSum
     IEmergencyContact[]
   >([]);
 
-  useEffect((): (() => void) => {
-    let isMounted = true;
-
+  useEffect((): void => {
     const fetchBeacon = async (id: string) => {
       try {
         const beacon = await beaconsGateway.getBeacon(id);
-        if (isMounted) {
-          setEmergencyContacts(beacon.emergencyContacts);
-        }
+        setEmergencyContacts(beacon.emergencyContacts);
       } catch (error) {
         // TODO: Confirm with UCD what user feedback should be displayed if an error has occured when fetching a beacon
         console.error(error);
@@ -34,10 +30,6 @@ export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSum
     };
 
     fetchBeacon(beaconId);
-
-    return () => {
-      isMounted = false;
-    };
   }, [beaconId, beaconsGateway]);
 
   const fields = emergencyContacts.map((emergencyContact) => [

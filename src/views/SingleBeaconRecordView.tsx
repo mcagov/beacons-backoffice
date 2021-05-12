@@ -1,17 +1,20 @@
 import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { IBeacon } from "entities/IBeacon";
+import { IUsesGateway } from "gateways/IUsesGateway";
 import { OwnerSummaryPanel } from "panels/OwnerSummaryPanel";
+import { UsesListSummaryPanel } from "panels/usesSummaryPanel/UsesListSummaryPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
-import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { BeaconSummaryPanel } from "../panels/beaconSummaryPanel/BeaconSummaryPanel";
 import { EmergencyContactSummaryPanel } from "../panels/EmergencyContactSummaryPanel";
 
 interface ISingleBeaconRecordViewProps {
   beaconsGateway: IBeaconsGateway;
+  usesGateway: IUsesGateway;
   beaconId: string;
 }
 
@@ -28,13 +31,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewProps> = ({
   beaconsGateway,
+  usesGateway,
   beaconId,
 }): JSX.Element => {
   const classes = useStyles();
 
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const handleChange = (event: React.ChangeEvent<{}>, tab: number) => {
+    setSelectedTab(tab);
   };
 
   const [beacon, setBeacon] = useState<IBeacon>({} as IBeacon);
@@ -50,7 +54,7 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
     };
 
     fetchBeacon(beaconId);
-  }, [beaconId, beaconsGateway]); // eslint-disable-line
+  }, [beaconId, beaconsGateway]);
 
   const hexId = beacon?.hexId || "";
   const numberOfUses = beacon?.uses?.length.toString() || "";
@@ -63,11 +67,11 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           beaconsGateway={beaconsGateway}
           beaconId={beaconId}
         />
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs value={selectedTab} onChange={handleChange}>
           <Tab label="Owner & Emergency Contacts" />
           <Tab label={`${numberOfUses} Registered Uses`} />
         </Tabs>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={selectedTab} index={0}>
           <Grid direction="row" container justify="space-between" spacing={1}>
             <Grid item xs={6}>
               <OwnerSummaryPanel
@@ -83,8 +87,8 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
             </Grid>
           </Grid>
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          {""}
+        <TabPanel value={selectedTab} index={1}>
+          <UsesListSummaryPanel usesGateway={usesGateway} beaconId={beaconId} />
         </TabPanel>
       </PageContent>
     </div>

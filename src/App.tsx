@@ -1,4 +1,5 @@
 import { RequireAuth } from "components/auth/RequireAuth";
+import { UsesGateway } from "gateways/UsesGateway";
 import React, { FunctionComponent } from "react";
 import {
   HashRouter as Router,
@@ -23,11 +24,16 @@ interface ResourceParams {
 const App: FunctionComponent = () => {
   const beaconResponseMapper = new BeaconResponseMapper();
   const beaconsGateway = new BeaconsGateway(beaconResponseMapper);
+  const usesGateway = new UsesGateway(beaconResponseMapper);
 
   const SingleBeaconRecordViewWithParam: FunctionComponent = () => {
     const { id } = useParams<ResourceParams>();
     return (
-      <SingleBeaconRecordView beaconsGateway={beaconsGateway} beaconId={id} />
+      <SingleBeaconRecordView
+        beaconsGateway={beaconsGateway}
+        usesGateway={usesGateway}
+        beaconId={id}
+      />
     );
   };
 

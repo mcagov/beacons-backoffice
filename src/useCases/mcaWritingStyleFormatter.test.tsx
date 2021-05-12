@@ -109,6 +109,17 @@ describe("formatUses()", () => {
       ],
       out: "Fishing Vessel (Commercial), Climbing Mountaineering",
     },
+    {
+      in: [
+        {
+          id: "1",
+          environment: Environments.Maritime,
+          activity: Activities.Other,
+          otherActivity: "On my boat",
+        },
+      ],
+      out: "On My Boat",
+    },
   ];
 
   expectations.forEach((expectation) => {

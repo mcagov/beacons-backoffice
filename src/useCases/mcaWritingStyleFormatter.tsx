@@ -1,7 +1,7 @@
 import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
-import { IUse } from "../entities/IUse";
+import { Activities, IUse } from "../entities/IUse";
 
 export enum WritingStyle {
   KeyValueSeparator = ":",
@@ -30,8 +30,11 @@ export const formatUses = (uses: IUse[]): string =>
     return formattedUses + formatUse(use) + ", ";
   }, "");
 
-const formatUse = (use: IUse): string => {
-  const formattedActivity = titleCase(use.activity);
+export const formatUse = (use: IUse): string => {
+  const formattedActivity =
+    use.activity === Activities.Other
+      ? titleCase(use.otherActivity || "")
+      : titleCase(use.activity);
   const formattedPurpose = use.purpose ? ` (${titleCase(use.purpose)})` : "";
   return formattedActivity + formattedPurpose;
 };
