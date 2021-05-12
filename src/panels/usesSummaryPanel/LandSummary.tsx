@@ -15,7 +15,7 @@ export const LandSummary: FunctionComponent<LandSummaryProps> = ({
 };
 
 const getLandFields = (use: IUse): IField[] => {
-  const fields: IField[] = [];
+  const fields = [];
   fields.push(...getLandSummaryFields(use));
   fields.push(...getLandCommunicationsFields(use));
   fields.push({ key: "More details", value: use?.moreDetails });
@@ -24,7 +24,7 @@ const getLandFields = (use: IUse): IField[] => {
 };
 
 const getLandSummaryFields = (use: IUse): IField[] => {
-  const fields: IField[] = [];
+  const fields = [];
 
   if (use.activity === Activities.WorkingRemotely) {
     fields.push(

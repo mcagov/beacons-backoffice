@@ -15,7 +15,7 @@ export const MaritimeSummary: FunctionComponent<MaritimeSummaryProps> = ({
 };
 
 const getMaritimeFields = (use: IUse): IField[] => {
-  const fields: IField[] = [];
+  const fields = [];
   fields.push(...getVesselSummaryFields(use));
   fields.push(...getVesselCommunicationsFields(use));
   fields.push({

@@ -15,7 +15,7 @@ export const AviationSummary: FunctionComponent<AviationSummaryProps> = ({
 };
 
 const getAviationFields = (use: IUse): IField[] => {
-  const fields: IField[] = [];
+  const fields = [];
   fields.push(...getAircraftSummaryFields(use));
   fields.push(...getAircraftCommunicationsFields(use));
 
