@@ -60,160 +60,20 @@ describe("BeaconSummaryPanel", () => {
     ).toBeVisible();
   });
 
-  it("displays undefined fields as 'NO DATA ENTERED'", async () => {
-    const beaconWithUndefinedField = {
-      ...beaconFixture,
-      protocolCode: undefined,
-    };
-    beaconsGatewayDouble.getBeacon = jest
-      .fn()
-      .mockResolvedValue(beaconWithUndefinedField);
-
+  it("fetches beacon data on state change", async () => {
     render(
       <BeaconSummaryPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
     );
-
-    expect(await screen.findByText(Placeholders.NoData)).toBeVisible();
-  });
-
-  describe("When editing", () => {
-    it("allows user to edit basic string input fields", async () => {
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={beaconFixture.id}
-        />
-      );
-      const editButton = await screen.findByText(/edit summary/i);
-
-      userEvent.click(editButton);
-
-      expect(
-        await screen.findByDisplayValue(beaconFixture.manufacturer as string)
-      ).toBeVisible();
-      expect(
-        await screen.findByDisplayValue(beaconFixture.model as string)
-      ).toBeVisible();
-      expect(
-        await screen.findByDisplayValue(beaconFixture.type as string)
-      ).toBeVisible();
-      expect(
-        await screen.findByDisplayValue(
-          beaconFixture.manufacturerSerialNumber as string
-        )
-      ).toBeVisible();
-      expect(
-        await screen.findByDisplayValue(beaconFixture.chkCode as string)
-      ).toBeVisible();
+    const editButton = await screen.findByText(/edit summary/i);
+    userEvent.click(editButton);
+    const cancelButton = await screen.findByRole("button", {
+      name: "Cancel",
     });
+    userEvent.click(cancelButton);
 
-    it("user can type text in basic string input fields", async () => {
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={beaconFixture.id}
-        />
-      );
-      const editButton = await screen.findByText(/edit summary/i);
-      userEvent.click(editButton);
-      const editableField = await screen.findByDisplayValue(
-        beaconFixture.manufacturer as string
-      );
-
-      userEvent.clear(editableField);
-      userEvent.type(editableField, "ACME Inc.");
-
-      expect(await screen.findByDisplayValue("ACME Inc.")).toBeVisible();
-    });
-
-    it("allows user to edit fields for which the current value is undefined", async () => {
-      const beaconFixtureWithUndefinedField = {
-        ...beaconFixture,
-        chkCode: undefined,
-      };
-      beaconsGatewayDouble.getBeacon = jest
-        .fn()
-        .mockResolvedValue(beaconFixtureWithUndefinedField);
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={beaconFixture.id}
-        />
-      );
-      const editButton = await screen.findByText(/edit summary/i);
-      userEvent.click(editButton);
-      const fieldWithUndefinedValue = await screen.findByDisplayValue("");
-
-      userEvent.type(fieldWithUndefinedValue, "A valid CHK code");
-
-      expect(await screen.findByDisplayValue("A valid CHK code")).toBeVisible();
-    });
-
-    it("allows user to edit date fields", async () => {
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={beaconFixture.id}
-        />
-      );
-      const editButton = await screen.findByText(/edit summary/i);
-      userEvent.click(editButton);
-
-      // Use findByLabelText rather than findByDisplayValue because date display format is likely to be brittle
-      expect(
-        await screen.findByLabelText(/battery expiry date/i)
-      ).toBeVisible();
-    });
-
-    it("calls the BeaconGateway object correctly to save edits", async () => {
-      const editedBeaconFixture = {
-        ...beaconFixture,
-        manufacturer: "ACME Inc.",
-      };
-      beaconsGatewayDouble.updateBeacon = jest.fn().mockResolvedValue(true);
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={beaconFixture.id}
-        />
-      );
-      const editButton = await screen.findByText(/edit summary/i);
-      userEvent.click(editButton);
-      const editableField = await screen.findByDisplayValue(
-        beaconFixture.manufacturer as string
-      );
-      userEvent.clear(editableField);
-      userEvent.type(editableField, "ACME Inc.");
-      const saveButton = screen.getByRole("button", { name: "Save" });
-
-      userEvent.click(saveButton);
-
-      await waitFor(() => {
-        expect(beaconsGatewayDouble.updateBeacon).toHaveBeenCalledWith(
-          editedBeaconFixture.id,
-          editedBeaconFixture
-        );
-      });
-    });
-
-    it("fetches beacon data on state change", async () => {
-      render(
-        <BeaconSummaryPanel
-          beaconsGateway={beaconsGatewayDouble}
-          beaconId={beaconFixture.id}
-        />
-      );
-      const editButton = await screen.findByText(/edit summary/i);
-      userEvent.click(editButton);
-      const cancelButton = await screen.findByRole("button", {
-        name: "Cancel",
-      });
-      userEvent.click(cancelButton);
-
-      expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalledTimes(3);
-    });
+    expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalledTimes(3);
   });
 });

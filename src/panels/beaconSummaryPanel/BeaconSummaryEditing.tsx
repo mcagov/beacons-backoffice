@@ -218,24 +218,17 @@ export const BeaconSummaryEditing: FunctionComponent<{
                 ]}
               />
             </Grid>
-            <Grid
-              item
-              alignContent={"flex-start"}
-              justify={"space-evenly"}
-              xs={12}
+            <Divider />
+            <Button
+              name="save"
+              type="submit"
+              color="secondary"
+              variant="contained"
+              disableElevation
             >
-              <Divider />
-              <Button
-                name="save"
-                type="submit"
-                color="secondary"
-                variant="contained"
-                disableElevation
-              >
-                Save
-              </Button>
-              <Button onClick={onCancel}>Cancel</Button>
-            </Grid>
+              Save
+            </Button>
+            <Button onClick={onCancel}>Cancel</Button>
           </Grid>
         </Form>
       )}
