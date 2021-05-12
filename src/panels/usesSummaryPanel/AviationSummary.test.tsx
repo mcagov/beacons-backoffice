@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
+import { Placeholders } from "useCases/mcaWritingStyleFormatter";
 import { AviationSummary } from "./AviationSummary";
 
 describe("Aviation Summary", () => {
@@ -14,6 +15,7 @@ describe("Aviation Summary", () => {
       cnOrMsnNumber: "M-ZYXW",
       dongle: true,
       beaconPosition: "Stowed inside the nose of the aircraft",
+      moreDetails: "In my carry bag",
     };
     render(<AviationSummary use={use} />);
 
@@ -28,6 +30,7 @@ describe("Aviation Summary", () => {
     expect(
       await screen.findByText("STOWED INSIDE THE NOSE OF THE AIRCRAFT")
     ).toBeVisible();
+    expect(await screen.findByText("IN MY CARRY BAG")).toBeVisible();
   });
 
   it("should display NO if the beacon is not a dongle", async () => {
@@ -70,5 +73,13 @@ describe("Aviation Summary", () => {
     expect(
       await screen.findByText("YOU CAN CONTACT ME VIA MY PARTNER")
     ).toBeVisible();
+  });
+
+  it("should display the no data placeholder for fields that are not set", async () => {
+    const use: any = {};
+    render(<AviationSummary use={use} />);
+    expect(await (await screen.findAllByText(Placeholders.NoData)).length).toBe(
+      9
+    );
   });
 });

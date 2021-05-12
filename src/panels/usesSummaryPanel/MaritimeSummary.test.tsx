@@ -17,6 +17,7 @@ describe("Maritime Summary", () => {
       rssNumber: "A12345",
       officialNumber: "Fish and Ships",
       rigPlatformLocation: "Scotland",
+      moreDetails: "Red vessel, blue handles",
     };
 
     render(<MaritimeSummary use={use} />);
@@ -32,6 +33,7 @@ describe("Maritime Summary", () => {
     expect(await screen.findByText("A12345")).toBeVisible();
     expect(await screen.findByText("FISH AND SHIPS")).toBeVisible();
     expect(await screen.findByText("SCOTLAND")).toBeVisible();
+    expect(await screen.findByText("RED VESSEL, BLUE HANDLES")).toBeVisible();
   });
 
   it("should display the vessel communications", async () => {
@@ -79,15 +81,6 @@ describe("Maritime Summary", () => {
     expect(
       await screen.findByText("YOU CAN CONTACT ME VIA MY PARTNER")
     ).toBeVisible();
-  });
-
-  it("should display the more details summary", async () => {
-    const use: any = {
-      moreDetails: "In my carry bag",
-    };
-    render(<MaritimeSummary use={use} />);
-
-    expect(await screen.findByText("IN MY CARRY BAG")).toBeVisible();
   });
 
   it("should display the no data placeholder for fields that are not set", async () => {
