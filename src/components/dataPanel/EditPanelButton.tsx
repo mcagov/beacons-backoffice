@@ -5,7 +5,7 @@ export const EditPanelButton: FunctionComponent<{
   onClick: () => void;
 }> = ({ onClick, children }): JSX.Element => (
   <Typography align="right" style={{ paddingRight: "5em" }}>
-    <Button color="primary" onClick={onClick}>
+    <Button variant="outlined" onClick={onClick}>
       {children}
     </Button>
   </Typography>
