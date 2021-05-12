@@ -1,3 +1,4 @@
+import { Grid } from "@material-ui/core";
 import { IUse } from "entities/IUse";
 import { IUsesGateway } from "gateways/IUsesGateway";
 import React, { FunctionComponent, useEffect, useState } from "react";
@@ -35,15 +36,13 @@ export const UsesListSummaryPanel: FunctionComponent<UsesListSummaryPanelProps> 
   }, [beaconId, usesGateway]);
 
   return (
-    <>
+    <Grid container spacing={2}>
       {uses.map((use, index) => (
-        <UseSummaryPanel
-          key={index}
-          use={use}
-          titlePrefix={getTitlePrefix(index + 1)}
-        />
+        <Grid item xs={6} key={index}>
+          <UseSummaryPanel use={use} titlePrefix={getTitlePrefix(index + 1)} />
+        </Grid>
       ))}
-    </>
+    </Grid>
   );
 };
 
