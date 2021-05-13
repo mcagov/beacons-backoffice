@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { PanelViewState } from "components/dataPanel/PanelViewState";
+import { PanelViewingState } from "components/dataPanel/PanelViewingState";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
@@ -51,7 +51,7 @@ export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSum
           <Card key={index}>
             <CardContent>
               <CardHeader title={`Emergency Contact ${index + 1}`} />
-              <PanelViewState fields={field} />
+              <PanelViewingState fields={field} />
             </CardContent>
           </Card>
         ))}

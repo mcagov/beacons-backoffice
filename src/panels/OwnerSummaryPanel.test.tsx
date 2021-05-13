@@ -10,6 +10,7 @@ describe("Owner Summary Panel", () => {
     beaconsGatewayDouble = {
       getBeacon: jest.fn().mockResolvedValue(beaconFixture),
       getAllBeacons: jest.fn(),
+      updateBeacon: jest.fn(),
     };
   });
 

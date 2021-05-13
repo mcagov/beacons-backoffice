@@ -1,10 +1,8 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import {
-  DataPanelStates,
-  PanelViewState,
-} from "components/dataPanel/PanelViewState";
+import { PanelViewingState } from "components/dataPanel/PanelViewingState";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { FieldValueTypes } from "../components/dataPanel/FieldValue";
+import { DataPanelStates } from "../components/dataPanel/States";
 import { IOwner } from "../entities/IOwner";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 
@@ -57,7 +55,7 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
   const renderState = () => {
     switch (state) {
       case DataPanelStates.Viewing:
-        return <PanelViewState fields={fields} />;
+        return <PanelViewingState fields={fields} />;
       case DataPanelStates.Editing:
         return <p>TODO</p>;
       case DataPanelStates.Error:

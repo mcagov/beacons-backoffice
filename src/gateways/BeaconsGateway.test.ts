@@ -1,10 +1,16 @@
 import axios from "axios";
 import { applicationConfig } from "../config";
+import { IBeacon } from "../entities/IBeacon";
+import { beaconFixture } from "../fixtures/beacons.fixture";
 import { BeaconsGateway } from "./BeaconsGateway";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
 jest.mock("axios");
 jest.useFakeTimers();
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe("BeaconsGateway", () => {
   const beaconResponseMapper: IBeaconResponseMapper = {
@@ -65,6 +71,36 @@ describe("BeaconsGateway", () => {
       axios.get.mockImplementationOnce(() => Promise.reject(new Error()));
 
       await expect(gateway.getAllBeacons()).rejects.toThrow();
+    });
+  });
+
+  describe("updateBeacon()", () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it("sends a PATCH request to the correct endpoint", () => {
+      const gateway = new BeaconsGateway(beaconResponseMapper);
+      const updatedFieldsOnly: Partial<IBeacon> = { manufacturer: "ACME Inc." };
+      // @ts-ignore
+      axios.patch.mockResolvedValue({ status: 200 });
+
+      gateway.updateBeacon(beaconFixture.id, updatedFieldsOnly);
+
+      expect(axios.patch).toHaveBeenCalledWith(
+        `${applicationConfig.apiUrl}/beacons/${beaconFixture.id}`,
+        updatedFieldsOnly
+      );
+    });
+
+    it("handles errors", async () => {
+      const gateway = new BeaconsGateway(beaconResponseMapper);
+      // @ts-ignore
+      axios.patch.mockImplementationOnce(() => Promise.reject(new Error()));
+
+      await expect(
+        gateway.updateBeacon(beaconFixture.id, { model: "iBeacon" })
+      ).rejects.toThrow();
     });
   });
 });

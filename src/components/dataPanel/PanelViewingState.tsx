@@ -19,25 +19,17 @@ export interface IField {
   valueType?: FieldValueTypes;
 }
 
-interface IPanelViewStateProps {
+export interface IPanelViewingStateProps {
   fields: IField[];
   columns?: 1 | 2;
   splitAfter?: number;
 }
 
-export enum DataPanelStates {
-  Loading = "LOADING",
-  Viewing = "VIEWING",
-  Editing = "EDITING",
-  Error = "ERROR",
-}
-
-export const PanelViewState: FunctionComponent<IPanelViewStateProps> = ({
+export const PanelViewingState: FunctionComponent<IPanelViewingStateProps> = ({
   fields,
   columns = 1,
   splitAfter,
 }) => {
-  columns = splitAfter ? 2 : columns;
   switch (columns) {
     case 1:
       return <OneColumn fields={fields} />;
@@ -48,7 +40,7 @@ export const PanelViewState: FunctionComponent<IPanelViewStateProps> = ({
   }
 };
 
-const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
+const OneColumn: FunctionComponent<IPanelViewingStateProps> = ({ fields }) => (
   <TableContainer>
     <Table size="small">
       <TableBody>
@@ -77,7 +69,7 @@ const OneColumn: FunctionComponent<IPanelViewStateProps> = ({ fields }) => (
   </TableContainer>
 );
 
-const TwoColumns: FunctionComponent<IPanelViewStateProps> = ({
+const TwoColumns: FunctionComponent<IPanelViewingStateProps> = ({
   fields,
   splitAfter,
 }) => {

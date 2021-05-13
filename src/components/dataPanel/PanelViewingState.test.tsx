@@ -1,30 +1,31 @@
 import { render, screen } from "@testing-library/react";
 import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
-import { PanelViewState } from "./PanelViewState";
+import { IField } from "./IField";
+import { PanelViewingState } from "./PanelViewingState";
 
-describe("PanelViewState", () => {
+describe("PanelViewingState", () => {
   it("renders empty with no data", () => {
-    render(<PanelViewState fields={[]} />);
+    render(<PanelViewingState fields={[]} />);
 
     expect(screen.queryByRole("row")).toBeNull();
   });
 
   it("renders one field", () => {
-    const fields = [
+    const fields: IField[] = [
       {
         key: "Manufacturer",
         value: "Ocean Signal",
       },
     ];
 
-    render(<PanelViewState fields={fields} />);
+    render(<PanelViewingState fields={fields} />);
 
     expect(screen.getByText("Manufacturer:")).toBeVisible();
     expect(screen.getByText(/Ocean Signal/i)).toBeVisible();
   });
 
   it("renders two fields", () => {
-    const fields = [
+    const fields: IField[] = [
       {
         key: "Manufacturer",
         value: "Ocean Signal",
@@ -35,7 +36,7 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} />);
+    render(<PanelViewingState fields={fields} />);
 
     expect(screen.getByText("Manufacturer:")).toBeVisible();
     expect(screen.getByText(/Ocean Signal/i)).toBeVisible();
@@ -44,14 +45,14 @@ describe("PanelViewState", () => {
   });
 
   it("renders undefined fields", () => {
-    const fields = [
+    const fields: IField[] = [
       {
         key: "CHK Code",
         value: undefined,
       },
     ];
 
-    render(<PanelViewState fields={fields} />);
+    render(<PanelViewingState fields={fields} />);
 
     expect(screen.getByText("CHK Code:")).toBeVisible();
     expect(screen.getByText(Placeholders.NoData)).toBeVisible();
@@ -65,7 +66,7 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} />);
+    render(<PanelViewingState fields={fields} />);
     expect(screen.getByText(/10 Smith Road/i)).toBeVisible();
     expect(screen.getByText(/Bristol/i)).toBeVisible();
     expect(screen.getByText(/BS1 97B/i)).toBeVisible();
@@ -79,14 +80,14 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} />);
+    render(<PanelViewingState fields={fields} />);
     expect(screen.getByText(/10 Smith Road/i)).toBeVisible();
     expect(screen.getByText(/Bristol/i)).toBeVisible();
     expect(screen.getByText(Placeholders.NoData)).toBeVisible();
   });
 
   it("can split into two even columns", () => {
-    const fields = [
+    const fields: IField[] = [
       {
         key: "Manufacturer",
         value: "Ocean Signal",
@@ -105,13 +106,13 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} columns={2} />);
+    render(<PanelViewingState fields={fields} columns={2} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
   });
 
   it("can split into two columns when there are an odd number of fields", () => {
-    const fields = [
+    const fields: IField[] = [
       {
         key: "Manufacturer",
         value: "Ocean Signal",
@@ -134,13 +135,13 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} columns={2} />);
+    render(<PanelViewingState fields={fields} columns={2} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
   });
 
   it("can split into two columns on a given index", () => {
-    const fields = [
+    const fields: IField[] = [
       {
         key: "Manufacturer",
         value: "Ocean Signal",
@@ -163,7 +164,7 @@ describe("PanelViewState", () => {
       },
     ];
 
-    render(<PanelViewState fields={fields} columns={2} splitAfter={1} />);
+    render(<PanelViewingState fields={fields} columns={2} splitAfter={1} />);
 
     expect(screen.getAllByRole("table")).toHaveLength(2);
   });

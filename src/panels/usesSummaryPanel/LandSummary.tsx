@@ -1,4 +1,7 @@
-import { IField, PanelViewState } from "components/dataPanel/PanelViewState";
+import {
+  IField,
+  PanelViewingState,
+} from "components/dataPanel/PanelViewingState";
 import { Activities, IUse } from "entities/IUse";
 import React, { FunctionComponent } from "react";
 
@@ -11,7 +14,7 @@ export const LandSummary: FunctionComponent<LandSummaryProps> = ({
 }: LandSummaryProps) => {
   const fields = getLandFields(use);
 
-  return <PanelViewState fields={fields} />;
+  return <PanelViewingState fields={fields} />;
 };
 
 const getLandFields = (use: IUse): IField[] => {

@@ -9,6 +9,7 @@ export enum WritingStyle {
 
 export enum Placeholders {
   NoData = "NO DATA ENTERED",
+  UnspecifiedError = "An error occurred",
 }
 
 export const formatDateLong = (dateString: string): string => {

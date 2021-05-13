@@ -1,4 +1,7 @@
-import { IField, PanelViewState } from "components/dataPanel/PanelViewState";
+import {
+  IField,
+  PanelViewingState,
+} from "components/dataPanel/PanelViewingState";
 import { IUse } from "entities/IUse";
 import { FunctionComponent } from "react";
 
@@ -11,7 +14,7 @@ export const AviationSummary: FunctionComponent<AviationSummaryProps> = ({
 }: AviationSummaryProps): JSX.Element => {
   const fields = getAviationFields(use);
 
-  return <PanelViewState fields={fields} />;
+  return <PanelViewingState fields={fields} />;
 };
 
 const getAviationFields = (use: IUse): IField[] => {

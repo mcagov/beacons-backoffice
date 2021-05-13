@@ -35,4 +35,20 @@ export class BeaconsGateway implements IBeaconsGateway {
       throw Error(e);
     }
   }
+
+  public async updateBeacon(
+    beaconId: string,
+    updatedFields: Partial<IBeacon>
+  ): Promise<IBeacon> {
+    try {
+      // TODO: add a this._beaconRequestMapper object to map an IBeacon to the format the API expects to receive.
+      const response = await axios.patch(
+        `${applicationConfig.apiUrl}/beacons/${beaconId}`,
+        updatedFields
+      );
+      return response.data;
+    } catch (e) {
+      throw Error(e);
+    }
+  }
 }
