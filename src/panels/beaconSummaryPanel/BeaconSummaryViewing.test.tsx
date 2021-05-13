@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { beaconFixture } from "../../fixtures/beacons.fixture";
-import { Placeholders } from "../../utils/mcaWritingStyleFormatter";
+import { Placeholders } from "../../utils/writingStyle";
 import { BeaconSummaryViewing } from "./BeaconSummaryViewing";
 
 describe("BeaconSummaryViewing", () => {

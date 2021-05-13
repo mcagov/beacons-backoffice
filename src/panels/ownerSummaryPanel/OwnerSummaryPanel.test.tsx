@@ -1,11 +1,11 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beaconFixture } from "../../fixtures/beacons.fixture";
+import { beaconFixture } from "fixtures/beacons.fixture";
 import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
 import { Placeholders } from "../../utils/writingStyle";
-import { BeaconSummaryPanel } from "./BeaconSummaryPanel";
+import { OwnerSummaryPanel } from "./OwnerSummaryPanel";
 
-describe("BeaconSummaryPanel", () => {
+describe("Owner Summary Panel", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
 
   beforeEach(() => {
@@ -16,9 +16,20 @@ describe("BeaconSummaryPanel", () => {
     };
   });
 
+  it("should display the owners details", async () => {
+    render(
+      <OwnerSummaryPanel
+        beaconsGateway={beaconsGatewayDouble}
+        beaconId={beaconFixture.id}
+      />
+    );
+
+    expect(await screen.findByText(/Steve Stevington/i)).toBeVisible();
+  });
+
   it("calls the injected BeaconsGateway", async () => {
     render(
-      <BeaconSummaryPanel
+      <OwnerSummaryPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
@@ -29,17 +40,15 @@ describe("BeaconSummaryPanel", () => {
     });
   });
 
-  it("retrieves the beacon summary data by beacon id", async () => {
+  it("retrieves the owner data by beacon id and displays it", async () => {
     render(
-      <BeaconSummaryPanel
+      <OwnerSummaryPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
     );
 
-    expect(
-      await screen.findByText(beaconFixture.protocolCode as string)
-    ).toBeVisible();
+    expect(await screen.findByText(/Steve Stevington/i)).toBeVisible();
   });
 
   it("displays an error if beacon lookup fails for any reason", async () => {
@@ -48,7 +57,7 @@ describe("BeaconSummaryPanel", () => {
     });
     jest.spyOn(console, "error").mockImplementation(() => {}); // Avoid console error failing test
     render(
-      <BeaconSummaryPanel
+      <OwnerSummaryPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={"doesn't exist"}
       />
@@ -62,14 +71,14 @@ describe("BeaconSummaryPanel", () => {
 
   it("fetches beacon data on state change", async () => {
     render(
-      <BeaconSummaryPanel
+      <OwnerSummaryPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
     );
     expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalledTimes(1);
 
-    const editButton = await screen.findByText(/edit summary/i);
+    const editButton = await screen.findByText(/edit owner/i);
     userEvent.click(editButton);
     expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalledTimes(2);
 

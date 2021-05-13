@@ -1,13 +1,14 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { PanelViewingState } from "components/dataPanel/PanelViewingState";
-import React, { FunctionComponent, useEffect, useState } from "react";
-import { FieldValueTypes } from "../components/dataPanel/FieldValue";
-import { ErrorState } from "../components/dataPanel/PanelErrorState";
-import { LoadingState } from "../components/dataPanel/PanelLoadingState";
-import { DataPanelStates } from "../components/dataPanel/States";
-import { IOwner } from "../entities/IOwner";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { Placeholders } from "../utils/mcaWritingStyleFormatter";
+import { FunctionComponent, useEffect, useState } from "react";
+import { EditPanelButton } from "../../components/dataPanel/EditPanelButton";
+import { FieldValueTypes } from "../../components/dataPanel/FieldValue";
+import { ErrorState } from "../../components/dataPanel/PanelErrorState";
+import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
+import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
+import { DataPanelStates } from "../../components/dataPanel/States";
+import { IOwner } from "../../entities/IOwner";
+import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
+import { Placeholders } from "../../utils/writingStyle";
 
 interface OwnerSummaryPanelProps {
   beaconsGateway: IBeaconsGateway;
@@ -61,9 +62,25 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
   const renderState = () => {
     switch (userState) {
       case DataPanelStates.Viewing:
-        return <PanelViewingState fields={fields} />;
+        return (
+          <>
+            <EditPanelButton
+              onClick={() => setUserState(DataPanelStates.Editing)}
+            >
+              Edit owner
+            </EditPanelButton>
+            <PanelViewingState fields={fields} />
+          </>
+        );
       case DataPanelStates.Editing:
-        return <p>TODO</p>;
+        return (
+          <>
+            <p>TODO</p>
+            <button onClick={() => setUserState(DataPanelStates.Viewing)}>
+              Cancel
+            </button>
+          </>
+        );
       default:
         setError(true);
     }

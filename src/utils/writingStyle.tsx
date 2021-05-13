@@ -2,6 +2,7 @@ import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
 import { Activities, IUse } from "../entities/IUse";
+import { formatDateShort } from "./dateTime";
 
 export enum WritingStyle {
   KeyValueSeparator = ":",
@@ -11,18 +12,6 @@ export enum Placeholders {
   NoData = "NO DATA ENTERED",
   UnspecifiedError = "An error occurred",
 }
-
-export const formatDateLong = (dateString: string): string => {
-  const date = new Date(dateString);
-  const [, month, day, year] = date.toDateString().split(" ");
-  return `${parseInt(day)} ${month} ${year.slice(2)}`;
-};
-
-export const formatDateShort = (dateString: string): string => {
-  const date = new Date(dateString);
-  const [, month, , year] = date.toDateString().split(" ");
-  return `${month} ${year}`;
-};
 
 export const formatUses = (uses: IUse[]): string =>
   uses.reduce((formattedUses, use, index, uses) => {

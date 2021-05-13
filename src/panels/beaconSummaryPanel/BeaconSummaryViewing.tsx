@@ -5,7 +5,7 @@ import {
   formatEmergencyContacts,
   formatOwners,
   formatUses,
-} from "../../utils/mcaWritingStyleFormatter";
+} from "../../utils/writingStyle";
 
 export const BeaconSummaryViewing: FunctionComponent<{
   beacon: IBeacon;

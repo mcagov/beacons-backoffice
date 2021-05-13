@@ -2,7 +2,7 @@ import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { IBeacon } from "entities/IBeacon";
 import { IUsesGateway } from "gateways/IUsesGateway";
-import { OwnerSummaryPanel } from "panels/OwnerSummaryPanel";
+import { OwnerSummaryPanel } from "panels/ownerSummaryPanel/OwnerSummaryPanel";
 import { UsesListSummaryPanel } from "panels/usesSummaryPanel/UsesListSummaryPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
