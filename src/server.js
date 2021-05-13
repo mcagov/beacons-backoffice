@@ -1,7 +1,7 @@
 import { createServer } from "miragejs";
 import { applicationConfig } from "./config";
-import { singleBeaconApiResponseFixture } from "./fixtures/singleBeaconApiResponse.fixture";
 import { manyBeaconsApiResponseFixture } from "./fixtures/manyBeaconsApiResponse.fixture";
+import { singleBeaconApiResponseFixture } from "./fixtures/singleBeaconApiResponse.fixture";
 
 export function makeServer({ environment = "development" } = {}) {
   console.log("Stubbing the Beacons API using Mirage...");
