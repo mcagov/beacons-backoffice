@@ -6,8 +6,6 @@ import { singleBeaconApiResponseFixture } from "../fixtures/singleBeaconApiRespo
 import { BeaconsGateway } from "./BeaconsGateway";
 import { IBeaconRequestMapper } from "./mappers/BeaconRequestMapper";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
-import { IBeaconRequest } from "./mappers/IBeaconRequest";
-import { IBeaconResponse } from "./mappers/IBeaconResponse";
 
 jest.mock("axios");
 jest.useFakeTimers();
@@ -101,57 +99,51 @@ describe("BeaconsGateway", () => {
   });
 
   describe("updateBeacon()", () => {
-    let updateBeaconRequest: IBeaconRequest;
-    let updateBeaconResponse: IBeaconResponse;
+    const updateBeaconRequest = {
+      data: {
+        type: "beacon",
+        id: beaconFixture.id,
+        attributes: {
+          manufacturer: "ACME Inc.",
+        },
+      },
+    };
 
-    beforeEach(() => {
-      updateBeaconRequest = {
-        data: {
-          type: "beacon",
-          id: beaconFixture.id,
-          attributes: {
-            manufacturer: "ACME Inc.",
+    const updateBeaconResponse = {
+      meta: {},
+      included: [],
+      data: {
+        type: "beacon",
+        id: beaconFixture.id,
+        attributes: {
+          hexId: beaconFixture.hexId,
+          status: beaconFixture.status,
+          type: beaconFixture.type,
+          manufacturer: "ACME Inc.",
+          createdDate: beaconFixture.registeredDate,
+          model: beaconFixture.model,
+          manufacturerSerialNumber: beaconFixture.manufacturerSerialNumber,
+          chkCode: beaconFixture.chkCode,
+          protocolCode: beaconFixture.protocolCode,
+          batteryExpiryDate: beaconFixture.batteryExpiryDate,
+          lastServicedDate: beaconFixture.lastServicedDate,
+        },
+        relationships: {
+          uses: {
+            data: [],
+          },
+          owner: {
+            data: [],
+          },
+          emergencyContacts: {
+            data: [],
           },
         },
-      };
-
-      updateBeaconResponse = {
-        meta: {},
-        included: [],
-        data: {
-          type: "beacon",
-          id: beaconFixture.id,
-          attributes: {
-            hexId: beaconFixture.hexId,
-            status: beaconFixture.status,
-            type: beaconFixture.type,
-            manufacturer: "ACME Inc.",
-            createdDate: beaconFixture.registeredDate,
-            model: beaconFixture.model,
-            manufacturerSerialNumber: beaconFixture.manufacturerSerialNumber,
-            chkCode: beaconFixture.chkCode,
-            protocolCode: beaconFixture.protocolCode,
-            batteryExpiryDate: beaconFixture.batteryExpiryDate,
-            lastServicedDate: beaconFixture.lastServicedDate,
-          },
-          relationships: {
-            uses: {
-              data: [],
-            },
-            owner: {
-              data: [],
-            },
-            emergencyContacts: {
-              data: [],
-            },
-          },
-        },
-      };
-
-      beaconRequestMapper.map = jest.fn().mockReturnValue(updateBeaconRequest);
-    });
+      },
+    };
 
     it("sends a PATCH request to the correct endpoint", () => {
+      beaconRequestMapper.map = jest.fn().mockReturnValue(updateBeaconRequest);
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
         beaconRequestMapper
