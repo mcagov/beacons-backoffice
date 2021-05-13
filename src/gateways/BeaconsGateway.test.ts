@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as _ from "lodash";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
 import { beaconFixture } from "../fixtures/beacons.fixture";
@@ -13,10 +12,6 @@ import { IBeaconResponse } from "./mappers/IBeaconResponse";
 jest.mock("axios");
 jest.useFakeTimers();
 
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 describe("BeaconsGateway", () => {
   const beaconResponseMapper: IBeaconResponseMapper = {
     map: jest.fn(),
@@ -27,10 +22,6 @@ describe("BeaconsGateway", () => {
   };
 
   describe("getAllBeacons()", () => {
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
     it("queries the correct endpoint", () => {
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
@@ -61,10 +52,6 @@ describe("BeaconsGateway", () => {
   });
 
   describe("getBeacon()", () => {
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
     it("queries the correct endpoint", () => {
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
@@ -118,8 +105,6 @@ describe("BeaconsGateway", () => {
     let updateBeaconResponse: IBeaconResponse;
 
     beforeEach(() => {
-      jest.clearAllMocks();
-
       updateBeaconRequest = {
         data: {
           type: "beacon",
@@ -130,10 +115,38 @@ describe("BeaconsGateway", () => {
         },
       };
 
-      updateBeaconResponse = _.merge(
-        _.cloneDeep(singleBeaconApiResponseFixture),
-        updateBeaconRequest
-      );
+      updateBeaconResponse = {
+        meta: {},
+        included: [],
+        data: {
+          type: "beacon",
+          id: beaconFixture.id,
+          attributes: {
+            hexId: beaconFixture.hexId,
+            status: beaconFixture.status,
+            type: beaconFixture.type,
+            manufacturer: "ACME Inc.",
+            createdDate: beaconFixture.registeredDate,
+            model: beaconFixture.model,
+            manufacturerSerialNumber: beaconFixture.manufacturerSerialNumber,
+            chkCode: beaconFixture.chkCode,
+            protocolCode: beaconFixture.protocolCode,
+            batteryExpiryDate: beaconFixture.batteryExpiryDate,
+            lastServicedDate: beaconFixture.lastServicedDate,
+          },
+          relationships: {
+            uses: {
+              data: [],
+            },
+            owner: {
+              data: [],
+            },
+            emergencyContacts: {
+              data: [],
+            },
+          },
+        },
+      };
 
       beaconRequestMapper.map = jest.fn().mockReturnValue(updateBeaconRequest);
     });
