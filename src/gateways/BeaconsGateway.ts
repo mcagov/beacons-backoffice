@@ -3,12 +3,18 @@ import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
 import { IBeaconsGateway } from "./IBeaconsGateway";
+import { IBeaconRequestMapper } from "./mappers/BeaconRequestMapper";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
 export class BeaconsGateway implements IBeaconsGateway {
   private _beaconResponseMapper;
+  private _beaconRequestMapper;
 
-  public constructor(beaconResponseMapper: IBeaconResponseMapper) {
+  public constructor(
+    beaconResponseMapper: IBeaconResponseMapper,
+    beaconRequestMapper: IBeaconRequestMapper
+  ) {
+    this._beaconRequestMapper = beaconRequestMapper;
     this._beaconResponseMapper = beaconResponseMapper;
   }
 
@@ -41,10 +47,9 @@ export class BeaconsGateway implements IBeaconsGateway {
     updatedFields: Partial<IBeacon>
   ): Promise<IBeacon> {
     try {
-      // TODO: add a this._beaconRequestMapper object to map an IBeacon to the format the API expects to receive.
       const response = await axios.patch(
         `${applicationConfig.apiUrl}/beacons/${beaconId}`,
-        updatedFields
+        this._beaconRequestMapper.map(beaconId, updatedFields)
       );
       return response.data;
     } catch (e) {
