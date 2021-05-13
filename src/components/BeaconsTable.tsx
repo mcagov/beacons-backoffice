@@ -107,6 +107,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           beacons,
         }));
       } catch (error) {
+        console.error("Could not fetch beacons", error);
         setState((currentState) => ({
           ...currentState,
           isLoading: false,

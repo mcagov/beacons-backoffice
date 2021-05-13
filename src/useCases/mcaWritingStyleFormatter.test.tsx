@@ -46,6 +46,8 @@ describe("titleCase()", () => {
     { in: "fish and chips", out: "Fish And Chips" },
     { in: "fish_and_chips", out: "Fish And Chips" },
     { in: "HOT_AIR_BALLOON", out: "Hot Air Balloon" },
+    { in: "", out: "" },
+    { in: " ", out: " " },
   ];
 
   expectations.forEach((expectation) => {
