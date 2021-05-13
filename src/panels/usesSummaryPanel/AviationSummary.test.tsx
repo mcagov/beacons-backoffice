@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { IUse } from "entities/IUse";
 import React from "react";
-import { Placeholders } from "useCases/mcaWritingStyleFormatter";
+import { Placeholders } from "utils/mcaWritingStyleFormatter";
 import { AviationSummary } from "./AviationSummary";
 
 describe("Aviation Summary", () => {

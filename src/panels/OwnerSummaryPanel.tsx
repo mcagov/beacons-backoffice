@@ -7,7 +7,7 @@ import { LoadingState } from "../components/dataPanel/PanelLoadingState";
 import { DataPanelStates } from "../components/dataPanel/States";
 import { IOwner } from "../entities/IOwner";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { Placeholders } from "../useCases/mcaWritingStyleFormatter";
+import { Placeholders } from "../utils/mcaWritingStyleFormatter";
 
 interface OwnerSummaryPanelProps {
   beaconsGateway: IBeaconsGateway;

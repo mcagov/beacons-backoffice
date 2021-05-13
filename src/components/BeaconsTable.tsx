@@ -28,7 +28,7 @@ import {
   formatDateLong,
   formatUses,
   titleCase,
-} from "useCases/mcaWritingStyleFormatter";
+} from "utils/mcaWritingStyleFormatter";
 
 interface BeaconTableListRow {
   hexId: string;

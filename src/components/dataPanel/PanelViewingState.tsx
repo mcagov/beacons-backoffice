@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
-import { WritingStyle } from "../../useCases/mcaWritingStyleFormatter";
+import { WritingStyle } from "../../utils/mcaWritingStyleFormatter";
 import { FieldValue, FieldValueTypes } from "./FieldValue";
 
 type IFieldValue = string | undefined;

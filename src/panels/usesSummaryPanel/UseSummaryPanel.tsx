@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
 import { Environments, IUse } from "entities/IUse";
 import React, { FunctionComponent, ReactNode } from "react";
-import { formatUse } from "useCases/mcaWritingStyleFormatter";
+import { formatUse } from "utils/mcaWritingStyleFormatter";
 import { AviationSummary } from "./AviationSummary";
 import { LandSummary } from "./LandSummary";
 import { MaritimeSummary } from "./MaritimeSummary";

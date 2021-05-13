@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import { FunctionComponent } from "react";
-import { formatFieldValue } from "../../useCases/mcaWritingStyleFormatter";
+import { formatFieldValue } from "../../utils/mcaWritingStyleFormatter";
 
 interface IFieldValueProps {
   children: string | undefined;

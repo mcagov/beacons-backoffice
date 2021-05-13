@@ -20,7 +20,7 @@ import {
   formatUses,
   Placeholders,
   WritingStyle,
-} from "../../useCases/mcaWritingStyleFormatter";
+} from "../../utils/mcaWritingStyleFormatter";
 
 export const BeaconSummaryEditing: FunctionComponent<{
   beacon: IBeacon;
