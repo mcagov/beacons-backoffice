@@ -1,15 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import { Activities, IUse, Purposes } from "entities/IUse";
 import React from "react";
-import { UseSummaryPanel } from "./UseSummaryPanel";
+import { UsePanel } from "./UsePanel";
 
-describe("UseSummaryPanel", () => {
+describe("UsePanel", () => {
   it("should render the use with an underscore in the activity along with the title", async () => {
     const use: IUse = {
       activity: Activities.SailingVessel,
       purpose: Purposes.Pleasure,
     } as IUse;
-    render(<UseSummaryPanel use={use} titlePrefix="Primary" />);
+    render(<UsePanel use={use} titlePrefix="Primary" />);
 
     expect(
       await screen.findByText("Primary use: SAILING VESSEL (PLEASURE)")
@@ -21,7 +21,7 @@ describe("UseSummaryPanel", () => {
       activity: Activities.Glider,
       purpose: Purposes.Pleasure,
     } as IUse;
-    render(<UseSummaryPanel use={use} titlePrefix="Primary" />);
+    render(<UsePanel use={use} titlePrefix="Primary" />);
 
     expect(
       await screen.findByText("Primary use: GLIDER (PLEASURE)")
@@ -35,7 +35,7 @@ describe("UseSummaryPanel", () => {
       otherActivity: "Gliding in the sea",
     } as IUse;
 
-    render(<UseSummaryPanel use={use} titlePrefix="Primary" />);
+    render(<UsePanel use={use} titlePrefix="Primary" />);
 
     expect(
       await screen.findByText("Primary use: GLIDING IN THE SEA (PLEASURE)")

@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { beaconFixture } from "fixtures/beacons.fixture";
 import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
 import { Placeholders } from "../../utils/writingStyle";
-import { OwnerSummaryPanel } from "./OwnerSummaryPanel";
+import { OwnerPanel } from "./OwnerPanel";
 
 describe("Owner Summary Panel", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
@@ -18,7 +18,7 @@ describe("Owner Summary Panel", () => {
 
   it("should display the owners details", async () => {
     render(
-      <OwnerSummaryPanel
+      <OwnerPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
@@ -29,7 +29,7 @@ describe("Owner Summary Panel", () => {
 
   it("calls the injected BeaconsGateway", async () => {
     render(
-      <OwnerSummaryPanel
+      <OwnerPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
@@ -42,7 +42,7 @@ describe("Owner Summary Panel", () => {
 
   it("retrieves the owner data by beacon id and displays it", async () => {
     render(
-      <OwnerSummaryPanel
+      <OwnerPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
@@ -57,7 +57,7 @@ describe("Owner Summary Panel", () => {
     });
     jest.spyOn(console, "error").mockImplementation(() => {}); // Avoid console error failing test
     render(
-      <OwnerSummaryPanel
+      <OwnerPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={"doesn't exist"}
       />
@@ -71,7 +71,7 @@ describe("Owner Summary Panel", () => {
 
   it("fetches beacon data on state change", async () => {
     render(
-      <OwnerSummaryPanel
+      <OwnerPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />

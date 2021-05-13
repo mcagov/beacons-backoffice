@@ -2,15 +2,15 @@ import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { IBeacon } from "entities/IBeacon";
 import { IUsesGateway } from "gateways/IUsesGateway";
-import { OwnerSummaryPanel } from "panels/ownerSummaryPanel/OwnerSummaryPanel";
-import { UsesListSummaryPanel } from "panels/usesSummaryPanel/UsesListSummaryPanel";
+import { OwnerPanel } from "panels/ownerPanel/OwnerPanel";
+import { UsesListPanel } from "panels/usesPanel/UsesListPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
 import { BeaconSummaryPanel } from "../panels/beaconSummaryPanel/BeaconSummaryPanel";
-import { EmergencyContactSummaryPanel } from "../panels/EmergencyContactSummaryPanel";
+import { EmergencyContactPanel } from "../panels/emergencyContactPanel/EmergencyContactPanel";
 
 interface ISingleBeaconRecordViewProps {
   beaconsGateway: IBeaconsGateway;
@@ -74,13 +74,10 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
         <TabPanel value={selectedTab} index={0}>
           <Grid direction="row" container justify="space-between" spacing={1}>
             <Grid item xs={6}>
-              <OwnerSummaryPanel
-                beaconsGateway={beaconsGateway}
-                beaconId={beaconId}
-              />
+              <OwnerPanel beaconsGateway={beaconsGateway} beaconId={beaconId} />
             </Grid>
             <Grid item xs={6}>
-              <EmergencyContactSummaryPanel
+              <EmergencyContactPanel
                 beaconsGateway={beaconsGateway}
                 beaconId={beaconId}
               />
@@ -88,7 +85,7 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           </Grid>
         </TabPanel>
         <TabPanel value={selectedTab} index={1}>
-          <UsesListSummaryPanel usesGateway={usesGateway} beaconId={beaconId} />
+          <UsesListPanel usesGateway={usesGateway} beaconId={beaconId} />
         </TabPanel>
       </PageContent>
     </div>

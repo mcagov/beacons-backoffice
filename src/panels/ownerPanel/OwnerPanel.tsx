@@ -15,7 +15,7 @@ interface OwnerSummaryPanelProps {
   beaconId: string;
 }
 
-export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
+export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
   beaconsGateway,
   beaconId,
 }) => {

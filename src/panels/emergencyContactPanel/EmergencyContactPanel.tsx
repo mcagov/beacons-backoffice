@@ -1,16 +1,16 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
 import { PanelViewingState } from "components/dataPanel/PanelViewingState";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { FieldValueTypes } from "../components/dataPanel/FieldValue";
-import { IEmergencyContact } from "../entities/IEmergencyContact";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
+import { FieldValueTypes } from "../../components/dataPanel/FieldValue";
+import { IEmergencyContact } from "../../entities/IEmergencyContact";
+import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
 
-interface EmergencyContactSummaryPanelProps {
+interface EmergencyContactPanelProps {
   beaconsGateway: IBeaconsGateway;
   beaconId: string;
 }
 
-export const EmergencyContactSummaryPanel: FunctionComponent<EmergencyContactSummaryPanelProps> = ({
+export const EmergencyContactPanel: FunctionComponent<EmergencyContactPanelProps> = ({
   beaconsGateway,
   beaconId,
 }) => {

@@ -2,9 +2,9 @@ import { render, screen } from "@testing-library/react";
 import { IUse } from "entities/IUse";
 import React from "react";
 import { Placeholders } from "utils/writingStyle";
-import { MaritimeSummary } from "./MaritimeSummary";
+import { MaritimeUse } from "./MaritimeUse";
 
-describe("Maritime Summary", () => {
+describe("Maritime Use", () => {
   it("should display the vessel summary", async () => {
     const use: IUse = {
       maxCapacity: 10,
@@ -21,7 +21,7 @@ describe("Maritime Summary", () => {
       moreDetails: "Red vessel, blue handles",
     } as IUse;
 
-    render(<MaritimeSummary use={use} />);
+    render(<MaritimeUse use={use} />);
 
     expect(await screen.findByText("10")).toBeVisible();
     expect(await screen.findByText("HOMELAND")).toBeVisible();
@@ -53,7 +53,7 @@ describe("Maritime Summary", () => {
       otherCommunication: true,
       otherCommunicationValue: "You can contact me via my partner",
     } as IUse;
-    render(<MaritimeSummary use={use} />);
+    render(<MaritimeUse use={use} />);
 
     expect(await screen.findByText("CALL ME")).toBeVisible();
 
@@ -86,7 +86,7 @@ describe("Maritime Summary", () => {
 
   it("should display the no data placeholder for fields that are not set", async () => {
     const use: IUse = {} as IUse;
-    render(<MaritimeSummary use={use} />);
+    render(<MaritimeUse use={use} />);
     expect(await (await screen.findAllByText(Placeholders.NoData)).length).toBe(
       13
     );

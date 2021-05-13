@@ -9,7 +9,7 @@ interface LandSummaryProps {
   use: IUse;
 }
 
-export const LandSummary: FunctionComponent<LandSummaryProps> = ({
+export const LandUse: FunctionComponent<LandSummaryProps> = ({
   use,
 }: LandSummaryProps) => {
   const fields = getLandFields(use);

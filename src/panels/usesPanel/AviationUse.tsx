@@ -9,7 +9,7 @@ interface AviationSummaryProps {
   use: IUse;
 }
 
-export const AviationSummary: FunctionComponent<AviationSummaryProps> = ({
+export const AviationUse: FunctionComponent<AviationSummaryProps> = ({
   use,
 }: AviationSummaryProps): JSX.Element => {
   const fields = getAviationFields(use);

@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { usesFixture } from "fixtures/uses.fixture";
 import { IUsesGateway } from "gateways/IUsesGateway";
 import React from "react";
-import { UsesListSummaryPanel } from "./UsesListSummaryPanel";
+import { UsesListPanel } from "./UsesListPanel";
 
 describe("Uses List Summary Panel", () => {
   let gateway: IUsesGateway;
@@ -16,7 +16,7 @@ describe("Uses List Summary Panel", () => {
   });
 
   it("should display the primary and secondary use", async () => {
-    render(<UsesListSummaryPanel usesGateway={gateway} beaconId={beaconId} />);
+    render(<UsesListPanel usesGateway={gateway} beaconId={beaconId} />);
 
     expect(await screen.findByText(/Primary Use/i)).toBeVisible();
     expect(await screen.findByText(/Secondary Use/i)).toBeVisible();
