@@ -24,11 +24,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import {
-  formatDateLong,
-  formatUses,
-  titleCase,
-} from "useCases/mcaWritingStyleFormatter";
+import { formatUses, titleCase } from "utils/writingStyle";
+import { formatDateLong } from "../utils/dateTime";
 
 interface BeaconTableListRow {
   hexId: string;

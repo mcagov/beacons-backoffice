@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
+import { Placeholders } from "../../utils/writingStyle";
 import { IField } from "./IField";
 import { PanelViewingState } from "./PanelViewingState";
 

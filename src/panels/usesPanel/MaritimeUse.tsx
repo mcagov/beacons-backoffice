@@ -9,7 +9,7 @@ interface MaritimeSummaryProps {
   use: IUse;
 }
 
-export const MaritimeSummary: FunctionComponent<MaritimeSummaryProps> = ({
+export const MaritimeUse: FunctionComponent<MaritimeSummaryProps> = ({
   use,
 }: MaritimeSummaryProps): JSX.Element => {
   const fields = getMaritimeFields(use);

@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import { beaconFixture } from "fixtures/beacons.fixture";
 import { emergencyContactsFixture } from "fixtures/emergencyContacts.fixture";
 import * as _ from "lodash";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { EmergencyContactSummaryPanel } from "./EmergencyContactSummaryPanel";
+import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
+import { EmergencyContactPanel } from "./EmergencyContactPanel";
 
 describe("Emergency Contact Summary Panel", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
@@ -22,7 +22,7 @@ describe("Emergency Contact Summary Panel", () => {
     getBeaconDouble.mockResolvedValue(beaconFixture);
 
     render(
-      <EmergencyContactSummaryPanel
+      <EmergencyContactPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
@@ -40,7 +40,7 @@ describe("Emergency Contact Summary Panel", () => {
     getBeaconDouble.mockResolvedValue(twoEmergencyContactBeacon);
 
     render(
-      <EmergencyContactSummaryPanel
+      <EmergencyContactPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />
@@ -57,7 +57,7 @@ describe("Emergency Contact Summary Panel", () => {
     getBeaconDouble.mockResolvedValue(noEmergencyContactBeacon);
 
     render(
-      <EmergencyContactSummaryPanel
+      <EmergencyContactPanel
         beaconsGateway={beaconsGatewayDouble}
         beaconId={beaconFixture.id}
       />

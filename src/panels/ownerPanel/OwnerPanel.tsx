@@ -1,25 +1,25 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
 import { FunctionComponent, useEffect, useState } from "react";
 import { EditPanelButton } from "../../components/dataPanel/EditPanelButton";
+import { FieldValueTypes } from "../../components/dataPanel/FieldValue";
 import { ErrorState } from "../../components/dataPanel/PanelErrorState";
 import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
+import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { DataPanelStates } from "../../components/dataPanel/States";
-import { IBeacon } from "../../entities/IBeacon";
+import { IOwner } from "../../entities/IOwner";
 import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
 import { Placeholders } from "../../utils/writingStyle";
-import { BeaconSummaryEditing } from "./BeaconSummaryEditing";
-import { BeaconSummaryViewing } from "./BeaconSummaryViewing";
 
-interface IBeaconSummaryProps {
+interface OwnerSummaryPanelProps {
   beaconsGateway: IBeaconsGateway;
   beaconId: string;
 }
 
-export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
+export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
   beaconsGateway,
   beaconId,
-}): JSX.Element => {
-  const [beacon, setBeacon] = useState<IBeacon>({} as IBeacon);
+}) => {
+  const [owner, setOwner] = useState<IOwner>();
   const [userState, setUserState] = useState<DataPanelStates>(
     DataPanelStates.Viewing
   );
@@ -31,7 +31,7 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
       try {
         setLoading(true);
         const beacon = await beaconsGateway.getBeacon(id);
-        setBeacon(beacon);
+        setOwner(beacon.owners[0]);
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -42,36 +42,44 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
     fetchBeacon(beaconId);
   }, [userState, beaconId, beaconsGateway]);
 
-  const handleSave = async (beacon: IBeacon): Promise<void> => {
-    try {
-      await beaconsGateway.updateBeacon(beacon.id, beacon);
-      setUserState(DataPanelStates.Viewing);
-    } catch (error) {
-      console.error(error);
-      setError(true);
-    }
-  };
+  const fields = [
+    { key: "Name", value: owner?.fullName },
+    { key: "Telephone", value: owner?.telephoneNumber },
+    { key: "Email", value: owner?.email },
+    {
+      key: "Address",
+      value: [
+        owner?.addressLine1,
+        owner?.addressLine2,
+        owner?.townOrCity,
+        owner?.county,
+        owner?.postcode,
+      ],
+      valueType: FieldValueTypes.MULTILINE,
+    },
+  ];
 
-  const renderState = (state: DataPanelStates) => {
-    switch (state) {
+  const renderState = () => {
+    switch (userState) {
       case DataPanelStates.Viewing:
         return (
           <>
             <EditPanelButton
               onClick={() => setUserState(DataPanelStates.Editing)}
             >
-              Edit summary
+              Edit owner
             </EditPanelButton>
-            <BeaconSummaryViewing beacon={beacon} />
+            <PanelViewingState fields={fields} />
           </>
         );
       case DataPanelStates.Editing:
         return (
-          <BeaconSummaryEditing
-            beacon={beacon}
-            onSave={(beacon: IBeacon) => handleSave(beacon)}
-            onCancel={() => setUserState(DataPanelStates.Viewing)}
-          />
+          <>
+            <p>TODO</p>
+            <button onClick={() => setUserState(DataPanelStates.Viewing)}>
+              Cancel
+            </button>
+          </>
         );
       default:
         setError(true);
@@ -81,11 +89,11 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
   return (
     <Card>
       <CardContent>
-        <CardHeader title="Summary" />
+        <CardHeader title="Owner" />
         <>
           {error && <ErrorState message={Placeholders.UnspecifiedError} />}
           {loading && <LoadingState />}
-          {error || loading || renderState(userState)}
+          {error || loading || renderState()}
         </>
       </CardContent>
     </Card>

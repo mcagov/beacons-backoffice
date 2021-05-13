@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Placeholders } from "../../useCases/mcaWritingStyleFormatter";
+import { Placeholders } from "../../utils/writingStyle";
 import { FieldValue } from "./FieldValue";
 
 describe("FieldValue", () => {

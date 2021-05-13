@@ -1,15 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import { Activities, IUse } from "entities/IUse";
 import React from "react";
-import { LandSummary } from "./LandSummary";
+import { LandUse } from "./LandUse";
 
-describe("Land Summary", () => {
+describe("Land Use", () => {
   it("should display the more details", async () => {
     const use: IUse = {
       activity: Activities.ClimbingMountaineering,
       moreDetails: "In the highlands of Scotland",
     } as IUse;
-    render(<LandSummary use={use} />);
+    render(<LandUse use={use} />);
 
     expect(
       await screen.findByText("IN THE HIGHLANDS OF SCOTLAND")
@@ -23,7 +23,7 @@ describe("Land Summary", () => {
       workingRemotelyPeopleCount: 5,
     } as IUse;
 
-    render(<LandSummary use={use} />);
+    render(<LandUse use={use} />);
 
     expect(await screen.findByText("IN BRISTOL HIKING")).toBeVisible();
     expect(await screen.findByText("5")).toBeVisible();
@@ -36,7 +36,7 @@ describe("Land Summary", () => {
       windfarmPeopleCount: "5",
     } as IUse;
 
-    render(<LandSummary use={use} />);
+    render(<LandUse use={use} />);
 
     expect(await screen.findByText("IN SCOTLAND")).toBeVisible();
     expect(await screen.findByText("5")).toBeVisible();
@@ -50,7 +50,7 @@ describe("Land Summary", () => {
       otherActivityPeopleCount: "2",
     } as IUse;
 
-    render(<LandSummary use={use} />);
+    render(<LandUse use={use} />);
 
     expect(await screen.findByText("JOGGING")).toBeVisible();
     expect(await screen.findByText("IN THE MOUNTAINS")).toBeVisible();
@@ -69,7 +69,7 @@ describe("Land Summary", () => {
       otherCommunication: true,
       otherCommunicationValue: "You can contact me via my partner",
     } as IUse;
-    render(<LandSummary use={use} />);
+    render(<LandUse use={use} />);
 
     expect(await screen.findByText("Communication type 1:")).toBeVisible();
     expect(await screen.findByText("PORTABLE VHF/DSC")).toBeVisible();

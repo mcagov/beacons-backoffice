@@ -2,7 +2,7 @@ import { IBeacon } from "../../entities/IBeacon";
 import { IEmergencyContact } from "../../entities/IEmergencyContact";
 import { IOwner } from "../../entities/IOwner";
 import { IUse } from "../../entities/IUse";
-import { isoDate } from "../../useCases/dateTimeConverter";
+import { isoDate } from "../../utils/dateTime";
 import { IBeaconResponse } from "./IBeaconResponse";
 
 export interface IBeaconResponseMapper {
