@@ -2,9 +2,12 @@ import { Card, CardContent, CardHeader } from "@material-ui/core";
 import { PanelViewingState } from "components/dataPanel/PanelViewingState";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { FieldValueTypes } from "../components/dataPanel/FieldValue";
+import { ErrorState } from "../components/dataPanel/PanelErrorState";
+import { LoadingState } from "../components/dataPanel/PanelLoadingState";
 import { DataPanelStates } from "../components/dataPanel/States";
 import { IOwner } from "../entities/IOwner";
 import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
+import { Placeholders } from "../useCases/mcaWritingStyleFormatter";
 
 interface OwnerSummaryPanelProps {
   beaconsGateway: IBeaconsGateway;
@@ -15,24 +18,28 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
   beaconsGateway,
   beaconId,
 }) => {
-  const [state, setState] = useState<DataPanelStates>(DataPanelStates.Loading);
   const [owner, setOwner] = useState<IOwner>();
+  const [userState, setUserState] = useState<DataPanelStates>(
+    DataPanelStates.Viewing
+  );
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect((): void => {
     const fetchBeacon = async (id: string) => {
       try {
+        setLoading(true);
         const beacon = await beaconsGateway.getBeacon(id);
-
         setOwner(beacon.owners[0]);
-        setState(DataPanelStates.Viewing);
+        setLoading(false);
       } catch (error) {
         console.error(error);
-        setState(DataPanelStates.Error);
+        setError(true);
       }
     };
 
     fetchBeacon(beaconId);
-  }, [beaconId, beaconsGateway]);
+  }, [userState, beaconId, beaconsGateway]);
 
   const fields = [
     { key: "Name", value: owner?.fullName },
@@ -51,15 +58,14 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
     },
   ];
 
-  // TODO: Confirm with UCD what user feedback should be displayed if an error has occured when fetching a beacon
   const renderState = () => {
-    switch (state) {
+    switch (userState) {
       case DataPanelStates.Viewing:
         return <PanelViewingState fields={fields} />;
       case DataPanelStates.Editing:
         return <p>TODO</p>;
-      case DataPanelStates.Error:
-        return <></>;
+      default:
+        setError(true);
     }
   };
 
@@ -67,7 +73,11 @@ export const OwnerSummaryPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
     <Card>
       <CardContent>
         <CardHeader title="Owner" />
-        {renderState()}
+        <>
+          {error && <ErrorState message={Placeholders.UnspecifiedError} />}
+          {loading && <LoadingState />}
+          {error || loading || renderState()}
+        </>
       </CardContent>
     </Card>
   );
