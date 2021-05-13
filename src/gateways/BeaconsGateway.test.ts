@@ -2,6 +2,7 @@ import axios from "axios";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
 import { beaconFixture } from "../fixtures/beacons.fixture";
+import { singleBeaconApiResponseFixture } from "../fixtures/singleBeaconApiResponse.fixture";
 import { BeaconsGateway } from "./BeaconsGateway";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
@@ -71,6 +72,21 @@ describe("BeaconsGateway", () => {
       axios.get.mockImplementationOnce(() => Promise.reject(new Error()));
 
       await expect(gateway.getAllBeacons()).rejects.toThrow();
+    });
+
+    it("calls its mapper to translate the API response to a domain object", async () => {
+      const gateway = new BeaconsGateway(beaconResponseMapper);
+      const beaconId = "f48e8212-2e10-4154-95c7-bdfd061bcfd2";
+      // @ts-ignore
+      axios.get.mockImplementation(() =>
+        Promise.resolve(singleBeaconApiResponseFixture)
+      );
+
+      await gateway.getBeacon(beaconId);
+
+      expect(beaconResponseMapper.map).toHaveBeenCalledWith(
+        singleBeaconApiResponseFixture.data
+      );
     });
   });
 
