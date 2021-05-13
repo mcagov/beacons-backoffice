@@ -88,7 +88,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
 
   useEffect((): void => {
     const fetchBeacons = async () => {
-      setState({ ...state, isLoading: true });
+      setState((currentState) => ({ ...currentState, isLoading: true }));
       try {
         const response = await beaconsGateway.getAllBeacons();
 
@@ -100,23 +100,24 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           uses: formatUses(item.attributes.uses),
           id: item.id,
         }));
-        setState({
-          ...state,
+        setState((currentState) => ({
+          ...currentState,
           isLoading: false,
           error: false,
           beacons,
-        });
+        }));
       } catch (error) {
-        setState({
-          ...state,
+        console.error("Could not fetch beacons", error);
+        setState((currentState) => ({
+          ...currentState,
           isLoading: false,
           error: error?.message,
-        });
+        }));
       }
     };
 
-    fetchBeacons(); // TODO: What events should cause new beacons to be fetched?  Currently once on first render
-  }, []); // eslint-disable-line
+    fetchBeacons();
+  }, [beaconsGateway]);
 
   return (
     <MaterialTable
