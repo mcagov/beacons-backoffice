@@ -42,10 +42,14 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
     fetchBeacon(beaconId);
   }, [userState, beaconId, beaconsGateway]);
 
-  const handleSave = (beacon: IBeacon): void => {
-    beaconsGateway.updateBeacon(beacon.id, beacon).then((success) => {
-      success ? setUserState(DataPanelStates.Viewing) : setError(true);
-    });
+  const handleSave = async (beacon: IBeacon): Promise<void> => {
+    try {
+      await beaconsGateway.updateBeacon(beacon.id, beacon);
+      setUserState(DataPanelStates.Viewing);
+    } catch (error) {
+      console.error(error);
+      setError(true);
+    }
   };
 
   const renderState = (state: DataPanelStates) => {
