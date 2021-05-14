@@ -182,4 +182,10 @@ describe("formatFieldValue()", () => {
       <></>
     );
   });
+
+  it("shows the multiline value if value exists", () => {
+    expect(formatFieldValue("anything", FieldValueTypes.MULTILINE)).toEqual(
+      <b>ANYTHING</b>
+    );
+  });
 });
