@@ -5,7 +5,8 @@ export const formatDateLong = (dateString: string): string => {
   return `${parseInt(day)} ${month} ${year.slice(2)}`;
 };
 export const formatMonth = (dateString: string): string => {
-  const date = new Date(dateString);
-  const [, month, , year] = date.toDateString().split(" ");
-  return `${month} ${year}`;
+  return new Date(dateString).toLocaleDateString("en-GB", {
+    month: "long",
+    year: "numeric",
+  });
 };

@@ -18,7 +18,7 @@ describe("formatDateLong()", () => {
 
 describe("formatMonth()", () => {
   const expectations = [
-    { in: "2020-02-01T00:00:00.000Z", out: "Feb 2020" },
+    { in: "2020-02-01T00:00:00.000Z", out: "February 2020" },
     { in: "2021-05-06T10:00:03.592854", out: "May 2021" },
   ];
 
