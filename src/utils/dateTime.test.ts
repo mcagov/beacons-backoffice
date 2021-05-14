@@ -1,4 +1,4 @@
-import { formatDateLong, formatDateShort } from "./dateTime";
+import { formatDateLong, formatMonth } from "./dateTime";
 
 describe("formatDateLong()", () => {
   const expectations = [
@@ -16,7 +16,7 @@ describe("formatDateLong()", () => {
   });
 });
 
-describe("formatDateShort()", () => {
+describe("formatMonth()", () => {
   const expectations = [
     { in: "2020-02-01T00:00:00.000Z", out: "Feb 2020" },
     { in: "2021-05-06T10:00:03.592854", out: "May 2021" },
@@ -26,7 +26,7 @@ describe("formatDateShort()", () => {
     it(`formats ${JSON.stringify(expectation.in)} ==> ${
       expectation.out
     }`, () => {
-      expect(formatDateShort(expectation.in)).toEqual(expectation.out);
+      expect(formatMonth(expectation.in)).toEqual(expectation.out);
     });
   });
 });
