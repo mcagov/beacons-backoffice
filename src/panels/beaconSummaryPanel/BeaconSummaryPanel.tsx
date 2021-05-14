@@ -6,6 +6,7 @@ import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
 import { DataPanelStates } from "../../components/dataPanel/States";
 import { IBeacon } from "../../entities/IBeacon";
 import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
+import { diffObjValues } from "../../utils/core";
 import { Placeholders } from "../../utils/writingStyle";
 import { BeaconSummaryEditing } from "./BeaconSummaryEditing";
 import { BeaconSummaryViewing } from "./BeaconSummaryViewing";
@@ -42,9 +43,12 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
     fetchBeacon(beaconId);
   }, [userState, beaconId, beaconsGateway]);
 
-  const handleSave = async (beacon: IBeacon): Promise<void> => {
+  const handleSave = async (updatedBeacon: Partial<IBeacon>): Promise<void> => {
     try {
-      await beaconsGateway.updateBeacon(beacon.id, beacon);
+      await beaconsGateway.updateBeacon(
+        beacon.id,
+        diffObjValues(beacon, updatedBeacon)
+      );
       setUserState(DataPanelStates.Viewing);
     } catch (error) {
       console.error(error);
@@ -69,7 +73,7 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
         return (
           <BeaconSummaryEditing
             beacon={beacon}
-            onSave={(beacon: IBeacon) => handleSave(beacon)}
+            onSave={handleSave}
             onCancel={() => setUserState(DataPanelStates.Viewing)}
           />
         );

@@ -14,7 +14,6 @@ import React, { FunctionComponent } from "react";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
 import { IBeacon } from "../../entities/IBeacon";
-import { diffObjValues } from "../../utils/core";
 import {
   formatEmergencyContacts,
   formatOwners,
@@ -25,7 +24,7 @@ import {
 
 export const BeaconSummaryEditing: FunctionComponent<{
   beacon: IBeacon;
-  onSave: (beacon: Partial<IBeacon>) => void;
+  onSave: (beacon: IBeacon) => void;
   onCancel: () => void;
 }> = ({ beacon, onSave, onCancel }) => {
   return (
@@ -35,7 +34,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
         values: IBeacon,
         { setSubmitting }: FormikHelpers<IBeacon>
       ) => {
-        onSave(diffObjValues(beacon, values));
+        onSave(values);
         setSubmitting(false);
       }}
     >
