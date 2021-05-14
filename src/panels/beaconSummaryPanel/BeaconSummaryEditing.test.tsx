@@ -70,7 +70,6 @@ describe("BeaconSummaryEditing", () => {
 
     await waitFor(() => {
       expect(onSave).toHaveBeenCalledWith({
-        ...beaconFixture,
         manufacturer: "ACME Inc.",
       });
     });
