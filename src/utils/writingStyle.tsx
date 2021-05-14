@@ -2,7 +2,6 @@ import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
 import { Activities, IUse } from "../entities/IUse";
-import { formatMonth } from "./dateTime";
 
 export enum WritingStyle {
   KeyValueSeparator = ":",
@@ -47,15 +46,8 @@ export const formatFieldValue = (
   value: string | undefined,
   valueType?: FieldValueTypes
 ): JSX.Element => {
-  if (value) {
-    if (valueType === FieldValueTypes.DATE) {
-      return <b>{formatMonth(value)}</b>;
-    } else {
-      return <b>{value.toLocaleUpperCase()}</b>;
-    }
-  } else {
-    if (valueType !== FieldValueTypes.MULTILINE)
-      return <i>{Placeholders.NoData}</i>;
-    return <></>;
-  }
+  if (value) return <b>{value.toLocaleUpperCase()}</b>;
+  if (valueType !== FieldValueTypes.MULTILINE)
+    return <i>{Placeholders.NoData}</i>;
+  return <></>;
 };

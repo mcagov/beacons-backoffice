@@ -176,12 +176,6 @@ describe("formatFieldValue()", () => {
     });
   });
 
-  it("formats dates correctly", () => {
-    expect(
-      formatFieldValue("2021-05-06T10:00:04.285653", FieldValueTypes.DATE)
-    ).toEqual(<b>May 2021</b>);
-  });
-
   it(`formats ${FieldValueTypes.MULTILINE} values correctly i.e. will not show ${Placeholders.NoData} if value is missing`, () => {
     expect(formatFieldValue("", FieldValueTypes.MULTILINE)).toEqual(<></>);
   });
