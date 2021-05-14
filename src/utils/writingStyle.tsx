@@ -46,8 +46,8 @@ export const formatFieldValue = (
   value: string | undefined,
   valueType?: FieldValueTypes
 ): JSX.Element => {
-  if (value) return <b>{value.toLocaleUpperCase()}</b>;
-  if (valueType !== FieldValueTypes.MULTILINE)
-    return <i>{Placeholders.NoData}</i>;
-  return <></>;
+  if (valueType === FieldValueTypes.MULTILINE) return <></>;
+  if (!value) return <i>{Placeholders.NoData}</i>;
+
+  return <b>{value.toLocaleUpperCase()}</b>;
 };

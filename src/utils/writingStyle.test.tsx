@@ -178,5 +178,8 @@ describe("formatFieldValue()", () => {
 
   it(`formats ${FieldValueTypes.MULTILINE} values correctly i.e. will not show ${Placeholders.NoData} if value is missing`, () => {
     expect(formatFieldValue("", FieldValueTypes.MULTILINE)).toEqual(<></>);
+    expect(formatFieldValue(undefined, FieldValueTypes.MULTILINE)).toEqual(
+      <></>
+    );
   });
 });
