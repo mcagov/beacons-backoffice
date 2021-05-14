@@ -13,7 +13,8 @@
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
     "format": "prettier --write '**/*.{js,jsx,json,ts,tsx,yml,md,html,scss,css}'",
-    "format:check": "prettier --check '**/*.{js,jsx,json,ts,tsx,yml,md,html,scss,css}'"
+    "format:check": "prettier --check '**/*.{js,jsx,json,ts,tsx,yml,md,html,scss,css}'",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
