@@ -6,13 +6,14 @@ export interface IBeacon {
   id: string;
   hexId: string;
   type: string;
-  protocolCode: string;
   registeredDate: string;
   status: string;
   manufacturer: string;
   model: string;
   manufacturerSerialNumber: string;
   chkCode: string;
+  protocolCode: string;
+  codingMethod: string;
   batteryExpiryDate: string;
   lastServicedDate: string;
   uses: IUse[];

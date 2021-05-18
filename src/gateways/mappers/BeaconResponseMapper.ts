@@ -26,6 +26,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       ),
       chkCode: beaconApiResponse.data.attributes.chkCode || "",
       protocolCode: beaconApiResponse.data.attributes.protocolCode || "",
+      codingMethod: beaconApiResponse.data.attributes.codingMethod || "",
       lastServicedDate: isoDate(
         beaconApiResponse.data.attributes.lastServicedDate || ""
       ),

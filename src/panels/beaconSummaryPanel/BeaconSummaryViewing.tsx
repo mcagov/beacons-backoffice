@@ -25,6 +25,10 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: beacon?.protocolCode,
     },
     {
+      key: "Coding method",
+      value: beacon?.codingMethod,
+    },
+    {
       key: "Serial number",
       value: beacon?.manufacturerSerialNumber,
     },

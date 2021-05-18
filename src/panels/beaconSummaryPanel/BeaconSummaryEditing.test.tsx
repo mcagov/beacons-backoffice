@@ -20,9 +20,6 @@ describe("BeaconSummaryEditing", () => {
       await screen.findByDisplayValue(beaconFixture.model as string)
     ).toBeVisible();
     expect(
-      await screen.findByDisplayValue(beaconFixture.type as string)
-    ).toBeVisible();
-    expect(
       await screen.findByDisplayValue(
         beaconFixture.manufacturerSerialNumber as string
       )
@@ -97,5 +94,18 @@ describe("BeaconSummaryEditing", () => {
     await waitFor(() => {
       expect(onCancel).toHaveBeenCalled();
     });
+  });
+
+  it("does not allow user to edit derived fields", () => {
+    render(
+      <BeaconSummaryEditing
+        beacon={beaconFixture}
+        onSave={jest.fn()}
+        onCancel={jest.fn()}
+      />
+    );
+
+    expect(screen.queryByDisplayValue(beaconFixture.protocolCode)).toBeNull();
+    expect(screen.queryByDisplayValue(beaconFixture.codingMethod)).toBeNull();
   });
 });

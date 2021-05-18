@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
+import { FieldValue } from "../../components/dataPanel/FieldValue";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
 import { IBeacon } from "../../entities/IBeacon";
@@ -103,15 +104,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           </Typography>
                         </label>
                       }
-                      value={
-                        <Field
-                          as={Input}
-                          id="protocolCode"
-                          name="protocolCode"
-                          type="string"
-                          placeholder={Placeholders.NoData}
-                        />
-                      }
+                      value={<FieldValue>{beacon.protocolCode}</FieldValue>}
                     />
 
                     <TabulatedRow
