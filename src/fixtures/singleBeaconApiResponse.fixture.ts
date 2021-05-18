@@ -57,7 +57,7 @@ export const singleBeaconApiResponseFixture: IBeaconResponse = deepFreeze({
     attributes: {
       hexId: "1D0EA08C52FFBFF",
       status: "NEW",
-      type: "EPIRB",
+      type: "Beacon type to be derived from Hex ID",
       protocolCode: "AX7098",
       manufacturer: "Ocean Signal",
       createdDate: "2018-06-08T00:00",
