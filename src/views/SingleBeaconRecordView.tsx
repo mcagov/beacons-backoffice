@@ -61,7 +61,9 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
 
   return (
     <div className={classes.root}>
-      <PageHeader>Hex ID/UIN: {hexId}</PageHeader>
+      <PageHeader>
+        Hex ID/UIN: {hexId} ({beacon.type || ""})
+      </PageHeader>
       <PageContent>
         <BeaconSummaryPanel
           beaconsGateway={beaconsGateway}
