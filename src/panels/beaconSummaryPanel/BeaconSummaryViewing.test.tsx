@@ -4,10 +4,10 @@ import { Placeholders } from "../../utils/writingStyle";
 import { BeaconSummaryViewing } from "./BeaconSummaryViewing";
 
 describe("BeaconSummaryViewing", () => {
-  it("displays undefined fields as 'NO DATA ENTERED'", async () => {
+  it("displays fields with blank string as the 'no data' placeholder", async () => {
     const beaconWithUndefinedField = {
       ...beaconFixture,
-      protocolCode: undefined,
+      protocolCode: "",
     };
 
     render(<BeaconSummaryViewing beacon={beaconWithUndefinedField} />);
