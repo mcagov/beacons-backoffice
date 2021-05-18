@@ -37,6 +37,7 @@ describe("formatUses()", () => {
           purpose: Purposes.Commercial,
           activity: Activities.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
+          mainUse: true,
         },
       ],
       out: "Fishing Vessel (Commercial)",
@@ -49,6 +50,7 @@ describe("formatUses()", () => {
           purpose: Purposes.Commercial,
           activity: Activities.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
+          mainUse: true,
         },
         {
           id: "2",
@@ -56,6 +58,7 @@ describe("formatUses()", () => {
           purpose: Purposes.Pleasure,
           activity: Activities.Glider,
           moreDetails: "Fly at the local gliding club every fortnight",
+          mainUse: true,
         },
       ],
       out: "Fishing Vessel (Commercial), Glider (Pleasure)",
@@ -68,12 +71,14 @@ describe("formatUses()", () => {
           purpose: Purposes.Commercial,
           activity: Activities.FishingVessel,
           moreDetails: "Bottom trawling for fish fingers",
+          mainUse: true,
         },
         {
           id: "2",
           environment: Environments.Land,
           activity: Activities.ClimbingMountaineering,
           moreDetails: "Hiking at the weekends",
+          mainUse: true,
         },
       ],
       out: "Fishing Vessel (Commercial), Climbing Mountaineering",
@@ -85,6 +90,8 @@ describe("formatUses()", () => {
           environment: Environments.Maritime,
           activity: Activities.Other,
           otherActivity: "On my boat",
+          moreDetails: "Hiking at the weekends",
+          mainUse: true,
         },
       ],
       out: "On My Boat",
@@ -169,13 +176,16 @@ describe("formatFieldValue()", () => {
     });
   });
 
-  it("formats dates correctly", () => {
-    expect(
-      formatFieldValue("2021-05-06T10:00:04.285653", FieldValueTypes.DATE)
-    ).toEqual(<b>May 2021</b>);
-  });
-
   it(`formats ${FieldValueTypes.MULTILINE} values correctly i.e. will not show ${Placeholders.NoData} if value is missing`, () => {
     expect(formatFieldValue("", FieldValueTypes.MULTILINE)).toEqual(<></>);
+    expect(formatFieldValue(undefined, FieldValueTypes.MULTILINE)).toEqual(
+      <></>
+    );
+  });
+
+  it("shows the multiline value if value exists", () => {
+    expect(formatFieldValue("anything", FieldValueTypes.MULTILINE)).toEqual(
+      <b>ANYTHING</b>
+    );
   });
 });

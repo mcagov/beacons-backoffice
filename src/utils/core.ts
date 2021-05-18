@@ -5,8 +5,9 @@ export const diffObjValues = (
   base: Record<any, any>,
   comparator: Record<any, any>
 ): Record<string, any> => {
+  if (noRecursionNeeded(base, comparator)) return comparator;
+
   return Object.keys(comparator).reduce((diff: Record<any, any>, key) => {
-    if (!isRecord(base) && !isRecord(comparator)) return comparator;
     if (_.isEqual(comparator[key], base[key])) return diff;
     if (!base.hasOwnProperty(key))
       throw ReferenceError(`Comparator key ${key} not found on base`);
@@ -17,7 +18,10 @@ export const diffObjValues = (
   }, {});
 };
 
+const noRecursionNeeded = (base: any, comparator: any) =>
+  !isRecord(base) && !isRecord(comparator);
+
 const isRecord = (object: any) =>
   typeof object === "object" && !isArray(object);
 
-const isArray = (object: any) => object.hasOwnProperty("length");
+const isArray = (object: any) => object instanceof Array;

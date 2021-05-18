@@ -8,7 +8,6 @@ interface IFieldValueProps {
 }
 
 export enum FieldValueTypes {
-  DATE = "DATE",
   MULTILINE = "MULTILINE",
 }
 
