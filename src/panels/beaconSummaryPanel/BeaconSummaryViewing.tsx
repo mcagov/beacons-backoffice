@@ -21,10 +21,6 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: beacon?.model,
     },
     {
-      key: "Beacon type",
-      value: beacon?.type,
-    },
-    {
       key: "Protocol code",
       value: beacon?.protocolCode,
     },
