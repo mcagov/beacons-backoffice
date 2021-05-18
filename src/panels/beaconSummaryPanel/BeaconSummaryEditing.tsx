@@ -98,17 +98,6 @@ export const BeaconSummaryEditing: FunctionComponent<{
 
                     <TabulatedRow
                       displayKey={
-                        <label htmlFor="protocolCode">
-                          <Typography>
-                            {"Protocol code" + WritingStyle.KeyValueSeparator}
-                          </Typography>
-                        </label>
-                      }
-                      value={<FieldValue>{beacon.protocolCode}</FieldValue>}
-                    />
-
-                    <TabulatedRow
-                      displayKey={
                         <label htmlFor="manufacturerSerialNumber">
                           <Typography>
                             {"Manufacturer serial number" +
@@ -144,6 +133,24 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           placeholder={Placeholders.NoData}
                         />
                       }
+                    />
+
+                    <TabulatedRow
+                      displayKey={
+                        <Typography>
+                          {"Protocol code" + WritingStyle.KeyValueSeparator}
+                        </Typography>
+                      }
+                      value={<FieldValue>{beacon.protocolCode}</FieldValue>}
+                    />
+
+                    <TabulatedRow
+                      displayKey={
+                        <Typography>
+                          {"Coding method" + WritingStyle.KeyValueSeparator}
+                        </Typography>
+                      }
+                      value={<FieldValue>{beacon.codingMethod}</FieldValue>}
                     />
 
                     <TabulatedRow

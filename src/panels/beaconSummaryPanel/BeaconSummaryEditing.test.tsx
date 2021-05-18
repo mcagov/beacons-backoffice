@@ -96,7 +96,7 @@ describe("BeaconSummaryEditing", () => {
     });
   });
 
-  it("does not allow user to edit derived fields", () => {
+  it("does not allow user to edit derived fields", async () => {
     render(
       <BeaconSummaryEditing
         beacon={beaconFixture}
@@ -105,6 +105,12 @@ describe("BeaconSummaryEditing", () => {
       />
     );
 
+    expect(
+      await screen.findByText(beaconFixture.protocolCode, { exact: false })
+    ).toBeVisible();
+    expect(
+      await screen.findByText(beaconFixture.codingMethod, { exact: false })
+    ).toBeVisible();
     expect(screen.queryByDisplayValue(beaconFixture.protocolCode)).toBeNull();
     expect(screen.queryByDisplayValue(beaconFixture.codingMethod)).toBeNull();
   });
