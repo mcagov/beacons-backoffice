@@ -86,19 +86,6 @@ export const BeaconSummaryEditing: FunctionComponent<{
 
                     <TabulatedRow
                       displayKey={
-                        <label htmlFor="type">
-                          <Typography>
-                            {"Type" + WritingStyle.KeyValueSeparator}
-                          </Typography>
-                        </label>
-                      }
-                      value={
-                        <Field as={Input} id="type" name="type" type="string" />
-                      }
-                    />
-
-                    <TabulatedRow
-                      displayKey={
                         <label htmlFor="manufacturerSerialNumber">
                           <Typography>
                             {"Manufacturer serial number" +
