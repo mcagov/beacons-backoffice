@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -32,7 +32,9 @@ export const Navigation: FunctionComponent = (): JSX.Element => {
           <Button color="inherit" href="/#/beacon-records">
             Beacon records
           </Button>
-          <UserMenu />
+          <Box ml="auto">
+            <UserMenu />
+          </Box>
         </Toolbar>
       </AppBar>
     </div>
