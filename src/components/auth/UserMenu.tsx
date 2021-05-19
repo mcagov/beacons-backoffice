@@ -1,7 +1,7 @@
 import { Button, Menu, MenuItem } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { FunctionComponent, useState } from "react";
-import { AuthContext } from "./AzureADAuthWrapper";
+import { AuthContext } from "./AuthWrapper";
 
 export const UserMenu: FunctionComponent = () => {
   const [anchorElement, setAnchorElement] = useState(null);

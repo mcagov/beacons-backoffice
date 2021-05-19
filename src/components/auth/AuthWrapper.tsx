@@ -3,31 +3,28 @@ import { MsalProvider, useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { applicationConfig } from "config";
 import React, { createContext, FunctionComponent } from "react";
 
-export const AzureADAuthWrapper: FunctionComponent = ({ children }) => {
+export const AuthWrapper: FunctionComponent = ({ children }) => {
   return (
     <MsalProvider instance={pca}>
-      <AuthContextWrapper>{children}</AuthContextWrapper>
+      <MsalShim>{children}</MsalShim>
     </MsalProvider>
   );
 };
 
-const AuthContextWrapper: FunctionComponent = ({ children }) => {
+const MsalShim: FunctionComponent = ({ children }) => {
   /**
    * Wrapper for the MSAL auth context.
    *
    * @remarks
-   * Provides an abstract interface for consumption of auth context data by high-level components without depending
-   * on a concrete auth provider.  Acts as a shim between MSAL and the Beacons Backoffice application.
+   * Acts as a shim between MSAL and the Beacons Backoffice application so that high-level components can consume
+   * authenticated user data without depending on a concrete auth provider.
    *
    */
-  const { instance, inProgress } = useMsal();
-
-  const currentUser = instance.getAllAccounts()[0] || {};
+  const currentUser = useMsal().instance.getAllAccounts()[0] || {};
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticating: inProgress === "login",
         isAuthenticated: useIsAuthenticated(),
         user: {
           username: currentUser?.username || "",
@@ -43,7 +40,6 @@ const AuthContextWrapper: FunctionComponent = ({ children }) => {
 };
 
 export const AuthContext = createContext<{
-  isAuthenticating: boolean;
   isAuthenticated: boolean;
   user: {
     username: string;
@@ -52,7 +48,6 @@ export const AuthContext = createContext<{
   login: () => void;
   logout: () => void;
 }>({
-  isAuthenticating: false,
   isAuthenticated: false,
   user: {
     username: "",
