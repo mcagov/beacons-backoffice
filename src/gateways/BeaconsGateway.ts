@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
 import { IAuthGateway } from "../components/auth/IAuthGateway";
 import { applicationConfig } from "../config";
@@ -23,13 +23,8 @@ export class BeaconsGateway implements IBeaconsGateway {
   }
 
   public async getAllBeacons(): Promise<IBeaconSearchResult> {
-    const accessToken = await this._authGateway.getAccessToken();
-
     try {
-      const response = await axios.get(`${applicationConfig.apiUrl}/beacons`, {
-        timeout: applicationConfig.apiTimeoutMs,
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      const response = await this._makeGetRequest("/beacons");
       // TODO: Add map step to /beacons endpoint
       return response.data;
     } catch (e) {
@@ -39,16 +34,9 @@ export class BeaconsGateway implements IBeaconsGateway {
   }
 
   public async getBeacon(beaconId: string): Promise<IBeacon> {
-    const accessToken = await this._authGateway.getAccessToken();
-
     try {
-      const response = await axios.get(
-        `${applicationConfig.apiUrl}/beacons/${beaconId}`,
-        {
-          timeout: applicationConfig.apiTimeoutMs,
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
-      );
+      const response = await this._makeGetRequest(`/beacons/${beaconId}`);
+
       return this._beaconResponseMapper.map(response.data);
     } catch (e) {
       throw Error(e);
@@ -59,20 +47,41 @@ export class BeaconsGateway implements IBeaconsGateway {
     beaconId: string,
     updatedFields: Partial<IBeacon>
   ): Promise<IBeacon> {
-    const accessToken = await this._authGateway.getAccessToken();
-
     try {
-      const response = await axios.patch(
-        `${applicationConfig.apiUrl}/beacons/${beaconId}`,
-        {
-          timeout: applicationConfig.apiTimeoutMs,
-          headers: { Authorization: `Bearer ${accessToken}` },
-        },
-        this._beaconRequestMapper.map(beaconId, updatedFields)
+      const response = await this._makePatchRequest(
+        `/beacons/${beaconId}`,
+        beaconId,
+        updatedFields
       );
       return response.data;
     } catch (e) {
       throw Error(e);
     }
+  }
+
+  private async _makeGetRequest(path: string): Promise<AxiosResponse> {
+    const accessToken = await this._authGateway.getAccessToken();
+
+    return await axios.get(`${applicationConfig.apiUrl}${path}`, {
+      timeout: applicationConfig.apiTimeoutMs,
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  }
+
+  private async _makePatchRequest(
+    path: string,
+    beaconId: string,
+    updatedFields: Partial<IBeacon>
+  ): Promise<AxiosResponse> {
+    const accessToken = await this._authGateway.getAccessToken();
+
+    return await axios.patch(
+      `${applicationConfig.apiUrl}${path}`,
+      this._beaconRequestMapper.map(beaconId, updatedFields),
+      {
+        timeout: applicationConfig.apiTimeoutMs,
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
   }
 }

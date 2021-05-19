@@ -182,8 +182,8 @@ describe("BeaconsGateway", () => {
 
       expect(axios.patch).toHaveBeenCalledWith(
         `${applicationConfig.apiUrl}/beacons/${beaconFixture.id}`,
-        config,
-        updateBeaconRequest
+        updateBeaconRequest,
+        config
       );
     });
 
