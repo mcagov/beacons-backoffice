@@ -3,6 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import React, { FunctionComponent } from "react";
+import { UserMenu } from "../auth/UserMenu";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,6 +32,7 @@ export const Navigation: FunctionComponent = (): JSX.Element => {
           <Button color="inherit" href="/#/beacon-records">
             Beacon records
           </Button>
+          <UserMenu />
         </Toolbar>
       </AppBar>
     </div>

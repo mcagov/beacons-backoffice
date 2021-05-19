@@ -8,7 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import "./App.scss";
-import { AuthWrapper } from "./components/auth/AuthWrapper";
+import { AzureADAuthWrapper } from "./components/auth/AzureADAuthWrapper";
 import { Home } from "./components/Home";
 import { Footer } from "./components/layout/Footer";
 import { Navigation } from "./components/layout/Navigation";
@@ -43,7 +43,7 @@ const App: FunctionComponent = () => {
   };
 
   return (
-    <AuthWrapper>
+    <AzureADAuthWrapper>
       <Router>
         <Navigation />
         <RequireAuth>
@@ -61,7 +61,7 @@ const App: FunctionComponent = () => {
         </RequireAuth>
       </Router>
       <Footer />
-    </AuthWrapper>
+    </AzureADAuthWrapper>
   );
 };
 
