@@ -44,9 +44,12 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Environment
 
-For local development using auth, set the `REACT_APP_AAD_CLIENT_ID` environment variable to the `Beacons Backoffice 
-(Local)` 
-client ID located in `.env.example`.
+For logging into to the Beacons Registry Back Office you will need to be added as a guest to the following:
+
+- MCA Azure AD test directory, `testmcga.onmicrosoft.com`
+- Relevant Azure Security Groups within Azure AD to access the application
+
+Please ask a member of the development team who has permission to do this.
 
 ## Learn More
 
