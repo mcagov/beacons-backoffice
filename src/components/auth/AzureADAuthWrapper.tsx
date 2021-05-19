@@ -33,6 +33,7 @@ const AuthContextWrapper: FunctionComponent = ({ children }) => {
           username: currentUser?.username || "",
           displayName: currentUser?.name || "",
         },
+        login: () => pca.loginRedirect(),
         logout: () => pca.logoutRedirect(),
       }}
     >
@@ -48,6 +49,7 @@ export const AuthContext = createContext<{
     username: string;
     displayName: string;
   };
+  login: () => void;
   logout: () => void;
 }>({
   isAuthenticating: false,
@@ -56,6 +58,7 @@ export const AuthContext = createContext<{
     username: "",
     displayName: "",
   },
+  login: () => {},
   logout: () => {},
 });
 

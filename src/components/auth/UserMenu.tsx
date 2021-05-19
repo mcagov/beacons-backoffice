@@ -22,10 +22,10 @@ export const UserMenu: FunctionComponent = () => {
             color="inherit"
             aria-controls="user-menu"
             aria-haspopup="true"
-            onClick={handleClick}
+            onClick={auth.isAuthenticated ? handleClick : auth.login}
           >
             <AccountCircleIcon />
-            {auth.user.displayName}
+            {auth.isAuthenticated ? auth.user.displayName : "Login"}
           </Button>
           <Menu
             id="user-menu"
