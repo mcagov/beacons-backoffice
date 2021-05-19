@@ -1,4 +1,5 @@
 import { IPublicClientApplication } from "@azure/msal-browser";
+import { applicationConfig } from "../../config";
 import { IAuthGateway } from "./IAuthGateway";
 
 export class AuthGateway implements IAuthGateway {
@@ -9,20 +10,19 @@ export class AuthGateway implements IAuthGateway {
   }
 
   public async getAccessToken(): Promise<string> {
-    const account = this.publicClientApplication.getAllAccounts()[0];
-
-    const accessTokenRequest = {
-      scopes: ["User.Read"],
-      account: account,
-    };
-
     try {
+      const account = this.publicClientApplication.getAllAccounts()[0];
+
+      const accessTokenRequest = {
+        scopes: [applicationConfig.azureADAPIScopeURI as string],
+        account: account,
+      };
+
       const response = await this.publicClientApplication.acquireTokenSilent(
         accessTokenRequest
       );
-      const token = response.accessToken;
-      console.log(token);
-      return token;
+
+      return response.accessToken;
     } catch (error) {
       console.error(error);
       throw new Error(error);
