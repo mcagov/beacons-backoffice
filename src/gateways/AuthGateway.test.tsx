@@ -7,6 +7,7 @@ describe("AuthGateway", () => {
     let mockAccessToken: string;
     let mockPublicClientApplication: any;
     let gateway: AuthGateway;
+    let consoleSpy: any;
 
     beforeEach(() => {
       mockAccount = {
@@ -24,7 +25,10 @@ describe("AuthGateway", () => {
         acquireTokenSilent: jest.fn(),
       };
       gateway = new AuthGateway(mockPublicClientApplication);
+      consoleSpy = jest.spyOn(console, "error").mockReturnValue();
     });
+
+    afterEach(() => consoleSpy.mockRestore());
 
     it("gets an access token", async () => {
       mockPublicClientApplication.getAllAccounts = jest

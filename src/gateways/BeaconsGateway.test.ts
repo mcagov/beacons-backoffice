@@ -17,6 +17,7 @@ describe("BeaconsGateway", () => {
   let accessToken: string;
   let authGateway: IAuthGateway;
   let config: any;
+  let consoleSpy: any;
 
   beforeEach(() => {
     beaconResponseMapper = {
@@ -33,7 +34,10 @@ describe("BeaconsGateway", () => {
       timeout: applicationConfig.apiTimeoutMs,
       headers: { Authorization: `Bearer ${accessToken}` },
     };
+    consoleSpy = jest.spyOn(console, "error").mockReturnValue();
   });
+
+  afterEach(() => consoleSpy.mockRestore());
 
   describe("getAllBeacons()", () => {
     it("queries the correct endpoint", async () => {
