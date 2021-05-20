@@ -4,6 +4,7 @@ import { IBeacon } from "../entities/IBeacon";
 import { beaconFixture } from "../fixtures/beacons.fixture";
 import { singleBeaconApiResponseFixture } from "../fixtures/singleBeaconApiResponse.fixture";
 import { BeaconsGateway } from "./BeaconsGateway";
+import { IAuthGateway } from "./IAuthGateway";
 import { IBeaconRequestMapper } from "./mappers/BeaconRequestMapper";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
@@ -11,35 +12,57 @@ jest.mock("axios");
 jest.useFakeTimers();
 
 describe("BeaconsGateway", () => {
-  const beaconResponseMapper: IBeaconResponseMapper = {
-    map: jest.fn(),
-  };
+  let beaconResponseMapper: IBeaconResponseMapper;
+  let beaconRequestMapper: IBeaconRequestMapper;
+  let accessToken: string;
+  let authGateway: IAuthGateway;
+  let config: any;
+  let consoleSpy: any;
 
-  const beaconRequestMapper: IBeaconRequestMapper = {
-    map: jest.fn(),
-  };
+  beforeEach(() => {
+    beaconResponseMapper = {
+      map: jest.fn(),
+    };
+    beaconRequestMapper = {
+      map: jest.fn(),
+    };
+    accessToken = "LET.ME.IN";
+    authGateway = {
+      getAccessToken: jest.fn().mockResolvedValue(accessToken),
+    };
+    config = {
+      timeout: applicationConfig.apiTimeoutMs,
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+    consoleSpy = jest.spyOn(console, "error").mockReturnValue();
+  });
+
+  afterEach(() => consoleSpy.mockRestore());
 
   describe("getAllBeacons()", () => {
-    it("queries the correct endpoint", () => {
+    it("queries the correct endpoint", async () => {
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
-        beaconRequestMapper
+        beaconRequestMapper,
+        authGateway
       );
+
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
-      gateway.getAllBeacons();
+      await gateway.getAllBeacons();
 
       expect(axios.get).toHaveBeenCalledWith(
         `${applicationConfig.apiUrl}/beacons`,
-        expect.anything()
+        config
       );
     });
 
     it("handles errors", async () => {
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
-        beaconRequestMapper
+        beaconRequestMapper,
+        authGateway
       );
 
       // @ts-ignore
@@ -50,27 +73,29 @@ describe("BeaconsGateway", () => {
   });
 
   describe("getBeacon()", () => {
-    it("queries the correct endpoint", () => {
+    it("queries the correct endpoint", async () => {
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
-        beaconRequestMapper
+        beaconRequestMapper,
+        authGateway
       );
       const beaconId = "f48e8212-2e10-4154-95c7-bdfd061bcfd2";
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
-      gateway.getBeacon(beaconId);
+      await gateway.getBeacon(beaconId);
 
       expect(axios.get).toHaveBeenCalledWith(
         `${applicationConfig.apiUrl}/beacons/${beaconId}`,
-        expect.anything()
+        config
       );
     });
 
     it("handles errors", async () => {
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
-        beaconRequestMapper
+        beaconRequestMapper,
+        authGateway
       );
 
       // @ts-ignore
@@ -82,7 +107,8 @@ describe("BeaconsGateway", () => {
     it("calls its mapper to translate the API response to a domain object", async () => {
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
-        beaconRequestMapper
+        beaconRequestMapper,
+        authGateway
       );
       const beaconId = "f48e8212-2e10-4154-95c7-bdfd061bcfd2";
       // @ts-ignore
@@ -142,28 +168,31 @@ describe("BeaconsGateway", () => {
       },
     };
 
-    it("sends a PATCH request to the correct endpoint", () => {
+    it("sends a PATCH request to the correct endpoint", async () => {
       beaconRequestMapper.map = jest.fn().mockReturnValue(updateBeaconRequest);
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
-        beaconRequestMapper
+        beaconRequestMapper,
+        authGateway
       );
       const updatedFieldsOnly: Partial<IBeacon> = { manufacturer: "ACME Inc." };
       // @ts-ignore
       axios.patch.mockResolvedValue({ status: 200, updateBeaconResponse });
 
-      gateway.updateBeacon(beaconFixture.id, updatedFieldsOnly);
+      await gateway.updateBeacon(beaconFixture.id, updatedFieldsOnly);
 
       expect(axios.patch).toHaveBeenCalledWith(
         `${applicationConfig.apiUrl}/beacons/${beaconFixture.id}`,
-        updateBeaconRequest
+        updateBeaconRequest,
+        config
       );
     });
 
-    it("calls its mapper to translate the domain object to a valid API request", () => {
+    it("calls its mapper to translate the domain object to a valid API request", async () => {
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
-        beaconRequestMapper
+        beaconRequestMapper,
+        authGateway
       );
       const updatedFieldsOnly: Partial<IBeacon> = { manufacturer: "ACME Inc." };
       // @ts-ignore
@@ -172,7 +201,7 @@ describe("BeaconsGateway", () => {
         data: updateBeaconResponse,
       });
 
-      gateway.updateBeacon(beaconFixture.id, updatedFieldsOnly);
+      await gateway.updateBeacon(beaconFixture.id, updatedFieldsOnly);
 
       expect(beaconRequestMapper.map).toHaveBeenCalledWith(
         beaconFixture.id,
@@ -183,7 +212,8 @@ describe("BeaconsGateway", () => {
     it("handles errors", async () => {
       const gateway = new BeaconsGateway(
         beaconResponseMapper,
-        beaconRequestMapper
+        beaconRequestMapper,
+        authGateway
       );
       // @ts-ignore
       axios.patch.mockImplementationOnce(() => Promise.reject(new Error()));

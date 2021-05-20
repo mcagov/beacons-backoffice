@@ -1,4 +1,4 @@
-import { BeaconStatuses, BeaconTypes, IBeacon } from "../entities/IBeacon";
+import { BeaconStatuses, IBeacon } from "../entities/IBeacon";
 import { deepFreeze } from "../utils";
 import { emergencyContactsFixture } from "./emergencyContacts.fixture";
 import { testOwners } from "./owner.fixture";
@@ -7,8 +7,9 @@ import { usesFixture } from "./uses.fixture";
 export const beaconFixture: IBeacon = deepFreeze({
   id: "f48e8212-2e10-4154-95c7-bdfd061bcfd2",
   hexId: "1D0EA08C52FFBFF",
-  type: BeaconTypes.Epirb,
-  protocolCode: "AX7098",
+  type: "Beacon type to be derived from Hex ID",
+  protocolCode: "Protocol code to be derived from Hex ID",
+  codingMethod: "Coding method to be derived from Hex ID",
   registeredDate: "2018-06-08",
   status: BeaconStatuses.New,
   manufacturer: "Ocean Signal",
@@ -20,4 +21,8 @@ export const beaconFixture: IBeacon = deepFreeze({
   uses: usesFixture,
   owners: testOwners,
   emergencyContacts: emergencyContactsFixture,
+  entityLinks: [
+    { verb: "GET", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
+    { verb: "PATCH", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
+  ],
 });

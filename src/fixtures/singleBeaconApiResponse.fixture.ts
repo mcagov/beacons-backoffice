@@ -57,8 +57,9 @@ export const singleBeaconApiResponseFixture: IBeaconResponse = deepFreeze({
     attributes: {
       hexId: "1D0EA08C52FFBFF",
       status: "NEW",
-      type: "EPIRB",
-      protocolCode: "AX7098",
+      type: "Beacon type to be derived from Hex ID",
+      protocolCode: "Protocol code to be derived from Hex ID",
+      codingMethod: "Coding method to be derived from Hex ID",
       manufacturer: "Ocean Signal",
       createdDate: "2018-06-08T00:00",
       model: "Excelsior",
@@ -67,6 +68,10 @@ export const singleBeaconApiResponseFixture: IBeaconResponse = deepFreeze({
       batteryExpiryDate: "2020-02-01T00:00",
       lastServicedDate: "2020-02-01T00:00",
     },
+    links: [
+      { verb: "GET", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
+      { verb: "PATCH", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
+    ],
     relationships: {
       uses: {
         data: [

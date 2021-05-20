@@ -8,7 +8,7 @@ export const AuthWrapper: FunctionComponent<{
 }> = ({ pca, children }) => {
   return (
     <MsalProvider instance={pca}>
-      <MsalShim>{children}</MsalShim>
+      <MsalShim pca={pca}>{children}</MsalShim>
     </MsalProvider>
   );
 };

@@ -14,6 +14,7 @@ import { Home } from "./components/Home";
 import { Footer } from "./components/layout/Footer";
 import { Navigation } from "./components/layout/Navigation";
 import { applicationConfig } from "./config";
+import { AuthGateway } from "./gateways/AuthGateway";
 import { BeaconsGateway } from "./gateways/BeaconsGateway";
 import { BeaconRequestMapper } from "./gateways/mappers/BeaconRequestMapper";
 import { BeaconResponseMapper } from "./gateways/mappers/BeaconResponseMapper";

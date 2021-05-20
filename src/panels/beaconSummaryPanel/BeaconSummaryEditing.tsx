@@ -4,6 +4,7 @@ import {
   Divider,
   Grid,
   Input,
+  Paper,
   Table,
   TableBody,
   TableContainer,
@@ -11,6 +12,7 @@ import {
 } from "@material-ui/core";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
+import { FieldValue } from "../../components/dataPanel/FieldValue";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
 import { IBeacon } from "../../entities/IBeacon";
@@ -84,42 +86,9 @@ export const BeaconSummaryEditing: FunctionComponent<{
 
                     <TabulatedRow
                       displayKey={
-                        <label htmlFor="type">
-                          <Typography>
-                            {"Type" + WritingStyle.KeyValueSeparator}
-                          </Typography>
-                        </label>
-                      }
-                      value={
-                        <Field as={Input} id="type" name="type" type="string" />
-                      }
-                    />
-
-                    <TabulatedRow
-                      displayKey={
-                        <label htmlFor="protocolCode">
-                          <Typography>
-                            {"Protocol code" + WritingStyle.KeyValueSeparator}
-                          </Typography>
-                        </label>
-                      }
-                      value={
-                        <Field
-                          as={Input}
-                          id="protocolCode"
-                          name="protocolCode"
-                          type="string"
-                          placeholder={Placeholders.NoData}
-                        />
-                      }
-                    />
-
-                    <TabulatedRow
-                      displayKey={
                         <label htmlFor="manufacturerSerialNumber">
                           <Typography>
-                            {"Manufacturer serial number" +
-                              WritingStyle.KeyValueSeparator}
+                            {"Serial number" + WritingStyle.KeyValueSeparator}
                           </Typography>
                         </label>
                       }
@@ -150,6 +119,43 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           type="string"
                           placeholder={Placeholders.NoData}
                         />
+                      }
+                    />
+
+                    <TabulatedRow
+                      displayKey={
+                        <Typography>
+                          {"Protocol code" + WritingStyle.KeyValueSeparator}
+                        </Typography>
+                      }
+                      value={<FieldValue>{beacon.protocolCode}</FieldValue>}
+                    />
+
+                    <TabulatedRow
+                      displayKey={
+                        <Typography>
+                          {"Coding method" + WritingStyle.KeyValueSeparator}
+                        </Typography>
+                      }
+                      value={<FieldValue>{beacon.codingMethod}</FieldValue>}
+                    />
+
+                    <TabulatedRow
+                      displayKey={<></>}
+                      value={
+                        <Paper style={{ backgroundColor: "#FFFCC8" }}>
+                          <Box p={1}>
+                            <Typography>
+                              <b>Protocol code</b>, <b>coding method</b> and{" "}
+                              <b>beacon type</b> are automatically derived from
+                              the HEX ID. If you have identified a coding issue,
+                              please flag this record as 'Incorrectly Encoded'
+                              by clicking on the 'Quick Actions' button in the
+                              top right. You can also add any notes in the
+                              'Notes' tab below.
+                            </Typography>
+                          </Box>
+                        </Paper>
                       }
                     />
 

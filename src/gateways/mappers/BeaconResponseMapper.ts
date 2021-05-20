@@ -1,5 +1,6 @@
 import { IBeacon } from "../../entities/IBeacon";
 import { IEmergencyContact } from "../../entities/IEmergencyContact";
+import { IEntityLink } from "../../entities/IEntityLink";
 import { IOwner } from "../../entities/IOwner";
 import { IUse } from "../../entities/IUse";
 import { isoDate } from "../../utils/dateTime";
@@ -26,6 +27,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       ),
       chkCode: beaconApiResponse.data.attributes.chkCode || "",
       protocolCode: beaconApiResponse.data.attributes.protocolCode || "",
+      codingMethod: beaconApiResponse.data.attributes.codingMethod || "",
       lastServicedDate: isoDate(
         beaconApiResponse.data.attributes.lastServicedDate || ""
       ),
@@ -34,7 +36,14 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       owners: this.mapOwners(beaconApiResponse),
       emergencyContacts: this.mapEmergencyContacts(beaconApiResponse),
       uses: this.mapUses(beaconApiResponse),
+      entityLinks: this.mapLinks(beaconApiResponse),
     };
+  }
+
+  private mapLinks(beaconApiResponse: IBeaconResponse): IEntityLink[] {
+    return beaconApiResponse.data.links.map((link) => {
+      return { verb: link.verb, path: link.path };
+    });
   }
 
   private mapOwners(beaconApiResponse: IBeaconResponse): IOwner[] {
@@ -68,9 +77,10 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
   private mapEmergencyContacts(
     beaconApiResponse: IBeaconResponse
   ): IEmergencyContact[] {
-    const emergencyContactIds = beaconApiResponse.data.relationships.emergencyContacts.data.map(
-      (relationship) => relationship.id
-    );
+    const emergencyContactIds =
+      beaconApiResponse.data.relationships.emergencyContacts.data.map(
+        (relationship) => relationship.id
+      );
 
     return emergencyContactIds.map((emergencyContactId) => {
       const emergencyContact = beaconApiResponse.included.find(
