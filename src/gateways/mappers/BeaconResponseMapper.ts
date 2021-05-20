@@ -1,6 +1,6 @@
 import { IBeacon } from "../../entities/IBeacon";
 import { IEmergencyContact } from "../../entities/IEmergencyContact";
-import { ILink } from "../../entities/ILink";
+import { IEntityLink } from "../../entities/IEntityLink";
 import { IOwner } from "../../entities/IOwner";
 import { IUse } from "../../entities/IUse";
 import { isoDate } from "../../utils/dateTime";
@@ -36,11 +36,11 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       owners: this.mapOwners(beaconApiResponse),
       emergencyContacts: this.mapEmergencyContacts(beaconApiResponse),
       uses: this.mapUses(beaconApiResponse),
-      links: this.mapLinks(beaconApiResponse),
+      entityLinks: this.mapLinks(beaconApiResponse),
     };
   }
 
-  private mapLinks(beaconApiResponse: IBeaconResponse): ILink[] {
+  private mapLinks(beaconApiResponse: IBeaconResponse): IEntityLink[] {
     return beaconApiResponse.data.links.map((link) => {
       return { verb: link.verb, path: link.path };
     });
