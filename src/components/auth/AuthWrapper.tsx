@@ -1,10 +1,11 @@
-import { Configuration, PublicClientApplication } from "@azure/msal-browser";
+import { IPublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider, useMsal } from "@azure/msal-react";
-import { applicationConfig } from "config";
 import React, { FunctionComponent } from "react";
 import { AuthContext } from "./AuthContext";
 
-export const AuthWrapper: FunctionComponent = ({ children }) => {
+export const AuthWrapper: FunctionComponent<{
+  pca: IPublicClientApplication;
+}> = ({ pca, children }) => {
   return (
     <MsalProvider instance={pca}>
       <MsalShim>{children}</MsalShim>
@@ -12,7 +13,10 @@ export const AuthWrapper: FunctionComponent = ({ children }) => {
   );
 };
 
-const MsalShim: FunctionComponent = ({ children }) => {
+const MsalShim: FunctionComponent<{ pca: IPublicClientApplication }> = ({
+  pca,
+  children,
+}) => {
   /**
    * Wrapper for the MSAL auth context.
    *
@@ -37,12 +41,3 @@ const MsalShim: FunctionComponent = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-const configuration: Configuration = {
-  auth: {
-    clientId: applicationConfig.azureADClientId as string,
-    authority: `https://login.microsoftonline.com/${applicationConfig.azureADTenantId}`,
-  },
-};
-
-const pca = new PublicClientApplication(configuration);
