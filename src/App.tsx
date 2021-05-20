@@ -25,12 +25,10 @@ interface ResourceParams {
   id: string;
 }
 
-const authorityBaseUrl = "https://login.microsoftonline.com";
-
 const configuration: Configuration = {
   auth: {
     clientId: applicationConfig.azureADClientId as string,
-    authority: `${authorityBaseUrl}/${applicationConfig.azureADTenantId}`,
+    authority: `https://login.microsoftonline.com/${applicationConfig.azureADTenantId}`,
   },
 };
 

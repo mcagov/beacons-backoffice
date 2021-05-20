@@ -21,7 +21,7 @@ export const RequireAuth: FunctionComponent<RequireAuthProps> = ({
       errorComponent={ErrorComponent}
       loadingComponent={LoadingComponent}
     >
-      {children}{" "}
+      {children}
     </MsalAuthenticationTemplate>
   );
 };
