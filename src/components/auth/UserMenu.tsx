@@ -1,7 +1,7 @@
 import { Button, Menu, MenuItem } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { FunctionComponent, useState } from "react";
-import { AuthContext } from "./AuthWrapper";
+import { AuthContext } from "./AuthContext";
 
 export const UserMenu: FunctionComponent = () => {
   const [anchorElement, setAnchorElement] = useState(null);
@@ -22,10 +22,10 @@ export const UserMenu: FunctionComponent = () => {
             color="inherit"
             aria-controls="user-menu"
             aria-haspopup="true"
-            onClick={auth.isAuthenticated ? handleClick : auth.login}
+            onClick={handleClick}
           >
             <AccountCircleIcon />
-            {auth.isAuthenticated ? auth.user.displayName : "Login"}
+            {auth.isAuthenticated ? auth.user.displayName : ""}
           </Button>
           <Menu
             id="user-menu"

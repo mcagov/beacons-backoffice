@@ -1,7 +1,8 @@
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider, useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { applicationConfig } from "config";
-import React, { createContext, FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
+import { AuthContext } from "./AuthContext";
 
 export const AuthWrapper: FunctionComponent = ({ children }) => {
   return (
@@ -38,26 +39,6 @@ const MsalShim: FunctionComponent = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export interface IAuthContext {
-  isAuthenticated: boolean;
-  user: {
-    username: string;
-    displayName: string;
-  };
-  login: () => void;
-  logout: () => void;
-}
-
-export const AuthContext = createContext<IAuthContext>({
-  isAuthenticated: false,
-  user: {
-    username: "",
-    displayName: "",
-  },
-  login: () => {},
-  logout: () => {},
-});
 
 const configuration: Configuration = {
   auth: {
