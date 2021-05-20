@@ -21,4 +21,8 @@ export const beaconFixture: IBeacon = deepFreeze({
   uses: usesFixture,
   owners: testOwners,
   emergencyContacts: emergencyContactsFixture,
+  links: [
+    { verb: "GET", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
+    { verb: "PATCH", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
+  ],
 });

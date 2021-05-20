@@ -18,6 +18,7 @@ export interface IBeaconResponse extends IApiResponse {
       batteryExpiryDate?: string;
       lastServicedDate?: string;
     };
+    links: { verb: string; path: string }[];
     relationships: {
       uses: {
         data: { type: string; id: string }[];
