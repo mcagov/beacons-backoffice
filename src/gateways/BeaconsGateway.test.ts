@@ -1,10 +1,10 @@
 import axios from "axios";
-import { IAuthGateway } from "../components/auth/IAuthGateway";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
 import { beaconFixture } from "../fixtures/beacons.fixture";
 import { singleBeaconApiResponseFixture } from "../fixtures/singleBeaconApiResponse.fixture";
 import { BeaconsGateway } from "./BeaconsGateway";
+import { IAuthGateway } from "./IAuthGateway";
 import { IBeaconRequestMapper } from "./mappers/BeaconRequestMapper";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
@@ -25,13 +25,10 @@ describe("BeaconsGateway", () => {
     beaconRequestMapper = {
       map: jest.fn(),
     };
-
     accessToken = "LET.ME.IN";
-
     authGateway = {
       getAccessToken: jest.fn().mockResolvedValue(accessToken),
     };
-
     config = {
       timeout: applicationConfig.apiTimeoutMs,
       headers: { Authorization: `Bearer ${accessToken}` },

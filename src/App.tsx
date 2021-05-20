@@ -9,12 +9,12 @@ import {
   useParams,
 } from "react-router-dom";
 import "./App.scss";
-import { AuthGateway } from "./components/auth/AuthGateway";
 import { AuthWrapper } from "./components/auth/AuthWrapper";
 import { Home } from "./components/Home";
 import { Footer } from "./components/layout/Footer";
 import { Navigation } from "./components/layout/Navigation";
 import { applicationConfig } from "./config";
+import { AuthGateway } from "./gateways/AuthGateway";
 import { BeaconsGateway } from "./gateways/BeaconsGateway";
 import { BeaconRequestMapper } from "./gateways/mappers/BeaconRequestMapper";
 import { BeaconResponseMapper } from "./gateways/mappers/BeaconResponseMapper";
@@ -45,7 +45,7 @@ const App: FunctionComponent = () => {
     beaconRequestMapper,
     authGateway
   );
-  const usesGateway = new UsesGateway(beaconResponseMapper);
+  const usesGateway = new UsesGateway(beaconResponseMapper, authGateway);
 
   const SingleBeaconRecordViewWithParam: FunctionComponent = () => {
     const { id } = useParams<ResourceParams>();

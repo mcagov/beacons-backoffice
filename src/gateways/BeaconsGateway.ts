@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
-import { IAuthGateway } from "../components/auth/IAuthGateway";
 import { applicationConfig } from "../config";
 import { IBeacon } from "../entities/IBeacon";
+import { IAuthGateway } from "./IAuthGateway";
 import { IBeaconsGateway } from "./IBeaconsGateway";
 import { IBeaconRequestMapper } from "./mappers/BeaconRequestMapper";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
