@@ -18,7 +18,7 @@ describe("Edit Panel Button", () => {
     expect(await screen.findByText(/edit something/i)).toBeVisible();
   });
 
-  it("doesn't show the button when the PATCH is present", () => {
+  it("doesn't show the button when the PATCH is not present", () => {
     render(
       <EditPanelButton
         onClick={() => {}}
