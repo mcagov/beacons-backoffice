@@ -59,18 +59,13 @@ export const BeaconSummaryPanel: FunctionComponent<IBeaconSummaryProps> = ({
   const renderState = (state: DataPanelStates) => {
     switch (state) {
       case DataPanelStates.Viewing:
-        const hasPatch = beacon.entityLinks.some(
-          (link) => link.verb === "PATCH"
-        );
         return (
           <>
-            {hasPatch && (
-              <EditPanelButton
-                onClick={() => setUserState(DataPanelStates.Editing)}
-              >
-                Edit summary
-              </EditPanelButton>
-            )}
+            <EditPanelButton
+              onClick={() => setUserState(DataPanelStates.Editing)}
+            >
+              Edit summary
+            </EditPanelButton>
             <BeaconSummaryViewing beacon={beacon} />
           </>
         );
