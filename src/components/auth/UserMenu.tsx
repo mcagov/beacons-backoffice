@@ -25,7 +25,7 @@ export const UserMenu: FunctionComponent = () => {
             onClick={handleClick}
           >
             <AccountCircleIcon />
-            {auth.isAuthenticated ? auth.user.displayName : ""}
+            {auth.user.displayName}
           </Button>
           <Menu
             id="user-menu"

@@ -8,12 +8,10 @@ describe("UserMenu", () => {
 
   beforeEach(() => {
     authContext = {
-      isAuthenticated: true,
       user: {
         username: "steve.stevington@mcga.gov.uk",
         displayName: "Steve Stevington",
       },
-      login: jest.fn(),
       logout: jest.fn(),
     };
   });

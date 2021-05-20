@@ -1,5 +1,5 @@
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
-import { MsalProvider, useIsAuthenticated, useMsal } from "@azure/msal-react";
+import { MsalProvider, useMsal } from "@azure/msal-react";
 import { applicationConfig } from "config";
 import React, { FunctionComponent } from "react";
 import { AuthContext } from "./AuthContext";
@@ -26,12 +26,10 @@ const MsalShim: FunctionComponent = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: useIsAuthenticated(),
         user: {
           username: currentUser?.username || "",
           displayName: currentUser?.name || "",
         },
-        login: () => pca.loginRedirect(),
         logout: () => pca.logoutRedirect(),
       }}
     >
