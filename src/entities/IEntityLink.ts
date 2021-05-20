@@ -1,4 +1,4 @@
-export interface ILink {
+export interface IEntityLink {
   verb: string;
   path: string;
 }
