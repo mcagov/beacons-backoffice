@@ -39,7 +39,7 @@ const MsalShim: FunctionComponent = ({ children }) => {
   );
 };
 
-export const AuthContext = createContext<{
+export interface IAuthContext {
   isAuthenticated: boolean;
   user: {
     username: string;
@@ -47,7 +47,9 @@ export const AuthContext = createContext<{
   };
   login: () => void;
   logout: () => void;
-}>({
+}
+
+export const AuthContext = createContext<IAuthContext>({
   isAuthenticated: false,
   user: {
     username: "",
