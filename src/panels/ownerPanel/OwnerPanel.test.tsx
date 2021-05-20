@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { beaconFixture } from "fixtures/beacons.fixture";
 import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
 import { Placeholders } from "../../utils/writingStyle";
@@ -67,25 +66,5 @@ describe("Owner Summary Panel", () => {
     expect(
       await screen.findByText(Placeholders.UnspecifiedError)
     ).toBeVisible();
-  });
-
-  it("fetches beacon data on state change", async () => {
-    render(
-      <OwnerPanel
-        beaconsGateway={beaconsGatewayDouble}
-        beaconId={beaconFixture.id}
-      />
-    );
-    expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalledTimes(1);
-
-    const editButton = await screen.findByText(/edit owner/i);
-    userEvent.click(editButton);
-    expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalledTimes(2);
-
-    const cancelButton = await screen.findByRole("button", {
-      name: "Cancel",
-    });
-    userEvent.click(cancelButton);
-    expect(beaconsGatewayDouble.getBeacon).toHaveBeenCalledTimes(3);
   });
 });

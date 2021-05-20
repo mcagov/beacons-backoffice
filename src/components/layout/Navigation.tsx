@@ -27,9 +27,6 @@ export const Navigation: FunctionComponent = (): JSX.Element => {
       <AppBar position="static">
         <Toolbar>
           <Button color="inherit" href="/">
-            Overview
-          </Button>
-          <Button color="inherit" href="/#/beacon-records">
             Beacon records
           </Button>
           <Box ml="auto">

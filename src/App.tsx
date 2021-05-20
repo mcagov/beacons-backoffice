@@ -10,7 +10,6 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 import { AuthWrapper } from "./components/auth/AuthWrapper";
-import { Home } from "./components/Home";
 import { Footer } from "./components/layout/Footer";
 import { Navigation } from "./components/layout/Navigation";
 import { applicationConfig } from "./config";
@@ -63,9 +62,6 @@ const App: FunctionComponent = () => {
         <RequireAuth>
           <Switch>
             <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/beacon-records">
               <BeaconRecordsListView beaconsGateway={beaconsGateway} />
             </Route>
             <Route path="/beacons/:id">
