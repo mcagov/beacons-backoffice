@@ -29,19 +29,6 @@ describe("BeaconSummaryPanel", () => {
     });
   });
 
-  it("retrieves the beacon summary data by beacon id", async () => {
-    render(
-      <BeaconSummaryPanel
-        beaconsGateway={beaconsGatewayDouble}
-        beaconId={beaconFixture.id}
-      />
-    );
-
-    expect(
-      await screen.findByText(beaconFixture.protocolCode as string)
-    ).toBeVisible();
-  });
-
   it("displays an error if beacon lookup fails for any reason", async () => {
     beaconsGatewayDouble.getBeacon = jest.fn().mockImplementation(() => {
       throw Error();

@@ -21,20 +21,20 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: beacon?.model,
     },
     {
-      key: "Beacon type",
-      value: beacon?.type,
-    },
-    {
-      key: "Protocol code",
-      value: beacon?.protocolCode,
-    },
-    {
       key: "Serial number",
       value: beacon?.manufacturerSerialNumber,
     },
     {
       key: "CHK code",
       value: beacon?.chkCode,
+    },
+    {
+      key: "Protocol code",
+      value: beacon?.protocolCode,
+    },
+    {
+      key: "Coding method",
+      value: beacon?.codingMethod,
     },
     {
       key: "Battery expiry date",

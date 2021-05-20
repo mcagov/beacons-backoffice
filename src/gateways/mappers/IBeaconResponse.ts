@@ -14,6 +14,7 @@ export interface IBeaconResponse extends IApiResponse {
       manufacturerSerialNumber?: string;
       chkCode?: string;
       protocolCode?: string;
+      codingMethod?: string;
       batteryExpiryDate?: string;
       lastServicedDate?: string;
     };

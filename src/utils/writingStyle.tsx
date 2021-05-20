@@ -10,6 +10,7 @@ export enum WritingStyle {
 export enum Placeholders {
   NoData = "NO DATA ENTERED",
   UnspecifiedError = "An error occurred",
+  UnrecognizedBeaconType = "Unrecognized beacon type",
 }
 
 export const formatUses = (uses: IUse[]): string =>
