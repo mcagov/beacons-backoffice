@@ -88,8 +88,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                       displayKey={
                         <label htmlFor="manufacturerSerialNumber">
                           <Typography>
-                            {"Manufacturer serial number" +
-                              WritingStyle.KeyValueSeparator}
+                            {"Serial number" + WritingStyle.KeyValueSeparator}
                           </Typography>
                         </label>
                       }
