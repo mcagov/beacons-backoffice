@@ -68,6 +68,10 @@ export const singleBeaconApiResponseFixture: IBeaconResponse = deepFreeze({
       batteryExpiryDate: "2020-02-01T00:00",
       lastServicedDate: "2020-02-01T00:00",
     },
+    links: [
+      { verb: "GET", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
+      { verb: "PATCH", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
+    ],
     relationships: {
       uses: {
         data: [
