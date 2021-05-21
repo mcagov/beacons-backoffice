@@ -10,7 +10,6 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 import { AuthWrapper } from "./components/auth/AuthWrapper";
-import { Home } from "./components/Home";
 import { Footer } from "./components/layout/Footer";
 import { Navigation } from "./components/layout/Navigation";
 import { applicationConfig } from "./config";
@@ -25,12 +24,10 @@ interface ResourceParams {
   id: string;
 }
 
-const authorityBaseUrl = "https://login.microsoftonline.com";
-
 const configuration: Configuration = {
   auth: {
     clientId: applicationConfig.azureADClientId as string,
-    authority: `${authorityBaseUrl}/${applicationConfig.azureADTenantId}`,
+    authority: `https://login.microsoftonline.com/${applicationConfig.azureADTenantId}`,
   },
 };
 
@@ -65,9 +62,6 @@ const App: FunctionComponent = () => {
         <RequireAuth>
           <Switch>
             <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/beacon-records">
               <BeaconRecordsListView beaconsGateway={beaconsGateway} />
             </Route>
             <Route path="/beacons/:id">

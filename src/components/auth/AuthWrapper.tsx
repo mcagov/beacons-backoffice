@@ -1,15 +1,43 @@
 import { IPublicClientApplication } from "@azure/msal-browser";
-import { MsalProvider } from "@azure/msal-react";
+import { MsalProvider, useMsal } from "@azure/msal-react";
 import React, { FunctionComponent } from "react";
+import { AuthContext } from "./AuthContext";
 
-interface AuthWrapperProps {
+export const AuthWrapper: FunctionComponent<{
   pca: IPublicClientApplication;
-  children: React.ReactNode;
-}
+}> = ({ pca, children }) => {
+  return (
+    <MsalProvider instance={pca}>
+      <MsalShim pca={pca}>{children}</MsalShim>
+    </MsalProvider>
+  );
+};
 
-export const AuthWrapper: FunctionComponent<AuthWrapperProps> = ({
-  children,
+const MsalShim: FunctionComponent<{ pca: IPublicClientApplication }> = ({
   pca,
-}: AuthWrapperProps) => {
-  return <MsalProvider instance={pca}>{children}</MsalProvider>;
+  children,
+}) => {
+  /**
+   * Wrapper for the MSAL auth context.
+   *
+   * @remarks
+   * Acts as a shim between MSAL and the Beacons Backoffice application so that high-level components can consume
+   * authenticated user data without depending on a concrete auth provider.
+   *
+   */
+  const currentUser = useMsal().instance.getAllAccounts()[0] || {};
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user: {
+          username: currentUser?.username || "",
+          displayName: currentUser?.name || "",
+        },
+        logout: () => pca.logoutRedirect(),
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
