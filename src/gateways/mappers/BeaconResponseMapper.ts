@@ -1,7 +1,9 @@
 import { IBeacon } from "../../entities/IBeacon";
 import { IEmergencyContact } from "../../entities/IEmergencyContact";
+import { IEntityLink } from "../../entities/IEntityLink";
 import { IOwner } from "../../entities/IOwner";
 import { IUse } from "../../entities/IUse";
+import { isoDate } from "../../utils/dateTime";
 import { IBeaconResponse } from "./IBeaconResponse";
 
 export interface IBeaconResponseMapper {
@@ -17,19 +19,31 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       manufacturer: beaconApiResponse.data.attributes.manufacturer || "",
       model: beaconApiResponse.data.attributes.model || "",
       status: beaconApiResponse.data.attributes.status || "",
-      registeredDate: beaconApiResponse.data.attributes.createdDate || "",
-      batteryExpiryDate:
-        beaconApiResponse.data.attributes.batteryExpiryDate || "",
+      registeredDate: isoDate(
+        beaconApiResponse.data.attributes.createdDate || ""
+      ),
+      batteryExpiryDate: isoDate(
+        beaconApiResponse.data.attributes.batteryExpiryDate || ""
+      ),
       chkCode: beaconApiResponse.data.attributes.chkCode || "",
       protocolCode: beaconApiResponse.data.attributes.protocolCode || "",
-      lastServicedDate:
-        beaconApiResponse.data.attributes.lastServicedDate || "",
+      codingMethod: beaconApiResponse.data.attributes.codingMethod || "",
+      lastServicedDate: isoDate(
+        beaconApiResponse.data.attributes.lastServicedDate || ""
+      ),
       manufacturerSerialNumber:
         beaconApiResponse.data.attributes.manufacturerSerialNumber || "",
       owners: this.mapOwners(beaconApiResponse),
       emergencyContacts: this.mapEmergencyContacts(beaconApiResponse),
       uses: this.mapUses(beaconApiResponse),
+      entityLinks: this.mapLinks(beaconApiResponse),
     };
+  }
+
+  private mapLinks(beaconApiResponse: IBeaconResponse): IEntityLink[] {
+    return beaconApiResponse.data.links.map((link) => {
+      return { verb: link.verb, path: link.path };
+    });
   }
 
   private mapOwners(beaconApiResponse: IBeaconResponse): IOwner[] {
@@ -63,9 +77,10 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
   private mapEmergencyContacts(
     beaconApiResponse: IBeaconResponse
   ): IEmergencyContact[] {
-    const emergencyContactIds = beaconApiResponse.data.relationships.emergencyContacts.data.map(
-      (relationship) => relationship.id
-    );
+    const emergencyContactIds =
+      beaconApiResponse.data.relationships.emergencyContacts.data.map(
+        (relationship) => relationship.id
+      );
 
     return emergencyContactIds.map((emergencyContactId) => {
       const emergencyContact = beaconApiResponse.included.find(
