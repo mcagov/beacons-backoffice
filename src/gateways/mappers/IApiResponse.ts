@@ -5,5 +5,6 @@ export interface IApiResponse {
     type: string;
     id: string;
     attributes: Record<string, any>;
+    links: { verb: string; path: string }[];
   }[];
 }

@@ -36,12 +36,12 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       owners: this.mapOwners(beaconApiResponse),
       emergencyContacts: this.mapEmergencyContacts(beaconApiResponse),
       uses: this.mapUses(beaconApiResponse),
-      entityLinks: this.mapLinks(beaconApiResponse),
+      entityLinks: this.mapLinks(beaconApiResponse.data.links),
     };
   }
 
-  private mapLinks(beaconApiResponse: IBeaconResponse): IEntityLink[] {
-    return beaconApiResponse.data.links.map((link) => {
+  private mapLinks(links: IEntityLink[]): IEntityLink[] {
+    return links.map((link) => {
       return { verb: link.verb, path: link.path };
     });
   }
@@ -152,6 +152,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
         otherActivityLocation: use.attributes.otherActivityLocation || "",
         otherActivityPeopleCount: use.attributes.otherActivityPeopleCount || "",
         mainUse: use.attributes.mainUse,
+        entityLinks: this.mapLinks(use.links),
       }))
       .sort((firstUse, secondUse) => this.mainUseSortFn(firstUse, secondUse));
   }

@@ -48,6 +48,7 @@ const getUseFixture = (id: string, mainUse: boolean): IUse =>
     otherActivityLocation: "Manchester",
     otherActivityPeopleCount: "10",
     mainUse,
+    entityLinks: [{ verb: "PATCH", path: `/beacon-uses/${id}` }],
   });
 
 export const usesFixture: IUse[] = deepFreeze([
