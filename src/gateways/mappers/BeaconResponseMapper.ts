@@ -77,9 +77,10 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
   private mapEmergencyContacts(
     beaconApiResponse: IBeaconResponse
   ): IEmergencyContact[] {
-    const emergencyContactIds = beaconApiResponse.data.relationships.emergencyContacts.data.map(
-      (relationship) => relationship.id
-    );
+    const emergencyContactIds =
+      beaconApiResponse.data.relationships.emergencyContacts.data.map(
+        (relationship) => relationship.id
+      );
 
     return emergencyContactIds.map((emergencyContactId) => {
       const emergencyContact = beaconApiResponse.included.find(
