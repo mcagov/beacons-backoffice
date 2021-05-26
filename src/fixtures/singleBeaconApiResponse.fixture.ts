@@ -108,6 +108,12 @@ export const singleBeaconApiResponseFixture: IBeaconResponse = deepFreeze({
       attributes: {
         ...getUseResponseJson(false),
       },
+      links: [
+        {
+          verb: "PATCH",
+          path: "/beacon-uses/e00036c4-e3f4-46bb-aa9e-1d91870d9173",
+        },
+      ],
     },
     {
       type: "beaconUse",
@@ -115,6 +121,12 @@ export const singleBeaconApiResponseFixture: IBeaconResponse = deepFreeze({
       attributes: {
         ...getUseResponseJson(true),
       },
+      links: [
+        {
+          verb: "PATCH",
+          path: "/beacon-uses/e00036c4-e3f4-46bb-aa9e-1d91870d9172",
+        },
+      ],
     },
     {
       type: "beaconPerson",
