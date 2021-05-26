@@ -1,3 +1,5 @@
+import { IEntityLink } from "./IEntityLink";
+
 export interface IUse {
   id: string;
   environment: Environments;
@@ -44,6 +46,7 @@ export interface IUse {
   otherActivityPeopleCount?: string;
   moreDetails: string;
   mainUse: boolean;
+  entityLinks: IEntityLink[];
 }
 
 export enum Environments {
