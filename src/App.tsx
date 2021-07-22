@@ -1,6 +1,8 @@
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 import { RequireAuth } from "components/auth/RequireAuth";
-import { UsesGateway } from "gateways/UsesGateway";
+import { AuthGateway } from "gateways/auth/AuthGateway";
+import { BeaconsGateway } from "gateways/beacons/BeaconsGateway";
+import { UsesGateway } from "gateways/uses/UsesGateway";
 import React, { FunctionComponent } from "react";
 import {
   HashRouter as Router,
@@ -13,8 +15,6 @@ import { AuthWrapper } from "./components/auth/AuthWrapper";
 import { Footer } from "./components/layout/Footer";
 import { Navigation } from "./components/layout/Navigation";
 import { applicationConfig } from "./config";
-import { AuthGateway } from "./gateways/AuthGateway";
-import { BeaconsGateway } from "./gateways/BeaconsGateway";
 import { BeaconRequestMapper } from "./gateways/mappers/BeaconRequestMapper";
 import { BeaconResponseMapper } from "./gateways/mappers/BeaconResponseMapper";
 import { BeaconRecordsListView } from "./views/BeaconRecordsListView";

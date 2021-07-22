@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import { applicationConfig } from "config";
 import { IUse } from "entities/IUse";
-import { IAuthGateway } from "./auth/IAuthGateway";
+import { IAuthGateway } from "gateways/auth/IAuthGateway";
+import { IBeaconResponseMapper } from "gateways/mappers/BeaconResponseMapper";
 import { IUsesGateway } from "./IUsesGateway";
-import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
 export class UsesGateway implements IUsesGateway {
   private _usesResponseMapper;
