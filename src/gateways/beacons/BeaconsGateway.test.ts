@@ -1,12 +1,12 @@
 import axios from "axios";
-import { applicationConfig } from "../config";
-import { IBeacon } from "../entities/IBeacon";
-import { beaconFixture } from "../fixtures/beacons.fixture";
-import { singleBeaconApiResponseFixture } from "../fixtures/singleBeaconApiResponse.fixture";
+import { applicationConfig } from "config";
+import { IBeacon } from "entities/IBeacon";
+import { beaconFixture } from "fixtures/beacons.fixture";
+import { singleBeaconApiResponseFixture } from "fixtures/singleBeaconApiResponse.fixture";
+import { IAuthGateway } from "gateways/auth/IAuthGateway";
+import { IBeaconRequestMapper } from "gateways/mappers/BeaconRequestMapper";
+import { IBeaconResponseMapper } from "gateways/mappers/BeaconResponseMapper";
 import { BeaconsGateway } from "./BeaconsGateway";
-import { IAuthGateway } from "./IAuthGateway";
-import { IBeaconRequestMapper } from "./mappers/BeaconRequestMapper";
-import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
 jest.mock("axios");
 jest.useFakeTimers();

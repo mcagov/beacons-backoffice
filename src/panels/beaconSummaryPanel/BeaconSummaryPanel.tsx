@@ -5,7 +5,7 @@ import { ErrorState } from "../../components/dataPanel/PanelErrorState";
 import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
 import { DataPanelStates } from "../../components/dataPanel/States";
 import { IBeacon } from "../../entities/IBeacon";
-import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
+import { IBeaconsGateway } from "../../gateways/beacons/IBeaconsGateway";
 import { diffObjValues } from "../../utils/core";
 import { Placeholders } from "../../utils/writingStyle";
 import { BeaconSummaryEditing } from "./BeaconSummaryEditing";

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { applicationConfig } from "config";
 import { IUse } from "entities/IUse";
-import { IAuthGateway } from "./IAuthGateway";
+import { IAuthGateway } from "./auth/IAuthGateway";
 import { IUsesGateway } from "./IUsesGateway";
 import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 

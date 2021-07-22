@@ -1,8 +1,8 @@
 import { render, screen, within } from "@testing-library/react";
 import React from "react";
 import { beaconFixture } from "../fixtures/beacons.fixture";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
-import { IUsesGateway } from "../gateways/IUsesGateway";
+import { IBeaconsGateway } from "../gateways/beacons/IBeaconsGateway";
+import { IUsesGateway } from "../gateways/uses/IUsesGateway";
 import { Placeholders } from "../utils/writingStyle";
 import { SingleBeaconRecordView } from "./SingleBeaconRecordView";
 

@@ -1,5 +1,5 @@
 import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
-import { IBeacon } from "../entities/IBeacon";
+import { IBeacon } from "../../entities/IBeacon";
 
 export interface IBeaconsGateway {
   getAllBeacons: () => Promise<IBeaconSearchResult>;

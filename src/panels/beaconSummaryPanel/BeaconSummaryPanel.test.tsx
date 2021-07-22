@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beaconFixture } from "../../fixtures/beacons.fixture";
-import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
+import { IBeaconsGateway } from "../../gateways/beacons/IBeaconsGateway";
 import { Placeholders } from "../../utils/writingStyle";
 import { BeaconSummaryPanel } from "./BeaconSummaryPanel";
 

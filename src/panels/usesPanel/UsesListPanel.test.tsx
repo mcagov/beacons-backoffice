@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { usesFixture } from "fixtures/uses.fixture";
-import { IUsesGateway } from "gateways/IUsesGateway";
+import { IUsesGateway } from "gateways/uses/IUsesGateway";
 import React from "react";
 import { UsesListPanel } from "./UsesListPanel";
 

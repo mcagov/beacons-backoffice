@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { beaconsGatewayFixture } from "gateways/BeaconsGateway.fixture";
-import { IBeaconsGateway } from "gateways/IBeaconsGateway";
+import { beaconsGatewayFixture } from "gateways/beacons/BeaconsGateway.fixture";
+import { IBeaconsGateway } from "gateways/beacons/IBeaconsGateway";
 import { BeaconsTable } from "./BeaconsTable";
 
 describe("<BeaconsTable>", () => {

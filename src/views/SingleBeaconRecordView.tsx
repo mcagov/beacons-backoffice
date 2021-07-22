@@ -1,14 +1,14 @@
 import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { IBeacon } from "entities/IBeacon";
-import { IUsesGateway } from "gateways/IUsesGateway";
+import { IUsesGateway } from "gateways/uses/IUsesGateway";
 import { OwnerPanel } from "panels/ownerPanel/OwnerPanel";
 import { UsesListPanel } from "panels/usesPanel/UsesListPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
-import { IBeaconsGateway } from "../gateways/IBeaconsGateway";
+import { IBeaconsGateway } from "../gateways/beacons/IBeaconsGateway";
 import { BeaconSummaryPanel } from "../panels/beaconSummaryPanel/BeaconSummaryPanel";
 import { EmergencyContactPanel } from "../panels/emergencyContactPanel/EmergencyContactPanel";
 import { Placeholders } from "../utils/writingStyle";
