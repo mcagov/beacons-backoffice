@@ -1,4 +1,4 @@
-import { IApiResponse } from "./IApiResponse";
+import { IApiResponse } from "../IApiResponse";
 
 export interface IBeaconResponse extends IApiResponse {
   data: {

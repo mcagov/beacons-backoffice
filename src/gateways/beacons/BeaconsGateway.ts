@@ -3,8 +3,8 @@ import { applicationConfig } from "config";
 import { IBeacon } from "entities/IBeacon";
 import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
 import { IAuthGateway } from "gateways/auth/IAuthGateway";
-import { IBeaconRequestMapper } from "gateways/mappers/BeaconRequestMapper";
-import { IBeaconResponseMapper } from "gateways/mappers/BeaconResponseMapper";
+import { IBeaconRequestMapper } from "./BeaconRequestMapper";
+import { IBeaconResponseMapper } from "./BeaconResponseMapper";
 import { IBeaconsGateway } from "./IBeaconsGateway";
 
 export class BeaconsGateway implements IBeaconsGateway {

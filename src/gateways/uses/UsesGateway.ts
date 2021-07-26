@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { applicationConfig } from "config";
 import { IUse } from "entities/IUse";
 import { IAuthGateway } from "gateways/auth/IAuthGateway";
-import { IBeaconResponseMapper } from "gateways/mappers/BeaconResponseMapper";
+import { IBeaconResponseMapper } from "gateways/beacons/BeaconResponseMapper";
 import { IUsesGateway } from "./IUsesGateway";
 
 export class UsesGateway implements IUsesGateway {

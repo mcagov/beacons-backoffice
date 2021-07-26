@@ -4,8 +4,8 @@ import { IBeacon } from "entities/IBeacon";
 import { beaconFixture } from "fixtures/beacons.fixture";
 import { singleBeaconApiResponseFixture } from "fixtures/singleBeaconApiResponse.fixture";
 import { IAuthGateway } from "gateways/auth/IAuthGateway";
-import { IBeaconRequestMapper } from "gateways/mappers/BeaconRequestMapper";
-import { IBeaconResponseMapper } from "gateways/mappers/BeaconResponseMapper";
+import { IBeaconRequestMapper } from "./BeaconRequestMapper";
+import { IBeaconResponseMapper } from "./BeaconResponseMapper";
 import { BeaconsGateway } from "./BeaconsGateway";
 
 jest.mock("axios");
