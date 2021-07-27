@@ -1,6 +1,8 @@
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 import { RequireAuth } from "components/auth/RequireAuth";
 import { AuthGateway } from "gateways/auth/AuthGateway";
+import { BeaconRequestMapper } from "gateways/beacons/BeaconRequestMapper";
+import { BeaconResponseMapper } from "gateways/beacons/BeaconResponseMapper";
 import { BeaconsGateway } from "gateways/beacons/BeaconsGateway";
 import { UsesGateway } from "gateways/uses/UsesGateway";
 import React, { FunctionComponent } from "react";
@@ -15,8 +17,6 @@ import { AuthWrapper } from "./components/auth/AuthWrapper";
 import { Footer } from "./components/layout/Footer";
 import { Navigation } from "./components/layout/Navigation";
 import { applicationConfig } from "./config";
-import { BeaconRequestMapper } from "./gateways/mappers/BeaconRequestMapper";
-import { BeaconResponseMapper } from "./gateways/mappers/BeaconResponseMapper";
 import { BeaconRecordsListView } from "./views/BeaconRecordsListView";
 import { SingleBeaconRecordView } from "./views/SingleBeaconRecordView";
 

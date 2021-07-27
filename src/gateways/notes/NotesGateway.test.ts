@@ -2,14 +2,12 @@ import axios from "axios";
 import { notesFixture } from "fixtures/notes.fixture";
 import { applicationConfig } from "../../config";
 import { IAuthGateway } from "../auth/IAuthGateway";
-import { INotesGateway } from "./INotesGateway";
 import { NotesGateway } from "./NotesGateway";
 
 jest.mock("axios");
 jest.useFakeTimers();
 
 describe("NotesGateway", () => {
-  let gateway: INotesGateway;
   let beaconId: string;
   let accessToken: string;
   let authGateway: IAuthGateway;
@@ -24,7 +22,6 @@ describe("NotesGateway", () => {
       timeout: applicationConfig.apiTimeoutMs,
       headers: { Authorization: `Bearer ${accessToken}` },
     };
-    gateway = new NotesGateway(authGateway);
     beaconId = "f48e8212-2e10-4154-95c7-bdfd061bcfd2";
   });
 
@@ -32,19 +29,24 @@ describe("NotesGateway", () => {
     it("returns the notes array", async () => {
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
-      beaconResponseMapper.map = jest
-        .fn()
-        .mockReturnValue({ uses: notesFixture });
+      var responseMapper = {
+        map: jest.fn().mockReturnValue(notesFixture),
+      };
+      var gateway = new NotesGateway(authGateway, responseMapper);
 
-      const uses = await gateway.getNotes(beaconId);
+      const notes = await gateway.getNotes(beaconId);
 
-      expect(uses).toStrictEqual(notesFixture);
+      expect(notes).toStrictEqual(notesFixture);
     });
 
     it("queries the correct endpoint", async () => {
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
+      var responseMapper = {
+        map: jest.fn(),
+      };
+      var gateway = new NotesGateway(authGateway, responseMapper);
       await gateway.getNotes(beaconId);
 
       expect(axios.get).toHaveBeenCalledWith(
@@ -57,6 +59,10 @@ describe("NotesGateway", () => {
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.reject(new Error()));
 
+      var responseMapper = {
+        map: jest.fn().mockReturnValue({ uses: notesFixture }),
+      };
+      var gateway = new NotesGateway(authGateway, responseMapper);
       await expect(gateway.getNotes(beaconId)).rejects.toThrow();
     });
   });
