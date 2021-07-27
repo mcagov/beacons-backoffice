@@ -30,7 +30,7 @@
     "@testing-library/user-event": "^13.1.8",
     "@types/node": "14.X.X",
     "@types/jest": "^26.0.23",
-    "@types/lodash": "^4.14.170",
+    "@types/lodash": "^4.14.171",
     "@types/react": "^17.0.10",
     "@types/react-dom": "^17.0.5",
     "@types/react-router-dom": "^5.1.7",
