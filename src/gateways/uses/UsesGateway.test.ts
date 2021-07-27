@@ -1,9 +1,9 @@
 import axios from "axios";
+import { applicationConfig } from "config";
 import { usesFixture } from "fixtures/uses.fixture";
-import { applicationConfig } from "../config";
-import { IAuthGateway } from "./IAuthGateway";
+import { IAuthGateway } from "gateways/auth/IAuthGateway";
+import { IBeaconResponseMapper } from "gateways/mappers/BeaconResponseMapper";
 import { IUsesGateway } from "./IUsesGateway";
-import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 import { UsesGateway } from "./UsesGateway";
 
 jest.mock("axios");

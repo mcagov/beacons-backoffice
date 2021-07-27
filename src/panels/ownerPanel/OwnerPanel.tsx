@@ -5,7 +5,7 @@ import { ErrorState } from "../../components/dataPanel/PanelErrorState";
 import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { IOwner } from "../../entities/IOwner";
-import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
+import { IBeaconsGateway } from "../../gateways/beacons/IBeaconsGateway";
 import { Placeholders } from "../../utils/writingStyle";
 
 interface OwnerSummaryPanelProps {

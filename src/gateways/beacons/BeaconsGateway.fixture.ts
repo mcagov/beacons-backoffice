@@ -1,4 +1,4 @@
-import { deepFreeze } from "../utils";
+import { deepFreeze } from "../../utils";
 
 export const beaconsGatewayFixture = deepFreeze({
   meta: {
