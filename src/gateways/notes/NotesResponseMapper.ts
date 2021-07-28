@@ -13,7 +13,7 @@ export class NotesResponseMapper implements INotesResponseMapper {
       return {
         id: note.id,
         text: note.attributes.text || "",
-        type: NoteType.GENERAL, //TODO: note.attributes.type,
+        type: (<any>NoteType)[note.attributes.type || ""],
         createdDate: isoDate(note.attributes.createdDate || ""),
         userId: note.attributes.userId || "",
         fullName: note.attributes.fullName || "",

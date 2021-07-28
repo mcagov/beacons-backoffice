@@ -1,7 +1,7 @@
+import { singleBeaconApiResponseFixture } from "fixtures/singleBeaconApiResponse.fixture";
 import * as _ from "lodash";
 import { IBeacon } from "../../entities/IBeacon";
 import { beaconFixture } from "../../fixtures/beacons.fixture";
-import { singleBeaconApiResponseFixture } from "../../fixtures/singleBeaconApiResponse.fixture";
 import { BeaconResponseMapper } from "./BeaconResponseMapper";
 import { IBeaconResponse } from "./IBeaconResponse";
 

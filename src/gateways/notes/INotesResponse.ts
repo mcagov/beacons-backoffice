@@ -6,12 +6,12 @@ export interface INotesResponse extends IApiResponse {
       type: string;
       id: string;
       attributes: {
-        text: string;
-        type: string;
-        createdDate: string;
-        userId: string;
-        fullName: string;
-        email: string;
+        text?: string;
+        type?: string;
+        createdDate?: string;
+        userId?: string;
+        fullName?: string;
+        email?: string;
       };
       links: { verb: string; path: string }[];
       relationships: {};
