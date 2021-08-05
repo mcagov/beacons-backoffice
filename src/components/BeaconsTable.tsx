@@ -86,9 +86,8 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       setState((currentState) => ({ ...currentState, isLoading: true }));
       try {
         const response = await beaconsGateway.getAllBeacons();
-        console.log("Beacons", response.data);
 
-        let beacons = response.data.map((item: any) => ({
+        const beacons = response.data.map((item: any) => ({
           date: item.attributes.lastModifiedDate,
           status: item.attributes.beaconStatus,
           hexId: item.attributes.hexId,
@@ -97,7 +96,6 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           id: item.id,
         }));
 
-        console.log("Setting the state", beacons);
         setState((currentState) => ({
           ...currentState,
           isLoading: false,
