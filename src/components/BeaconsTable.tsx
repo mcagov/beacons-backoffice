@@ -24,8 +24,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { formatUses, titleCase } from "utils/writingStyle";
-import { formatDateLong } from "../utils/dateTime";
 
 interface BeaconTableListRow {
   hexId: string;
@@ -88,15 +86,18 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       setState((currentState) => ({ ...currentState, isLoading: true }));
       try {
         const response = await beaconsGateway.getAllBeacons();
+        console.log("Beacons", response.data);
 
-        const beacons = response.data.map((item: any) => ({
-          date: formatDateLong(item.attributes.createdDate),
-          status: titleCase(item.attributes.status),
+        let beacons = response.data.map((item: any) => ({
+          date: item.attributes.lastModifiedDate,
+          status: item.attributes.beaconStatus,
           hexId: item.attributes.hexId,
-          owner: item.attributes.owner.fullName,
-          uses: formatUses(item.attributes.uses),
+          owner: item.attributes.ownerName,
+          uses: item.attributes.beaconUse,
           id: item.id,
         }));
+
+        console.log("Setting the state", beacons);
         setState((currentState) => ({
           ...currentState,
           isLoading: false,
@@ -116,22 +117,26 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     fetchBeacons();
   }, [beaconsGateway]);
 
+  console.log(state);
+
   return (
     <MaterialTable
       icons={tableIcons}
       columns={[
         {
-          title: "Date",
+          title: "Last Updated Date",
           field: "date",
           filtering: false,
           sorting: true,
           defaultSort: "desc",
+          type: "datetime",
+          dateSetting: { format: "dd MM yyyy", locale: "en-GB" },
         },
         {
           title: "Status",
           field: "status",
           sorting: true,
-          defaultFilter: "New",
+          defaultFilter: "MIGRATED",
         },
         {
           title: "Hex ID",
