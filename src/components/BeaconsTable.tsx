@@ -24,8 +24,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { formatUses, titleCase } from "utils/writingStyle";
-import { formatDateLong } from "../utils/dateTime";
+import { IBeaconSearchResultData } from "../entities/IBeaconSearchResult";
 
 interface BeaconTableListRow {
   hexId: string;
@@ -89,14 +88,15 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       try {
         const response = await beaconsGateway.getAllBeacons();
 
-        const beacons = response.data.map((item: any) => ({
-          date: formatDateLong(item.attributes.createdDate),
-          status: titleCase(item.attributes.status),
+        const beacons = response.data.map((item: IBeaconSearchResultData) => ({
+          date: item.attributes.lastModifiedDate,
+          status: item.attributes.beaconStatus,
           hexId: item.attributes.hexId,
-          owner: item.attributes.owner.fullName,
-          uses: formatUses(item.attributes.uses),
+          owner: item.attributes.ownerName,
+          uses: item.attributes.beaconUse,
           id: item.id,
         }));
+
         setState((currentState) => ({
           ...currentState,
           isLoading: false,
@@ -121,17 +121,18 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       icons={tableIcons}
       columns={[
         {
-          title: "Date",
+          title: "Last updated date",
           field: "date",
           filtering: false,
           sorting: true,
           defaultSort: "desc",
+          type: "datetime",
+          dateSetting: { format: "dd MM yyyy", locale: "en-GB" },
         },
         {
           title: "Status",
           field: "status",
           sorting: true,
-          defaultFilter: "New",
         },
         {
           title: "Hex ID",

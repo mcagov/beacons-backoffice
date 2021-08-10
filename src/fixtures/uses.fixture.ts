@@ -51,7 +51,7 @@ const getUseFixture = (id: string, mainUse: boolean): IUse =>
     entityLinks: [{ verb: "PATCH", path: `/beacon-uses/${id}` }],
   });
 
-export const usesFixture: IUse[] = deepFreeze([
+export const usesFixture = deepFreeze<IUse[]>([
   {
     ...getUseFixture("e00036c4-e3f4-46bb-aa9e-1d91870d9172", true),
   },
