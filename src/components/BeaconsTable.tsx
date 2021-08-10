@@ -121,7 +121,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       icons={tableIcons}
       columns={[
         {
-          title: "Last Updated Date",
+          title: "Last updated date",
           field: "date",
           filtering: false,
           sorting: true,
