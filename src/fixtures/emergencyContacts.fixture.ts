@@ -1,7 +1,7 @@
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { deepFreeze } from "../utils";
 
-export const emergencyContactsFixture: IEmergencyContact[] = deepFreeze([
+export const emergencyContactsFixture = deepFreeze<IEmergencyContact[]>([
   {
     id: "5ffd1b86-d347-49e2-b821-4550c72666c1",
     fullName: "Lady Hamilton",

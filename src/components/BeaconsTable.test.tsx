@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { beaconsGatewayFixture } from "gateways/beacons/BeaconsGateway.fixture";
 import { IBeaconsGateway } from "gateways/beacons/IBeaconsGateway";
+import { beaconSearchResultFixture } from "../fixtures/beaconSearchResult.fixture";
 import { BeaconsTable } from "./BeaconsTable";
 
 describe("<BeaconsTable>", () => {
@@ -8,7 +8,7 @@ describe("<BeaconsTable>", () => {
 
   beforeEach(() => {
     beaconsGatewayDouble = {
-      getAllBeacons: jest.fn().mockResolvedValue(beaconsGatewayFixture),
+      getAllBeacons: jest.fn().mockResolvedValue(beaconSearchResultFixture),
       getBeacon: jest.fn(),
       updateBeacon: jest.fn(),
     };
