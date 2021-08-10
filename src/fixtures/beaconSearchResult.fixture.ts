@@ -1,6 +1,7 @@
-import { deepFreeze } from "../../utils";
+import { IBeaconSearchResult } from "../entities/IBeaconSearchResult";
+import { deepFreeze } from "../utils";
 
-export const beaconsGatewayFixture = deepFreeze({
+export const beaconSearchResultFixture = deepFreeze<IBeaconSearchResult>({
   meta: {
     count: 3,
     pageSize: 1,
@@ -12,7 +13,7 @@ export const beaconsGatewayFixture = deepFreeze({
       attributes: {
         hexId: "Hex me",
         beaconStatus: "NEW",
-        lastUpdatedDate: "2020-02-01T00:00",
+        lastModifiedDate: "2020-02-01T00:00",
         beaconUse: "Sailing, Kayaking",
         ownerName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
       },
@@ -23,7 +24,7 @@ export const beaconsGatewayFixture = deepFreeze({
       attributes: {
         hexId: "Hex me difficultly",
         beaconStatus: "NEW",
-        lastUpdatedDate: "2020-02-01T00:00",
+        lastModifiedDate: "2020-02-01T00:00",
         beaconUse: "Motoring",
         ownerName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
       },
@@ -34,7 +35,7 @@ export const beaconsGatewayFixture = deepFreeze({
       attributes: {
         hexId: "Hex me beacon",
         beaconStatus: "NEW",
-        lastUpdatedDate: "2020-02-01T00:00",
+        lastModifiedDate: "2020-02-01T00:00",
         beaconUse: "Vesseling",
         ownerName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
       },

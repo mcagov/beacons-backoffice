@@ -115,6 +115,8 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     fetchBeacons();
   }, [beaconsGateway]);
 
+  console.log(state.beacons);
+
   return (
     <MaterialTable
       icons={tableIcons}
