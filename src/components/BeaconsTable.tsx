@@ -24,6 +24,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { IBeaconSearchResultData } from "../entities/IBeaconSearchResult";
 
 interface BeaconTableListRow {
   hexId: string;
@@ -87,7 +88,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       try {
         const response = await beaconsGateway.getAllBeacons();
 
-        const beacons = response.data.map((item: any) => ({
+        const beacons = response.data.map((item: IBeaconSearchResultData) => ({
           date: item.attributes.lastModifiedDate,
           status: item.attributes.beaconStatus,
           hexId: item.attributes.hexId,
@@ -115,8 +116,6 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     fetchBeacons();
   }, [beaconsGateway]);
 
-  console.log(state.beacons);
-
   return (
     <MaterialTable
       icons={tableIcons}
@@ -134,7 +133,6 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           title: "Status",
           field: "status",
           sorting: true,
-          defaultFilter: "MIGRATED",
         },
         {
           title: "Hex ID",
