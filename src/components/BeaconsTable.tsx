@@ -16,7 +16,7 @@ import {
   Search,
   ViewColumn,
 } from "@material-ui/icons";
-import { IBeaconsGateway } from "gateways/IBeaconsGateway";
+import { IBeaconsGateway } from "gateways/beacons/IBeaconsGateway";
 import MaterialTable, { Icons, MTableBodyRow } from "material-table";
 import React, {
   forwardRef,

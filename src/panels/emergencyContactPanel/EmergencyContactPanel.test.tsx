@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { beaconFixture } from "fixtures/beacons.fixture";
 import { emergencyContactsFixture } from "fixtures/emergencyContacts.fixture";
 import * as _ from "lodash";
-import { IBeaconsGateway } from "../../gateways/IBeaconsGateway";
+import { IBeaconsGateway } from "../../gateways/beacons/IBeaconsGateway";
 import { EmergencyContactPanel } from "./EmergencyContactPanel";
 
 describe("Emergency Contact Summary Panel", () => {

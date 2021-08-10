@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from "axios";
+import { applicationConfig } from "config";
+import { IBeacon } from "entities/IBeacon";
 import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
-import { applicationConfig } from "../config";
-import { IBeacon } from "../entities/IBeacon";
-import { IAuthGateway } from "./IAuthGateway";
+import { IAuthGateway } from "gateways/auth/IAuthGateway";
+import { IBeaconRequestMapper } from "gateways/mappers/BeaconRequestMapper";
+import { IBeaconResponseMapper } from "gateways/mappers/BeaconResponseMapper";
 import { IBeaconsGateway } from "./IBeaconsGateway";
-import { IBeaconRequestMapper } from "./mappers/BeaconRequestMapper";
-import { IBeaconResponseMapper } from "./mappers/BeaconResponseMapper";
 
 export class BeaconsGateway implements IBeaconsGateway {
   private _beaconResponseMapper;
