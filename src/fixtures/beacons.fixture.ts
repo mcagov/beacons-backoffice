@@ -1,10 +1,12 @@
 import { BeaconStatuses, IBeacon } from "../entities/IBeacon";
+import { IEmergencyContact } from "../entities/IEmergencyContact";
+import { IUse } from "../entities/IUse";
 import { deepFreeze } from "../utils";
 import { emergencyContactsFixture } from "./emergencyContacts.fixture";
 import { testOwners } from "./owner.fixture";
 import { usesFixture } from "./uses.fixture";
 
-export const beaconFixture: IBeacon = deepFreeze({
+export const beaconFixture = deepFreeze<IBeacon>({
   id: "f48e8212-2e10-4154-95c7-bdfd061bcfd2",
   hexId: "1D0EA08C52FFBFF",
   type: "Beacon type to be derived from Hex ID",
@@ -18,9 +20,9 @@ export const beaconFixture: IBeacon = deepFreeze({
   chkCode: "456QWE",
   batteryExpiryDate: "2020-02-01",
   lastServicedDate: "2020-02-01",
-  uses: usesFixture,
+  uses: usesFixture as IUse[],
   owners: testOwners,
-  emergencyContacts: emergencyContactsFixture,
+  emergencyContacts: emergencyContactsFixture as IEmergencyContact[],
   entityLinks: [
     { verb: "GET", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
     { verb: "PATCH", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },
