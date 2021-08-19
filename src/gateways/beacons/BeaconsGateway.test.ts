@@ -50,10 +50,10 @@ describe("BeaconsGateway", () => {
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
-      await gateway.getAllBeacons();
+      await gateway.getAllBeacons("", "", "");
 
       expect(axios.get).toHaveBeenCalledWith(
-        `${applicationConfig.apiUrl}/beacons`,
+        `${applicationConfig.apiUrl}/beacon-search/search/find-all?term=&status=&uses=`,
         config
       );
     });
