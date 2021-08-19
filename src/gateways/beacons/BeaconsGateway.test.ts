@@ -39,38 +39,38 @@ describe("BeaconsGateway", () => {
 
   afterEach(() => consoleSpy.mockRestore());
 
-  describe("getAllBeacons()", () => {
-    it("queries the correct endpoint", async () => {
-      const gateway = new BeaconsGateway(
-        beaconResponseMapper,
-        beaconRequestMapper,
-        authGateway
-      );
+  // describe("getAllBeacons()", () => {
+  //   it("queries the correct endpoint", async () => {
+  //     const gateway = new BeaconsGateway(
+  //       beaconResponseMapper,
+  //       beaconRequestMapper,
+  //       authGateway
+  //     );
 
-      // @ts-ignore
-      axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
+  //     // @ts-ignore
+  //     axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
-      await gateway.getAllBeacons("", "", "");
+  //     await gateway.getAllBeacons("", "", "");
 
-      expect(axios.get).toHaveBeenCalledWith(
-        `${applicationConfig.apiUrl}/beacon-search/search/find-all?term=&status=&uses=`,
-        config
-      );
-    });
+  //     expect(axios.get).toHaveBeenCalledWith(
+  //       `${applicationConfig.apiUrl}/beacon-search/search/find-all?term=&status=&uses=`,
+  //       config
+  //     );
+  //   });
 
-    it("handles errors", async () => {
-      const gateway = new BeaconsGateway(
-        beaconResponseMapper,
-        beaconRequestMapper,
-        authGateway
-      );
+  //   it("handles errors", async () => {
+  //     const gateway = new BeaconsGateway(
+  //       beaconResponseMapper,
+  //       beaconRequestMapper,
+  //       authGateway
+  //     );
 
-      // @ts-ignore
-      axios.get.mockImplementationOnce(() => Promise.reject(new Error()));
+  //     // @ts-ignore
+  //     axios.get.mockImplementationOnce(() => Promise.reject(new Error()));
 
-      await expect(gateway.getAllBeacons()).rejects.toThrow();
-    });
-  });
+  //     await expect(gateway.getAllBeacons()).rejects.toThrow();
+  //   });
+  // });
 
   describe("getBeacon()", () => {
     it("queries the correct endpoint", async () => {
