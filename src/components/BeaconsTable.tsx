@@ -65,6 +65,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           field: "lastModifiedDate",
           filtering: false,
           sorting: true,
+          defaultSort: "desc",
           type: "datetime",
           dateSetting: { format: "dd MM yyyy", locale: "en-GB" },
         },
@@ -95,7 +96,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           const term = query.search;
           let statusFilterValue = "";
           let useFilterValue = "";
-          let sortValue = "";
+          let sortValue = "lastModifiedDate,desc";
           query.filters.forEach((filter) => {
             if (filter.column.field === "status")
               statusFilterValue = filter.value;
