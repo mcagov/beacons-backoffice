@@ -73,15 +73,13 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           title: "Last modified date",
           field: "lastModifiedDate",
           filtering: false,
-          sorting: true,
           defaultSort: "desc",
           type: "datetime",
           dateSetting: { format: "dd MM yyyy", locale: "en-GB" },
         },
         {
-          sorting: false,
           title: "Status",
-          field: "status",
+          field: "beaconStatus",
           render: (rowData: BeaconTableListRow) => {
             if (rowData.beaconStatus === "MIGRATED") {
               return <Chip label={rowData.beaconStatus} color="secondary" />;
@@ -118,7 +116,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
         },
         {
           title: "Beacon use",
-          field: "uses",
+          field: "useActivities",
           render: (rowData: BeaconTableListRow) => {
             return rowData.useActivities
               ? rowData.useActivities.toUpperCase()
