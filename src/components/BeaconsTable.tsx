@@ -112,14 +112,14 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           field: "owner",
           filtering: false,
           render: (rowData: BeaconTableListRow) => {
-            return rowData.owner.toUpperCase();
+            return rowData.owner ? rowData.owner.toUpperCase() : "";
           },
         },
         {
           title: "Beacon use",
           field: "uses",
           render: (rowData: BeaconTableListRow) => {
-            return rowData.uses.toUpperCase();
+            return rowData.uses ? rowData.uses.toUpperCase() : "";
           },
         },
       ]}
