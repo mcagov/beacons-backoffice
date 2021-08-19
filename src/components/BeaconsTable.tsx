@@ -25,6 +25,15 @@ interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
 }
 
+interface BeaconTableListRow {
+  hexId: string;
+  owner: string;
+  uses: string;
+  id: string;
+  lastModifiedDate: string;
+  status: string;
+}
+
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
   beaconsGateway,
 }): JSX.Element => {
@@ -77,9 +86,19 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           title: "Hex ID",
           field: "hexId",
           filtering: false,
-          render: (rowData) => (
-            <Link href={"/#/beacons/" + rowData.hexId}>{rowData.hexId}</Link>
-          ),
+          render: (rowData: BeaconTableListRow) => {
+            if (rowData.status === "MIGRATED") {
+              return (
+                <Link href={"/#/beacons/" + rowData.id}>{rowData.hexId}</Link>
+              );
+            } else {
+              return (
+                <Link href={"/#/beacons-legacy/" + rowData.id}>
+                  {rowData.hexId}
+                </Link>
+              );
+            }
+          },
         },
         {
           title: "Owner details",
@@ -96,7 +115,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           const term = query.search;
           let statusFilterValue = "";
           let useFilterValue = "";
-          let sortValue = "lastModifiedDate,desc";
+          let sortValue = "";
           query.filters.forEach((filter) => {
             if (filter.column.field === "status")
               statusFilterValue = filter.value;
@@ -125,7 +144,9 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
                 hexId: item.hexId,
                 owner: item.ownerName,
                 uses: item.useActivities,
-                id: "item.id",
+                id: item._links.self.href.substring(
+                  item._links.self.href.indexOf("/") + 1
+                ),
               })
             );
             resolve({

@@ -10,10 +10,18 @@ export interface IBeaconSearchResult {
 }
 
 export interface IBeaconSearchResultData {
-  // id: string;
+  id: string;
   lastModifiedDate: string;
   beaconStatus: string;
   hexId: string;
   ownerName: string;
   useActivities: string;
+  _links: {
+    self: {
+      href: string;
+    };
+    beaconSearchEntity: {
+      href: string;
+    };
+  };
 }
