@@ -1,4 +1,4 @@
-import { Link, Paper } from "@material-ui/core";
+import { Chip, Link, Paper } from "@material-ui/core";
 import {
   AddBox,
   ArrowDownward,
@@ -81,6 +81,13 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
         {
           title: "Status",
           field: "status",
+          render: (rowData: BeaconTableListRow) => {
+            if (rowData.status === "MIGRATED") {
+              return <Chip label={rowData.status} color="primary" />;
+            } else {
+              return <Chip label={rowData.status} color="secondary" />;
+            }
+          },
         },
         {
           title: "Hex ID",
