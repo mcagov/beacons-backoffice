@@ -18,30 +18,11 @@ import {
 } from "@material-ui/icons";
 import { IBeaconsGateway } from "gateways/beacons/IBeaconsGateway";
 import MaterialTable, { Icons, MTableBodyRow } from "material-table";
-import React, {
-  forwardRef,
-  FunctionComponent,
-  useEffect,
-  useState,
-} from "react";
+import React, { forwardRef, FunctionComponent } from "react";
 import { IBeaconSearchResultData } from "../entities/IBeaconSearchResult";
-
-interface BeaconTableListRow {
-  hexId: string;
-  owner: string;
-  uses: string;
-  id: string;
-  date: string;
-  status: string;
-}
 
 interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
-}
-
-interface IBeaconsTableState {
-  isLoading: Boolean;
-  error: Boolean;
 }
 
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
@@ -74,27 +55,6 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     )),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
-
-  const [state, setState] = useState<IBeaconsTableState>({
-    isLoading: true,
-    error: false,
-  });
-
-  useEffect((): void => {
-    const fetchBeacons = async () => {
-      try {
-      } catch (error) {
-        console.error("Could not fetch beacons", error);
-        setState((currentState) => ({
-          ...currentState,
-          isLoading: false,
-          error: error?.message,
-        }));
-      }
-    };
-
-    fetchBeacons();
-  }, [beaconsGateway]);
 
   return (
     <MaterialTable
