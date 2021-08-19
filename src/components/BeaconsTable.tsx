@@ -27,11 +27,11 @@ interface IBeaconsTableProps {
 
 interface BeaconTableListRow {
   hexId: string;
-  owner: string;
-  uses: string;
+  ownerName: string;
+  useActivities: string;
   id: string;
   lastModifiedDate: string;
-  status: string;
+  beaconStatus: string;
 }
 
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
@@ -79,13 +79,14 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           dateSetting: { format: "dd MM yyyy", locale: "en-GB" },
         },
         {
+          sorting: false,
           title: "Status",
           field: "status",
           render: (rowData: BeaconTableListRow) => {
-            if (rowData.status === "MIGRATED") {
-              return <Chip label={rowData.status} color="secondary" />;
+            if (rowData.beaconStatus === "MIGRATED") {
+              return <Chip label={rowData.beaconStatus} color="secondary" />;
             } else {
-              return <Chip label={rowData.status} color="primary" />;
+              return <Chip label={rowData.beaconStatus} color="primary" />;
             }
           },
         },
@@ -94,7 +95,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           field: "hexId",
           filtering: false,
           render: (rowData: BeaconTableListRow) => {
-            if (rowData.status === "MIGRATED") {
+            if (rowData.beaconStatus === "MIGRATED") {
               return (
                 <Link href={"/#/beacons-legacy/" + rowData.id}>
                   {rowData.hexId}
@@ -109,17 +110,19 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
         },
         {
           title: "Owner details",
-          field: "owner",
+          field: "ownerName",
           filtering: false,
           render: (rowData: BeaconTableListRow) => {
-            return rowData.owner ? rowData.owner.toUpperCase() : "";
+            return rowData.ownerName ? rowData.ownerName.toUpperCase() : "";
           },
         },
         {
           title: "Beacon use",
           field: "uses",
           render: (rowData: BeaconTableListRow) => {
-            return rowData.uses ? rowData.uses.toUpperCase() : "";
+            return rowData.useActivities
+              ? rowData.useActivities.toUpperCase()
+              : "";
           },
         },
       ]}
@@ -153,10 +156,10 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
             const beacons = response._embedded["beacon-search"].map(
               (item: IBeaconSearchResultData) => ({
                 lastModifiedDate: item.lastModifiedDate,
-                status: item.beaconStatus,
+                beaconStatus: item.beaconStatus,
                 hexId: item.hexId,
-                owner: item.ownerName,
-                uses: item.useActivities,
+                ownerName: item.ownerName,
+                useActivities: item.useActivities,
                 id: item._links.self.href.substring(
                   item._links.self.href.lastIndexOf("/") + 1
                 ),
