@@ -104,10 +104,16 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           title: "Owner details",
           field: "owner",
           filtering: false,
+          render: (rowData: BeaconTableListRow) => {
+            return rowData.owner.toUpperCase();
+          },
         },
         {
           title: "Beacon use",
           field: "uses",
+          render: (rowData: BeaconTableListRow) => {
+            return rowData.uses.toUpperCase();
+          },
         },
       ]}
       data={(query) =>
@@ -145,7 +151,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
                 owner: item.ownerName,
                 uses: item.useActivities,
                 id: item._links.self.href.substring(
-                  item._links.self.href.indexOf("/") + 1
+                  item._links.self.href.lastIndexOf("/") + 1
                 ),
               })
             );
