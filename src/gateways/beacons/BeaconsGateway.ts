@@ -27,11 +27,12 @@ export class BeaconsGateway implements IBeaconsGateway {
     status: string = "",
     uses: string = "",
     page: number = 0,
-    size: number = 20
+    size: number = 20,
+    sort: string = ""
   ): Promise<IBeaconSearchResult> {
     try {
       const response = await this._makeGetRequest(
-        `/beacon-search/search/find-all?term=${term}&status=${status}&uses=${uses}&page=${page}&size=${size}`
+        `/beacon-search/search/find-all?term=${term}&status=${status}&uses=${uses}&page=${page}&size=${size}&sort=${sort}`
       );
       return response.data;
     } catch (e) {

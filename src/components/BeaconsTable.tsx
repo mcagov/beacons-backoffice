@@ -62,21 +62,20 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       columns={[
         {
           title: "Last modified date",
-          field: "date",
+          field: "lastModifiedDate",
           filtering: false,
+          sorting: true,
           type: "datetime",
           dateSetting: { format: "dd MM yyyy", locale: "en-GB" },
         },
         {
           title: "Status",
           field: "status",
-          sorting: true,
         },
         {
           title: "Hex ID",
           field: "hexId",
           filtering: false,
-          sorting: true,
           render: (rowData) => (
             <Link href={"/#/beacons/" + rowData.hexId}>{rowData.hexId}</Link>
           ),
@@ -85,12 +84,10 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           title: "Owner details",
           field: "owner",
           filtering: false,
-          sorting: true,
         },
         {
           title: "Beacon use",
           field: "uses",
-          sorting: true,
         },
       ]}
       data={(query) =>
@@ -98,22 +95,31 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           const term = query.search;
           let statusFilterValue = "";
           let useFilterValue = "";
+          let sortValue = "";
           query.filters.forEach((filter) => {
             if (filter.column.field === "status")
               statusFilterValue = filter.value;
             if (filter.column.field === "uses") useFilterValue = filter.value;
           });
+          if (query.orderBy) {
+            const sortField = query.orderBy.field;
+            const sortDirection = query.orderDirection;
+            if (sortField && sortDirection) {
+              sortValue = `${sortField},${sortDirection}`;
+            }
+          }
           try {
             const response = await beaconsGateway.getAllBeacons(
               term,
               statusFilterValue,
               useFilterValue,
               query.page,
-              query.pageSize
+              query.pageSize,
+              sortValue
             );
             const beacons = response._embedded["beacon-search"].map(
               (item: IBeaconSearchResultData) => ({
-                date: item.lastModifiedDate,
+                lastModifiedDate: item.lastModifiedDate,
                 status: item.beaconStatus,
                 hexId: item.hexId,
                 owner: item.ownerName,
