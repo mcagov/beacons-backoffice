@@ -22,10 +22,15 @@ export class BeaconsGateway implements IBeaconsGateway {
     this._authGateway = authGateway;
   }
 
-  public async getAllBeacons(): Promise<IBeaconSearchResult> {
+  public async getAllBeacons(
+    term: string = "",
+    status: string = "",
+    uses: string = ""
+  ): Promise<IBeaconSearchResult> {
     try {
-      const response = await this._makeGetRequest("/beacons");
-      // TODO: Add map step to /beacons endpoint
+      const response = await this._makeGetRequest(
+        `/beacon-search/search/find-all?term=${term}&status=${status}&uses=${uses}`
+      );
       return response.data;
     } catch (e) {
       console.error(e);

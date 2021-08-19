@@ -42,7 +42,6 @@ interface IBeaconsTableProps {
 interface IBeaconsTableState {
   isLoading: Boolean;
   error: Boolean;
-  beacons: BeaconTableListRow[];
 }
 
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
@@ -79,30 +78,11 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
   const [state, setState] = useState<IBeaconsTableState>({
     isLoading: true,
     error: false,
-    beacons: [],
   });
 
   useEffect((): void => {
     const fetchBeacons = async () => {
-      setState((currentState) => ({ ...currentState, isLoading: true }));
       try {
-        const response = await beaconsGateway.getAllBeacons();
-
-        const beacons = response.data.map((item: IBeaconSearchResultData) => ({
-          date: item.attributes.lastModifiedDate,
-          status: item.attributes.beaconStatus,
-          hexId: item.attributes.hexId,
-          owner: item.attributes.ownerName,
-          uses: item.attributes.beaconUse,
-          id: item.id,
-        }));
-
-        setState((currentState) => ({
-          ...currentState,
-          isLoading: false,
-          error: false,
-          beacons,
-        }));
       } catch (error) {
         console.error("Could not fetch beacons", error);
         setState((currentState) => ({
@@ -121,11 +101,9 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       icons={tableIcons}
       columns={[
         {
-          title: "Last updated date",
+          title: "Last modified date",
           field: "date",
           filtering: false,
-          sorting: true,
-          defaultSort: "desc",
           type: "datetime",
           dateSetting: { format: "dd MM yyyy", locale: "en-GB" },
         },
@@ -140,7 +118,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           filtering: false,
           sorting: true,
           render: (rowData) => (
-            <Link href={"/#/beacons/" + rowData.id}>{rowData.hexId}</Link>
+            <Link href={"/#/beacons/" + rowData.hexId}>{rowData.hexId}</Link>
           ),
         },
         {
@@ -155,7 +133,42 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           sorting: true,
         },
       ]}
-      data={state.beacons}
+      data={(query) =>
+        new Promise(async (resolve, reject) => {
+          const term = query.search;
+          let statusFilterValue = "";
+          let useFilterValue = "";
+          query.filters.forEach((filter) => {
+            if (filter.column.field === "status")
+              statusFilterValue = filter.value;
+            if (filter.column.field === "uses") useFilterValue = filter.value;
+          });
+          try {
+            const response = await beaconsGateway.getAllBeacons(
+              term,
+              statusFilterValue,
+              useFilterValue
+            );
+            const beacons = response._embedded["beacon-search"].map(
+              (item: IBeaconSearchResultData) => ({
+                date: item.lastModifiedDate,
+                status: item.beaconStatus,
+                hexId: item.hexId,
+                owner: item.ownerName,
+                uses: item.useActivities,
+                id: "item.id",
+              })
+            );
+            resolve({
+              data: beacons,
+              page: response.page.number,
+              totalCount: response.page.totalElements,
+            });
+          } catch (error) {
+            console.error("Could not fetch beacons", error);
+          }
+        })
+      }
       title=""
       options={{
         filtering: true,
