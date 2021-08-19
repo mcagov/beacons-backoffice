@@ -83,9 +83,9 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           field: "status",
           render: (rowData: BeaconTableListRow) => {
             if (rowData.status === "MIGRATED") {
-              return <Chip label={rowData.status} color="primary" />;
-            } else {
               return <Chip label={rowData.status} color="secondary" />;
+            } else {
+              return <Chip label={rowData.status} color="primary" />;
             }
           },
         },
