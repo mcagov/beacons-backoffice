@@ -5,7 +5,9 @@ export interface IBeaconsGateway {
   getAllBeacons: (
     term: string,
     status: string,
-    uses: string
+    uses: string,
+    page: number,
+    pageSize: number
   ) => Promise<IBeaconSearchResult>;
   getBeacon: (id: string) => Promise<IBeacon>;
   updateBeacon: (

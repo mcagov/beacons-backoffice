@@ -107,7 +107,9 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
             const response = await beaconsGateway.getAllBeacons(
               term,
               statusFilterValue,
-              useFilterValue
+              useFilterValue,
+              query.page,
+              query.pageSize
             );
             const beacons = response._embedded["beacon-search"].map(
               (item: IBeaconSearchResultData) => ({
