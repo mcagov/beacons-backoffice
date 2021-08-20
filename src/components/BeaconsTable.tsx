@@ -96,12 +96,14 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
             if (rowData.beaconStatus === "MIGRATED") {
               return (
                 <Link href={"/#/beacons-legacy/" + rowData.id}>
-                  {rowData.hexId}
+                  {rowData.hexId ? rowData.hexId : <i>Placeholders.NoData</i>}
                 </Link>
               );
             } else {
               return (
-                <Link href={"/#/beacons/" + rowData.id}>{rowData.hexId}</Link>
+                <Link href={"/#/beacons/" + rowData.id}>
+                  {rowData.hexId ? rowData.hexId : <i>Placeholders.NoData</i>}
+                </Link>
               );
             }
           },
