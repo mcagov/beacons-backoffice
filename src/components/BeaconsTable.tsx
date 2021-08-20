@@ -131,9 +131,10 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           let useFilterValue = "";
           let sortValue = "";
           query.filters.forEach((filter) => {
-            if (filter.column.field === "status")
+            if (filter.column.field === "beaconStatus")
               statusFilterValue = filter.value;
-            if (filter.column.field === "uses") useFilterValue = filter.value;
+            if (filter.column.field === "useActivities")
+              useFilterValue = filter.value;
           });
           if (query.orderBy) {
             const sortField = query.orderBy.field;
