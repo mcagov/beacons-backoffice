@@ -19,6 +19,7 @@ import {
 import { IBeaconsGateway } from "gateways/beacons/IBeaconsGateway";
 import MaterialTable, { Icons, MTableBodyRow } from "material-table";
 import React, { forwardRef, FunctionComponent } from "react";
+import { Placeholders } from "utils/writingStyle";
 import { IBeaconSearchResultData } from "../entities/IBeaconSearchResult";
 
 interface IBeaconsTableProps {
@@ -96,13 +97,13 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
             if (rowData.beaconStatus === "MIGRATED") {
               return (
                 <Link href={"/#/beacons-legacy/" + rowData.id}>
-                  {rowData.hexId ? rowData.hexId : <i>Placeholders.NoData</i>}
+                  {rowData.hexId ? rowData.hexId : <i>{Placeholders.NoData}</i>}
                 </Link>
               );
             } else {
               return (
                 <Link href={"/#/beacons/" + rowData.id}>
-                  {rowData.hexId ? rowData.hexId : <i>Placeholders.NoData</i>}
+                  {rowData.hexId ? rowData.hexId : <i>{Placeholders.NoData}</i>}
                 </Link>
               );
             }
