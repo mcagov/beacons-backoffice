@@ -2,6 +2,7 @@ import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { ILegacyBeacon } from "entities/ILegacyBeacon";
 import { LegacyBeaconSummaryPanel } from "panels/legacyBeaconSummaryPanel/LegacyBeaconSummaryPanel";
+import { LegacyOwnerPanel } from "panels/legacyOwnerPanel/LegacyOwnerPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
@@ -60,7 +61,6 @@ export const SingleLegacyBeaconRecordView: FunctionComponent<ISingleLegacyBeacon
           Hex ID/UIN: {hexId} ({beaconType})
         </PageHeader>
         <PageContent>
-          {/* {`${JSON.stringify(beacon)}`} */}
           <LegacyBeaconSummaryPanel legacyBeacon={beacon} />
           <Tabs value={selectedTab} onChange={handleChange}>
             <Tab label="Owner & Emergency Contacts" />
@@ -69,13 +69,13 @@ export const SingleLegacyBeaconRecordView: FunctionComponent<ISingleLegacyBeacon
           <TabPanel value={selectedTab} index={0}>
             <Grid direction="row" container justify="space-between" spacing={1}>
               <Grid item xs={6}>
-                {/* <OwnerPanel
-                  beaconsGateway={beaconsGateway}
-                  beaconId={beaconId}
-                /> */}
+                <LegacyOwnerPanel
+                  legacyOwner={beacon.owner}
+                  secondaryLegacyOwners={beacon.secondaryOwners}
+                />
               </Grid>
               <Grid item xs={6}>
-                {/* <EmergencyContactPanel
+                {/* <LegacyEmergencyContactPanel
                   beaconsGateway={beaconsGateway}
                   beaconId={beaconId}
                 /> */}

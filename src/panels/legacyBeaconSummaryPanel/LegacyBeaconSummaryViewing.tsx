@@ -22,14 +22,14 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
     //   key: "CHK code",
     //   value: beacon?.chkCode,
     // },
-    // {
-    //   key: "Protocol code",
-    //   value: beacon?.protocolCode,
-    // },
-    // {
-    //   key: "Coding method",
-    //   value: beacon?.codingMethod,
-    // },
+    {
+      key: "Protocol",
+      value: legacyBeacon?.protocol,
+    },
+    {
+      key: "Coding",
+      value: legacyBeacon?.coding,
+    },
     {
       key: "Battery expiry date",
       value: legacyBeacon?.batteryExpiryDate,
