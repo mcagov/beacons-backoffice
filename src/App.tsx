@@ -17,8 +17,10 @@ import { Navigation } from "./components/layout/Navigation";
 import { applicationConfig } from "./config";
 import { BeaconRequestMapper } from "./gateways/mappers/BeaconRequestMapper";
 import { BeaconResponseMapper } from "./gateways/mappers/BeaconResponseMapper";
+import { LegacyBeaconResponseMapper } from "./gateways/mappers/LegacyBeaconResponseMapper";
 import { BeaconRecordsListView } from "./views/BeaconRecordsListView";
 import { SingleBeaconRecordView } from "./views/SingleBeaconRecordView";
+import { SingleLegacyBeaconRecordView } from "./views/SingleLegacyBeaconRecordView";
 
 interface ResourceParams {
   id: string;
@@ -35,10 +37,12 @@ const pca = new PublicClientApplication(configuration);
 
 const App: FunctionComponent = () => {
   const beaconResponseMapper = new BeaconResponseMapper();
+  const legacyBeaconResponseMapper = new LegacyBeaconResponseMapper();
   const authGateway = new AuthGateway(pca);
   const beaconRequestMapper = new BeaconRequestMapper();
   const beaconsGateway = new BeaconsGateway(
     beaconResponseMapper,
+    legacyBeaconResponseMapper,
     beaconRequestMapper,
     authGateway
   );
@@ -55,6 +59,16 @@ const App: FunctionComponent = () => {
     );
   };
 
+  const SingleLegacyBeaconRecordViewWithParam: FunctionComponent = () => {
+    const { id } = useParams<ResourceParams>();
+    return (
+      <SingleLegacyBeaconRecordView
+        beaconsGateway={beaconsGateway}
+        beaconId={id}
+      />
+    );
+  };
+
   return (
     <AuthWrapper pca={pca}>
       <Router>
@@ -66,6 +80,9 @@ const App: FunctionComponent = () => {
             </Route>
             <Route path="/beacons/:id">
               <SingleBeaconRecordViewWithParam />
+            </Route>
+            <Route path="/legacy-beacons/:id">
+              <SingleLegacyBeaconRecordViewWithParam />
             </Route>
           </Switch>
         </RequireAuth>

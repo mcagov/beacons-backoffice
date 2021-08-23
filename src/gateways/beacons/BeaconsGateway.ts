@@ -2,22 +2,27 @@ import axios, { AxiosResponse } from "axios";
 import { applicationConfig } from "config";
 import { IBeacon } from "entities/IBeacon";
 import { IBeaconSearchResult } from "entities/IBeaconSearchResult";
+import { ILegacyBeacon } from "entities/ILegacyBeacon";
 import { IAuthGateway } from "gateways/auth/IAuthGateway";
 import { IBeaconRequestMapper } from "gateways/mappers/BeaconRequestMapper";
 import { IBeaconResponseMapper } from "gateways/mappers/BeaconResponseMapper";
+import { ILegacyBeaconResponseMapper } from "gateways/mappers/LegacyBeaconResponseMapper";
 import { IBeaconsGateway } from "./IBeaconsGateway";
 
 export class BeaconsGateway implements IBeaconsGateway {
   private _beaconResponseMapper;
+  private _legacyBeaconResponseMapper;
   private _beaconRequestMapper;
   private _authGateway;
 
   public constructor(
     beaconResponseMapper: IBeaconResponseMapper,
+    legacyBeaconResponseMapper: ILegacyBeaconResponseMapper,
     beaconRequestMapper: IBeaconRequestMapper,
     authGateway: IAuthGateway
   ) {
     this._beaconRequestMapper = beaconRequestMapper;
+    this._legacyBeaconResponseMapper = legacyBeaconResponseMapper;
     this._beaconResponseMapper = beaconResponseMapper;
     this._authGateway = authGateway;
   }
@@ -46,6 +51,16 @@ export class BeaconsGateway implements IBeaconsGateway {
       const response = await this._makeGetRequest(`/beacons/${beaconId}`);
 
       return this._beaconResponseMapper.map(response.data);
+    } catch (e) {
+      throw Error(e);
+    }
+  }
+
+  public async getLegacyBeacon(beaconId: string): Promise<ILegacyBeacon> {
+    try {
+      const response = await this._makeGetRequest(`/legacy-beacon/${beaconId}`);
+
+      return this._legacyBeaconResponseMapper.map(response.data);
     } catch (e) {
       throw Error(e);
     }

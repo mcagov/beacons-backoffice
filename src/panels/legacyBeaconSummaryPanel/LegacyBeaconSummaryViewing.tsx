@@ -1,0 +1,56 @@
+import { ILegacyBeacon } from "entities/ILegacyBeacon";
+import { FunctionComponent } from "react";
+import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
+
+export const LegacyBeaconSummaryViewing: FunctionComponent<{
+  legacyBeacon: ILegacyBeacon;
+}> = ({ legacyBeacon }) => {
+  const fields = [
+    {
+      key: "Manufacturer",
+      value: legacyBeacon?.manufacturer,
+    },
+    {
+      key: "Model",
+      value: legacyBeacon?.model,
+    },
+    {
+      key: "Serial number",
+      value: legacyBeacon?.manufacturerSerialNumber,
+    },
+    // {
+    //   key: "CHK code",
+    //   value: beacon?.chkCode,
+    // },
+    // {
+    //   key: "Protocol code",
+    //   value: beacon?.protocolCode,
+    // },
+    // {
+    //   key: "Coding method",
+    //   value: beacon?.codingMethod,
+    // },
+    {
+      key: "Battery expiry date",
+      value: legacyBeacon?.batteryExpiryDate,
+    },
+    {
+      key: "Last serviced date",
+      value: legacyBeacon?.lastServiceDate,
+    },
+    {
+      key: "Owner",
+      value: legacyBeacon?.owner?.ownerName,
+    },
+    {
+      key: "Emergency contacts",
+      value: legacyBeacon?.emergencyContact?.details,
+    },
+    // {
+    //   key: "Registered uses",
+    //   value: formatUses(beacon?.uses || []),
+    // },
+  ];
+
+  return <PanelViewingState fields={fields} columns={2} splitAfter={8} />;
+};

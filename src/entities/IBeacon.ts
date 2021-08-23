@@ -25,6 +25,8 @@ export interface IBeacon {
 
 export enum BeaconStatuses {
   New = "NEW",
+  Deleted = "DELETED",
+  Migrated = "MIGRATED",
 }
 
 export enum BeaconTypes {

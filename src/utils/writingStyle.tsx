@@ -28,6 +28,21 @@ export const formatUse = (use: IUse): string => {
   return formattedActivity + formattedPurpose;
 };
 
+export const formatLegacyUses = (uses: IUse[]): string =>
+  uses.reduce((formattedUses, use, index, uses) => {
+    if (index === uses.length - 1) return formattedUses + formatUse(use);
+    return formattedUses + formatUse(use) + ", ";
+  }, "");
+
+export const formatLegacyUse = (use: IUse): string => {
+  const formattedActivity =
+    use.activity === Activities.Other
+      ? titleCase(use.otherActivity || "")
+      : titleCase(use.activity);
+  const formattedPurpose = use.purpose ? ` (${titleCase(use.purpose)})` : "";
+  return formattedActivity + formattedPurpose;
+};
+
 export const titleCase = (text: string): string => {
   return text
     .replace(/_/g, " ")

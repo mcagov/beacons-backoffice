@@ -1,0 +1,91 @@
+import { Grid, Tab, Tabs } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { ILegacyBeacon } from "entities/ILegacyBeacon";
+import { LegacyBeaconSummaryPanel } from "panels/legacyBeaconSummaryPanel/LegacyBeaconSummaryPanel";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { PageContent } from "../components/layout/PageContent";
+import { PageHeader } from "../components/layout/PageHeader";
+import { TabPanel } from "../components/layout/TabPanel";
+import { IBeaconsGateway } from "../gateways/beacons/IBeaconsGateway";
+import { Placeholders } from "../utils/writingStyle";
+
+interface ISingleLegacyBeaconRecordViewProps {
+  beaconsGateway: IBeaconsGateway;
+  beaconId: string;
+}
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+    },
+  })
+);
+
+export const SingleLegacyBeaconRecordView: FunctionComponent<ISingleLegacyBeaconRecordViewProps> =
+  ({ beaconsGateway, beaconId }): JSX.Element => {
+    const classes = useStyles();
+
+    const [selectedTab, setSelectedTab] = useState<number>(0);
+    const handleChange = (event: React.ChangeEvent<{}>, tab: number) => {
+      setSelectedTab(tab);
+    };
+
+    const [beacon, setBeacon] = useState<ILegacyBeacon>({} as ILegacyBeacon);
+
+    useEffect((): void => {
+      const fetchBeacon = async (id: string) => {
+        try {
+          const beacon = await beaconsGateway.getLegacyBeacon(id);
+          setBeacon(beacon);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      fetchBeacon(beaconId);
+    }, [beaconId, beaconsGateway]);
+
+    const hexId = beacon?.hexId || "";
+    const beaconType =
+      beacon?.beaconType || Placeholders.UnrecognizedBeaconType;
+    const numberOfUses = beacon?.uses?.length.toString() || "";
+
+    return (
+      <div className={classes.root}>
+        <PageHeader>
+          Hex ID/UIN: {hexId} ({beaconType})
+        </PageHeader>
+        <PageContent>
+          {/* {`${JSON.stringify(beacon)}`} */}
+          <LegacyBeaconSummaryPanel legacyBeacon={beacon} />
+          <Tabs value={selectedTab} onChange={handleChange}>
+            <Tab label="Owner & Emergency Contacts" />
+            <Tab label={`${numberOfUses} Registered Uses`} />
+          </Tabs>
+          <TabPanel value={selectedTab} index={0}>
+            <Grid direction="row" container justify="space-between" spacing={1}>
+              <Grid item xs={6}>
+                {/* <OwnerPanel
+                  beaconsGateway={beaconsGateway}
+                  beaconId={beaconId}
+                /> */}
+              </Grid>
+              <Grid item xs={6}>
+                {/* <EmergencyContactPanel
+                  beaconsGateway={beaconsGateway}
+                  beaconId={beaconId}
+                /> */}
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value={selectedTab} index={1}>
+            {/* <UsesListPanel usesGateway={usesGateway} beaconId={beaconId} /> */}
+          </TabPanel>
+        </PageContent>
+      </div>
+    );
+  };

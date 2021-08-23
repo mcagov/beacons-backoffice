@@ -96,8 +96,9 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           render: (rowData: BeaconTableListRow) => {
             if (rowData.beaconStatus === "MIGRATED") {
               return (
-                // <Link href={"/#/beacons-legacy/" + rowData.id}></Link>
-                rowData.hexId ? rowData.hexId : <i>{Placeholders.NoData}</i>
+                <Link href={"/#/legacy-beacons/" + rowData.id}>
+                  {rowData.hexId ? rowData.hexId : <i>{Placeholders.NoData}</i>}
+                </Link>
               );
             } else {
               return (
