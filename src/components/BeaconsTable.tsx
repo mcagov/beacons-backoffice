@@ -154,16 +154,14 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
               query.pageSize,
               sortValue
             );
-            const beacons = response._embedded["beacon-search"].map(
+            const beacons = response._embedded.beaconSearch.map(
               (item: IBeaconSearchResultData) => ({
                 lastModifiedDate: item.lastModifiedDate,
                 beaconStatus: item.beaconStatus,
                 hexId: item.hexId,
                 ownerName: item.ownerName,
                 useActivities: item.useActivities,
-                id: item._links.self.href.substring(
-                  item._links.self.href.lastIndexOf("/") + 1
-                ),
+                id: item.id,
               })
             );
             resolve({
