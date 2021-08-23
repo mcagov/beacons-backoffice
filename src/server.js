@@ -1,5 +1,6 @@
 import { createServer } from "miragejs";
 import { applicationConfig } from "./config";
+import { beaconSearchResultFixture } from "./fixtures/beaconSearchResult.fixture";
 import { manyBeaconsApiResponseFixture } from "./fixtures/manyBeaconsApiResponse.fixture";
 import { singleBeaconApiResponseFixture } from "./fixtures/singleBeaconApiResponse.fixture";
 
@@ -16,6 +17,16 @@ export function makeServer({ environment = "development" } = {}) {
     environment,
 
     routes() {
+      this.get(
+        `${applicationConfig.apiUrl}/beacon-search/search/find-all`,
+        () => {
+          // TODO: Update manyBeaconsApiResponseFixture to match endpoint
+          return {
+            data: beaconSearchResultFixture,
+          };
+        }
+      );
+
       this.get(`${applicationConfig.apiUrl}/beacons`, () => {
         // TODO: Update manyBeaconsApiResponseFixture to match endpoint
         return {

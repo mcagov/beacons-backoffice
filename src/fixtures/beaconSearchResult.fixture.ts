@@ -2,43 +2,62 @@ import { IBeaconSearchResult } from "../entities/IBeaconSearchResult";
 import { deepFreeze } from "../utils";
 
 export const beaconSearchResultFixture = deepFreeze<IBeaconSearchResult>({
-  meta: {
-    count: 3,
-    pageSize: 1,
+  page: {
+    size: 20,
+    totalElements: 3,
+    totalPages: 1,
+    number: 0,
   },
-  data: [
-    {
-      type: "beaconSearchResult",
-      id: "97b306aa-cbd0-4f09-aa24-2d876b983efb",
-      attributes: {
+  _embedded: {
+    beaconSearch: [
+      {
+        id: "97b306aa-cbd0-4f09-aa24-2d876b983efb",
         hexId: "Hex me",
         beaconStatus: "NEW",
         lastModifiedDate: "2020-02-01T00:00",
-        beaconUse: "Sailing, Kayaking",
+        useActivities: "SAILING, KAYAKING",
         ownerName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
+        _links: {
+          self: {
+            href: "/97b306aa-cbd0-4f09-aa24-2d876b983efb",
+          },
+          beaconSearchEntity: {
+            href: "/97b306aa-cbd0-4f09-aa24-2d876b983efb",
+          },
+        },
       },
-    },
-    {
-      type: "beaconSearchResult",
-      id: "97b306aa-cbd0-4f09-aa24-2d876b983efc",
-      attributes: {
+      {
+        id: "97b306aa-cbd0-4f09-aa24-2d876b983efc",
         hexId: "Hex me difficultly",
         beaconStatus: "NEW",
         lastModifiedDate: "2020-02-01T00:00",
-        beaconUse: "Motoring",
+        useActivities: "MOTORING",
         ownerName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
+        _links: {
+          self: {
+            href: "/97b306aa-cbd0-4f09-aa24-2d876b983efc",
+          },
+          beaconSearchEntity: {
+            href: "/97b306aa-cbd0-4f09-aa24-2d876b983efc",
+          },
+        },
       },
-    },
-    {
-      type: "beaconSearchResult",
-      id: "97b306aa-cbd0-4f09-aa24-2d876b983efd",
-      attributes: {
+      {
+        id: "97b306aa-cbd0-4f09-aa24-2d876b983efd",
         hexId: "Hex me beacon",
         beaconStatus: "NEW",
         lastModifiedDate: "2020-02-01T00:00",
-        beaconUse: "Vesseling",
+        useActivities: "VESSELING",
         ownerName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
+        _links: {
+          self: {
+            href: "/97b306aa-cbd0-4f09-aa24-2d876b983efd",
+          },
+          beaconSearchEntity: {
+            href: "/97b306aa-cbd0-4f09-aa24-2d876b983efd",
+          },
+        },
       },
-    },
-  ],
+    ],
+  },
 });
