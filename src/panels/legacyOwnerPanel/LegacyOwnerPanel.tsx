@@ -14,9 +14,6 @@ interface LegacyOwnerSummaryPanelProps {
 export const LegacyOwnerPanel: FunctionComponent<LegacyOwnerSummaryPanelProps> =
   ({ legacyOwner, secondaryLegacyOwners }) => {
     const [error] = useState(false);
-
-    console.log(secondaryLegacyOwners);
-
     let buildOwnerFields = function (legacyOwner: ILegacyOwner) {
       return [
         { key: "Owner Name", value: legacyOwner?.ownerName },
@@ -55,7 +52,7 @@ export const LegacyOwnerPanel: FunctionComponent<LegacyOwnerSummaryPanelProps> =
 
     return (
       <>
-        <Card>
+        <Card key={`main_owner`}>
           <CardContent>
             <CardHeader title="Main Owner" />
             <>
@@ -65,28 +62,26 @@ export const LegacyOwnerPanel: FunctionComponent<LegacyOwnerSummaryPanelProps> =
           </CardContent>
         </Card>
         <br />
-        {secondaryLegacyOwners?.map((secondaryLegacyOwner: ILegacyOwner) => {
-          return (
-            <>
-              <Card>
-                <CardContent>
-                  <CardHeader title="Owner" />
-                  <>
-                    {error && (
-                      <ErrorState message={Placeholders.UnspecifiedError} />
-                    )}
-                    {error || (
-                      <PanelViewingState
-                        fields={buildOwnerFields(secondaryLegacyOwner)}
-                      />
-                    )}
-                  </>
-                </CardContent>
-              </Card>
-              <br />
-            </>
-          );
-        })}
+        {secondaryLegacyOwners?.map((secondaryLegacyOwner, index) => (
+          <>
+            <Card key={"owner_" + index}>
+              <CardContent>
+                <CardHeader title={`Owner`} />
+                <>
+                  {error && (
+                    <ErrorState message={Placeholders.UnspecifiedError} />
+                  )}
+                  {error || (
+                    <PanelViewingState
+                      fields={buildOwnerFields(secondaryLegacyOwner)}
+                    />
+                  )}
+                </>
+              </CardContent>
+            </Card>
+            <br />
+          </>
+        ))}
       </>
     );
   };

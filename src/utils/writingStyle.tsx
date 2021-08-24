@@ -1,3 +1,4 @@
+import { ILegacyUse } from "entities/ILegacyBeacon";
 import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
@@ -28,19 +29,14 @@ export const formatUse = (use: IUse): string => {
   return formattedActivity + formattedPurpose;
 };
 
-export const formatLegacyUses = (uses: IUse[]): string =>
+export const formatLegacyUses = (uses: ILegacyUse[]): string =>
   uses.reduce((formattedUses, use, index, uses) => {
-    if (index === uses.length - 1) return formattedUses + formatUse(use);
-    return formattedUses + formatUse(use) + ", ";
+    if (index === uses.length - 1) return formattedUses + formatLegacyUse(use);
+    return formattedUses + formatLegacyUse(use) + ", ";
   }, "");
 
-export const formatLegacyUse = (use: IUse): string => {
-  const formattedActivity =
-    use.activity === Activities.Other
-      ? titleCase(use.otherActivity || "")
-      : titleCase(use.activity);
-  const formattedPurpose = use.purpose ? ` (${titleCase(use.purpose)})` : "";
-  return formattedActivity + formattedPurpose;
+export const formatLegacyUse = (use: ILegacyUse): string => {
+  return use.useType ? `${titleCase(use.useType)}` : "";
 };
 
 export const titleCase = (text: string): string => {

@@ -1,5 +1,6 @@
 import { ILegacyBeacon } from "entities/ILegacyBeacon";
 import { FunctionComponent } from "react";
+import { formatLegacyUses } from "utils/writingStyle";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 
 export const LegacyBeaconSummaryViewing: FunctionComponent<{
@@ -46,11 +47,11 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       key: "Emergency contacts",
       value: legacyBeacon?.emergencyContact?.details,
     },
-    // {
-    //   key: "Registered uses",
-    //   value: formatUses(beacon?.uses || []),
-    // },
+    {
+      key: "Registered uses",
+      value: formatLegacyUses(legacyBeacon?.uses || []),
+    },
   ];
 
-  return <PanelViewingState fields={fields} columns={2} splitAfter={8} />;
+  return <PanelViewingState fields={fields} columns={2} splitAfter={6} />;
 };

@@ -2,7 +2,9 @@ import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { ILegacyBeacon } from "entities/ILegacyBeacon";
 import { LegacyBeaconSummaryPanel } from "panels/legacyBeaconSummaryPanel/LegacyBeaconSummaryPanel";
+import { LegacyEmergencyContactPanel } from "panels/legacyEmergencyContactPanel/LegacyEmergencyContactPanel";
 import { LegacyOwnerPanel } from "panels/legacyOwnerPanel/LegacyOwnerPanel";
+import { LegacyUsesListPanel } from "panels/usesPanel/LegacyUsesListPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
@@ -75,15 +77,14 @@ export const SingleLegacyBeaconRecordView: FunctionComponent<ISingleLegacyBeacon
                 />
               </Grid>
               <Grid item xs={6}>
-                {/* <LegacyEmergencyContactPanel
-                  beaconsGateway={beaconsGateway}
-                  beaconId={beaconId}
-                /> */}
+                <LegacyEmergencyContactPanel
+                  legacyEmergencyContact={beacon.emergencyContact}
+                />
               </Grid>
             </Grid>
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
-            {/* <UsesListPanel usesGateway={usesGateway} beaconId={beaconId} /> */}
+            <LegacyUsesListPanel uses={beacon.uses} />
           </TabPanel>
         </PageContent>
       </div>
