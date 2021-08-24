@@ -16,7 +16,6 @@ export const LegacyBeaconSummaryPanel: FunctionComponent<ILegacyBeaconSummaryPro
       DataPanelStates.Viewing
     );
     const [error, setError] = useState(false);
-    // const [loading, setLoading] = useState(true);
 
     useEffect((): void => {
       setUserState(DataPanelStates.Viewing);
@@ -41,7 +40,6 @@ export const LegacyBeaconSummaryPanel: FunctionComponent<ILegacyBeaconSummaryPro
           <CardHeader title="Summary" />
           <>
             {error && <ErrorState message={Placeholders.UnspecifiedError} />}
-            {/* {loading && <LoadingState />} */}
             {error || renderState(userState)}
           </>
         </CardContent>
