@@ -127,59 +127,58 @@ export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
   }
 
   private mapUses(beaconApiResponse: ILegacyBeaconResponse): ILegacyUse[] {
-    const mappedUses: ILegacyUse[] = [];
-
-    beaconApiResponse.data.attributes.uses.forEach((use) => {
-      mappedUses.push({
-        pkBeaconUsesId: use.pkBeaconUsesId || 0,
-        fkBeaconId: use.fkBeaconId || 0,
-        vesselName: use.vesselName || "",
-        homePort: use.homePort || "",
-        maxPersons: use.maxPersons || 0,
-        officialNumber: use.officialNumber || "",
-        rssSsrNumber: use.rssSsrNumber || "",
-        callSign: use.callSign || "",
-        imoNumber: use.imoNumber || "",
-        mmsiNumber: use.mmsiNumber || 0,
-        fishingVesselPln: use.fishingVesselPln || "",
-        hullIdNumber: use.hullIdNumber || "",
-        cg66RefNumber: use.cg66RefNumber || "",
-        aodSerialNumber: use.aodSerialNumber || "",
-        principalAirport: use.principalAirport || "",
-        bit24AddressHex: use.bit24AddressHex || "",
-        aircraftRegistrationMark: use.aircraftRegistrationMark || "",
-        areaOfUse: use.areaOfUse || "",
-        tripInfo: use.tripInfo || "",
-        rigName: use.rigName || "",
-        beaconPosition: use.beaconPosition || "",
-        position: use.position || "",
-        localManagementId: use.localManagementId || "",
-        beaconNsn: use.beaconNsn || "",
-        beaconPartNumber: use.beaconPartNumber || "",
-        notes: use.notes || "",
-        pennantNumber: use.pennantNumber || "",
-        aircraftDescription: use.aircraftDescription || "",
-        survivalCraftType: use.survivalCraftType || "",
-        communications: use.communications || "",
-        isMain: use.isMain || "",
-        createUserId: use.createUserId || 0,
-        updateUserId: use.updateUserId || 0,
-        createdDate: use.createdDate || "",
-        lastModifiedDate: use.lastModifiedDate || "",
-        versioning: use.versioning || 0,
-        useType: use.useType || "",
-        vesselType: use.vesselType || "",
-        aircraftType: use.aircraftType || "",
-        landUse: use.landUse || "",
-        note: use.note || "",
-      });
-    });
-    return mappedUses;
+    return beaconApiResponse.data.attributes.uses
+      .map((use, index) => {
+        return {
+          pkBeaconUsesId: use.pkBeaconUsesId || 0,
+          fkBeaconId: use.fkBeaconId || 0,
+          vesselName: use.vesselName || "",
+          homePort: use.homePort || "",
+          maxPersons: use.maxPersons || 0,
+          officialNumber: use.officialNumber || "",
+          rssSsrNumber: use.rssSsrNumber || "",
+          callSign: use.callSign || "",
+          imoNumber: use.imoNumber || "",
+          mmsiNumber: use.mmsiNumber || 0,
+          fishingVesselPln: use.fishingVesselPln || "",
+          hullIdNumber: use.hullIdNumber || "",
+          cg66RefNumber: use.cg66RefNumber || "",
+          aodSerialNumber: use.aodSerialNumber || "",
+          principalAirport: use.principalAirport || "",
+          bit24AddressHex: use.bit24AddressHex || "",
+          aircraftRegistrationMark: use.aircraftRegistrationMark || "",
+          areaOfUse: use.areaOfUse || "",
+          tripInfo: use.tripInfo || "",
+          rigName: use.rigName || "",
+          beaconPosition: use.beaconPosition || "",
+          position: use.position || "",
+          localManagementId: use.localManagementId || "",
+          beaconNsn: use.beaconNsn || "",
+          beaconPartNumber: use.beaconPartNumber || "",
+          notes: use.notes || "",
+          pennantNumber: use.pennantNumber || "",
+          aircraftDescription: use.aircraftDescription || "",
+          survivalCraftType: use.survivalCraftType || "",
+          communications: use.communications || "",
+          isMain: use.isMain || "",
+          createUserId: use.createUserId || 0,
+          updateUserId: use.updateUserId || 0,
+          createdDate: use.createdDate || "",
+          lastModifiedDate: use.lastModifiedDate || "",
+          versioning: use.versioning || 0,
+          useType: use.useType || "",
+          vesselType: use.vesselType || "",
+          aircraftType: use.aircraftType || "",
+          landUse: use.landUse || "",
+          note: use.note || "",
+        };
+      })
+      .sort((firstUse, secondUse) => this.mainUseSortFn(firstUse, secondUse));
   }
 
-  // private mainUseSortFn(firstUse: IUse, secondUse: IUse): number {
-  //   const firstUseMainUseAsNumber: number = +firstUse.mainUse;
-  //   const secondUseMainUseAsNumber: number = +secondUse.mainUse;
-  //   return secondUseMainUseAsNumber - firstUseMainUseAsNumber;
-  // }
+  private mainUseSortFn(firstUse: ILegacyUse, secondUse: ILegacyUse): number {
+    const firstUseMainUseAsNumber: number = firstUse.isMain === "Y" ? 1 : 0;
+    const secondUseMainUseAsNumber: number = secondUse.isMain === "Y" ? 1 : 0;
+    return secondUseMainUseAsNumber - firstUseMainUseAsNumber;
+  }
 }
