@@ -3,7 +3,7 @@ import { legacyBeaconFixture } from "../../fixtures/legacybeacons.fixture";
 import { Placeholders } from "../../utils/writingStyle";
 import { LegacyBeaconSummaryViewing } from "./LegacyBeaconSummaryViewing";
 
-describe("BeaconSummaryViewing", () => {
+describe("LegacyBeaconSummaryViewing", () => {
   it("displays fields with blank string as the 'no data' placeholder", async () => {
     render(<LegacyBeaconSummaryViewing legacyBeacon={legacyBeaconFixture} />);
 

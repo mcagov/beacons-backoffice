@@ -5,7 +5,7 @@ import { IBeaconsGateway } from "../../gateways/beacons/IBeaconsGateway";
 import { Placeholders } from "../../utils/writingStyle";
 import { LegacyBeaconSummaryPanel } from "./LegacyBeaconSummaryPanel";
 
-describe("BeaconSummaryPanel", () => {
+describe("LegacyBeaconSummaryPanel", () => {
   let beaconsGatewayDouble: IBeaconsGateway;
 
   beforeEach(() => {
