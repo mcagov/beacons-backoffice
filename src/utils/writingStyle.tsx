@@ -1,4 +1,4 @@
-import { ILegacyUse } from "entities/ILegacyBeacon";
+import { ILegacyOwner, ILegacyUse } from "entities/ILegacyBeacon";
 import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
@@ -49,6 +49,9 @@ export const titleCase = (text: string): string => {
 
 export const formatOwners = (owners: IOwner[]): string =>
   owners.map((owner) => owner.fullName).join(", ");
+
+export const formatLegacyOwners = (...owners: ILegacyOwner[]): string =>
+  (owners || []).map((owner) => owner.ownerName).join(", ");
 
 export const formatEmergencyContacts = (
   emergencyContacts: IEmergencyContact[]

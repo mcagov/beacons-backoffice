@@ -1,6 +1,6 @@
 import { ILegacyBeacon } from "entities/ILegacyBeacon";
 import { FunctionComponent } from "react";
-import { formatLegacyUses } from "utils/writingStyle";
+import { formatLegacyOwners, formatLegacyUses } from "utils/writingStyle";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 
 export const LegacyBeaconSummaryViewing: FunctionComponent<{
@@ -24,11 +24,11 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
     //   value: beacon?.chkCode,
     // },
     {
-      key: "Protocol",
+      key: "Protocol code",
       value: legacyBeacon?.protocol,
     },
     {
-      key: "Coding",
+      key: "Coding method",
       value: legacyBeacon?.coding,
     },
     {
@@ -40,8 +40,11 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: legacyBeacon?.lastServiceDate,
     },
     {
-      key: "Owner",
-      value: legacyBeacon?.owner?.ownerName,
+      key: "Owner(s)",
+      value: formatLegacyOwners(
+        legacyBeacon.owner || [],
+        ...(legacyBeacon.secondaryOwners || [])
+      ),
     },
     {
       key: "Emergency contacts",
@@ -51,7 +54,11 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       key: "Registered uses",
       value: formatLegacyUses(legacyBeacon?.uses || []),
     },
+    {
+      key: "Notes",
+      value: legacyBeacon?.note || "",
+    },
   ];
 
-  return <PanelViewingState fields={fields} columns={2} splitAfter={6} />;
+  return <PanelViewingState fields={fields} columns={2} splitAfter={7} />;
 };
