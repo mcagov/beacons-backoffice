@@ -1,7 +1,6 @@
 import { FunctionComponent } from "react";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { IBeacon } from "../../entities/IBeacon";
-import { formatMonth } from "../../utils/dateTime";
 import {
   formatEmergencyContacts,
   formatOwners,
@@ -38,11 +37,13 @@ export const BeaconSummaryViewing: FunctionComponent<{
     },
     {
       key: "Battery expiry date",
-      value: formatMonth(beacon?.batteryExpiryDate),
+      // value: formatMonth(beacon?.batteryExpiryDate),
+      value: beacon?.batteryExpiryDate,
     },
     {
       key: "Last serviced date",
-      value: formatMonth(beacon?.lastServicedDate),
+      // value: formatMonth(beacon?.lastServicedDate),
+      value: beacon?.lastServicedDate,
     },
     {
       key: "Created date",

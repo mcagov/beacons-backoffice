@@ -12,7 +12,6 @@ export enum Placeholders {
   NoData = "N/A",
   UnspecifiedError = "An error occurred",
   UnrecognizedBeaconType = "Unrecognized beacon type",
-  NoDataLegacy = "None",
 }
 
 export const formatUses = (uses: IUse[]): string =>

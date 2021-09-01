@@ -5,6 +5,7 @@ import {
   ILegacyOwner,
   ILegacyUse,
 } from "entities/ILegacyBeacon";
+import { formatDateTime } from "../../utils/dateTime";
 import { ILegacyBeaconResponse } from "./ILegacyBeaconResponse";
 
 export interface ILegacyBeaconResponseMapper {
@@ -30,18 +31,22 @@ export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
       manufacturerSerialNumber:
         beaconApiResponse.data.attributes.beacon.manufacturerSerialNumber,
       coding: beaconApiResponse.data.attributes.beacon.coding,
-      firstRegistrationDate:
-        beaconApiResponse.data.attributes.beacon.firstRegistrationDate,
+      firstRegistrationDate: formatDateTime(
+        beaconApiResponse.data.attributes.beacon.firstRegistrationDate
+      ),
       lastServiceDate: beaconApiResponse.data.attributes.beacon.lastServiceDate,
       batteryExpiryDate:
         beaconApiResponse.data.attributes.beacon.batteryExpiryDate,
       withdrawnReason: beaconApiResponse.data.attributes.beacon.withdrawnReason,
       isArchived: beaconApiResponse.data.attributes.beacon.isArchived,
       createUserId: beaconApiResponse.data.attributes.beacon.createUserId,
-      createdDate: beaconApiResponse.data.attributes.beacon.createdDate,
+      createdDate:
+        formatDateTime(beaconApiResponse.data.attributes.beacon.createdDate) ||
+        "",
       updateUserId: beaconApiResponse.data.attributes.beacon.updateUserId,
-      lastModifiedDate:
-        beaconApiResponse.data.attributes.beacon.lastModifiedDate,
+      lastModifiedDate: formatDateTime(
+        beaconApiResponse.data.attributes.beacon.lastModifiedDate
+      ),
       versioning: beaconApiResponse.data.attributes.beacon.versioning,
       note: beaconApiResponse.data.attributes.beacon.note,
       beaconStatus: BeaconStatuses.Migrated,
@@ -75,9 +80,9 @@ export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
       email: owner.email || "",
       isMain: owner.isMain || "",
       createUserId: owner.createUserId || 0,
-      createdDate: owner.createdDate || "",
+      createdDate: formatDateTime(owner.createdDate) || "",
       updateUserId: owner.updateUserId || 0,
-      lastModifiedDate: owner.lastModifiedDate || "",
+      lastModifiedDate: formatDateTime(owner.lastModifiedDate) || "",
       versioning: owner.versioning || 0,
     };
   }
@@ -108,9 +113,10 @@ export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
           email: secondaryOwner.email || "",
           isMain: secondaryOwner.isMain || "",
           createUserId: secondaryOwner.createUserId || 0,
-          createdDate: secondaryOwner.createdDate || "",
+          createdDate: formatDateTime(secondaryOwner.createdDate) || "",
           updateUserId: secondaryOwner.updateUserId || 0,
-          lastModifiedDate: secondaryOwner.lastModifiedDate || "",
+          lastModifiedDate:
+            formatDateTime(secondaryOwner.lastModifiedDate) || "",
           versioning: secondaryOwner.versioning || 0,
         });
       }
@@ -163,8 +169,8 @@ export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
           isMain: use.isMain || "",
           createUserId: use.createUserId || 0,
           updateUserId: use.updateUserId || 0,
-          createdDate: use.createdDate || "",
-          lastModifiedDate: use.lastModifiedDate || "",
+          createdDate: formatDateTime(use.createdDate) || "",
+          lastModifiedDate: formatDateTime(use.lastModifiedDate) || "",
           versioning: use.versioning || 0,
           useType: use.useType || "",
           vesselType: use.vesselType || "",

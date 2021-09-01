@@ -10,3 +10,6 @@ export const formatMonth = (dateString: string): string => {
     year: "numeric",
   });
 };
+export const formatDateTime = (dateTimeString: string): string => {
+  return dateTimeString ? new Date(dateTimeString).toLocaleString() : "";
+};

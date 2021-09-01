@@ -32,21 +32,18 @@ const cardHeaderTitle = (titlePrefix: string, use: ILegacyUse): string => {
 const getFields = (use: ILegacyUse): IField[] => [
   { key: "Use type", value: use?.useType },
   { key: "Max persons onboard", value: `${use.maxPersons || ""}` },
-
-  { key: "Vessel name", value: use?.vesselName },
-  { key: "Vessel type", value: use?.vesselType },
-
   { key: "Beacon position", value: use?.beaconPosition },
   { key: "Position", value: use?.position },
 
+  { key: "Vessel name", value: use?.vesselName },
+  { key: "Vessel type", value: use?.vesselType },
   { key: "Port Letter and Number (PLN)", value: use?.fishingVesselPln },
   { key: "Homeport", value: use?.homePort },
   { key: "Area of operation", value: use?.areaOfUse },
   { key: "IMO number", value: use?.imoNumber },
   { key: "SSR / RSS number", value: use?.rssSsrNumber },
-  { key: "Official number", value: use?.officialNumber },
-  { key: "Callsign", value: use?.callSign },
   { key: "Hull ID number", value: use?.hullIdNumber },
+  { key: "Official number", value: use?.officialNumber },
   { key: "CG66 reference number", value: use?.cg66RefNumber },
   { key: "AOD serial number", value: use?.aodSerialNumber },
 
@@ -55,17 +52,16 @@ const getFields = (use: ILegacyUse): IField[] => [
   { key: "Aircraft description", value: use?.aircraftDescription },
   { key: "Aircraft type", value: use?.aircraftType },
 
-  { key: "Survival Craft Type", value: use?.survivalCraftType },
-  { key: "Bit 24 address hex", value: use?.bit24AddressHex },
-  { key: "Local management ID", value: use?.localManagementId },
-  { key: "Trip Info", value: use?.tripInfo },
-
-  { key: "Communications", value: use?.communications },
-
   { key: "Land Use", value: use?.landUse },
   { key: "Rig Name", value: use?.rigName },
 
+  { key: "Callsign", value: use?.callSign },
+  { key: "Survival Craft Type", value: use?.survivalCraftType },
+  { key: "Bit 24 address hex", value: use?.bit24AddressHex },
   { key: "Pennant number", value: use?.pennantNumber },
+  { key: "Local management ID", value: use?.localManagementId },
+  { key: "Trip Info", value: use?.tripInfo },
+  { key: "Communications", value: use?.communications },
   { key: "Is main use", value: use?.isMain },
   { key: "Created date", value: use?.createdDate },
   { key: "Last modified date", value: use?.lastModifiedDate },
