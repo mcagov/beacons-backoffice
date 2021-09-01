@@ -9,7 +9,7 @@ export enum WritingStyle {
 }
 
 export enum Placeholders {
-  NoData = "NO DATA ENTERED",
+  NoData = "N/A",
   UnspecifiedError = "An error occurred",
   UnrecognizedBeaconType = "Unrecognized beacon type",
   NoDataLegacy = "None",

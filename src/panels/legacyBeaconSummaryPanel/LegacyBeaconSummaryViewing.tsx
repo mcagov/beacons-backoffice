@@ -40,6 +40,14 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: legacyBeacon?.lastServiceDate,
     },
     {
+      key: "Created date",
+      value: legacyBeacon?.createdDate,
+    },
+    {
+      key: "Last modified date",
+      value: legacyBeacon.lastModifiedDate,
+    },
+    {
       key: "Owner(s)",
       value: formatLegacyOwners(
         legacyBeacon.owner || [],

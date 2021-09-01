@@ -45,6 +45,10 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: formatMonth(beacon?.lastServicedDate),
     },
     {
+      key: "Created date",
+      value: beacon?.registeredDate,
+    },
+    {
       key: "Owner(s)",
       value: formatOwners(beacon?.owners || []),
     },
