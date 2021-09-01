@@ -63,8 +63,8 @@ const getFields = (use: ILegacyUse): IField[] => [
   { key: "Trip Info", value: use?.tripInfo },
   { key: "Communications", value: use?.communications },
   { key: "Is main use", value: use?.isMain },
-  { key: "Created date", value: use?.createdDate },
-  { key: "Last modified date", value: use?.lastModifiedDate },
+  // { key: "Created date", value: use?.createdDate },
+  // { key: "Last modified date", value: use?.lastModifiedDate },
   { key: "Notes", value: use?.notes },
   { key: "More notes", value: use?.note },
 

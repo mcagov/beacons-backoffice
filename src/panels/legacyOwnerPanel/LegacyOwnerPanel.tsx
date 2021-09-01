@@ -36,8 +36,8 @@ export const LegacyOwnerPanel: FunctionComponent<LegacyOwnerSummaryPanelProps> =
           valueType: FieldValueTypes.MULTILINE,
         },
         { key: "Fax", value: legacyOwner?.fax },
-        { key: "Created Date", value: legacyOwner?.createdDate },
-        { key: "Last Modified Date", value: legacyOwner?.lastModifiedDate },
+        // { key: "Created Date", value: legacyOwner?.createdDate },
+        // { key: "Last Modified Date", value: legacyOwner?.lastModifiedDate },
         { key: "Care Of", value: legacyOwner?.careOf },
         { key: "Is Main Owner", value: legacyOwner?.isMain },
 
