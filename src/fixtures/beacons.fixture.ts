@@ -20,6 +20,7 @@ export const beaconFixture = deepFreeze<IBeacon>({
   chkCode: "456QWE",
   batteryExpiryDate: "01/02/2020",
   lastServicedDate: "01/02/2020",
+  lastModifiedDate: "01/02/2021",
   uses: usesFixture as IUse[],
   owners: testOwners,
   emergencyContacts: emergencyContactsFixture as IEmergencyContact[],

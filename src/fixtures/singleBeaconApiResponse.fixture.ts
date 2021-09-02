@@ -68,6 +68,7 @@ export const singleBeaconApiResponseFixture: IBeaconResponse =
         chkCode: "456QWE",
         batteryExpiryDate: "2020-02-01T00:00",
         lastServicedDate: "2020-02-01T00:00",
+        lastModifiedDate: "2021-02-01T00:00",
       },
       links: [
         { verb: "GET", path: "/beacons/f48e8212-2e10-4154-95c7-bdfd061bcfd2" },

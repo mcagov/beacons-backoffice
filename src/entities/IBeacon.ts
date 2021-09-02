@@ -8,6 +8,7 @@ export interface IBeacon {
   hexId: string;
   type: string;
   registeredDate: string;
+  lastModifiedDate: string;
   status: string;
   manufacturer: string;
   model: string;

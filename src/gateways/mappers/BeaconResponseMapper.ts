@@ -22,6 +22,9 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       registeredDate: formatDateTime(
         beaconApiResponse.data.attributes.createdDate || ""
       ),
+      lastModifiedDate: formatDateTime(
+        beaconApiResponse.data.attributes.lastModifiedDate || ""
+      ),
       batteryExpiryDate: formatDateTime(
         beaconApiResponse.data.attributes.batteryExpiryDate || ""
       ),
