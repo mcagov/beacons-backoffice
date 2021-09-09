@@ -3,7 +3,6 @@ import React from "react";
 import { beaconFixture } from "../fixtures/beacons.fixture";
 import { IBeaconsGateway } from "../gateways/beacons/IBeaconsGateway";
 import { IUsesGateway } from "../gateways/uses/IUsesGateway";
-import { Placeholders } from "../utils/writingStyle";
 import { SingleBeaconRecordView } from "./SingleBeaconRecordView";
 
 describe("Beacon record page", () => {
@@ -65,26 +64,6 @@ describe("Beacon record page", () => {
 
     expect(
       await within(heading).findByText(beaconFixture.type, { exact: false })
-    ).toBeVisible();
-  });
-
-  it("Displays the unrecognized beacon type placeholder next to the Hex ID", async () => {
-    beaconsGatewayDouble.getBeacon = jest
-      .fn()
-      .mockResolvedValue({ ...beaconFixture, type: "" });
-    render(
-      <SingleBeaconRecordView
-        beaconsGateway={beaconsGatewayDouble}
-        usesGateway={usesGatewayDouble}
-        beaconId={beaconFixture.id}
-      />
-    );
-    const heading = screen.getByRole("heading");
-
-    expect(
-      await within(heading).findByText(Placeholders.UnrecognizedBeaconType, {
-        exact: false,
-      })
     ).toBeVisible();
   });
 });
