@@ -43,9 +43,11 @@ export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
     return (
       <Card>
         <CardContent>
-          {error && <ErrorState message={Placeholders.UnspecifiedError} />}
-          {loading && <LoadingState />}
           <CardHeader title="No owner associated" />
+          <>
+            {error && <ErrorState message={Placeholders.UnspecifiedError} />}
+            {loading && <LoadingState />}
+          </>
         </CardContent>
       </Card>
     );
