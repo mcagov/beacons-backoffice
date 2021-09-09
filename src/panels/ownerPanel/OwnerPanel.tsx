@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { FieldValueTypes } from "../../components/dataPanel/FieldValue";
 import { ErrorState } from "../../components/dataPanel/PanelErrorState";
 import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
@@ -37,6 +37,10 @@ export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
     fetchBeacon(beaconId);
   }, [beaconId, beaconsGateway]);
 
+  if (!owner) {
+    return <NoOwner />;
+  }
+
   const fields = [
     { key: "Name", value: owner?.fullName },
     { key: "Telephone", value: owner?.telephoneNumber },
@@ -67,3 +71,11 @@ export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
     </Card>
   );
 };
+
+const NoOwner = () => (
+  <Card>
+    <CardContent>
+      <CardHeader title="No owner associated" />
+    </CardContent>
+  </Card>
+);
