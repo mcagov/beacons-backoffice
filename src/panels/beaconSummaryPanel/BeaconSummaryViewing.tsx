@@ -32,7 +32,7 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: beacon?.protocolCode,
     },
     {
-      key: "Coding method",
+      key: "Coding",
       value: beacon?.codingMethod,
     },
     {

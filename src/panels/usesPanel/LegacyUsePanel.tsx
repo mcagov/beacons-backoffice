@@ -48,7 +48,7 @@ const getFields = (use: ILegacyUse): IField[] => [
   { key: "AOD serial number", value: use?.aodSerialNumber },
 
   { key: "Principal airport", value: use?.principalAirport },
-  { key: "Aircraft registration mMark", value: use?.aircraftRegistrationMark },
+  { key: "Aircraft registration mark", value: use?.aircraftRegistrationMark },
   { key: "Aircraft description", value: use?.aircraftDescription },
   { key: "Aircraft type", value: use?.aircraftType },
 

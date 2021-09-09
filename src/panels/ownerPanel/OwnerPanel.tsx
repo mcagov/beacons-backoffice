@@ -26,7 +26,9 @@ export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
       try {
         setLoading(true);
         const beacon = await beaconsGateway.getBeacon(id);
-        setOwner(beacon.owners[0]);
+        if (beacon?.owners?.length !== 0) {
+          setOwner(beacon.owners[0]);
+        }
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -36,10 +38,6 @@ export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
 
     fetchBeacon(beaconId);
   }, [beaconId, beaconsGateway]);
-
-  if (!owner) {
-    return <NoOwner />;
-  }
 
   const fields = [
     { key: "Name", value: owner?.fullName },
@@ -66,16 +64,9 @@ export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
           {error && <ErrorState message={Placeholders.UnspecifiedError} />}
           {loading && <LoadingState />}
           {error || loading || <PanelViewingState fields={fields} />}
+          {!owner ? "No owner associated" : ""}
         </>
       </CardContent>
     </Card>
   );
 };
-
-const NoOwner = () => (
-  <Card>
-    <CardContent>
-      <CardHeader title="No owner associated" />
-    </CardContent>
-  </Card>
-);
