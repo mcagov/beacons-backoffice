@@ -61,6 +61,14 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: legacyBeacon?.departRefId,
     },
     {
+      key: "Is withdrawn",
+      value: legacyBeacon?.isWithdrawn,
+    },
+    {
+      key: "Withdrawn reason",
+      value: legacyBeacon?.withdrawnReason,
+    },
+    {
       key: "Owner(s)",
       value: formatLegacyOwners(
         legacyBeacon.owner || [],
@@ -85,5 +93,5 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
     },
   ];
 
-  return <PanelViewingState fields={fields} columns={2} splitAfter={12} />;
+  return <PanelViewingState fields={fields} columns={2} splitAfter={14} />;
 };

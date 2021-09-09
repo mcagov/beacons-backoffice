@@ -11,7 +11,6 @@ import { TabPanel } from "../components/layout/TabPanel";
 import { IBeaconsGateway } from "../gateways/beacons/IBeaconsGateway";
 import { BeaconSummaryPanel } from "../panels/beaconSummaryPanel/BeaconSummaryPanel";
 import { EmergencyContactPanel } from "../panels/emergencyContactPanel/EmergencyContactPanel";
-import { Placeholders } from "../utils/writingStyle";
 
 interface ISingleBeaconRecordViewProps {
   beaconsGateway: IBeaconsGateway;
@@ -55,13 +54,13 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
     }, [beaconId, beaconsGateway]);
 
     const hexId = beacon?.hexId || "";
-    const beaconType = beacon?.type || Placeholders.UnrecognizedBeaconType;
+    const beaconType = beacon?.type || "";
     const numberOfUses = beacon?.uses?.length.toString() || "";
 
     return (
       <div className={classes.root}>
         <PageHeader>
-          Hex ID/UIN: {hexId} ({beaconType})
+          Hex ID/UIN: {hexId} {beaconType ? "(" + beaconType + ")" : ""}
         </PageHeader>
         <PageContent>
           <BeaconSummaryPanel
