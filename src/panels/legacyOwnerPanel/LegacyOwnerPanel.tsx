@@ -16,13 +16,14 @@ export const LegacyOwnerPanel: FunctionComponent<LegacyOwnerSummaryPanelProps> =
     const [error] = useState(false);
     let buildOwnerFields = function (legacyOwner: ILegacyOwner) {
       return [
-        { key: "Owner Name", value: legacyOwner?.ownerName },
-        { key: "Company Name", value: legacyOwner?.companyName },
+        { key: "Owner name", value: legacyOwner?.ownerName },
+        { key: "Company name", value: legacyOwner?.companyName },
         { key: "Phone 1", value: legacyOwner?.phone1 },
         { key: "Phone 2", value: legacyOwner?.phone2 },
         { key: "Mobile 1", value: legacyOwner?.mobile1 },
         { key: "Mobile 2", value: legacyOwner?.mobile2 },
         { key: "Email", value: legacyOwner?.email },
+        { key: "Care of", value: legacyOwner?.careOf },
         {
           key: "Address",
           value: [
@@ -38,8 +39,7 @@ export const LegacyOwnerPanel: FunctionComponent<LegacyOwnerSummaryPanelProps> =
         { key: "Fax", value: legacyOwner?.fax },
         // { key: "Created Date", value: legacyOwner?.createdDate },
         // { key: "Last Modified Date", value: legacyOwner?.lastModifiedDate },
-        { key: "Care Of", value: legacyOwner?.careOf },
-        { key: "Is Main Owner", value: legacyOwner?.isMain },
+        { key: "Is main owner", value: legacyOwner?.isMain },
 
         // { key: "Create User Id", value: legacyOwner?.createUserId },
         // { key: "fk Beacon Id", value: legacyOwner?.fkBeaconId },
