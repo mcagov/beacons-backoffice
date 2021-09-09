@@ -36,9 +36,15 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       ),
       manufacturerSerialNumber:
         beaconApiResponse.data.attributes.manufacturerSerialNumber || "",
-      owners: this.mapOwners(beaconApiResponse),
-      emergencyContacts: this.mapEmergencyContacts(beaconApiResponse),
-      uses: this.mapUses(beaconApiResponse),
+      owners: beaconApiResponse.data.relationships?.owner
+        ? this.mapOwners(beaconApiResponse)
+        : [],
+      emergencyContacts: beaconApiResponse.data.relationships?.emergencyContacts
+        ? this.mapEmergencyContacts(beaconApiResponse)
+        : [],
+      uses: beaconApiResponse.data.relationships?.owner
+        ? this.mapUses(beaconApiResponse)
+        : [],
       entityLinks: this.mapLinks(beaconApiResponse.data.links),
     };
   }

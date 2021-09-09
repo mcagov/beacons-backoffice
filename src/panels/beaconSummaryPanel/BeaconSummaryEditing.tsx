@@ -4,7 +4,6 @@ import {
   Divider,
   Grid,
   Input,
-  Paper,
   Table,
   TableBody,
   TableContainer,
@@ -140,24 +139,24 @@ export const BeaconSummaryEditing: FunctionComponent<{
                       value={<FieldValue>{beacon.codingMethod}</FieldValue>}
                     />
 
-                    <TabulatedRow
-                      displayKey={<></>}
-                      value={
-                        <Paper style={{ backgroundColor: "#FFFCC8" }}>
-                          <Box p={1}>
-                            <Typography>
-                              <b>Protocol code</b>, <b>coding method</b> and{" "}
-                              <b>beacon type</b> are automatically derived from
-                              the HEX ID. If you have identified a coding issue,
-                              please flag this record as 'Incorrectly Encoded'
-                              by clicking on the 'Quick Actions' button in the
-                              top right. You can also add any notes in the
-                              'Notes' tab below.
-                            </Typography>
-                          </Box>
-                        </Paper>
-                      }
-                    />
+                    {/*<TabulatedRow*/}
+                    {/*  displayKey={<></>}*/}
+                    {/*  value={*/}
+                    {/*    <Paper style={{ backgroundColor: "#FFFCC8" }}>*/}
+                    {/*      <Box p={1}>*/}
+                    {/*        <Typography>*/}
+                    {/*          <b>Protocol code</b>, <b>coding method</b> and{" "}*/}
+                    {/*          <b>beacon type</b> are automatically derived from*/}
+                    {/*          the HEX ID. If you have identified a coding issue,*/}
+                    {/*          please flag this record as 'Incorrectly Encoded'*/}
+                    {/*          by clicking on the 'Quick Actions' button in the*/}
+                    {/*          top right. You can also add any notes in the*/}
+                    {/*          'Notes' tab below.*/}
+                    {/*        </Typography>*/}
+                    {/*      </Box>*/}
+                    {/*    </Paper>*/}
+                    {/*  }*/}
+                    {/*/>*/}
 
                     <TabulatedRow
                       displayKey={
