@@ -25,7 +25,7 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
     // },
 
     {
-      key: "Coding method",
+      key: "Coding",
       value: legacyBeacon?.coding,
     },
     {
