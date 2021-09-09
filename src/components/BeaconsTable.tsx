@@ -81,6 +81,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
         {
           title: "Status",
           field: "beaconStatus",
+          lookup: { NEW: "NEW", MIGRATED: "MIGRATED", DELETED: "DELETED" },
           render: (rowData: BeaconTableListRow) => {
             if (rowData.beaconStatus === "MIGRATED") {
               return <Chip label={rowData.beaconStatus} color="secondary" />;

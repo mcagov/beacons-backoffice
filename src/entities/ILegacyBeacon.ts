@@ -75,6 +75,10 @@ export interface ILegacyUse {
   aircraftType: string;
   landUse: string;
   note: string;
+  modType: string;
+  modStatus: string;
+  modVariant: string;
+  activationMode: string;
 }
 
 export interface ILegacyOwner {

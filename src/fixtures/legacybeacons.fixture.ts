@@ -72,6 +72,10 @@ export const legacyBeaconFixture = deepFreeze<ILegacyBeacon>({
       aircraftType: "None",
       landUse: "None",
       note: "Some notes",
+      modType: "MOD Type",
+      modStatus: "MOD Status",
+      modVariant: "MOD Variant",
+      activationMode: "Activation mode",
     },
     {
       pkBeaconUsesId: 6058,
@@ -115,6 +119,10 @@ export const legacyBeaconFixture = deepFreeze<ILegacyBeacon>({
       aircraftType: "None",
       landUse: "None",
       note: "Some more notes",
+      modType: "MOD Type",
+      modStatus: "MOD Status",
+      modVariant: "MOD Variant",
+      activationMode: "Activation mode",
     },
   ],
   owner: {

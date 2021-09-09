@@ -177,6 +177,10 @@ export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
           aircraftType: use.aircraftType || "",
           landUse: use.landUse || "",
           note: use.note || "",
+          modType: use.modType || "",
+          modStatus: use.modStatus || "",
+          modVariant: use.modVariant || "",
+          activationMode: use.activationMode || "",
         };
       })
       .sort((firstUse, secondUse) => this.mainUseSortFn(firstUse, secondUse));

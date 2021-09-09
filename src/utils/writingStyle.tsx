@@ -36,7 +36,11 @@ export const formatLegacyUses = (uses: ILegacyUse[]): string =>
   }, "");
 
 export const formatLegacyUse = (use: ILegacyUse): string => {
-  return use.useType ? `${titleCase(use.useType)}` : "";
+  return use.useType
+    ? `${titleCase(use.useType)}${
+        use.vesselType ? " (" + use.vesselType + ")" : ""
+      }`
+    : "";
 };
 
 export const titleCase = (text: string): string => {

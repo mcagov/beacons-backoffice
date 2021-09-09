@@ -16,20 +16,21 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: legacyBeacon?.model,
     },
     {
-      key: "Serial number",
+      key: "Manufacturer serial number",
       value: legacyBeacon?.manufacturerSerialNumber,
     },
     // {
     //   key: "CHK code",
     //   value: beacon?.chkCode,
     // },
-    {
-      key: "Protocol code",
-      value: legacyBeacon?.protocol,
-    },
+
     {
       key: "Coding method",
       value: legacyBeacon?.coding,
+    },
+    {
+      key: "Protocol code",
+      value: legacyBeacon?.protocol,
     },
     {
       key: "Battery expiry date",
@@ -40,12 +41,24 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: legacyBeacon?.lastServiceDate,
     },
     {
+      key: "First registration date",
+      value: legacyBeacon?.firstRegistrationDate,
+    },
+    {
       key: "Created date",
       value: legacyBeacon?.createdDate,
     },
     {
       key: "Last modified date",
       value: legacyBeacon.lastModifiedDate,
+    },
+    {
+      key: "Cospas sarsat number",
+      value: legacyBeacon?.cospasSarsatNumber?.toString(),
+    },
+    {
+      key: "Department reference",
+      value: legacyBeacon?.departRefId,
     },
     {
       key: "Owner(s)",
@@ -63,10 +76,14 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: formatLegacyUses(legacyBeacon?.uses || []),
     },
     {
+      key: "Emergency contacts",
+      value: legacyBeacon?.emergencyContact?.details,
+    },
+    {
       key: "Notes",
       value: legacyBeacon?.note || "",
     },
   ];
 
-  return <PanelViewingState fields={fields} columns={2} splitAfter={9} />;
+  return <PanelViewingState fields={fields} columns={2} splitAfter={12} />;
 };
