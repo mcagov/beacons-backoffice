@@ -8,6 +8,10 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
 }> = ({ legacyBeacon }) => {
   const fields = [
     {
+      key: "Beacon status",
+      value: legacyBeacon?.beaconStatus,
+    },
+    {
       key: "Manufacturer",
       value: legacyBeacon?.manufacturer,
     },

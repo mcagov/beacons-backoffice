@@ -12,6 +12,10 @@ export const BeaconSummaryViewing: FunctionComponent<{
 }> = ({ beacon }) => {
   const fields = [
     {
+      key: "Beacon status",
+      value: beacon?.status,
+    },
+    {
       key: "Manufacturer",
       value: beacon?.manufacturer,
     },
