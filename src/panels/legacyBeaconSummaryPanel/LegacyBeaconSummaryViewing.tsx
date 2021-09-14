@@ -23,6 +23,10 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       key: "Manufacturer serial number",
       value: legacyBeacon?.manufacturerSerialNumber,
     },
+    {
+      key: "Serial number",
+      value: legacyBeacon?.serialNumber?.toString(),
+    },
     // {
     //   key: "CHK code",
     //   value: beacon?.chkCode,
@@ -88,14 +92,10 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: formatLegacyUses(legacyBeacon?.uses || []),
     },
     {
-      key: "Emergency contacts",
-      value: legacyBeacon?.emergencyContact?.details,
-    },
-    {
       key: "Notes",
       value: legacyBeacon?.note || "",
     },
   ];
 
-  return <PanelViewingState fields={fields} columns={2} splitAfter={14} />;
+  return <PanelViewingState fields={fields} columns={2} splitAfter={16} />;
 };
