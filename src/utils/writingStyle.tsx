@@ -54,6 +54,13 @@ export const titleCase = (text: string): string => {
 export const formatOwners = (owners: IOwner[]): string =>
   owners.map((owner) => owner.fullName).join(", ");
 
+export const formatSvdr = (svdr: string): string => {
+  if (!svdr) {
+    return "";
+  }
+  return svdr == "true" ? "YES" : "NO";
+};
+
 export const formatLegacyOwners = (...owners: ILegacyOwner[]): string =>
   (owners || []).map((owner) => owner.ownerName).join(", ");
 

@@ -4,6 +4,7 @@ import { IBeacon } from "../../entities/IBeacon";
 import {
   formatEmergencyContacts,
   formatOwners,
+  formatSvdr,
   formatUses,
 } from "../../utils/writingStyle";
 
@@ -49,7 +50,7 @@ export const BeaconSummaryViewing: FunctionComponent<{
     },
     {
       key: "SVDR",
-      value: beacon?.svdr?.toString(),
+      value: formatSvdr(beacon?.svdr),
     },
     {
       key: "Battery expiry date",
