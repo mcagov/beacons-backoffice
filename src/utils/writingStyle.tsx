@@ -58,7 +58,7 @@ export const formatSvdr = (svdr: string): string => {
   if (!svdr) {
     return "";
   }
-  return svdr == "true" ? "YES" : "NO";
+  return svdr === "true" ? "YES" : "NO";
 };
 
 export const formatLegacyOwners = (...owners: ILegacyOwner[]): string =>
