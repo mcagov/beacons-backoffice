@@ -31,6 +31,8 @@ export interface ILegacyBeacon {
   secondaryOwners: ILegacyOwner[];
   emergencyContact: ILegacyEmergencyContact;
   beaconStatus: BeaconStatuses;
+  csta: string;
+  mti: string;
 }
 
 export interface ILegacyUse {

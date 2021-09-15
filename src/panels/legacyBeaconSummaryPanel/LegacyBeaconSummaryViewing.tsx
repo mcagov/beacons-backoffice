@@ -41,6 +41,14 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: legacyBeacon?.protocol,
     },
     {
+      key: "CSTA",
+      value: legacyBeacon?.csta,
+    },
+    {
+      key: "MTI",
+      value: legacyBeacon?.mti,
+    },
+    {
       key: "Battery expiry date",
       value: legacyBeacon?.batteryExpiryDate,
     },
@@ -97,5 +105,5 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
     },
   ];
 
-  return <PanelViewingState fields={fields} columns={2} splitAfter={16} />;
+  return <PanelViewingState fields={fields} columns={2} splitAfter={18} />;
 };

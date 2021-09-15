@@ -27,6 +27,8 @@ export const legacyBeaconFixture = deepFreeze<ILegacyBeacon>({
   updateUserId: 2889,
   lastModifiedDate: "2004-10-13T00:00:00",
   beaconStatus: BeaconStatuses.Migrated,
+  mti: "MTI CODE",
+  csta: "CSTA CODE",
   versioning: 0,
   note: "CHANGE OF ADDRESS/EMERGENCY DETAILS ADDED. 13/10/04\\r\\nKAYCEE",
   uses: [

@@ -54,6 +54,8 @@ export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
       secondaryOwners: this.mapSecondaryOwners(beaconApiResponse),
       emergencyContact: this.mapEmergencyContacts(beaconApiResponse),
       uses: this.mapUses(beaconApiResponse),
+      csta: beaconApiResponse.data.attributes.beacon.csta,
+      mti: beaconApiResponse.data.attributes.beacon.mti,
     };
   }
 
