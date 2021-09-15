@@ -69,7 +69,7 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: legacyBeacon.lastModifiedDate,
     },
     {
-      key: "Cospas sarsat number",
+      key: "Cospas sarsat serial number",
       value: legacyBeacon?.cospasSarsatNumber?.toString(),
     },
     {
