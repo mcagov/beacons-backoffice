@@ -65,6 +65,7 @@ export const singleBeaconApiResponseFixture: IBeaconResponse =
         createdDate: "2018-06-08T00:00",
         model: "Excelsior",
         mti: "EXAMPLE MTI",
+        svdr: "true",
         manufacturerSerialNumber: "1407312904",
         chkCode: "456QWE",
         batteryExpiryDate: "2020-02-01T00:00",
