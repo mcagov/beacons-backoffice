@@ -16,6 +16,7 @@ export const beaconFixture = deepFreeze<IBeacon>({
   status: BeaconStatuses.New,
   manufacturer: "Ocean Signal",
   mti: "EXAMPLE MTI",
+  svdr: "true",
   model: "Excelsior",
   manufacturerSerialNumber: "1407312904",
   chkCode: "456QWE",

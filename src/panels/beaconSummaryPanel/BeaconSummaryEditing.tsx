@@ -158,6 +158,28 @@ export const BeaconSummaryEditing: FunctionComponent<{
                       }
                     />
 
+                    <TabulatedRow
+                      displayKey={
+                        <label htmlFor="svdr">
+                          <Typography>
+                            {"SVDR" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <>
+                          <label>
+                            <Field name="svdr" type="radio" value="true" />
+                            Yes
+                          </label>
+                          <label>
+                            <Field name="svdr" type="radio" value="false" />
+                            No
+                          </label>
+                        </>
+                      }
+                    />
+
                     {/*<TabulatedRow*/}
                     {/*  displayKey={<></>}*/}
                     {/*  value={*/}

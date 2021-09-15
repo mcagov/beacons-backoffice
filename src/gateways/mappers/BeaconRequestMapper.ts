@@ -15,6 +15,7 @@ export class BeaconRequestMapper {
     if (beacon.registeredDate)
       attributes.registeredDate = beacon.registeredDate;
     if (beacon.status) attributes.status = beacon.status;
+    debugger;
     if (beacon.manufacturer) attributes.manufacturer = beacon.manufacturer;
     if (beacon.model) attributes.model = beacon.model;
     if (beacon.manufacturerSerialNumber)
@@ -25,6 +26,7 @@ export class BeaconRequestMapper {
     if (beacon.lastServicedDate)
       attributes.lastServicedDate = beacon.lastServicedDate;
     if (beacon.mti) attributes.mti = beacon.mti;
+    if (beacon.svdr) attributes.svdr = beacon.svdr;
 
     return {
       data: {

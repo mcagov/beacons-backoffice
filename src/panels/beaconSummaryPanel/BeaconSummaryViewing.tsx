@@ -44,6 +44,10 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: beacon?.mti,
     },
     {
+      key: "SVDR",
+      value: beacon?.svdr?.toString(),
+    },
+    {
       key: "Battery expiry date",
       // value: formatMonth(beacon?.batteryExpiryDate),
       value: beacon?.batteryExpiryDate,
