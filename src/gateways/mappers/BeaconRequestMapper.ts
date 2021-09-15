@@ -26,6 +26,7 @@ export class BeaconRequestMapper {
       attributes.lastServicedDate = beacon.lastServicedDate;
     if (beacon.mti) attributes.mti = beacon.mti;
     if (beacon.svdr) attributes.svdr = beacon.svdr;
+    if (beacon.csta) attributes.csta = beacon.csta;
 
     return {
       data: {

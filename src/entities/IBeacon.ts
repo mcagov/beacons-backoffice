@@ -20,6 +20,7 @@ export interface IBeacon {
   lastServicedDate: string;
   mti: string;
   svdr: string;
+  csta: string;
   uses: IUse[];
   owners: IOwner[];
   emergencyContacts: IEmergencyContact[];

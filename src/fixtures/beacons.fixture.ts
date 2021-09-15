@@ -17,6 +17,7 @@ export const beaconFixture = deepFreeze<IBeacon>({
   manufacturer: "Ocean Signal",
   mti: "EXAMPLE MTI",
   svdr: "true",
+  csta: "CSTA EXAMPLE",
   model: "Excelsior",
   manufacturerSerialNumber: "1407312904",
   chkCode: "456QWE",

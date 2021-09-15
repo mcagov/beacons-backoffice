@@ -40,6 +40,10 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: beacon?.codingMethod,
     },
     {
+      key: "CSTA / TAC",
+      value: beacon?.csta,
+    },
+    {
       key: "MTI",
       value: beacon?.mti,
     },

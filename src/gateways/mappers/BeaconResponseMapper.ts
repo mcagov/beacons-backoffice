@@ -31,6 +31,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       chkCode: beaconApiResponse.data.attributes.chkCode || "",
       mti: beaconApiResponse.data.attributes.mti || "",
       svdr: beaconApiResponse.data.attributes.svdr ? "true" : "false" || "",
+      csta: beaconApiResponse.data.attributes.csta || "",
       protocolCode: beaconApiResponse.data.attributes.protocolCode || "",
       codingMethod: beaconApiResponse.data.attributes.codingMethod || "",
       lastServicedDate: formatDateTime(

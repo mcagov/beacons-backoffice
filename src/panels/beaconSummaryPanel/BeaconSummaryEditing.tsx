@@ -141,6 +141,25 @@ export const BeaconSummaryEditing: FunctionComponent<{
 
                     <TabulatedRow
                       displayKey={
+                        <label htmlFor="csta">
+                          <Typography>
+                            {"CSTA" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field
+                          as={Input}
+                          id="csta"
+                          name="csta"
+                          type="string"
+                          placeholder={Placeholders.NoData}
+                        />
+                      }
+                    />
+
+                    <TabulatedRow
+                      displayKey={
                         <label htmlFor="mti">
                           <Typography>
                             {"MTI" + WritingStyle.KeyValueSeparator}
