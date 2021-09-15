@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
 import { ILegacyOwner } from "entities/ILegacyBeacon";
-import { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { FieldValueTypes } from "../../components/dataPanel/FieldValue";
 import { ErrorState } from "../../components/dataPanel/PanelErrorState";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
@@ -49,6 +49,19 @@ export const LegacyOwnerPanel: FunctionComponent<LegacyOwnerSummaryPanelProps> =
     };
 
     const mainOwnerFields = buildOwnerFields(legacyOwner);
+
+    if (!legacyOwner) {
+      return (
+        <Card>
+          <CardContent>
+            <CardHeader title="No owner associated" />
+            <>
+              {error && <ErrorState message={Placeholders.UnspecifiedError} />}
+            </>
+          </CardContent>
+        </Card>
+      );
+    }
 
     return (
       <>

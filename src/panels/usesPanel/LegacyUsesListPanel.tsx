@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Card, CardContent, CardHeader, Grid } from "@material-ui/core";
 import { ILegacyUse } from "entities/ILegacyBeacon";
 import React, { FunctionComponent } from "react";
 import { LegacyUsePanel } from "./LegacyUsePanel";
@@ -9,6 +9,15 @@ interface LegacyUsesListSummaryPanelProps {
 
 export const LegacyUsesListPanel: FunctionComponent<LegacyUsesListSummaryPanelProps> =
   ({ uses }: LegacyUsesListSummaryPanelProps): JSX.Element => {
+    if (!uses) {
+      return (
+        <Card>
+          <CardContent>
+            <CardHeader title="No beacon uses associated" />
+          </CardContent>
+        </Card>
+      );
+    }
     return (
       <Grid container spacing={2}>
         {uses.map((use, index) => (
