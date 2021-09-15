@@ -40,6 +40,10 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: beacon?.codingMethod,
     },
     {
+      key: "MTI",
+      value: beacon?.mti,
+    },
+    {
       key: "Battery expiry date",
       // value: formatMonth(beacon?.batteryExpiryDate),
       value: beacon?.batteryExpiryDate,
