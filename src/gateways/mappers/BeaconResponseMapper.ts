@@ -29,6 +29,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
         beaconApiResponse.data.attributes.batteryExpiryDate || ""
       ),
       chkCode: beaconApiResponse.data.attributes.chkCode || "",
+      mti: beaconApiResponse.data.attributes.mti || "",
       protocolCode: beaconApiResponse.data.attributes.protocolCode || "",
       codingMethod: beaconApiResponse.data.attributes.codingMethod || "",
       lastServicedDate: formatDateTime(

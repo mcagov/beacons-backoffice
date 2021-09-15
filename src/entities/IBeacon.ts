@@ -18,6 +18,7 @@ export interface IBeacon {
   codingMethod: string;
   batteryExpiryDate: string;
   lastServicedDate: string;
+  mti: string;
   uses: IUse[];
   owners: IOwner[];
   emergencyContacts: IEmergencyContact[];

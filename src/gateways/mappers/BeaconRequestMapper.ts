@@ -24,6 +24,7 @@ export class BeaconRequestMapper {
       attributes.batteryExpiryDate = beacon.batteryExpiryDate;
     if (beacon.lastServicedDate)
       attributes.lastServicedDate = beacon.lastServicedDate;
+    if (beacon.mti) attributes.mti = beacon.mti;
 
     return {
       data: {
