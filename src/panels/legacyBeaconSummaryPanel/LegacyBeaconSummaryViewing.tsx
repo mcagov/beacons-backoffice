@@ -37,7 +37,7 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       value: legacyBeacon?.coding,
     },
     {
-      key: "Protocol code",
+      key: "Protocol",
       value: legacyBeacon?.protocol,
     },
     {

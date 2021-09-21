@@ -124,7 +124,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                     <TabulatedRow
                       displayKey={
                         <Typography>
-                          {"Protocol code" + WritingStyle.KeyValueSeparator}
+                          {"Protocol" + WritingStyle.KeyValueSeparator}
                         </Typography>
                       }
                       value={<FieldValue>{beacon.protocolCode}</FieldValue>}
@@ -133,7 +133,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                     <TabulatedRow
                       displayKey={
                         <Typography>
-                          {"Coding method" + WritingStyle.KeyValueSeparator}
+                          {"Coding" + WritingStyle.KeyValueSeparator}
                         </Typography>
                       }
                       value={<FieldValue>{beacon.codingMethod}</FieldValue>}
