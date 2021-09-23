@@ -1,4 +1,4 @@
-import { Link, Paper } from "@material-ui/core";
+import { Chip, Link, Paper } from "@material-ui/core";
 import {
   AddBox,
   ArrowDownward,
@@ -18,31 +18,21 @@ import {
 } from "@material-ui/icons";
 import { IBeaconsGateway } from "gateways/beacons/IBeaconsGateway";
 import MaterialTable, { Icons, MTableBodyRow } from "material-table";
-import React, {
-  forwardRef,
-  FunctionComponent,
-  useEffect,
-  useState,
-} from "react";
+import React, { forwardRef, FunctionComponent } from "react";
+import { Placeholders } from "utils/writingStyle";
 import { IBeaconSearchResultData } from "../entities/IBeaconSearchResult";
-
-interface BeaconTableListRow {
-  hexId: string;
-  owner: string;
-  uses: string;
-  id: string;
-  date: string;
-  status: string;
-}
 
 interface IBeaconsTableProps {
   beaconsGateway: IBeaconsGateway;
 }
 
-interface IBeaconsTableState {
-  isLoading: Boolean;
-  error: Boolean;
-  beacons: BeaconTableListRow[];
+interface BeaconTableListRow {
+  hexId: string;
+  ownerName: string;
+  useActivities: string;
+  id: string;
+  lastModifiedDate: string;
+  beaconStatus: string;
 }
 
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
@@ -76,86 +66,116 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
 
-  const [state, setState] = useState<IBeaconsTableState>({
-    isLoading: true,
-    error: false,
-    beacons: [],
-  });
-
-  useEffect((): void => {
-    const fetchBeacons = async () => {
-      setState((currentState) => ({ ...currentState, isLoading: true }));
-      try {
-        const response = await beaconsGateway.getAllBeacons();
-
-        const beacons = response.data.map((item: IBeaconSearchResultData) => ({
-          date: item.attributes.lastModifiedDate,
-          status: item.attributes.beaconStatus,
-          hexId: item.attributes.hexId,
-          owner: item.attributes.ownerName,
-          uses: item.attributes.beaconUse,
-          id: item.id,
-        }));
-
-        setState((currentState) => ({
-          ...currentState,
-          isLoading: false,
-          error: false,
-          beacons,
-        }));
-      } catch (error) {
-        console.error("Could not fetch beacons", error);
-        setState((currentState) => ({
-          ...currentState,
-          isLoading: false,
-          error: error?.message,
-        }));
-      }
-    };
-
-    fetchBeacons();
-  }, [beaconsGateway]);
-
   return (
     <MaterialTable
       icons={tableIcons}
       columns={[
         {
-          title: "Last updated date",
-          field: "date",
+          title: "Last modified date",
+          field: "lastModifiedDate",
           filtering: false,
-          sorting: true,
           defaultSort: "desc",
           type: "datetime",
           dateSetting: { format: "dd MM yyyy", locale: "en-GB" },
         },
         {
           title: "Status",
-          field: "status",
-          sorting: true,
+          field: "beaconStatus",
+          lookup: { NEW: "NEW", MIGRATED: "MIGRATED", DELETED: "DELETED" },
+          render: (rowData: BeaconTableListRow) => {
+            if (rowData.beaconStatus === "MIGRATED") {
+              return <Chip label={rowData.beaconStatus} color="secondary" />;
+            } else {
+              return <Chip label={rowData.beaconStatus} color="primary" />;
+            }
+          },
         },
         {
           title: "Hex ID",
           field: "hexId",
           filtering: false,
-          sorting: true,
-          render: (rowData) => (
-            <Link href={"/#/beacons/" + rowData.id}>{rowData.hexId}</Link>
-          ),
+          render: (rowData: BeaconTableListRow) => {
+            if (rowData.beaconStatus === "MIGRATED") {
+              return (
+                <Link href={"/#/legacy-beacons/" + rowData.id}>
+                  {rowData.hexId ? rowData.hexId : <i>{Placeholders.NoData}</i>}
+                </Link>
+              );
+            } else {
+              return (
+                <Link href={"/#/beacons/" + rowData.id}>
+                  {rowData.hexId ? rowData.hexId : <i>{Placeholders.NoData}</i>}
+                </Link>
+              );
+            }
+          },
         },
         {
           title: "Owner details",
-          field: "owner",
+          field: "ownerName",
           filtering: false,
-          sorting: true,
+          render: (rowData: BeaconTableListRow) => {
+            return rowData.ownerName ? rowData.ownerName.toUpperCase() : "";
+          },
         },
         {
           title: "Beacon use",
-          field: "uses",
-          sorting: true,
+          field: "useActivities",
+          render: (rowData: BeaconTableListRow) => {
+            return rowData.useActivities
+              ? rowData.useActivities.toUpperCase()
+              : "";
+          },
         },
       ]}
-      data={state.beacons}
+      data={(query) =>
+        new Promise(async (resolve, reject) => {
+          const term = query.search;
+          let statusFilterValue = "";
+          let useFilterValue = "";
+          let sortValue = "";
+          query.filters.forEach((filter) => {
+            if (filter.column.field === "beaconStatus")
+              statusFilterValue = filter.value;
+            if (filter.column.field === "useActivities")
+              useFilterValue = filter.value;
+          });
+          if (query.orderBy) {
+            const sortField = query.orderBy.field;
+            const sortDirection = query.orderDirection;
+            if (sortField && sortDirection) {
+              sortValue = `${sortField},${sortDirection}`;
+            }
+          }
+          try {
+            const response = await beaconsGateway.getAllBeacons(
+              term,
+              statusFilterValue,
+              useFilterValue,
+              query.page,
+              query.pageSize,
+              sortValue
+            );
+            const beacons = response._embedded.beaconSearch.map(
+              (item: IBeaconSearchResultData) => ({
+                lastModifiedDate: item.lastModifiedDate,
+                beaconStatus: item.beaconStatus,
+                hexId: item.hexId,
+                ownerName: item.ownerName,
+                useActivities: item.useActivities,
+                id: item.id,
+              })
+            );
+            resolve({
+              data: beacons,
+              page: response.page.number,
+              totalCount: response.page.totalElements,
+            });
+          } catch (error) {
+            console.error("Could not fetch beacons", error);
+          }
+        })
+      }
       title=""
       options={{
         filtering: true,

@@ -1,3 +1,4 @@
+import { ILegacyOwner, ILegacyUse } from "entities/ILegacyBeacon";
 import { FieldValueTypes } from "../components/dataPanel/FieldValue";
 import { IEmergencyContact } from "../entities/IEmergencyContact";
 import { IOwner } from "../entities/IOwner";
@@ -8,7 +9,7 @@ export enum WritingStyle {
 }
 
 export enum Placeholders {
-  NoData = "NO DATA ENTERED",
+  NoData = "N/A",
   UnspecifiedError = "An error occurred",
   UnrecognizedBeaconType = "Unrecognized beacon type",
 }
@@ -28,6 +29,20 @@ export const formatUse = (use: IUse): string => {
   return formattedActivity + formattedPurpose;
 };
 
+export const formatLegacyUses = (uses: ILegacyUse[]): string =>
+  uses.reduce((formattedUses, use, index, uses) => {
+    if (index === uses.length - 1) return formattedUses + formatLegacyUse(use);
+    return formattedUses + formatLegacyUse(use) + ", ";
+  }, "");
+
+export const formatLegacyUse = (use: ILegacyUse): string => {
+  return use.useType
+    ? `${titleCase(use.useType)}${
+        use.vesselType ? " (" + use.vesselType + ")" : ""
+      }`
+    : "";
+};
+
 export const titleCase = (text: string): string => {
   return text
     .replace(/_/g, " ")
@@ -38,6 +53,16 @@ export const titleCase = (text: string): string => {
 
 export const formatOwners = (owners: IOwner[]): string =>
   owners.map((owner) => owner.fullName).join(", ");
+
+export const formatSvdr = (svdr: string): string => {
+  if (!svdr) {
+    return "";
+  }
+  return svdr === "true" ? "YES" : "NO";
+};
+
+export const formatLegacyOwners = (...owners: ILegacyOwner[]): string =>
+  (owners || []).map((owner) => owner.ownerName).join(", ");
 
 export const formatEmergencyContacts = (
   emergencyContacts: IEmergencyContact[]

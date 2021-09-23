@@ -4,7 +4,6 @@ import {
   Divider,
   Grid,
   Input,
-  Paper,
   Table,
   TableBody,
   TableContainer,
@@ -125,7 +124,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                     <TabulatedRow
                       displayKey={
                         <Typography>
-                          {"Protocol code" + WritingStyle.KeyValueSeparator}
+                          {"Protocol" + WritingStyle.KeyValueSeparator}
                         </Typography>
                       }
                       value={<FieldValue>{beacon.protocolCode}</FieldValue>}
@@ -134,30 +133,90 @@ export const BeaconSummaryEditing: FunctionComponent<{
                     <TabulatedRow
                       displayKey={
                         <Typography>
-                          {"Coding method" + WritingStyle.KeyValueSeparator}
+                          {"Coding" + WritingStyle.KeyValueSeparator}
                         </Typography>
                       }
                       value={<FieldValue>{beacon.codingMethod}</FieldValue>}
                     />
 
                     <TabulatedRow
-                      displayKey={<></>}
+                      displayKey={
+                        <label htmlFor="csta">
+                          <Typography>
+                            {"CSTA" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
                       value={
-                        <Paper style={{ backgroundColor: "#FFFCC8" }}>
-                          <Box p={1}>
-                            <Typography>
-                              <b>Protocol code</b>, <b>coding method</b> and{" "}
-                              <b>beacon type</b> are automatically derived from
-                              the HEX ID. If you have identified a coding issue,
-                              please flag this record as 'Incorrectly Encoded'
-                              by clicking on the 'Quick Actions' button in the
-                              top right. You can also add any notes in the
-                              'Notes' tab below.
-                            </Typography>
-                          </Box>
-                        </Paper>
+                        <Field
+                          as={Input}
+                          id="csta"
+                          name="csta"
+                          type="string"
+                          placeholder={Placeholders.NoData}
+                        />
                       }
                     />
+
+                    <TabulatedRow
+                      displayKey={
+                        <label htmlFor="mti">
+                          <Typography>
+                            {"MTI" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field
+                          as={Input}
+                          id="mti"
+                          name="mti"
+                          type="string"
+                          placeholder={Placeholders.NoData}
+                        />
+                      }
+                    />
+
+                    <TabulatedRow
+                      displayKey={
+                        <label htmlFor="svdr">
+                          <Typography>
+                            {"SVDR" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <>
+                          <label>
+                            <Field name="svdr" type="radio" value="true" />
+                            Yes
+                          </label>
+                          <label>
+                            <Field name="svdr" type="radio" value="false" />
+                            No
+                          </label>
+                        </>
+                      }
+                    />
+
+                    {/*<TabulatedRow*/}
+                    {/*  displayKey={<></>}*/}
+                    {/*  value={*/}
+                    {/*    <Paper style={{ backgroundColor: "#FFFCC8" }}>*/}
+                    {/*      <Box p={1}>*/}
+                    {/*        <Typography>*/}
+                    {/*          <b>Protocol code</b>, <b>coding method</b> and{" "}*/}
+                    {/*          <b>beacon type</b> are automatically derived from*/}
+                    {/*          the HEX ID. If you have identified a coding issue,*/}
+                    {/*          please flag this record as 'Incorrectly Encoded'*/}
+                    {/*          by clicking on the 'Quick Actions' button in the*/}
+                    {/*          top right. You can also add any notes in the*/}
+                    {/*          'Notes' tab below.*/}
+                    {/*        </Typography>*/}
+                    {/*      </Box>*/}
+                    {/*    </Paper>*/}
+                    {/*  }*/}
+                    {/*/>*/}
 
                     <TabulatedRow
                       displayKey={

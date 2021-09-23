@@ -1,10 +1,10 @@
 import { FunctionComponent } from "react";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { IBeacon } from "../../entities/IBeacon";
-import { formatMonth } from "../../utils/dateTime";
 import {
   formatEmergencyContacts,
   formatOwners,
+  formatSvdr,
   formatUses,
 } from "../../utils/writingStyle";
 
@@ -12,6 +12,10 @@ export const BeaconSummaryViewing: FunctionComponent<{
   beacon: IBeacon;
 }> = ({ beacon }) => {
   const fields = [
+    {
+      key: "Beacon status",
+      value: beacon?.status,
+    },
     {
       key: "Manufacturer",
       value: beacon?.manufacturer,
@@ -29,20 +33,42 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: beacon?.chkCode,
     },
     {
-      key: "Protocol code",
+      key: "Protocol",
       value: beacon?.protocolCode,
     },
     {
-      key: "Coding method",
+      key: "Coding",
       value: beacon?.codingMethod,
     },
     {
+      key: "CSTA / TAC",
+      value: beacon?.csta,
+    },
+    {
+      key: "MTI",
+      value: beacon?.mti,
+    },
+    {
+      key: "SVDR",
+      value: formatSvdr(beacon?.svdr),
+    },
+    {
       key: "Battery expiry date",
-      value: formatMonth(beacon?.batteryExpiryDate),
+      // value: formatMonth(beacon?.batteryExpiryDate),
+      value: beacon?.batteryExpiryDate,
     },
     {
       key: "Last serviced date",
-      value: formatMonth(beacon?.lastServicedDate),
+      // value: formatMonth(beacon?.lastServicedDate),
+      value: beacon?.lastServicedDate,
+    },
+    {
+      key: "Created date",
+      value: beacon?.registeredDate,
+    },
+    {
+      key: "Last modified date",
+      value: beacon?.lastModifiedDate,
     },
     {
       key: "Owner(s)",
@@ -58,5 +84,5 @@ export const BeaconSummaryViewing: FunctionComponent<{
     },
   ];
 
-  return <PanelViewingState fields={fields} columns={2} splitAfter={8} />;
+  return <PanelViewingState fields={fields} columns={2} splitAfter={10} />;
 };

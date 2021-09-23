@@ -12,6 +12,7 @@ describe("Owner Summary Panel", () => {
       getBeacon: jest.fn().mockResolvedValue(beaconFixture),
       getAllBeacons: jest.fn(),
       updateBeacon: jest.fn(),
+      getLegacyBeacon: jest.fn(),
     };
   });
 

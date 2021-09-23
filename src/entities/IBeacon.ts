@@ -8,6 +8,7 @@ export interface IBeacon {
   hexId: string;
   type: string;
   registeredDate: string;
+  lastModifiedDate: string;
   status: string;
   manufacturer: string;
   model: string;
@@ -17,6 +18,9 @@ export interface IBeacon {
   codingMethod: string;
   batteryExpiryDate: string;
   lastServicedDate: string;
+  mti: string;
+  svdr: string;
+  csta: string;
   uses: IUse[];
   owners: IOwner[];
   emergencyContacts: IEmergencyContact[];
@@ -25,6 +29,8 @@ export interface IBeacon {
 
 export enum BeaconStatuses {
   New = "NEW",
+  Deleted = "DELETED",
+  Migrated = "MIGRATED",
 }
 
 export enum BeaconTypes {

@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Card, CardContent, CardHeader, Grid } from "@material-ui/core";
 import { IUse } from "entities/IUse";
 import { IUsesGateway } from "gateways/uses/IUsesGateway";
 import React, { FunctionComponent, useEffect, useState } from "react";
@@ -27,6 +27,16 @@ export const UsesListPanel: FunctionComponent<UsesListSummaryPanelProps> = ({
 
     fetchUses(beaconId);
   }, [beaconId, usesGateway]);
+
+  if (uses.length === 0) {
+    return (
+      <Card>
+        <CardContent>
+          <CardHeader title="No beacon uses associated" />
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Grid container spacing={2}>

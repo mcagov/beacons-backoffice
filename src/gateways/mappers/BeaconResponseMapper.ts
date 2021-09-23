@@ -3,7 +3,7 @@ import { IEmergencyContact } from "../../entities/IEmergencyContact";
 import { IEntityLink } from "../../entities/IEntityLink";
 import { IOwner } from "../../entities/IOwner";
 import { IUse } from "../../entities/IUse";
-import { isoDate } from "../../utils/dateTime";
+import { formatDateTime } from "../../utils/dateTime";
 import { IBeaconResponse } from "./IBeaconResponse";
 
 export interface IBeaconResponseMapper {
@@ -19,23 +19,40 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       manufacturer: beaconApiResponse.data.attributes.manufacturer || "",
       model: beaconApiResponse.data.attributes.model || "",
       status: beaconApiResponse.data.attributes.status || "",
-      registeredDate: isoDate(
+      registeredDate: formatDateTime(
         beaconApiResponse.data.attributes.createdDate || ""
       ),
-      batteryExpiryDate: isoDate(
+      lastModifiedDate: formatDateTime(
+        beaconApiResponse.data.attributes.lastModifiedDate || ""
+      ),
+      batteryExpiryDate: formatDateTime(
         beaconApiResponse.data.attributes.batteryExpiryDate || ""
       ),
       chkCode: beaconApiResponse.data.attributes.chkCode || "",
+      mti: beaconApiResponse.data.attributes.mti || "",
+      svdr:
+        beaconApiResponse.data.attributes.svdr == null
+          ? ""
+          : beaconApiResponse.data.attributes.svdr
+          ? "true"
+          : "false",
+      csta: beaconApiResponse.data.attributes.csta || "",
       protocolCode: beaconApiResponse.data.attributes.protocolCode || "",
       codingMethod: beaconApiResponse.data.attributes.codingMethod || "",
-      lastServicedDate: isoDate(
+      lastServicedDate: formatDateTime(
         beaconApiResponse.data.attributes.lastServicedDate || ""
       ),
       manufacturerSerialNumber:
         beaconApiResponse.data.attributes.manufacturerSerialNumber || "",
-      owners: this.mapOwners(beaconApiResponse),
-      emergencyContacts: this.mapEmergencyContacts(beaconApiResponse),
-      uses: this.mapUses(beaconApiResponse),
+      owners: beaconApiResponse.data.relationships?.owner
+        ? this.mapOwners(beaconApiResponse)
+        : [],
+      emergencyContacts: beaconApiResponse.data.relationships?.emergencyContacts
+        ? this.mapEmergencyContacts(beaconApiResponse)
+        : [],
+      uses: beaconApiResponse.data.relationships?.owner
+        ? this.mapUses(beaconApiResponse)
+        : [],
       entityLinks: this.mapLinks(beaconApiResponse.data.links),
     };
   }

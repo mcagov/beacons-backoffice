@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { FieldValueTypes } from "../../components/dataPanel/FieldValue";
 import { ErrorState } from "../../components/dataPanel/PanelErrorState";
 import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
@@ -26,7 +26,9 @@ export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
       try {
         setLoading(true);
         const beacon = await beaconsGateway.getBeacon(id);
-        setOwner(beacon.owners[0]);
+        if (beacon?.owners?.length !== 0) {
+          setOwner(beacon.owners[0]);
+        }
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -36,6 +38,20 @@ export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
 
     fetchBeacon(beaconId);
   }, [beaconId, beaconsGateway]);
+
+  if (!owner) {
+    return (
+      <Card>
+        <CardContent>
+          <CardHeader title="No owner associated" />
+          <>
+            {error && <ErrorState message={Placeholders.UnspecifiedError} />}
+            {loading && <LoadingState />}
+          </>
+        </CardContent>
+      </Card>
+    );
+  }
 
   const fields = [
     { key: "Name", value: owner?.fullName },

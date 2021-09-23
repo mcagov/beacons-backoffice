@@ -3,7 +3,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FunctionComponent } from "react";
 import { BeaconsTable } from "../components/BeaconsTable";
 import { PageContent } from "../components/layout/PageContent";
-import { PageHeader } from "../components/layout/PageHeader";
 import { IBeaconsGateway } from "../gateways/beacons/IBeaconsGateway";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,7 +26,6 @@ export const BeaconRecordsListView: FunctionComponent<BeaconRecordsProps> = ({
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <PageHeader>Beacon records</PageHeader>
       <PageContent>
         <Paper className={classes.paper}>
           <BeaconsTable beaconsGateway={beaconsGateway} />

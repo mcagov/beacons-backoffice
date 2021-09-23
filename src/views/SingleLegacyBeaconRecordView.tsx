@@ -1,20 +1,19 @@
 import { Grid, Tab, Tabs } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { IBeacon } from "entities/IBeacon";
-import { IUsesGateway } from "gateways/uses/IUsesGateway";
-import { OwnerPanel } from "panels/ownerPanel/OwnerPanel";
-import { UsesListPanel } from "panels/usesPanel/UsesListPanel";
+import { ILegacyBeacon } from "entities/ILegacyBeacon";
+import { LegacyBeaconSummaryPanel } from "panels/legacyBeaconSummaryPanel/LegacyBeaconSummaryPanel";
+import { LegacyEmergencyContactPanel } from "panels/legacyEmergencyContactPanel/LegacyEmergencyContactPanel";
+import { LegacyOwnerPanel } from "panels/legacyOwnerPanel/LegacyOwnerPanel";
+import { LegacyUsesListPanel } from "panels/usesPanel/LegacyUsesListPanel";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
 import { IBeaconsGateway } from "../gateways/beacons/IBeaconsGateway";
-import { BeaconSummaryPanel } from "../panels/beaconSummaryPanel/BeaconSummaryPanel";
-import { EmergencyContactPanel } from "../panels/emergencyContactPanel/EmergencyContactPanel";
+import { Placeholders } from "../utils/writingStyle";
 
-interface ISingleBeaconRecordViewProps {
+interface ISingleLegacyBeaconRecordViewProps {
   beaconsGateway: IBeaconsGateway;
-  usesGateway: IUsesGateway;
   beaconId: string;
 }
 
@@ -29,8 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewProps> =
-  ({ beaconsGateway, usesGateway, beaconId }): JSX.Element => {
+export const SingleLegacyBeaconRecordView: FunctionComponent<ISingleLegacyBeaconRecordViewProps> =
+  ({ beaconsGateway, beaconId }): JSX.Element => {
     const classes = useStyles();
 
     const [selectedTab, setSelectedTab] = useState<number>(0);
@@ -38,12 +37,12 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
       setSelectedTab(tab);
     };
 
-    const [beacon, setBeacon] = useState<IBeacon>({} as IBeacon);
+    const [beacon, setBeacon] = useState<ILegacyBeacon>({} as ILegacyBeacon);
 
     useEffect((): void => {
       const fetchBeacon = async (id: string) => {
         try {
-          const beacon = await beaconsGateway.getBeacon(id);
+          const beacon = await beaconsGateway.getLegacyBeacon(id);
           setBeacon(beacon);
         } catch (error) {
           console.error(error);
@@ -54,19 +53,17 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
     }, [beaconId, beaconsGateway]);
 
     const hexId = beacon?.hexId || "";
-    const beaconType = beacon?.type || "";
+    const beaconType =
+      beacon?.beaconType || Placeholders.UnrecognizedBeaconType;
     const numberOfUses = beacon?.uses?.length.toString() || "";
 
     return (
       <div className={classes.root}>
         <PageHeader>
-          Hex ID/UIN: {hexId} {beaconType ? "(" + beaconType + ")" : ""}
+          Hex ID/UIN: {hexId} ({beaconType})
         </PageHeader>
         <PageContent>
-          <BeaconSummaryPanel
-            beaconsGateway={beaconsGateway}
-            beaconId={beaconId}
-          />
+          <LegacyBeaconSummaryPanel legacyBeacon={beacon} />
           <Tabs value={selectedTab} onChange={handleChange}>
             <Tab label="Owner & Emergency Contacts" />
             <Tab label={`${numberOfUses} Registered Uses`} />
@@ -74,21 +71,20 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           <TabPanel value={selectedTab} index={0}>
             <Grid direction="row" container justify="space-between" spacing={1}>
               <Grid item xs={6}>
-                <OwnerPanel
-                  beaconsGateway={beaconsGateway}
-                  beaconId={beaconId}
+                <LegacyOwnerPanel
+                  legacyOwner={beacon.owner}
+                  secondaryLegacyOwners={beacon.secondaryOwners}
                 />
               </Grid>
               <Grid item xs={6}>
-                <EmergencyContactPanel
-                  beaconsGateway={beaconsGateway}
-                  beaconId={beaconId}
+                <LegacyEmergencyContactPanel
+                  legacyEmergencyContact={beacon.emergencyContact}
                 />
               </Grid>
             </Grid>
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
-            <UsesListPanel usesGateway={usesGateway} beaconId={beaconId} />
+            <LegacyUsesListPanel uses={beacon.uses} />
           </TabPanel>
         </PageContent>
       </div>

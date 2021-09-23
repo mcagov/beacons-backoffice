@@ -1,17 +1,27 @@
 export interface IBeaconSearchResult {
-  meta: { count: number; pageSize: number };
+  page: {
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+  };
 
-  data: IBeaconSearchResultData[];
+  _embedded: { beaconSearch: IBeaconSearchResultData[] };
 }
 
 export interface IBeaconSearchResultData {
-  type: "beaconSearchResult";
   id: string;
-  attributes: {
-    hexId: string;
-    beaconStatus: string;
-    lastModifiedDate: string;
-    ownerName: string;
-    beaconUse: string;
+  lastModifiedDate: string;
+  beaconStatus: string;
+  hexId: string;
+  ownerName: string;
+  useActivities: string;
+  _links: {
+    self: {
+      href: string;
+    };
+    beaconSearchEntity: {
+      href: string;
+    };
   };
 }
