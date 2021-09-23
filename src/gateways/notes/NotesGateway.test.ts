@@ -34,7 +34,7 @@ describe("NotesGateway", () => {
   });
 
   describe("NotesGateway", () => {
-    it.only("queries the correct endpoint", async () => {
+    it("queries the correct endpoint", async () => {
       // @ts-ignore
       axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
