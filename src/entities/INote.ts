@@ -3,6 +3,7 @@ export interface INote {
   beaconId: string;
   text: string;
   type: NoteType;
+  createdDate: string;
   userId: string;
   fullName: string;
   email: string;

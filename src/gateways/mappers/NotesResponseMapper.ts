@@ -1,4 +1,5 @@
 import { INote, NoteType } from "../../entities/INote";
+import { formatDateLong } from "../../utils/dateTime";
 import { INotesResponse } from "./INotesResponse";
 
 export interface INotesResponseMapper {
@@ -17,6 +18,7 @@ export class NotesResponseMapper implements INotesResponseMapper {
         beaconId: noteResponse.attributes.beaconId,
         text: noteResponse.attributes.text,
         type: NoteType[noteResponse.attributes.type as NoteType],
+        createdDate: formatDateLong(noteResponse.attributes.createdDate),
         userId: noteResponse.attributes.userId,
         fullName: noteResponse.attributes.fullName,
         email: noteResponse.attributes.email,
