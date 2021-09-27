@@ -54,7 +54,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
   return (
     <Card>
       <CardContent>
-        <CardHeader title="MCA MCC Notes" />
+        <CardHeader title="MCA / MCC Notes" />
         <NotesTable notes={notes} />
       </CardContent>
     </Card>
