@@ -15,7 +15,7 @@ describe("NotesPanel", () => {
 
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
 
-    expect(await screen.findByText("MCA MCC Notes")).toBeVisible();
+    expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
     for (const note of notesFixture) {
       expect(
         await screen.findByText(formatMonth(note.createdDate))
