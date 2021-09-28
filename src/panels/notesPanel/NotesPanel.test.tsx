@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { notesFixture } from "../../fixtures/notes.fixture";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { formatMonth } from "../../utils/dateTime";
-import { NoNotesMessage, NotesPanel } from "./NotesPanel";
+import { noNotesMessage, NotesPanel } from "./NotesPanel";
 
 describe("NotesPanel", () => {
   let gateway: INotesGateway;
@@ -27,11 +27,11 @@ describe("NotesPanel", () => {
   });
 
   it("displays a message if there are no notes for a record", async () => {
-    gateway = { getNotes: jest.fn().mockResolvedValue([]) };
+    gateway.getNotes = jest.fn().mockResolvedValue([]);
     beaconId = "24601";
 
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
 
-    expect(await screen.findByText(NoNotesMessage)).toBeVisible();
+    expect(await screen.findByText(noNotesMessage)).toBeVisible();
   });
 });

@@ -20,7 +20,7 @@ interface NotesPanelProps {
   beaconId: string;
 }
 
-export const NoNotesMessage = "No notes associated with this record";
+export const noNotesMessage = "No notes associated with this record";
 
 export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
   notesGateway,
@@ -45,7 +45,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
     return (
       <Card>
         <CardContent>
-          <CardHeader title={NoNotesMessage} />
+          <CardHeader title={noNotesMessage} />
         </CardContent>
       </Card>
     );
