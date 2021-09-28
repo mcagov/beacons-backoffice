@@ -44,8 +44,21 @@ describe("NotesPanel", () => {
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
 
     const addNoteButton = await screen.findByText(/add a new note/i);
+
+    console.log(addNoteButton);
+
     userEvent.click(addNoteButton);
     // User clicks on Add new Note button
     // Expect seeing "Add a note"
+
+    const noteRadioButton = await screen.getByTestId(/general-note-type/i);
+
+    expect(await screen.findByText(/add a note/i)).toBeVisible();
+    // expect to be able to click on General Note option
+    userEvent.click(noteRadioButton);
+    // radio buttons are rendered
+    // get the form to submit correctly
+    // user should be able to type in a note
+    // refactoring
   });
 });
