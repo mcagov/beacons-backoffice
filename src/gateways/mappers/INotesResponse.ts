@@ -8,6 +8,7 @@ export interface INotesResponse extends IApiResponse {
       beaconId: string;
       text: string;
       type: string;
+      createdDate: string;
       userId: string;
       fullName: string;
       email: string;

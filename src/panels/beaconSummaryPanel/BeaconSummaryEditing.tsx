@@ -41,7 +41,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
     >
       {() => (
         <Form>
-          <Grid container direction="row" justify="flex-start">
+          <Grid container direction="row" justifyContent={"flex-start"}>
             <Grid item xs={12} sm={6}>
               <TableContainer>
                 <Table size="small">

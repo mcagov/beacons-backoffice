@@ -1,4 +1,4 @@
-import { INote } from "../../entities/INote";
+import { INote, NoteType } from "../../entities/INote";
 import { INotesResponse } from "./INotesResponse";
 
 export interface INotesResponseMapper {
@@ -16,7 +16,8 @@ export class NotesResponseMapper implements INotesResponseMapper {
         id: noteResponse.id,
         beaconId: noteResponse.attributes.beaconId,
         text: noteResponse.attributes.text,
-        type: noteResponse.attributes.type,
+        type: NoteType[noteResponse.attributes.type as NoteType],
+        createdDate: noteResponse.attributes.createdDate,
         userId: noteResponse.attributes.userId,
         fullName: noteResponse.attributes.fullName,
         email: noteResponse.attributes.email,

@@ -9,12 +9,15 @@ import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
 import { IBeaconsGateway } from "../gateways/beacons/IBeaconsGateway";
+import { INotesGateway } from "../gateways/notes/INotesGateway";
 import { BeaconSummaryPanel } from "../panels/beaconSummaryPanel/BeaconSummaryPanel";
 import { EmergencyContactPanel } from "../panels/emergencyContactPanel/EmergencyContactPanel";
+import { NotesPanel } from "../panels/notesPanel/NotesPanel";
 
 interface ISingleBeaconRecordViewProps {
   beaconsGateway: IBeaconsGateway;
   usesGateway: IUsesGateway;
+  notesGateway: INotesGateway;
   beaconId: string;
 }
 
@@ -30,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewProps> =
-  ({ beaconsGateway, usesGateway, beaconId }): JSX.Element => {
+  ({ beaconsGateway, usesGateway, notesGateway, beaconId }): JSX.Element => {
     const classes = useStyles();
 
     const [selectedTab, setSelectedTab] = useState<number>(0);
@@ -70,6 +73,7 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           <Tabs value={selectedTab} onChange={handleChange}>
             <Tab label="Owner & Emergency Contacts" />
             <Tab label={`${numberOfUses} Registered Uses`} />
+            <Tab label={`Notes`} />
           </Tabs>
           <TabPanel value={selectedTab} index={0}>
             <Grid direction="row" container justify="space-between" spacing={1}>
@@ -89,6 +93,9 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
             <UsesListPanel usesGateway={usesGateway} beaconId={beaconId} />
+          </TabPanel>
+          <TabPanel value={selectedTab} index={2}>
+            <NotesPanel notesGateway={notesGateway} beaconId={beaconId} />
           </TabPanel>
         </PageContent>
       </div>
