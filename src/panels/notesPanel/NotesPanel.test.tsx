@@ -10,6 +10,7 @@ describe("NotesPanel", () => {
   it("should display the notes of a record", async () => {
     gateway = {
       getNotes: jest.fn().mockResolvedValue(notesFixture),
+      createNote: jest.fn(),
     };
     beaconId = "123445";
 
