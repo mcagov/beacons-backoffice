@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { PanelButton } from "../../components/dataPanel/EditPanelButton";
 import { INote } from "../../entities/INote";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { formatMonth } from "../../utils/dateTime";
@@ -46,6 +47,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
       <Card>
         <CardContent>
           <CardHeader title={noNotesMessage} />
+          <PanelButton onClick={() => {}}>Add a new note</PanelButton>
         </CardContent>
       </Card>
     );
