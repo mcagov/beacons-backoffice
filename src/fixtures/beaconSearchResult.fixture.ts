@@ -17,6 +17,7 @@ export const beaconSearchResultFixture = deepFreeze<IBeaconSearchResult>({
         lastModifiedDate: "2020-02-01T00:00",
         useActivities: "SAILING, KAYAKING",
         ownerName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
+        beaconType: "BEACON",
         _links: {
           self: {
             href: "/97b306aa-cbd0-4f09-aa24-2d876b983efb",
@@ -33,6 +34,7 @@ export const beaconSearchResultFixture = deepFreeze<IBeaconSearchResult>({
         lastModifiedDate: "2020-02-01T00:00",
         useActivities: "MOTORING",
         ownerName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
+        beaconType: "BEACON",
         _links: {
           self: {
             href: "/97b306aa-cbd0-4f09-aa24-2d876b983efc",
@@ -49,6 +51,7 @@ export const beaconSearchResultFixture = deepFreeze<IBeaconSearchResult>({
         lastModifiedDate: "2020-02-01T00:00",
         useActivities: "VESSELING",
         ownerName: "Vice-Admiral Horatio Nelson, 1st Viscount Nelson",
+        beaconType: "BEACON",
         _links: {
           self: {
             href: "/97b306aa-cbd0-4f09-aa24-2d876b983efd",
