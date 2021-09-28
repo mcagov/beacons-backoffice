@@ -1,29 +1,36 @@
 import { INote, NoteType } from "../../entities/INote";
+import { INoteResponse } from "./INoteResponse";
+import { INoteResponseData } from "./INoteResponseData";
 import { INotesResponse } from "./INotesResponse";
 
 export interface INotesResponseMapper {
-  map: (notesResponse: INotesResponse) => INote[];
+  map: (noteResponse: INoteResponse) => INote;
+  mapList: (notesResponse: INotesResponse) => INote[];
 }
 
 export class NotesResponseMapper implements INotesResponseMapper {
-  public map(notesResponse: INotesResponse): INote[] {
-    const notes: INote[] = [];
+  public map(noteResponse: INoteResponse): INote {
+    return this._mapData(noteResponse.data);
+  }
 
+  public mapList(notesResponse: INotesResponse): INote[] {
     if (!notesResponse.data || notesResponse.data.length === 0) return [];
 
-    notesResponse.data.forEach((noteResponse) => {
-      notes.push({
-        id: noteResponse.id,
-        beaconId: noteResponse.attributes.beaconId,
-        text: noteResponse.attributes.text,
-        type: NoteType[noteResponse.attributes.type as NoteType],
-        createdDate: noteResponse.attributes.createdDate,
-        userId: noteResponse.attributes.userId,
-        fullName: noteResponse.attributes.fullName,
-        email: noteResponse.attributes.email,
-      });
-    });
+    return notesResponse.data.map((noteResponseData) =>
+      this._mapData(noteResponseData)
+    );
+  }
 
-    return notes;
+  private _mapData(responseData: INoteResponseData) {
+    return {
+      id: responseData.id,
+      beaconId: responseData.attributes.beaconId,
+      text: responseData.attributes.text,
+      type: NoteType[responseData.attributes.type as NoteType],
+      createdDate: responseData.attributes.createdDate,
+      userId: responseData.attributes.userId,
+      fullName: responseData.attributes.fullName,
+      email: responseData.attributes.email,
+    };
   }
 }
