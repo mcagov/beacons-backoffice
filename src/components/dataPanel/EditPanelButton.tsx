@@ -8,7 +8,7 @@ export const EditPanelButton: FunctionComponent<{
 }> = ({ onClick, links, children }): JSX.Element => {
   const canEdit = links == null || links.some((link) => link.verb === "PATCH");
   return canEdit ? (
-    <PanelButton onClick={onClick}>children</PanelButton>
+    <PanelButton onClick={onClick}>{children}</PanelButton>
   ) : (
     <></>
   );
