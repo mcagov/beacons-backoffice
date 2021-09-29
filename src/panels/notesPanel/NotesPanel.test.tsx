@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { notesFixture } from "../../fixtures/notes.fixture";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
@@ -45,8 +45,6 @@ describe("NotesPanel", () => {
 
     const addNoteButton = await screen.findByText(/add a new note/i);
 
-    console.log(addNoteButton);
-
     userEvent.click(addNoteButton);
     // User clicks on Add new Note button
     // Expect seeing "Add a note"
@@ -55,7 +53,16 @@ describe("NotesPanel", () => {
 
     expect(await screen.findByText(/add a note/i)).toBeVisible();
     // expect to be able to click on General Note option
-    userEvent.click(noteRadioButton);
+    await waitFor(() => {
+      userEvent.click(noteRadioButton);
+    });
+
+    // I should be able to type in the form text area
+    const noteInputField = await screen.getByTestId(/note-input-field/i);
+
+    await waitFor(() => {
+      userEvent.type(noteInputField, "This is a general note");
+    });
     // radio buttons are rendered
     // get the form to submit correctly
     // user should be able to type in a note

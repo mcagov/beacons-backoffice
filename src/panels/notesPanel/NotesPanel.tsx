@@ -2,6 +2,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Input,
   Table,
   TableBody,
   TableCell,
@@ -55,6 +56,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
               <Formik
                 initialValues={{
                   noteType: "",
+                  noteInputField: "",
                 }}
                 onSubmit={() => {}}
               >
@@ -64,7 +66,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
                     <label>
                       <Field
                         type="radio"
-                        name="note-type"
+                        name="noteType"
                         value="General"
                         data-testid="general-note-type"
                       />
@@ -74,13 +76,20 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
                     <label>
                       <Field
                         type="radio"
-                        name="note-type"
+                        name="noteType"
                         value="Incident"
                         data-testid="incident-note-type"
                       />
                       Incident note (e.g. beacon activation, alarm raised etc.)
                     </label>
                   </div>
+                  <Field
+                    as={Input}
+                    data-testid="note-input-field"
+                    name="noteInputField"
+                    type="string"
+                    placeholder="Add a note here"
+                  />
                 </Form>
               </Formik>
             </>
