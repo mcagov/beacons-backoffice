@@ -37,7 +37,7 @@ describe("NotesPanel", () => {
     expect(await screen.findByText(noNotesMessage)).toBeVisible();
   });
 
-  it("displays the AddNotes view when user clicks on edit button", async () => {
+  it("allows me to cancel adding a note", async () => {
     gateway.getNotes = jest.fn().mockResolvedValue([]);
     beaconId = "24601";
 
@@ -46,26 +46,28 @@ describe("NotesPanel", () => {
     const addNoteButton = await screen.findByText(/add a new note/i);
 
     userEvent.click(addNoteButton);
-    // User clicks on Add new Note button
-    // Expect seeing "Add a note"
 
     const noteRadioButton = await screen.getByTestId(/general-note-type/i);
 
     expect(await screen.findByText(/add a note/i)).toBeVisible();
-    // expect to be able to click on General Note option
     await waitFor(() => {
       userEvent.click(noteRadioButton);
     });
 
-    // I should be able to type in the form text area
     const noteInputField = await screen.getByTestId(/note-input-field/i);
 
     await waitFor(() => {
       userEvent.type(noteInputField, "This is a general note");
     });
-    // radio buttons are rendered
-    // get the form to submit correctly
-    // user should be able to type in a note
-    // refactoring
+
+    const cancelButton = await screen.getByTestId(/cancel/i);
+
+    await waitFor(() => {
+      userEvent.click(cancelButton);
+    });
+
+    expect(await screen.findByText(noNotesMessage)).toBeVisible();
   });
+
+  it("allows me to submit a note", async () => {});
 });
