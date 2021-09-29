@@ -54,14 +54,10 @@ describe("NotesPanel", () => {
     });
 
     const noteInputField = screen.getByTestId(/note-input-field/i);
-    await waitFor(() => {
-      userEvent.type(noteInputField, "This is a incident note");
-    });
+    userEvent.type(noteInputField, "This is a incident note");
 
     const cancelButton = screen.getByTestId(/cancel/i);
-    await waitFor(() => {
-      userEvent.click(cancelButton);
-    });
+    userEvent.click(cancelButton);
 
     expect(await screen.findByText(noNotesMessage)).toBeVisible();
   });
@@ -95,10 +91,10 @@ describe("NotesPanel", () => {
       userEvent.click(noteRadioButton);
     });
 
-    const noteInputField = await screen.getByTestId(/note-input-field/i);
-    await userEvent.type(noteInputField, note.text);
+    const noteInputField = screen.getByTestId(/note-input-field/i);
+    userEvent.type(noteInputField, note.text);
 
-    const saveButton = await screen.getByTestId(/save/i);
+    const saveButton = screen.getByTestId(/save/i);
     await waitFor(() => {
       userEvent.click(saveButton);
     });
@@ -141,10 +137,10 @@ describe("NotesPanel", () => {
       userEvent.click(noteRadioButton);
     });
 
-    const noteInputField = await screen.getByTestId(/note-input-field/i);
-    await userEvent.type(noteInputField, note.text);
+    const noteInputField = screen.getByTestId(/note-input-field/i);
+    userEvent.type(noteInputField, note.text);
 
-    const saveButton = await screen.getByTestId(/save/i);
+    const saveButton = screen.getByTestId(/save/i);
     await waitFor(() => {
       userEvent.click(saveButton);
     });
