@@ -4,6 +4,7 @@ import { INote, NoteType } from "../../entities/INote";
 import { notesFixture } from "../../fixtures/notes.fixture";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { formatMonth } from "../../utils/dateTime";
+import { Placeholders } from "../../utils/writingStyle";
 import { noNotesMessage, NotesPanel } from "./NotesPanel";
 
 describe("NotesPanel", () => {
@@ -149,5 +150,17 @@ describe("NotesPanel", () => {
     expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
 
     expect(await screen.findByText(note.text)).toBeVisible();
+  });
+
+  it("displays error if notes lookup fails for any reason", async () => {
+    gateway.getNotes = jest.fn().mockImplementation(() => {
+      throw Error();
+    });
+    jest.spyOn(console, "error").mockImplementation(() => {}); // Avoid console error failing test
+    render(<NotesPanel notesGateway={gateway} beaconId={""} />);
+    expect(await screen.findByRole("alert")).toBeVisible();
+    expect(
+      await screen.findByText(Placeholders.UnspecifiedError)
+    ).toBeVisible();
   });
 });
