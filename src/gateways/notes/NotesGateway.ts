@@ -32,8 +32,6 @@ export class NotesGateway implements INotesGateway {
 
   public async createNote(note: Partial<INote>): Promise<INote> {
     try {
-      console.log("NOTE BNOTE NOTE");
-      console.log(note);
       const response = await this._makePostRequest(`/note`, note);
       return this._notesResponseMapper.map(response.data);
     } catch (e) {

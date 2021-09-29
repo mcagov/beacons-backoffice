@@ -14,6 +14,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PanelButton } from "../../components/dataPanel/EditPanelButton";
 import { ErrorState } from "../../components/dataPanel/PanelErrorState";
+import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
 import { DataPanelStates } from "../../components/dataPanel/States";
 import { INote, NoteType } from "../../entities/INote";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
@@ -36,13 +37,15 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
     DataPanelStates.Viewing
   );
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect((): void => {
     const fetchNotes = async (beaconId: string) => {
       try {
+        setLoading(true);
         const notes = await notesGateway.getNotes(beaconId);
         setNotes(notes);
-        console.log(notes);
+        setLoading(false);
       } catch (error) {
         console.error(error);
         setError(true);
@@ -166,7 +169,8 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
       <CardContent>
         <>
           {error && <ErrorState message={Placeholders.UnspecifiedError} />}
-          {error || renderState(userState)}
+          {loading && <LoadingState />}
+          {error || loading || renderState(userState)}
         </>
       </CardContent>
     </Card>
