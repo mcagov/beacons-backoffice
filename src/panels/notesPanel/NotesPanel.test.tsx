@@ -4,7 +4,7 @@ import { INote, NoteType } from "../../entities/INote";
 import { notesFixture } from "../../fixtures/notes.fixture";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { formatMonth } from "../../utils/dateTime";
-import { Placeholders } from "../../utils/writingStyle";
+import { Placeholders, titleCase } from "../../utils/writingStyle";
 import { noNotesMessage, NotesPanel } from "./NotesPanel";
 
 describe("NotesPanel", () => {
@@ -48,10 +48,8 @@ describe("NotesPanel", () => {
     const addNoteButton = await screen.findByText(/add a new note/i);
     userEvent.click(addNoteButton);
 
-    expect(await screen.findByText(/add a note/i)).toBeVisible();
-
-    const noteRadioButton = screen.getByTestId(/incident-note-type/i);
     await waitFor(() => {
+      const noteRadioButton = screen.getByTestId(/incident-note-type/i);
       userEvent.click(noteRadioButton);
     });
 
@@ -92,8 +90,8 @@ describe("NotesPanel", () => {
     const addNoteButton = await screen.findByText(/add a new note/i);
     userEvent.click(addNoteButton);
 
-    const noteRadioButton = await screen.getByTestId(/general-note-type/i);
     await waitFor(() => {
+      const noteRadioButton = screen.getByTestId(/general-note-type/i);
       userEvent.click(noteRadioButton);
     });
 
@@ -106,8 +104,12 @@ describe("NotesPanel", () => {
     });
 
     expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
-
+    expect(
+      await screen.findByText(formatMonth(note.createdDate))
+    ).toBeVisible();
+    expect(await screen.findByText(titleCase(note.type))).toBeVisible();
     expect(await screen.findByText(note.text)).toBeVisible();
+    expect(await screen.findByText(note.fullName)).toBeVisible();
   });
 
   it("allows me to submit an incident note", async () => {
@@ -134,8 +136,8 @@ describe("NotesPanel", () => {
     const addNoteButton = await screen.findByText(/add a new note/i);
     userEvent.click(addNoteButton);
 
-    const noteRadioButton = await screen.getByTestId(/incident-note-type/i);
     await waitFor(() => {
+      const noteRadioButton = screen.getByTestId(/incident-note-type/i);
       userEvent.click(noteRadioButton);
     });
 
@@ -148,8 +150,12 @@ describe("NotesPanel", () => {
     });
 
     expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
-
+    expect(
+      await screen.findByText(formatMonth(note.createdDate))
+    ).toBeVisible();
+    expect(await screen.findByText(titleCase(note.type))).toBeVisible();
     expect(await screen.findByText(note.text)).toBeVisible();
+    expect(await screen.findByText(note.fullName)).toBeVisible();
   });
 
   it("displays error if notes lookup fails for any reason", async () => {
