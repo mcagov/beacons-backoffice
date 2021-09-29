@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -55,15 +56,20 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
             <PanelButton onClick={() => setUserState(DataPanelStates.Editing)}>
               Add a new note
             </PanelButton>
-            {notes.length === 0 ? "" : <NotesTable notes={notes} />}
+            {notes.length === 0 ? (
+              <CardHeader title={noNotesMessage} />
+            ) : (
+              <>
+                <CardHeader title="MCA / MCC Notes" />
+                <NotesTable notes={notes} />
+              </>
+            )}
           </>
         );
       case DataPanelStates.Editing:
         return <NotesEditing />;
     }
   };
-  // no notes, user State = viewing => show Add note button and No notes message
-  //  notes, user State = viewing => show Add note button and
 
   const NotesEditing: FunctionComponent = (): JSX.Element => {
     return (
@@ -105,29 +111,21 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
               type="string"
               placeholder="Add a note here"
             />
+            <Button
+              onClick={() => setUserState(DataPanelStates.Viewing)}
+              data-testid="cancel"
+            >
+              Cancel
+            </Button>
           </Form>
         </Formik>
       </>
     );
   };
 
-  if (notes.length === 0) {
-    return (
-      <Card>
-        <CardContent>
-          <CardHeader title={noNotesMessage} />
-          {renderState(userState)}
-        </CardContent>
-      </Card>
-    );
-  }
-
   return (
     <Card>
-      <CardContent>
-        <CardHeader title="MCA / MCC Notes" />
-        {renderState(userState)}
-      </CardContent>
+      <CardContent>{renderState(userState)}</CardContent>
     </Card>
   );
 };
