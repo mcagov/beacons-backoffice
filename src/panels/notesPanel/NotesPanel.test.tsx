@@ -84,7 +84,7 @@ describe("NotesPanel", () => {
 
     gateway = {
       getNotes: jest.fn().mockResolvedValueOnce([]).mockResolvedValue([note]),
-      createNote: jest.fn().mockResolvedValue(note),
+      createNote: jest.fn(),
     };
 
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
@@ -126,7 +126,7 @@ describe("NotesPanel", () => {
 
     gateway = {
       getNotes: jest.fn().mockResolvedValueOnce([]).mockResolvedValue([note]),
-      createNote: jest.fn().mockResolvedValue(note),
+      createNote: jest.fn(),
     };
 
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
