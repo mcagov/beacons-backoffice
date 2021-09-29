@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { INote, NoteType } from "../../entities/INote";
 import { notesFixture } from "../../fixtures/notes.fixture";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { formatMonth } from "../../utils/dateTime";
@@ -48,14 +49,14 @@ describe("NotesPanel", () => {
 
     expect(await screen.findByText(/add a note/i)).toBeVisible();
 
-    const noteRadioButton = screen.getByTestId(/general-note-type/i);
+    const noteRadioButton = screen.getByTestId(/incident-note-type/i);
     await waitFor(() => {
       userEvent.click(noteRadioButton);
     });
 
     const noteInputField = screen.getByTestId(/note-input-field/i);
     await waitFor(() => {
-      userEvent.type(noteInputField, "This is a general note");
+      userEvent.type(noteInputField, "This is a incident note");
     });
 
     const cancelButton = screen.getByTestId(/cancel/i);
@@ -67,30 +68,86 @@ describe("NotesPanel", () => {
   });
 
   it("allows me to submit a general note", async () => {
-    gateway.getNotes = jest.fn().mockResolvedValue([]);
     beaconId = "24601";
+
+    const note: INote = {
+      id: "1234567",
+      beaconId,
+      text: "It is a beacon",
+      type: NoteType.GENERAL,
+      createdDate: "29/09/21",
+      userId: "123890213",
+      fullName: "Beacon McBeaconFace",
+      email: "mcbeaconface@beacons.com",
+    };
+
+    gateway = {
+      getNotes: jest.fn().mockResolvedValueOnce([]).mockResolvedValue([note]),
+      createNote: jest.fn().mockResolvedValue(note),
+    };
 
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
 
     const addNoteButton = await screen.findByText(/add a new note/i);
     userEvent.click(addNoteButton);
 
-    const noteRadioButton = screen.getByTestId(/general-note-type/i);
+    const noteRadioButton = await screen.getByTestId(/general-note-type/i);
     await waitFor(() => {
       userEvent.click(noteRadioButton);
     });
 
-    const noteInputField = screen.getByTestId(/note-input-field/i);
-    await waitFor(() => {
-      userEvent.type(noteInputField, "This is a general note");
-    });
+    const noteInputField = await screen.getByTestId(/note-input-field/i);
+    await userEvent.type(noteInputField, note.text);
 
-    const saveButton = screen.getByTestId(/save/i);
+    const saveButton = await screen.getByTestId(/save/i);
     await waitFor(() => {
       userEvent.click(saveButton);
     });
 
     expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
-    expect(await screen.findByText("This is a general note")).toBeVisible();
+
+    expect(await screen.findByText(note.text)).toBeVisible();
+  });
+
+  it("allows me to submit an incident note", async () => {
+    beaconId = "24601";
+
+    const note: INote = {
+      id: "1234567",
+      beaconId,
+      text: "It is a beacon",
+      type: NoteType.INCIDENT,
+      createdDate: "29/09/21",
+      userId: "123890213",
+      fullName: "Beacon McBeaconFace",
+      email: "mcbeaconface@beacons.com",
+    };
+
+    gateway = {
+      getNotes: jest.fn().mockResolvedValueOnce([]).mockResolvedValue([note]),
+      createNote: jest.fn().mockResolvedValue(note),
+    };
+
+    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
+
+    const addNoteButton = await screen.findByText(/add a new note/i);
+    userEvent.click(addNoteButton);
+
+    const noteRadioButton = await screen.getByTestId(/incident-note-type/i);
+    await waitFor(() => {
+      userEvent.click(noteRadioButton);
+    });
+
+    const noteInputField = await screen.getByTestId(/note-input-field/i);
+    await userEvent.type(noteInputField, note.text);
+
+    const saveButton = await screen.getByTestId(/save/i);
+    await waitFor(() => {
+      userEvent.click(saveButton);
+    });
+
+    expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
+
+    expect(await screen.findByText(note.text)).toBeVisible();
   });
 });
