@@ -10,11 +10,11 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PanelButton } from "../../components/dataPanel/EditPanelButton";
 import { DataPanelStates } from "../../components/dataPanel/States";
-import { INote } from "../../entities/INote";
+import { INote, NoteType } from "../../entities/INote";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { formatMonth } from "../../utils/dateTime";
 import { titleCase } from "../../utils/writingStyle";
@@ -48,6 +48,16 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
     fetchNotes(beaconId);
   }, [beaconId, notesGateway]);
 
+  const handleSave = async (note: Partial<INote>): Promise<void> => {
+    try {
+      note.beaconId = beaconId;
+      await notesGateway.createNote(note);
+      setUserState(DataPanelStates.Viewing);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const renderState = (state: DataPanelStates) => {
     switch (state) {
       case DataPanelStates.Viewing:
@@ -67,20 +77,28 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
           </>
         );
       case DataPanelStates.Editing:
-        return <NotesEditing />;
+        return <NotesEditing onSave={handleSave} />;
     }
   };
 
-  const NotesEditing: FunctionComponent = (): JSX.Element => {
+  const NotesEditing: FunctionComponent<{
+    onSave: (note: Partial<INote>) => void;
+  }> = ({ onSave }): JSX.Element => {
     return (
       <>
         <h1>Add a note</h1>
         <Formik
           initialValues={{
-            noteType: "",
-            noteInputField: "",
+            type: "",
+            text: "",
           }}
-          onSubmit={() => {}}
+          onSubmit={(
+            values: Partial<INote>,
+            { setSubmitting }: FormikHelpers<Partial<INote>>
+          ) => {
+            onSave(values);
+            setSubmitting(false);
+          }}
         >
           <Form>
             <div id="my-radio-group">Note Type</div>
@@ -88,8 +106,9 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
               <label>
                 <Field
                   type="radio"
-                  name="noteType"
-                  value="General"
+                  id="type"
+                  name="type"
+                  value={NoteType.GENERAL}
                   data-testid="general-note-type"
                 />
                 General note (e.g. owner has contacted the service for advice)
@@ -97,8 +116,9 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
               <label>
                 <Field
                   type="radio"
-                  name="noteType"
-                  value="Incident"
+                  id="type"
+                  name="type"
+                  value={NoteType.INCIDENT}
                   data-testid="incident-note-type"
                 />
                 Incident note (e.g. beacon activation, alarm raised etc.)
@@ -106,12 +126,23 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
             </div>
             <Field
               as={"textarea"}
-              data-testid="note-input-field"
-              name="noteInputField"
+              id="text"
+              name="text"
               type="string"
               placeholder="Add a note here"
+              data-testid="note-input-field"
             />
             <Button
+              name="save"
+              type="submit"
+              color="secondary"
+              data-testid="save"
+              variant="contained"
+            >
+              Save note
+            </Button>
+            <Button
+              name="cancel"
               onClick={() => setUserState(DataPanelStates.Viewing)}
               data-testid="cancel"
             >

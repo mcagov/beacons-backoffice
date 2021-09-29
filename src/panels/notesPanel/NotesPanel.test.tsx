@@ -44,24 +44,21 @@ describe("NotesPanel", () => {
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
 
     const addNoteButton = await screen.findByText(/add a new note/i);
-
     userEvent.click(addNoteButton);
 
-    const noteRadioButton = await screen.getByTestId(/general-note-type/i);
-
     expect(await screen.findByText(/add a note/i)).toBeVisible();
+
+    const noteRadioButton = screen.getByTestId(/general-note-type/i);
     await waitFor(() => {
       userEvent.click(noteRadioButton);
     });
 
-    const noteInputField = await screen.getByTestId(/note-input-field/i);
-
+    const noteInputField = screen.getByTestId(/note-input-field/i);
     await waitFor(() => {
       userEvent.type(noteInputField, "This is a general note");
     });
 
-    const cancelButton = await screen.getByTestId(/cancel/i);
-
+    const cancelButton = screen.getByTestId(/cancel/i);
     await waitFor(() => {
       userEvent.click(cancelButton);
     });
@@ -69,5 +66,31 @@ describe("NotesPanel", () => {
     expect(await screen.findByText(noNotesMessage)).toBeVisible();
   });
 
-  it("allows me to submit a note", async () => {});
+  it("allows me to submit a general note", async () => {
+    gateway.getNotes = jest.fn().mockResolvedValue([]);
+    beaconId = "24601";
+
+    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
+
+    const addNoteButton = await screen.findByText(/add a new note/i);
+    userEvent.click(addNoteButton);
+
+    const noteRadioButton = screen.getByTestId(/general-note-type/i);
+    await waitFor(() => {
+      userEvent.click(noteRadioButton);
+    });
+
+    const noteInputField = screen.getByTestId(/note-input-field/i);
+    await waitFor(() => {
+      userEvent.type(noteInputField, "This is a general note");
+    });
+
+    const saveButton = screen.getByTestId(/save/i);
+    await waitFor(() => {
+      userEvent.click(saveButton);
+    });
+
+    expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
+    expect(await screen.findByText("This is a general note")).toBeVisible();
+  });
 });

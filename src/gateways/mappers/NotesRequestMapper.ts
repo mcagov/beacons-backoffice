@@ -6,7 +6,7 @@ export interface INotesRequestMapper {
 }
 
 export class NotesRequestMapper implements INotesRequestMapper {
-  public map(note: INote): INoteRequest {
+  public map(note: Partial<INote>): INoteRequest {
     return {
       data: {
         type: "note",
