@@ -30,7 +30,7 @@ export class NotesGateway implements INotesGateway {
     }
   }
 
-  public async createNote(note: INote): Promise<INote> {
+  public async createNote(note: Partial<INote>): Promise<INote> {
     try {
       const response = await this._makePostRequest(`/note`, note);
       return this._notesResponseMapper.map(response.data);
@@ -50,7 +50,7 @@ export class NotesGateway implements INotesGateway {
 
   private async _makePostRequest(
     path: string,
-    note: INote
+    note: Partial<INote>
   ): Promise<AxiosResponse> {
     const accessToken = await this._authGateway.getAccessToken();
 
