@@ -46,7 +46,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
     };
 
     fetchNotes(beaconId);
-  }, [beaconId, notesGateway]);
+  }, [userState]);
 
   const handleSave = async (note: Partial<INote>): Promise<void> => {
     try {
@@ -125,7 +125,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
               </label>
             </div>
             <Field
-              as={"textarea"}
+              as="textarea"
               id="text"
               name="text"
               type="string"
