@@ -13,11 +13,12 @@ import {
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PanelButton } from "../../components/dataPanel/EditPanelButton";
+import { ErrorState } from "../../components/dataPanel/PanelErrorState";
 import { DataPanelStates } from "../../components/dataPanel/States";
 import { INote, NoteType } from "../../entities/INote";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { formatMonth } from "../../utils/dateTime";
-import { titleCase } from "../../utils/writingStyle";
+import { Placeholders, titleCase } from "../../utils/writingStyle";
 
 interface NotesPanelProps {
   notesGateway: INotesGateway;
@@ -34,19 +35,22 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
   const [userState, setUserState] = useState<DataPanelStates>(
     DataPanelStates.Viewing
   );
+  const [error, setError] = useState(false);
 
   useEffect((): void => {
     const fetchNotes = async (beaconId: string) => {
       try {
         const notes = await notesGateway.getNotes(beaconId);
         setNotes(notes);
+        console.log(notes);
       } catch (error) {
         console.error(error);
+        setError(true);
       }
     };
 
     fetchNotes(beaconId);
-  }, [userState]);
+  }, [userState, beaconId, notesGateway]);
 
   const handleSave = async (note: Partial<INote>): Promise<void> => {
     try {
@@ -55,6 +59,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
       setUserState(DataPanelStates.Viewing);
     } catch (error) {
       console.error(error);
+      setError(true);
     }
   };
 
@@ -78,6 +83,8 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
         );
       case DataPanelStates.Editing:
         return <NotesEditing onSave={handleSave} />;
+      default:
+        setError(true);
     }
   };
 
@@ -156,7 +163,12 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
 
   return (
     <Card>
-      <CardContent>{renderState(userState)}</CardContent>
+      <CardContent>
+        <>
+          {error && <ErrorState message={Placeholders.UnspecifiedError} />}
+          {error || renderState(userState)}
+        </>
+      </CardContent>
     </Card>
   );
 };

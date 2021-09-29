@@ -157,7 +157,9 @@ describe("NotesPanel", () => {
       throw Error();
     });
     jest.spyOn(console, "error").mockImplementation(() => {}); // Avoid console error failing test
+
     render(<NotesPanel notesGateway={gateway} beaconId={""} />);
+
     expect(await screen.findByRole("alert")).toBeVisible();
     expect(
       await screen.findByText(Placeholders.UnspecifiedError)
