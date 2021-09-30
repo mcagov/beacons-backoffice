@@ -16,6 +16,7 @@ export interface ILegacyBeaconResponse extends IApiResponse {
       owner: ILegacyOwner;
       secondaryOwners: ILegacyOwner[];
       emergencyContact: ILegacyEmergencyContact;
+      claimStatus: "CLAIMED";
     };
   };
 }

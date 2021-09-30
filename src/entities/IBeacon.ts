@@ -31,6 +31,8 @@ export enum BeaconStatuses {
   New = "NEW",
   Deleted = "DELETED",
   Migrated = "MIGRATED",
+  Claimed = "DELETED (CLAIMED)",
+  Rejected = "DELETED (REJECTED)",
 }
 
 export enum BeaconTypes {

@@ -49,7 +49,10 @@ export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
       ),
       versioning: beaconApiResponse.data.attributes.beacon.versioning,
       note: beaconApiResponse.data.attributes.beacon.note,
-      beaconStatus: BeaconStatuses.Migrated,
+      beaconStatus:
+        beaconApiResponse.data.attributes.claimStatus === "CLAIMED"
+          ? BeaconStatuses.Claimed
+          : BeaconStatuses.Migrated,
       owner: this.mapOwner(beaconApiResponse),
       secondaryOwners: this.mapSecondaryOwners(beaconApiResponse),
       emergencyContact: this.mapEmergencyContacts(beaconApiResponse),
