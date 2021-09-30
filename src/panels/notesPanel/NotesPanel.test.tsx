@@ -167,4 +167,45 @@ describe("NotesPanel", () => {
       await screen.findByText(Placeholders.UnspecifiedError)
     ).toBeVisible();
   });
+
+  it("the form displays validation errors if form submitted without all required fields complete", async () => {
+    beaconId = "24601";
+
+    const note: INote = {
+      id: "1234567",
+      beaconId,
+      text: "It is a beacon",
+      type: NoteType.INCIDENT,
+      createdDate: "29/09/21",
+      userId: "123890213",
+      fullName: "Beacon McBeaconFace",
+      email: "mcbeaconface@beacons.com",
+    };
+
+    gateway = {
+      getNotes: jest.fn().mockResolvedValueOnce([]).mockResolvedValue([note]),
+      createNote: jest.fn(),
+    };
+
+    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
+
+    const addNoteButton = await screen.findByText(/add a new note/i);
+    userEvent.click(addNoteButton);
+
+    await waitFor(() => {
+      screen.getByTestId(/incident-note-type/i);
+    });
+
+    const saveButton = screen.getByTestId(/save/i);
+    await waitFor(() => {
+      userEvent.click(saveButton);
+    });
+
+    expect(
+      await screen.findByText("A note type is required to submit this note")
+    );
+    expect(
+      await screen.findByText("Note text is required to submit this note")
+    );
+  });
 });
