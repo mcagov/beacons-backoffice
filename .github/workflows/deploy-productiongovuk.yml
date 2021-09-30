@@ -1,0 +1,88 @@
+name: Production backoffice
+
+on: workflow_dispatch
+
+jobs:
+  unit_tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: actions/setup-node@v2.4.0
+        with:
+          node-version: "14"
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test
+
+  prettier_check:
+    name: Prettier check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: actions/setup-node@v2.4.0
+        with:
+          node-version: "14"
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Run prettier
+        run: npm run format:check
+
+  lint_check:
+    name: Lint check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: actions/setup-node@v2.4.0
+        with:
+          node-version: "14"
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Run linter
+        run: npm run lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: actions/setup-node@v2.4.0
+        with:
+          node-version: "14"
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Run build
+        run: npm run build
+
+  deploy:
+    name: Deploy Production Gov Uk Environment
+    runs-on: ubuntu-latest
+    needs: [unit_tests, prettier_check, lint_check, build]
+    if: github.ref == 'refs/heads/main'
+    environment: productiongovuk
+    env:
+      TF_WORKSPACE: productiongovuk
+      REACT_APP_AAD_CLIENT_ID: ${{ secrets.AAD_CLIENT_ID }}
+      REACT_APP_AAD_TENANT_ID: ${{ secrets.AAD_TENANT_ID }}
+      REACT_APP_API_URL: ${{ secrets.API_URL }}
+      REACT_APP_AAD_API_SCOPE_URI: ${{ secrets.AAD_API_SCOPE_URI }}
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: hashicorp/setup-terraform@v1.3.2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1.5.11
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      - name: Build
+        run: npm ci && npm run build
+      - name: Initialize Terraform
+        working-directory: terraform
+        run: terraform init
+      - name: Create resources
+        working-directory: terraform
+        run: terraform apply -auto-approve -var-file=productiongovuk.tfvars
+      - name: Deploy app build to S3 bucket
+        run: aws s3 sync ./build/ s3://mca-beacons-backoffice-productiongovuk --delete
