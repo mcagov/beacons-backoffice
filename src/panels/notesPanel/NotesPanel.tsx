@@ -1,14 +1,20 @@
 import {
+  Box,
   Button,
   Card,
   CardContent,
   CardHeader,
+  FormControl,
+  FormLabel,
+  Radio,
+  RadioGroup,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@material-ui/core";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent, useEffect, useState } from "react";
@@ -96,7 +102,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
   }> = ({ onSave }): JSX.Element => {
     return (
       <>
-        <h1>Add a note</h1>
+        <h2>Add a note</h2>
         <Formik
           initialValues={{
             type: "",
@@ -111,53 +117,68 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
           }}
         >
           <Form>
-            <div id="my-radio-group">Note Type</div>
-            <div role="group">
-              <label>
-                <Field
-                  type="radio"
-                  id="type"
-                  name="type"
-                  value={NoteType.GENERAL}
-                  data-testid="general-note-type"
-                />
-                General note (e.g. owner has contacted the service for advice)
-              </label>
-              <label>
-                <Field
-                  type="radio"
-                  id="type"
-                  name="type"
-                  value={NoteType.INCIDENT}
-                  data-testid="incident-note-type"
-                />
-                Incident note (e.g. beacon activation, alarm raised etc.)
-              </label>
-            </div>
-            <Field
-              as="textarea"
-              id="text"
-              name="text"
-              type="string"
-              placeholder="Add a note here"
-              data-testid="note-input-field"
-            />
-            <Button
-              name="save"
-              type="submit"
-              color="secondary"
-              data-testid="save"
-              variant="contained"
-            >
-              Save note
-            </Button>
-            <Button
-              name="cancel"
-              onClick={() => setUserState(DataPanelStates.Viewing)}
-              data-testid="cancel"
-            >
-              Cancel
-            </Button>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">
+                What type of note is this?
+              </FormLabel>
+              <RadioGroup aria-label="note type" name="radio-buttons-group">
+                <label>
+                  <Field
+                    as={Radio}
+                    type="radio"
+                    id="type"
+                    name="type"
+                    value={NoteType.GENERAL}
+                    data-testid="general-note-type"
+                  />
+                  General note (e.g. owner has contacted the service for advice)
+                </label>
+                <label>
+                  <Field
+                    as={Radio}
+                    type="radio"
+                    id="type"
+                    name="type"
+                    value={NoteType.INCIDENT}
+                    data-testid="incident-note-type"
+                  />
+                  Incident note (e.g. beacon activation, alarm raised etc.)
+                </label>
+              </RadioGroup>
+            </FormControl>
+            <Box mr={75}>
+              <Field
+                as={TextField}
+                id="text"
+                name="text"
+                type="string"
+                label="Please add your notes below"
+                multiline
+                fullWidth
+                helperText="The date and your name will be automatically added"
+                rows={4}
+                placeholder="Add a note here"
+                data-testid="note-input-field"
+              />
+            </Box>
+            <Box mt={2} mr={2}>
+              <Button
+                name="save"
+                type="submit"
+                color="secondary"
+                data-testid="save"
+                variant="contained"
+              >
+                Save note
+              </Button>
+              <Button
+                name="cancel"
+                onClick={() => setUserState(DataPanelStates.Viewing)}
+                data-testid="cancel"
+              >
+                Cancel
+              </Button>
+            </Box>
           </Form>
         </Formik>
       </>
