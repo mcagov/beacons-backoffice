@@ -114,12 +114,14 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
   };
 
   const InnerForm = (props: FormikProps<FormValues>) => {
-    const { errors, isSubmitting, touched, isValid } = props;
+    const { errors, isSubmitting, isValid } = props;
 
     return (
       <Form>
         <FormControl component="fieldset">
-          <FormLabel component="legend">What type of note is this?</FormLabel>
+          <FormLabel component="legend">
+            What type of note is this? (Required)
+          </FormLabel>
           <RadioGroup aria-label="note type" name="radio-buttons-group">
             <label>
               <Field
@@ -151,7 +153,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
             id="text"
             name="text"
             type="string"
-            label="Please add your notes below"
+            label="Please add your notes below (Required)"
             multiline
             fullWidth
             helperText="The date and your name will be automatically added"
