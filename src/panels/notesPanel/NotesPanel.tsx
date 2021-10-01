@@ -114,7 +114,8 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
   };
 
   const InnerForm = (props: FormikProps<FormValues>) => {
-    const { errors, isSubmitting, touched } = props;
+    const { errors, isSubmitting, touched, isValid } = props;
+
     return (
       <Form>
         <FormControl component="fieldset">
@@ -166,7 +167,9 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
             color="secondary"
             data-testid="save"
             variant="contained"
-            disabled={isSubmitting || !!errors.type || !!errors.text}
+            disabled={
+              isSubmitting || !!errors.type || !!errors.text || !isValid
+            }
           >
             Save note
           </Button>
@@ -192,6 +195,8 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
         text: "",
       };
     },
+
+    isInitialValid: false,
 
     validate: (values: FormValues) => {
       let errors: FormikErrors<FormValues> = {};
