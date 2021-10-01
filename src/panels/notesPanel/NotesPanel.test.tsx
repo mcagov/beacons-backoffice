@@ -54,7 +54,7 @@ describe("NotesPanel", () => {
     });
 
     const noteInputField = screen.getByTestId(/note-input-field/i);
-    userEvent.type(noteInputField, "This is a incident note");
+    userEvent.type(noteInputField, "This is an incident note");
 
     const cancelButton = screen.getByTestId(/cancel/i);
     userEvent.click(cancelButton);
