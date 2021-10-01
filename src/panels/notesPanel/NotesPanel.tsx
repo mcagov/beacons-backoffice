@@ -166,12 +166,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
             color="secondary"
             data-testid="save"
             variant="contained"
-            disabled={
-              isSubmitting ||
-              !!(errors.type && touched.type) ||
-              !!(errors.text && touched.text) ||
-              !(touched.type && touched.text)
-            }
+            disabled={isSubmitting || !!errors.type || !!errors.text}
           >
             Save note
           </Button>
