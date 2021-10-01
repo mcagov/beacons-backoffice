@@ -91,11 +91,13 @@ describe("NotesPanel", () => {
       userEvent.click(noteRadioButton);
     });
 
-    const noteInputField = screen.getByTestId(/note-input-field/i);
-    userEvent.type(noteInputField, note.text);
-
-    const saveButton = screen.getByTestId(/save/i);
     await waitFor(() => {
+      const noteInputField = screen.getByPlaceholderText("Add a note here");
+      userEvent.type(noteInputField, note.text);
+    });
+
+    await waitFor(() => {
+      const saveButton = screen.getByTestId(/save/i);
       userEvent.click(saveButton);
     });
 
@@ -137,8 +139,10 @@ describe("NotesPanel", () => {
       userEvent.click(noteRadioButton);
     });
 
-    const noteInputField = screen.getByTestId(/note-input-field/i);
-    userEvent.type(noteInputField, note.text);
+    await waitFor(() => {
+      const noteInputField = screen.getByPlaceholderText("Add a note here");
+      userEvent.type(noteInputField, note.text);
+    });
 
     const saveButton = screen.getByTestId(/save/i);
     await waitFor(() => {
@@ -168,7 +172,7 @@ describe("NotesPanel", () => {
     ).toBeVisible();
   });
 
-  it("the form displays validation errors if form submitted without all required fields complete", async () => {
+  it("shouldn't let the user submit the form if at least one field is empty ", async () => {
     beaconId = "24601";
 
     const note: INote = {
@@ -196,16 +200,6 @@ describe("NotesPanel", () => {
       screen.getByTestId(/incident-note-type/i);
     });
 
-    const saveButton = screen.getByTestId(/save/i);
-    await waitFor(() => {
-      userEvent.click(saveButton);
-    });
-
-    expect(
-      await screen.findByText("A note type is required to submit this note")
-    );
-    expect(
-      await screen.findByText("Note text is required to submit this note")
-    );
+    expect(await screen.getByTestId(/save/i)).toBeDisabled();
   });
 });
