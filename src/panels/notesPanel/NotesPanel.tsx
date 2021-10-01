@@ -16,7 +16,7 @@ import {
   TableRow,
   TextField,
 } from "@material-ui/core";
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Field, Form, FormikErrors, FormikProps, withFormik } from "formik";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PanelButton } from "../../components/dataPanel/EditPanelButton";
 import { ErrorState } from "../../components/dataPanel/PanelErrorState";
@@ -30,6 +30,11 @@ import { Placeholders, titleCase } from "../../utils/writingStyle";
 interface NotesPanelProps {
   notesGateway: INotesGateway;
   beaconId: string;
+}
+
+interface FormValues {
+  type: string;
+  text: string;
 }
 
 export const noNotesMessage = "No notes associated with this record";
@@ -98,92 +103,116 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
   };
 
   const NotesEditing: FunctionComponent<{
-    onSave: (note: Partial<INote>) => void;
+    onSave: (note: FormValues) => void;
   }> = ({ onSave }): JSX.Element => {
     return (
       <>
         <h2>Add a note</h2>
-        <Formik
-          initialValues={{
-            type: "",
-            text: "",
-          }}
-          onSubmit={(
-            values: Partial<INote>,
-            { setSubmitting }: FormikHelpers<Partial<INote>>
-          ) => {
-            onSave(values);
-            setSubmitting(false);
-          }}
-        >
-          <Form>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">
-                What type of note is this?
-              </FormLabel>
-              <RadioGroup aria-label="note type" name="radio-buttons-group">
-                <label>
-                  <Field
-                    as={Radio}
-                    type="radio"
-                    id="type"
-                    name="type"
-                    value={NoteType.GENERAL}
-                    data-testid="general-note-type"
-                  />
-                  General note (e.g. owner has contacted the service for advice)
-                </label>
-                <label>
-                  <Field
-                    as={Radio}
-                    type="radio"
-                    id="type"
-                    name="type"
-                    value={NoteType.INCIDENT}
-                    data-testid="incident-note-type"
-                  />
-                  Incident note (e.g. beacon activation, alarm raised etc.)
-                </label>
-              </RadioGroup>
-            </FormControl>
-            <Box mr={75}>
-              <Field
-                as={TextField}
-                id="text"
-                name="text"
-                type="string"
-                label="Please add your notes below"
-                multiline
-                fullWidth
-                helperText="The date and your name will be automatically added"
-                rows={4}
-                placeholder="Add a note here"
-                data-testid="note-input-field"
-              />
-            </Box>
-            <Box mt={2} mr={2}>
-              <Button
-                name="save"
-                type="submit"
-                color="secondary"
-                data-testid="save"
-                variant="contained"
-              >
-                Save note
-              </Button>
-              <Button
-                name="cancel"
-                onClick={() => setUserState(DataPanelStates.Viewing)}
-                data-testid="cancel"
-              >
-                Cancel
-              </Button>
-            </Box>
-          </Form>
-        </Formik>
+        <OtherForm onSave={onSave} />
       </>
     );
   };
+
+  const InnerForm = (props: FormikProps<FormValues>) => {
+    const { errors, isSubmitting, touched } = props;
+    return (
+      <Form>
+        <FormControl component="fieldset">
+          <FormLabel component="legend">What type of note is this?</FormLabel>
+          <RadioGroup aria-label="note type" name="radio-buttons-group">
+            <label>
+              <Field
+                as={Radio}
+                type="radio"
+                id="type"
+                name="type"
+                value={NoteType.GENERAL}
+                data-testid="general-note-type"
+              />
+              General note (e.g. owner has contacted the service for advice)
+            </label>
+            <label>
+              <Field
+                as={Radio}
+                type="radio"
+                id="type"
+                name="type"
+                value={NoteType.INCIDENT}
+                data-testid="incident-note-type"
+              />
+              Incident note (e.g. beacon activation, alarm raised etc.)
+            </label>
+          </RadioGroup>
+        </FormControl>
+        <Box mr={75}>
+          <Field
+            as={TextField}
+            id="text"
+            name="text"
+            type="string"
+            label="Please add your notes below"
+            multiline
+            fullWidth
+            helperText="The date and your name will be automatically added"
+            rows={4}
+            placeholder="Add a note here"
+            data-testid="note-input-field"
+          />
+        </Box>
+        <Box mt={2} mr={2}>
+          <Button
+            name="save"
+            type="submit"
+            color="secondary"
+            data-testid="save"
+            variant="contained"
+            disabled={
+              isSubmitting ||
+              !!(errors.type && touched.type) ||
+              !!(errors.text && touched.text) ||
+              !(touched.type && touched.text)
+            }
+          >
+            Save note
+          </Button>
+          <Button
+            name="cancel"
+            onClick={() => setUserState(DataPanelStates.Viewing)}
+            data-testid="cancel"
+          >
+            Cancel
+          </Button>
+        </Box>
+      </Form>
+    );
+  };
+
+  const OtherForm = withFormik<
+    { onSave: (note: FormValues) => void },
+    FormValues
+  >({
+    mapPropsToValues: (props) => {
+      return {
+        type: "",
+        text: "",
+      };
+    },
+
+    validate: (values: FormValues) => {
+      let errors: FormikErrors<FormValues> = {};
+      if (!values.type) {
+        errors.type = "Required";
+      } else if (!values.text) {
+        errors.text = "Required";
+      }
+      return errors;
+    },
+
+    handleSubmit: (values: FormValues, { setSubmitting, props }) => {
+      props.onSave(values);
+      setSubmitting(false);
+    },
+  })(InnerForm);
 
   return (
     <Card>
