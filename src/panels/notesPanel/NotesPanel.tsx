@@ -8,7 +8,7 @@ import { INote } from "../../entities/INote";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { Placeholders } from "../../utils/writingStyle";
 import OtherForm from "./NotesEditing";
-import NotesTable from "./NotesViewing";
+import { NotesViewing } from "./NotesViewing";
 
 interface NotesPanelProps {
   notesGateway: INotesGateway;
@@ -68,7 +68,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
             ) : (
               <>
                 <CardHeader title="MCA / MCC Notes" />
-                <NotesTable notes={notes} />
+                <NotesViewing notes={notes} />
               </>
             )}
           </>

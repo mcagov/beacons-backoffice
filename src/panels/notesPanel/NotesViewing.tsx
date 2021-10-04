@@ -11,13 +11,13 @@ import React, { FunctionComponent } from "react";
 import { formatMonth } from "utils/dateTime";
 import { titleCase } from "utils/writingStyle";
 
-interface INotesTableProps {
+interface INotesViewingProps {
   notes: INote[];
 }
 
-const NotesTable: FunctionComponent<INotesTableProps> = ({
+export const NotesViewing: FunctionComponent<INotesViewingProps> = ({
   notes,
-}: INotesTableProps): JSX.Element => {
+}: INotesViewingProps): JSX.Element => {
   return (
     <TableContainer>
       <Table>
@@ -43,5 +43,3 @@ const NotesTable: FunctionComponent<INotesTableProps> = ({
     </TableContainer>
   );
 };
-
-export default NotesTable;
