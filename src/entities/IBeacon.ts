@@ -6,7 +6,7 @@ import { IUse } from "./IUse";
 export interface IBeacon {
   id: string;
   hexId: string;
-  type: string;
+  beaconType: string;
   registeredDate: string;
   lastModifiedDate: string;
   status: string;
@@ -14,8 +14,8 @@ export interface IBeacon {
   model: string;
   manufacturerSerialNumber: string;
   chkCode: string;
-  protocolCode: string;
-  codingMethod: string;
+  protocol: string;
+  coding: string;
   batteryExpiryDate: string;
   lastServicedDate: string;
   mti: string;

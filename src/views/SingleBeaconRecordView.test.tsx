@@ -63,7 +63,9 @@ describe("Beacon record page", () => {
     const heading = screen.getByRole("heading");
 
     expect(
-      await within(heading).findByText(beaconFixture.type, { exact: false })
+      await within(heading).findByText(beaconFixture.beaconType, {
+        exact: false,
+      })
     ).toBeVisible();
   });
 });

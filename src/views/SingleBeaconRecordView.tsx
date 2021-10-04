@@ -57,7 +57,7 @@ export const SingleBeaconRecordView: FunctionComponent<ISingleBeaconRecordViewPr
     }, [beaconId, beaconsGateway]);
 
     const hexId = beacon?.hexId || "";
-    const beaconType = beacon?.type || "";
+    const beaconType = beacon?.beaconType || "";
     const numberOfUses = beacon?.uses?.length.toString() || "";
 
     return (

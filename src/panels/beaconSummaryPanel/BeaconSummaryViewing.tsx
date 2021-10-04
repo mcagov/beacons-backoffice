@@ -33,12 +33,16 @@ export const BeaconSummaryViewing: FunctionComponent<{
       value: beacon?.chkCode,
     },
     {
+      key: "Beacon type",
+      value: beacon?.beaconType,
+    },
+    {
       key: "Protocol",
-      value: beacon?.protocolCode,
+      value: beacon?.protocol,
     },
     {
       key: "Coding",
-      value: beacon?.codingMethod,
+      value: beacon?.coding,
     },
     {
       key: "CSTA / TAC",
@@ -84,5 +88,5 @@ export const BeaconSummaryViewing: FunctionComponent<{
     },
   ];
 
-  return <PanelViewingState fields={fields} columns={2} splitAfter={10} />;
+  return <PanelViewingState fields={fields} columns={2} splitAfter={15} />;
 };

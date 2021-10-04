@@ -9,9 +9,9 @@ import { usesFixture } from "./uses.fixture";
 export const beaconFixture = deepFreeze<IBeacon>({
   id: "f48e8212-2e10-4154-95c7-bdfd061bcfd2",
   hexId: "1D0EA08C52FFBFF",
-  type: "Beacon type to be derived from Hex ID",
-  protocolCode: "Protocol code to be derived from Hex ID",
-  codingMethod: "Coding method to be derived from Hex ID",
+  beaconType: "Beacon type to be derived from Hex ID",
+  protocol: "Protocol code to be derived from Hex ID",
+  coding: "Coding method to be derived from Hex ID",
   registeredDate: "08/06/2018",
   status: BeaconStatuses.New,
   manufacturer: "Ocean Signal",

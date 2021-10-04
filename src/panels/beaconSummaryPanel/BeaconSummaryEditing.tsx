@@ -11,10 +11,10 @@ import {
 } from "@material-ui/core";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
-import { FieldValue } from "../../components/dataPanel/FieldValue";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
 import { IBeacon } from "../../entities/IBeacon";
+import { beaconTypes } from "../../utils/beaconTypes";
 import {
   formatEmergencyContacts,
   formatOwners,
@@ -123,11 +123,39 @@ export const BeaconSummaryEditing: FunctionComponent<{
 
                     <TabulatedRow
                       displayKey={
+                        <label htmlFor="beaconType">
+                          <Typography>
+                            {"Beacon type" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field as="select" name="beaconType">
+                          <option value="" label={Placeholders.NoData} />
+                          {beaconTypes.map((beaconType: string) => {
+                            return (
+                              <option value={beaconType} label={beaconType} />
+                            );
+                          })}
+                        </Field>
+                      }
+                    />
+
+                    <TabulatedRow
+                      displayKey={
                         <Typography>
                           {"Protocol" + WritingStyle.KeyValueSeparator}
                         </Typography>
                       }
-                      value={<FieldValue>{beacon.protocolCode}</FieldValue>}
+                      value={
+                        <Field
+                          as={Input}
+                          id="protocol"
+                          name="protocol"
+                          type="string"
+                          placeholder={Placeholders.NoData}
+                        />
+                      }
                     />
 
                     <TabulatedRow
@@ -136,7 +164,15 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           {"Coding" + WritingStyle.KeyValueSeparator}
                         </Typography>
                       }
-                      value={<FieldValue>{beacon.codingMethod}</FieldValue>}
+                      value={
+                        <Field
+                          as={Input}
+                          id="coding"
+                          name="coding"
+                          type="string"
+                          placeholder={Placeholders.NoData}
+                        />
+                      }
                     />
 
                     <TabulatedRow

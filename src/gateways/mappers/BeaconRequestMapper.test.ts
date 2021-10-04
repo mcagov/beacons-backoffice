@@ -70,8 +70,9 @@ describe("BeaconRequestMapper", () => {
       {
         id: "9d7eb567-2212-4d71-8932-95536dd0b84e",
         hexId: "1D0EA08C52FFBFF",
-        type: "EPIRB",
-        protocolCode: "34ABD",
+        beaconType: "EPIRB",
+        protocol: "34ABD",
+        coding: "CODING",
         registeredDate: "21-10-2011",
         status: "Registered",
         manufacturer: "Ocean Signal",
@@ -89,8 +90,9 @@ describe("BeaconRequestMapper", () => {
         id: "9d7eb567-2212-4d71-8932-95536dd0b84e",
         attributes: {
           hexId: "1D0EA08C52FFBFF",
-          type: "EPIRB",
-          protocolCode: "34ABD",
+          beaconType: "EPIRB",
+          protocol: "34ABD",
+          coding: "CODING",
           registeredDate: "21-10-2011",
           status: "Registered",
           manufacturer: "Ocean Signal",
