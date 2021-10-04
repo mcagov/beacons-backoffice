@@ -35,7 +35,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   price_class = "PriceClass_100" // Least expensive option, caches in North America and Europe
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:232705206979:certificate/988f2b31-08fd-4e5f-9763-f4288614c5ed"
+    acm_certificate_arn = var.acm_certificate_arn
     ssl_support_method  = "sni-only"
   }
 
