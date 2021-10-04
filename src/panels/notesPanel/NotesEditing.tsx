@@ -17,9 +17,12 @@ interface FormValues {
   text: string;
 }
 
-const NotesForm = (props: FormikProps<FormValues>) => {
-  const { errors, isSubmitting } = props;
-  const { setUserState } = props.status;
+interface NotesFormProps extends FormikProps<FormValues> {
+  setUserState: (userState: DataPanelStates) => void;
+}
+
+const NotesForm = (props: NotesFormProps) => {
+  const { errors, isSubmitting, setUserState } = props;
 
   return (
     <>
@@ -104,12 +107,6 @@ export const NotesEditing = withFormik<
     return {
       type: "Required",
       text: "Required",
-    };
-  },
-
-  mapPropsToStatus: (props) => {
-    return {
-      setUserState: props.setUserState,
     };
   },
 
