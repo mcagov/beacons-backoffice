@@ -18,7 +18,7 @@ interface FormValues {
 }
 
 const NotesForm = (props: FormikProps<FormValues>) => {
-  const { errors, isSubmitting, isValid } = props;
+  const { errors, isSubmitting } = props;
   const { setUserState } = props.status;
 
   return (
@@ -76,9 +76,7 @@ const NotesForm = (props: FormikProps<FormValues>) => {
             color="secondary"
             data-testid="save"
             variant="contained"
-            disabled={
-              isSubmitting || !!errors.type || !!errors.text || !isValid
-            }
+            disabled={isSubmitting || !!errors.type || !!errors.text}
           >
             Save note
           </Button>
@@ -109,7 +107,12 @@ export const NotesEditing = withFormik<
     };
   },
 
-  isInitialValid: false,
+  mapPropsToErrors: () => {
+    return {
+      type: "Required",
+      text: "Required",
+    };
+  },
 
   mapPropsToStatus: (props) => {
     return {
