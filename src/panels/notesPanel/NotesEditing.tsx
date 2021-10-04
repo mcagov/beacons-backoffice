@@ -100,13 +100,6 @@ export const NotesEditing = withFormik<
   },
   FormValues
 >({
-  mapPropsToValues: (props) => {
-    return {
-      type: "",
-      text: "",
-    };
-  },
-
   mapPropsToErrors: () => {
     return {
       type: "Required",
