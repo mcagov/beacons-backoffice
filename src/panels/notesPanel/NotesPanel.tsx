@@ -7,7 +7,7 @@ import { DataPanelStates } from "../../components/dataPanel/States";
 import { INote } from "../../entities/INote";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { Placeholders } from "../../utils/writingStyle";
-import OtherForm from "./NotesEditing";
+import { NotesEditing } from "./NotesEditing";
 import { NotesViewing } from "./NotesViewing";
 
 interface NotesPanelProps {
@@ -74,7 +74,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
           </>
         );
       case DataPanelStates.Editing:
-        return <OtherForm onSave={handleSave} setUserState={setUserState} />;
+        return <NotesEditing onSave={handleSave} setUserState={setUserState} />;
       default:
         setError(true);
     }

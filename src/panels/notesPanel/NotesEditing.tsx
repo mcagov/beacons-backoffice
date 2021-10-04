@@ -17,7 +17,7 @@ interface FormValues {
   text: string;
 }
 
-const InnerForm = (props: FormikProps<FormValues>) => {
+const NotesForm = (props: FormikProps<FormValues>) => {
   const { errors, isSubmitting, isValid } = props;
   const { setUserState } = props.status;
 
@@ -95,7 +95,7 @@ const InnerForm = (props: FormikProps<FormValues>) => {
   );
 };
 
-const OtherForm = withFormik<
+export const NotesEditing = withFormik<
   {
     onSave: (note: FormValues) => void;
     setUserState: (userState: DataPanelStates) => void;
@@ -131,6 +131,4 @@ const OtherForm = withFormik<
     props.onSave(values);
     setSubmitting(false);
   },
-})(InnerForm);
-
-export default OtherForm;
+})(NotesForm);
