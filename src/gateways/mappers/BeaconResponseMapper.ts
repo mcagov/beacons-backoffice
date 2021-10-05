@@ -15,7 +15,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
     return {
       id: beaconApiResponse.data.id,
       hexId: beaconApiResponse.data.attributes.hexId,
-      type: beaconApiResponse.data.attributes.type || "",
+      beaconType: beaconApiResponse.data.attributes.beaconType || "",
       manufacturer: beaconApiResponse.data.attributes.manufacturer || "",
       model: beaconApiResponse.data.attributes.model || "",
       status: beaconApiResponse.data.attributes.status || "",
@@ -37,8 +37,8 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
           ? "true"
           : "false",
       csta: beaconApiResponse.data.attributes.csta || "",
-      protocolCode: beaconApiResponse.data.attributes.protocolCode || "",
-      codingMethod: beaconApiResponse.data.attributes.codingMethod || "",
+      protocol: beaconApiResponse.data.attributes.protocol || "",
+      coding: beaconApiResponse.data.attributes.coding || "",
       lastServicedDate: formatDateTime(
         beaconApiResponse.data.attributes.lastServicedDate || ""
       ),

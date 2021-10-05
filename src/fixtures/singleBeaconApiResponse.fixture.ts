@@ -58,9 +58,9 @@ export const singleBeaconApiResponseFixture: IBeaconResponse =
       attributes: {
         hexId: "1D0EA08C52FFBFF",
         status: "NEW",
-        type: "Beacon type to be derived from Hex ID",
-        protocolCode: "Protocol code to be derived from Hex ID",
-        codingMethod: "Coding method to be derived from Hex ID",
+        beaconType: "Beacon type to be derived from Hex ID",
+        protocol: "Protocol code to be derived from Hex ID",
+        coding: "Coding method to be derived from Hex ID",
         manufacturer: "Ocean Signal",
         createdDate: "2018-06-08T00:00",
         model: "Excelsior",

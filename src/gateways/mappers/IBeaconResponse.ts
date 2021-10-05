@@ -7,7 +7,7 @@ export interface IBeaconResponse extends IApiResponse {
     attributes: {
       hexId: string;
       status?: string;
-      type?: string;
+      beaconType?: string;
       manufacturer?: string;
       createdDate?: string;
       lastModifiedDate?: string;
@@ -17,8 +17,8 @@ export interface IBeaconResponse extends IApiResponse {
       mti?: string;
       svdr?: boolean;
       csta?: string;
-      protocolCode?: string;
-      codingMethod?: string;
+      protocol?: string;
+      coding?: string;
       batteryExpiryDate?: string;
       lastServicedDate?: string;
     };

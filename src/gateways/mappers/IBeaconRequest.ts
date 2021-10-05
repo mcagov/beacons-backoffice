@@ -5,13 +5,14 @@ export interface IBeaconRequest {
     attributes: {
       hexId?: string;
       status?: string;
-      type?: string;
+      beaconType?: string;
       manufacturer?: string;
       createdDate?: string;
       model?: string;
       manufacturerSerialNumber?: string;
       chkCode?: string;
-      protocolCode?: string;
+      protocol?: string;
+      coding?: string;
       batteryExpiryDate?: string;
       lastServicedDate?: string;
     };

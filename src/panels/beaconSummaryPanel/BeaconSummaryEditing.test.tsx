@@ -95,23 +95,4 @@ describe("BeaconSummaryEditing", () => {
       expect(onCancel).toHaveBeenCalled();
     });
   });
-
-  it("does not allow user to edit derived fields", async () => {
-    render(
-      <BeaconSummaryEditing
-        beacon={beaconFixture}
-        onSave={jest.fn()}
-        onCancel={jest.fn()}
-      />
-    );
-
-    expect(
-      await screen.findByText(beaconFixture.protocolCode, { exact: false })
-    ).toBeVisible();
-    expect(
-      await screen.findByText(beaconFixture.codingMethod, { exact: false })
-    ).toBeVisible();
-    expect(screen.queryByDisplayValue(beaconFixture.protocolCode)).toBeNull();
-    expect(screen.queryByDisplayValue(beaconFixture.codingMethod)).toBeNull();
-  });
 });

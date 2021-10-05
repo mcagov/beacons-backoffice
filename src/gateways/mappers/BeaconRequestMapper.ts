@@ -10,23 +10,25 @@ export class BeaconRequestMapper {
     const attributes: Record<string, string> = {};
 
     if (beacon.hexId) attributes.hexId = beacon.hexId;
-    if (beacon.type) attributes.type = beacon.type;
-    if (beacon.protocolCode) attributes.protocolCode = beacon.protocolCode;
-    if (beacon.registeredDate)
+    if (beacon.beaconType != null) attributes.beaconType = beacon.beaconType;
+    if (beacon.protocol != null) attributes.protocol = beacon.protocol;
+    if (beacon.coding != null) attributes.coding = beacon.coding;
+    if (beacon.registeredDate != null)
       attributes.registeredDate = beacon.registeredDate;
     if (beacon.status) attributes.status = beacon.status;
-    if (beacon.manufacturer) attributes.manufacturer = beacon.manufacturer;
-    if (beacon.model) attributes.model = beacon.model;
-    if (beacon.manufacturerSerialNumber)
+    if (beacon.manufacturer != null)
+      attributes.manufacturer = beacon.manufacturer;
+    if (beacon.model != null) attributes.model = beacon.model;
+    if (beacon.manufacturerSerialNumber != null)
       attributes.manufacturerSerialNumber = beacon.manufacturerSerialNumber;
-    if (beacon.chkCode) attributes.chkCode = beacon.chkCode;
-    if (beacon.batteryExpiryDate)
+    if (beacon.chkCode != null) attributes.chkCode = beacon.chkCode;
+    if (beacon.batteryExpiryDate != null)
       attributes.batteryExpiryDate = beacon.batteryExpiryDate;
-    if (beacon.lastServicedDate)
+    if (beacon.lastServicedDate != null)
       attributes.lastServicedDate = beacon.lastServicedDate;
-    if (beacon.mti) attributes.mti = beacon.mti;
-    if (beacon.svdr) attributes.svdr = beacon.svdr;
-    if (beacon.csta) attributes.csta = beacon.csta;
+    if (beacon.mti != null) attributes.mti = beacon.mti;
+    if (beacon.svdr != null) attributes.svdr = beacon.svdr;
+    if (beacon.csta != null) attributes.csta = beacon.csta;
 
     return {
       data: {
