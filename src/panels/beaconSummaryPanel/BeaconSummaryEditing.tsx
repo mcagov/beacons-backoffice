@@ -13,8 +13,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
-import { IBeacon } from "../../entities/IBeacon";
-import { beaconTypes } from "../../utils/beaconTypes";
+import { BeaconTypes, IBeacon } from "../../entities/IBeacon";
 import {
   formatEmergencyContacts,
   formatOwners,
@@ -132,11 +131,13 @@ export const BeaconSummaryEditing: FunctionComponent<{
                       value={
                         <Field as="select" name="beaconType">
                           <option value="" label={Placeholders.NoData} />
-                          {beaconTypes.map((beaconType: string) => {
-                            return (
-                              <option value={beaconType} label={beaconType} />
-                            );
-                          })}
+                          {Object.values(BeaconTypes).map(
+                            (beaconType: string) => {
+                              return (
+                                <option value={beaconType} label={beaconType} />
+                              );
+                            }
+                          )}
                         </Field>
                       }
                     />

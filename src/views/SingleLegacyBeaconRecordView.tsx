@@ -59,9 +59,7 @@ export const SingleLegacyBeaconRecordView: FunctionComponent<ISingleLegacyBeacon
 
     return (
       <div className={classes.root}>
-        <PageHeader>
-          Hex ID/UIN: {hexId} ({beaconType})
-        </PageHeader>
+        <PageHeader>Hex ID/UIN: {hexId}</PageHeader>
         <PageContent>
           <LegacyBeaconSummaryPanel legacyBeacon={beacon} />
           <Tabs value={selectedTab} onChange={handleChange}>

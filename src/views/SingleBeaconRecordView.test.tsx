@@ -51,21 +51,4 @@ describe("Beacon record page", () => {
       await screen.findByText(`${numberOfUses} Registered Uses`)
     ).toBeDefined();
   });
-
-  it("Displays the beacon type next to the Hex ID", async () => {
-    render(
-      <SingleBeaconRecordView
-        beaconsGateway={beaconsGatewayDouble}
-        usesGateway={usesGatewayDouble}
-        beaconId={beaconFixture.id}
-      />
-    );
-    const heading = screen.getByRole("heading");
-
-    expect(
-      await within(heading).findByText(beaconFixture.beaconType, {
-        exact: false,
-      })
-    ).toBeVisible();
-  });
 });

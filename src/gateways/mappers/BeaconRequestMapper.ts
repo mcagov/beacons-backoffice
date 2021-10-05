@@ -9,8 +9,6 @@ export class BeaconRequestMapper {
   public map(beaconId: string, beacon: Partial<IBeacon>): IBeaconRequest {
     const attributes: Record<string, string> = {};
 
-    debugger;
-
     if (beacon.hexId) attributes.hexId = beacon.hexId;
     if (beacon.beaconType != null) attributes.beaconType = beacon.beaconType;
     if (beacon.protocol != null) attributes.protocol = beacon.protocol;
