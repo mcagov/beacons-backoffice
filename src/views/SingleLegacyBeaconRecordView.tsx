@@ -10,7 +10,6 @@ import { PageContent } from "../components/layout/PageContent";
 import { PageHeader } from "../components/layout/PageHeader";
 import { TabPanel } from "../components/layout/TabPanel";
 import { IBeaconsGateway } from "../gateways/beacons/IBeaconsGateway";
-import { Placeholders } from "../utils/writingStyle";
 
 interface ISingleLegacyBeaconRecordViewProps {
   beaconsGateway: IBeaconsGateway;
@@ -53,8 +52,6 @@ export const SingleLegacyBeaconRecordView: FunctionComponent<ISingleLegacyBeacon
     }, [beaconId, beaconsGateway]);
 
     const hexId = beacon?.hexId || "";
-    const beaconType =
-      beacon?.beaconType || Placeholders.UnrecognizedBeaconType;
     const numberOfUses = beacon?.uses?.length.toString() || "";
 
     return (
