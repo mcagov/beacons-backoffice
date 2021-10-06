@@ -18,8 +18,6 @@ import { applicationConfig } from "./config";
 import { BeaconRequestMapper } from "./gateways/mappers/BeaconRequestMapper";
 import { BeaconResponseMapper } from "./gateways/mappers/BeaconResponseMapper";
 import { LegacyBeaconResponseMapper } from "./gateways/mappers/LegacyBeaconResponseMapper";
-import { NotesRequestMapper } from "./gateways/mappers/NotesRequestMapper";
-import { NotesResponseMapper } from "./gateways/mappers/NotesResponseMapper";
 import { NotesGateway } from "./gateways/notes/NotesGateway";
 import { BeaconRecordsListView } from "./views/BeaconRecordsListView";
 import { SingleBeaconRecordView } from "./views/SingleBeaconRecordView";
@@ -50,13 +48,7 @@ const App: FunctionComponent = () => {
     authGateway
   );
   const usesGateway = new UsesGateway(beaconResponseMapper, authGateway);
-  const notesResponseMapper = new NotesResponseMapper();
-  const notesRequestMapper = new NotesRequestMapper();
-  const notesGateway = new NotesGateway(
-    notesResponseMapper,
-    notesRequestMapper,
-    authGateway
-  );
+  const notesGateway = new NotesGateway(authGateway);
 
   const SingleBeaconRecordViewWithParam: FunctionComponent = () => {
     const { id } = useParams<ResourceParams>();

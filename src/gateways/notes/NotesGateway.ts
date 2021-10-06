@@ -1,30 +1,24 @@
 import axios, { AxiosResponse } from "axios";
 import { applicationConfig } from "../../config";
-import { INote } from "../../entities/INote";
+import { INote, NoteType } from "../../entities/INote";
 import { IAuthGateway } from "../auth/IAuthGateway";
-import { INotesRequestMapper } from "../mappers/NotesRequestMapper";
-import { INotesResponseMapper } from "../mappers/NotesResponseMapper";
+import { INoteRequest } from "../mappers/INoteRequest";
+import { INoteResponse } from "../mappers/INoteResponse";
+import { INoteResponseData } from "../mappers/INoteResponseData";
+import { INotesResponse } from "../mappers/INotesResponse";
 import { INotesGateway } from "./INotesGateway";
 
 export class NotesGateway implements INotesGateway {
-  private _notesResponseMapper: INotesResponseMapper;
-  private _notesRequestMapper: INotesRequestMapper;
   private _authGateway: IAuthGateway;
 
-  public constructor(
-    notesResponseMapper: INotesResponseMapper,
-    notesRequestMapper: INotesRequestMapper,
-    authGateway: IAuthGateway
-  ) {
-    this._notesResponseMapper = notesResponseMapper;
-    this._notesRequestMapper = notesRequestMapper;
+  public constructor(authGateway: IAuthGateway) {
     this._authGateway = authGateway;
   }
 
   public async getNotes(beaconId: string): Promise<INote[]> {
     try {
       const response = await this._makeGetRequest(`/beacons/${beaconId}/notes`);
-      return this._notesResponseMapper.mapList(response.data);
+      return this._mapNotesListResponseToNotes(response.data);
     } catch (e) {
       throw Error(e);
     }
@@ -33,7 +27,7 @@ export class NotesGateway implements INotesGateway {
   public async createNote(note: Partial<INote>): Promise<INote> {
     try {
       const response = await this._makePostRequest(`/note`, note);
-      return this._notesResponseMapper.map(response.data);
+      return this._mapNoteResponseToNote(response.data);
     } catch (e) {
       throw Error(e);
     }
@@ -56,11 +50,49 @@ export class NotesGateway implements INotesGateway {
 
     return await axios.post(
       `${applicationConfig.apiUrl}${path}`,
-      this._notesRequestMapper.map(note),
+      this._mapNoteToNoteRequest(note),
       {
         timeout: applicationConfig.apiTimeoutMs,
         headers: { Authorization: `Bearer ${accessToken}` },
       }
     );
+  }
+
+  private _mapNoteToNoteRequest(note: Partial<INote>): INoteRequest {
+    return {
+      data: {
+        type: "note",
+        attributes: {
+          beaconId: note.beaconId || "",
+          text: note.text || "",
+          type: note.type || "",
+        },
+      },
+    };
+  }
+
+  private _mapNoteResponseToNote(noteResponse: INoteResponse): INote {
+    return this._mapData(noteResponse.data);
+  }
+
+  private _mapNotesListResponseToNotes(notesResponse: INotesResponse): INote[] {
+    if (!notesResponse.data || notesResponse.data.length === 0) return [];
+
+    return notesResponse.data.map((noteResponseData) =>
+      this._mapData(noteResponseData)
+    );
+  }
+
+  private _mapData(responseData: INoteResponseData) {
+    return {
+      id: responseData.id,
+      beaconId: responseData.attributes.beaconId,
+      text: responseData.attributes.text,
+      type: NoteType[responseData.attributes.type as NoteType],
+      createdDate: responseData.attributes.createdDate,
+      userId: responseData.attributes.userId,
+      fullName: responseData.attributes.fullName,
+      email: responseData.attributes.email,
+    };
   }
 }

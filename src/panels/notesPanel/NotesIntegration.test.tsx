@@ -4,14 +4,6 @@ import { makeServer } from "server";
 import { v4 } from "uuid";
 import { notesFixture } from "../../fixtures/notes.fixture";
 import { IAuthGateway } from "../../gateways/auth/IAuthGateway";
-import {
-  INotesRequestMapper,
-  NotesRequestMapper,
-} from "../../gateways/mappers/NotesRequestMapper";
-import {
-  INotesResponseMapper,
-  NotesResponseMapper,
-} from "../../gateways/mappers/NotesResponseMapper";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { NotesGateway } from "../../gateways/notes/NotesGateway";
 import { formatMonth } from "../../utils/dateTime";
@@ -20,8 +12,6 @@ import { NotesPanel } from "./NotesPanel";
 import { noNotesMessage } from "./NotesViewing";
 
 describe("NotesPanel", () => {
-  let notesResponseMapper: INotesResponseMapper;
-  let notesRequestMapper: INotesRequestMapper;
   let authGateway: IAuthGateway;
   let gateway: INotesGateway;
   let beaconId: string;
@@ -30,16 +20,10 @@ describe("NotesPanel", () => {
 
   beforeEach(() => {
     server = makeServer({ environment: "test" });
-    notesResponseMapper = new NotesResponseMapper();
-    notesRequestMapper = new NotesRequestMapper();
     authGateway = {
       getAccessToken: jest.fn().mockResolvedValue("Test access token"),
     };
-    gateway = new NotesGateway(
-      notesResponseMapper,
-      notesRequestMapper,
-      authGateway
-    );
+    gateway = new NotesGateway(authGateway);
     beaconId = v4();
   });
 
