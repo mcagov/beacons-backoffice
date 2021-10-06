@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { makeServer } from "server";
 import { INote, NoteType } from "../../entities/INote";
 import { notesFixture } from "../../fixtures/notes.fixture";
 import { IAuthGateway } from "../../gateways/auth/IAuthGateway";
@@ -25,7 +26,10 @@ describe("NotesPanel", () => {
   let gateway: INotesGateway;
   let beaconId: string;
 
-  it("should display the notes of a record", async () => {
+  let server: any;
+
+  beforeEach(() => {
+    server = makeServer();
     notesResponseMapper = new NotesResponseMapper();
     notesRequestMapper = new NotesRequestMapper();
     authGateway = {
@@ -37,7 +41,13 @@ describe("NotesPanel", () => {
       authGateway
     );
     beaconId = "123445";
+  });
 
+  afterEach(() => {
+    server.shutdown();
+  });
+
+  it("should display the notes of a record", async () => {
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
 
     expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
@@ -52,18 +62,12 @@ describe("NotesPanel", () => {
   });
 
   it("displays a message if there are no notes for a record", async () => {
-    gateway.getNotes = jest.fn().mockResolvedValue([]);
-    beaconId = "24601";
-
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
 
     expect(await screen.findByText(noNotesMessage)).toBeVisible();
   });
 
   it("allows me to cancel adding a note", async () => {
-    gateway.getNotes = jest.fn().mockResolvedValue([]);
-    beaconId = "24601";
-
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
 
     const addNoteButton = await screen.findByText(/add a new note/i);
