@@ -21,9 +21,7 @@ export function makeServer({ environment = "development" } = {}) {
         `${applicationConfig.apiUrl}/beacon-search/search/find-all`,
         () => {
           // TODO: Update manyBeaconsApiResponseFixture to match endpoint
-          return {
-            data: beaconSearchResultFixture,
-          };
+          return beaconSearchResultFixture;
         }
       );
 
