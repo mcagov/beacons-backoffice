@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { PanelButton } from "../../components/dataPanel/EditPanelButton";
 import { ErrorState } from "../../components/dataPanel/PanelErrorState";
@@ -14,8 +14,6 @@ interface NotesPanelProps {
   notesGateway: INotesGateway;
   beaconId: string;
 }
-
-export const noNotesMessage = "No notes associated with this record";
 
 export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
   notesGateway,
@@ -63,14 +61,7 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
             <PanelButton onClick={() => setUserState(DataPanelStates.Editing)}>
               Add a new note
             </PanelButton>
-            {notes.length === 0 ? (
-              <CardHeader title={noNotesMessage} />
-            ) : (
-              <>
-                <CardHeader title="MCA / MCC Notes" />
-                <NotesViewing notes={notes} />
-              </>
-            )}
+            <NotesViewing notes={notes} />
           </>
         );
       case DataPanelStates.Editing:
