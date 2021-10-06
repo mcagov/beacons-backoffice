@@ -16,7 +16,7 @@ describe("NotesPanel", () => {
     beaconId = "12345";
   });
 
-  it("calls the injected BeaconsGateway", async () => {
+  it("calls the injected NotesGateway", async () => {
     render(<NotesPanel notesGateway={notesGateway} beaconId={beaconId} />);
 
     await waitFor(() => {
