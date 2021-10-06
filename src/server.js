@@ -45,6 +45,12 @@ export function makeServer({ environment = "development" } = {}) {
         return notesResponseFixture;
       });
 
+      this.post(`${applicationConfig.apiUrl}/note`, (schema, request) => {
+        return {
+          data: notesResponseFixture.data[0],
+        };
+      });
+
       this.passthrough(...authDomains);
     },
   });
