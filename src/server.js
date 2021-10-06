@@ -2,6 +2,7 @@ import { createServer } from "miragejs";
 import { applicationConfig } from "./config";
 import { beaconSearchResultFixture } from "./fixtures/beaconSearchResult.fixture";
 import { manyBeaconsApiResponseFixture } from "./fixtures/manyBeaconsApiResponse.fixture";
+import { notesResponseFixture } from "./fixtures/notesResponse.fixture";
 import { singleBeaconApiResponseFixture } from "./fixtures/singleBeaconApiResponse.fixture";
 
 export function makeServer({ environment = "development" } = {}) {
@@ -38,6 +39,10 @@ export function makeServer({ environment = "development" } = {}) {
 
       this.patch(`${applicationConfig.apiUrl}/beacons/:id`, () => {
         return true;
+      });
+
+      this.get(`${applicationConfig.apiUrl}/beacons/:id/notes`, () => {
+        return notesResponseFixture;
       });
 
       this.passthrough(...authDomains);
