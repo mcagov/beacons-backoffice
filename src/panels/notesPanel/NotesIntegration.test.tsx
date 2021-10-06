@@ -2,20 +2,40 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { INote, NoteType } from "../../entities/INote";
 import { notesFixture } from "../../fixtures/notes.fixture";
+import { IAuthGateway } from "../../gateways/auth/IAuthGateway";
+import {
+  INotesRequestMapper,
+  NotesRequestMapper,
+} from "../../gateways/mappers/NotesRequestMapper";
+import {
+  INotesResponseMapper,
+  NotesResponseMapper,
+} from "../../gateways/mappers/NotesResponseMapper";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
+import { NotesGateway } from "../../gateways/notes/NotesGateway";
 import { formatMonth } from "../../utils/dateTime";
 import { Placeholders, titleCase } from "../../utils/writingStyle";
 import { NotesPanel } from "./NotesPanel";
 import { noNotesMessage } from "./NotesViewing";
 
 describe("NotesPanel", () => {
+  let notesResponseMapper: INotesResponseMapper;
+  let notesRequestMapper: INotesRequestMapper;
+  let authGateway: IAuthGateway;
   let gateway: INotesGateway;
   let beaconId: string;
+
   it("should display the notes of a record", async () => {
-    gateway = {
-      getNotes: jest.fn().mockResolvedValue(notesFixture),
-      createNote: jest.fn(),
+    notesResponseMapper = new NotesResponseMapper();
+    notesRequestMapper = new NotesRequestMapper();
+    authGateway = {
+      getAccessToken: jest.fn().mockResolvedValue("Test access token"),
     };
+    gateway = new NotesGateway(
+      notesResponseMapper,
+      notesRequestMapper,
+      authGateway
+    );
     beaconId = "123445";
 
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
