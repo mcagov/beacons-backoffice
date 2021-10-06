@@ -7,7 +7,6 @@ import {
   RadioGroup,
   TextField,
 } from "@material-ui/core";
-import { DataPanelStates } from "components/dataPanel/States";
 import { NoteType } from "entities/INote";
 import { Field, Form, FormikErrors, FormikProps, withFormik } from "formik";
 import React from "react";
@@ -18,11 +17,11 @@ interface FormValues {
 }
 
 interface NotesFormProps extends FormikProps<FormValues> {
-  setUserState: (userState: DataPanelStates) => void;
+  onCancel: () => void;
 }
 
 const NotesForm = (props: NotesFormProps) => {
-  const { errors, isSubmitting, setUserState } = props;
+  const { errors, isSubmitting, onCancel } = props;
 
   return (
     <>
@@ -83,11 +82,7 @@ const NotesForm = (props: NotesFormProps) => {
           >
             Save note
           </Button>
-          <Button
-            name="cancel"
-            onClick={() => setUserState(DataPanelStates.Viewing)}
-            data-testid="cancel"
-          >
+          <Button name="cancel" onClick={onCancel} data-testid="cancel">
             Cancel
           </Button>
         </Box>
@@ -99,7 +94,7 @@ const NotesForm = (props: NotesFormProps) => {
 export const NotesEditing = withFormik<
   {
     onSave: (note: FormValues) => void;
-    setUserState: (userState: DataPanelStates) => void;
+    onCancel: () => void;
   },
   FormValues
 >({

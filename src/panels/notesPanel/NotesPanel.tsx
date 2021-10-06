@@ -74,7 +74,12 @@ export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
           </>
         );
       case DataPanelStates.Editing:
-        return <NotesEditing onSave={handleSave} setUserState={setUserState} />;
+        return (
+          <NotesEditing
+            onSave={handleSave}
+            onCancel={() => setUserState(DataPanelStates.Viewing)}
+          />
+        );
       default:
         setError(true);
     }
