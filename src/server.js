@@ -1,8 +1,9 @@
-import { createServer } from "miragejs";
+import { camelize } from "inflected";
+import { createServer, JSONAPISerializer, Model } from "miragejs";
+import { v4 } from "uuid";
 import { applicationConfig } from "./config";
 import { beaconSearchResultFixture } from "./fixtures/beaconSearchResult.fixture";
 import { manyBeaconsApiResponseFixture } from "./fixtures/manyBeaconsApiResponse.fixture";
-import { notesResponseFixture } from "./fixtures/notesResponse.fixture";
 import { singleBeaconApiResponseFixture } from "./fixtures/singleBeaconApiResponse.fixture";
 
 export function makeServer({ environment = "development" } = {}) {
@@ -16,6 +17,32 @@ export function makeServer({ environment = "development" } = {}) {
 
   return createServer({
     environment,
+
+    models: {
+      note: Model,
+    },
+
+    serializers: {
+      application: JSONAPISerializer.extend({
+        typeKeyForModel() {
+          return "note";
+        },
+
+        /*
+        JSONAPISerializer make attribute names kebab-case by default
+        https://miragejs.com/api/classes/jsonapi-serializer/#key-for-attribute
+         */
+        keyForAttribute(attr) {
+          return camelize(attr, false);
+        },
+      }),
+    },
+
+    seeds(server) {
+      server.db.loadData({
+        notes: [],
+      });
+    },
 
     routes() {
       this.get(
@@ -41,14 +68,25 @@ export function makeServer({ environment = "development" } = {}) {
         return true;
       });
 
-      this.get(`${applicationConfig.apiUrl}/beacons/:id/notes`, () => {
-        return notesResponseFixture;
+      this.get(`${applicationConfig.apiUrl}/beacons/:id/notes`, (schema) => {
+        return schema.notes.all();
       });
 
       this.post(`${applicationConfig.apiUrl}/note`, (schema, request) => {
-        return {
-          data: notesResponseFixture.data[0],
+        const noteRequest = JSON.parse(request.requestBody);
+        const noteId = v4();
+        const note = {
+          id: noteId,
+          beaconId: noteRequest.data.attributes.beaconId,
+          text: noteRequest.data.attributes.text,
+          type: noteRequest.data.attributes.type,
+          createdDate: "2021-09-24 11:09:55.914918 +00:00",
+          userId: v4(),
+          fullName: "Beacon McBeaconFace",
+          email: "mcbeaconface@beacons.com",
         };
+        schema.db.notes.insert(note);
+        return schema.notes.find(noteId);
       });
 
       this.passthrough(...authDomains);
