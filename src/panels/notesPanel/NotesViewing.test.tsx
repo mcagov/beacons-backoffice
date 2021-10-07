@@ -10,11 +10,11 @@ describe("NotesViewing", () => {
 
     for (const note of notesFixture) {
       expect(
-        await screen.findByText(formatMonth(note.createdDate))
-      ).toBeVisible();
-      expect(await screen.findByText(new RegExp(note.type, "i"))).toBeVisible();
-      expect(await screen.findByText(note.text)).toBeVisible();
-      expect(await screen.findByText(note.fullName)).toBeVisible();
+        await screen.findAllByText(formatMonth(note.createdDate))
+      ).toBeTruthy();
+      expect(await screen.findByText(new RegExp(note.type, "i"))).toBeTruthy();
+      expect(await screen.findByText(note.text)).toBeTruthy();
+      expect(await screen.findAllByText(note.fullName)).toBeTruthy();
     }
   });
 
