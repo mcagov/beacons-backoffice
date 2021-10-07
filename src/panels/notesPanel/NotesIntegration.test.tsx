@@ -1,14 +1,17 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { screen } from "@testing-library/react";
 import { makeServer } from "server";
+import {
+  iShouldSeeText,
+  whenIClickButtonFoundByTestId,
+  whenIClickButtonFoundByText,
+  whenITypeInInputFoundByPlaceholder,
+  whenNotesPanelIsRendered,
+} from "utils/integrationTestSelectors";
 import { v4 } from "uuid";
 import { notesFixture } from "../../fixtures/notes.fixture";
 import { IAuthGateway } from "../../gateways/auth/IAuthGateway";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { NotesGateway } from "../../gateways/notes/NotesGateway";
-import { formatMonth } from "../../utils/dateTime";
-import { titleCase } from "../../utils/writingStyle";
-import { NotesPanel } from "./NotesPanel";
 import { noNotesMessage } from "./NotesViewing";
 
 describe("NotesPanel", () => {
@@ -31,86 +34,57 @@ describe("NotesPanel", () => {
     server.shutdown();
   });
 
-  it("displays a message if there are no notes for a record", async () => {
-    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
+  it("notes integration test", async () => {
+    // displays a message if there are no notes for a record
+    whenNotesPanelIsRendered(gateway, beaconId);
 
-    expect(await screen.findByText(noNotesMessage)).toBeVisible();
-  });
+    iShouldSeeText(noNotesMessage);
 
-  it("allows me to submit a general note", async () => {
-    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
+    // adds a general note
+    whenIClickButtonFoundByText(/add a new note/i);
 
-    const addNoteButton = await screen.findByText(/add a new note/i);
-    userEvent.click(addNoteButton);
+    whenIClickButtonFoundByTestId(/general-note-type/i);
 
-    await waitFor(() => {
-      const noteRadioButton = screen.getByTestId(/general-note-type/i);
-      userEvent.click(noteRadioButton);
-    });
+    whenITypeInInputFoundByPlaceholder("Add a note here");
 
-    await waitFor(() => {
-      const noteInputField = screen.getByPlaceholderText("Add a note here");
-      userEvent.type(noteInputField, notesFixture[0].text);
-    });
+    whenIClickButtonFoundByTestId(/save/i);
 
-    await waitFor(() => {
-      const saveButton = screen.getByTestId(/save/i);
-      userEvent.click(saveButton);
-    });
+    iShouldSeeText("MCA / MCC Notes");
 
-    expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
-    expect(
-      await screen.findByText(formatMonth(notesFixture[0].createdDate))
-    ).toBeVisible();
-    expect(
-      await screen.findByText(titleCase(notesFixture[0].type))
-    ).toBeVisible();
-    expect(await screen.findByText(notesFixture[0].text)).toBeVisible();
-    expect(await screen.findByText(notesFixture[0].fullName)).toBeVisible();
-  });
+    iShouldSeeText(notesFixture[0].createdDate);
 
-  it("allows me to submit an incident note", async () => {
-    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
+    iShouldSeeText(notesFixture[0].type);
 
-    const addNoteButton = await screen.findByText(/add a new note/i);
-    userEvent.click(addNoteButton);
+    iShouldSeeText(notesFixture[0].text);
 
-    await waitFor(() => {
-      const noteRadioButton = screen.getByTestId(/incident-note-type/i);
-      userEvent.click(noteRadioButton);
-    });
+    iShouldSeeText(notesFixture[0].fullName);
 
-    await waitFor(() => {
-      const noteInputField = screen.getByPlaceholderText("Add a note here");
-      userEvent.type(noteInputField, notesFixture[1].text);
-    });
+    // allows me to submit an incident note
 
-    const saveButton = screen.getByTestId(/save/i);
-    await waitFor(() => {
-      userEvent.click(saveButton);
-    });
+    whenIClickButtonFoundByText(/add a new note/i);
 
-    expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
-    expect(
-      await screen.findByText(formatMonth(notesFixture[1].createdDate))
-    ).toBeVisible();
-    expect(
-      await screen.findByText(titleCase(notesFixture[1].type))
-    ).toBeVisible();
-    expect(await screen.findByText(notesFixture[1].text)).toBeVisible();
-    expect(await screen.findByText(notesFixture[1].fullName)).toBeVisible();
-  });
+    whenIClickButtonFoundByTestId(/incident-note-type/i);
 
-  it("shouldn't let the user submit the form if at least one field is empty", async () => {
-    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
+    whenITypeInInputFoundByPlaceholder("Add a note here");
 
-    const addNoteButton = await screen.findByText(/add a new note/i);
-    userEvent.click(addNoteButton);
+    whenIClickButtonFoundByTestId(/save/i);
 
-    await waitFor(() => {
-      screen.getByTestId(/incident-note-type/i);
-    });
+    iShouldSeeText("MCA / MCC Notes");
 
-    expect(screen.getByTestId(/save/i)).toBeDisabled();
+    iShouldSeeText(notesFixture[1].createdDate);
+
+    iShouldSeeText(notesFixture[1].type);
+
+    iShouldSeeText(notesFixture[1].text);
+
+    iShouldSeeText(notesFixture[1].fullName);
+
+    // shouldn't let the user submit the form if at least one field is empty
+
+    whenIClickButtonFoundByText(/add a new note/i);
+
+    whenIClickButtonFoundByTestId(/incident-note-type/i);
+
+    expect(await screen.findByTestId(/save/i)).toBeDisabled();
   });
 });
