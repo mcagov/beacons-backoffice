@@ -59,6 +59,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="manufacturer"
                           name="manufacturer"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -77,6 +78,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="model"
                           name="model"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -96,6 +98,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="manufacturerSerialNumber"
                           name="manufacturerSerialNumber"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -115,6 +118,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="chkCode"
                           name="chkCode"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -154,6 +158,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="protocol"
                           name="protocol"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -171,6 +176,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="coding"
                           name="coding"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -190,6 +196,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="csta"
                           name="csta"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -209,6 +216,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="mti"
                           name="mti"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -270,6 +278,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="batteryExpiryDate"
                           name="batteryExpiryDate"
                           type="date"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -290,6 +299,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="lastServicedDate"
                           name="lastServicedDate"
                           type="date"
+                          fullWidth
                         />
                       }
                     />
