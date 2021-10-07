@@ -16,6 +16,7 @@ export interface IBeaconSearchResultData {
   hexId: string;
   ownerName: string;
   useActivities: string;
+  beaconType: "BEACON" | "LEGACY_BEACON";
   _links: {
     self: {
       href: string;

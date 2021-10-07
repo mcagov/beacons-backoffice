@@ -27,6 +27,10 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
       key: "Serial number",
       value: legacyBeacon?.serialNumber?.toString(),
     },
+    {
+      key: "Beacon type",
+      value: legacyBeacon?.beaconType,
+    },
     // {
     //   key: "CHK code",
     //   value: beacon?.chkCode,
@@ -105,5 +109,5 @@ export const LegacyBeaconSummaryViewing: FunctionComponent<{
     },
   ];
 
-  return <PanelViewingState fields={fields} columns={2} splitAfter={18} />;
+  return <PanelViewingState fields={fields} columns={2} splitAfter={19} />;
 };

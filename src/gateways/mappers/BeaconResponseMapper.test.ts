@@ -34,9 +34,9 @@ describe("BeaconResponseMapper", () => {
 
   it("replaces undefined values with empty strings", () => {
     beaconApiResponse.data.attributes.batteryExpiryDate = undefined;
-    beaconApiResponse.data.attributes.protocolCode = undefined;
+    beaconApiResponse.data.attributes.protocol = undefined;
     expectedBeacon.batteryExpiryDate = "";
-    expectedBeacon.protocolCode = "";
+    expectedBeacon.protocol = "";
     const responseMapper = new BeaconResponseMapper();
 
     const mappedBeacon = responseMapper.map(beaconApiResponse);

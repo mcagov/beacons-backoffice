@@ -33,6 +33,7 @@ interface BeaconTableListRow {
   id: string;
   lastModifiedDate: string;
   beaconStatus: string;
+  beaconType: "BEACON" | "LEGACY_BEACON";
 }
 
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
@@ -95,7 +96,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
           field: "hexId",
           filtering: false,
           render: (rowData: BeaconTableListRow) => {
-            if (rowData.beaconStatus === "MIGRATED") {
+            if (rowData.beaconType === "LEGACY_BEACON") {
               return (
                 <Link href={"/#/legacy-beacons/" + rowData.id}>
                   {rowData.hexId ? rowData.hexId : <i>{Placeholders.NoData}</i>}
@@ -164,6 +165,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
                 ownerName: item.ownerName,
                 useActivities: item.useActivities,
                 id: item.id,
+                beaconType: item.beaconType,
               })
             );
             resolve({

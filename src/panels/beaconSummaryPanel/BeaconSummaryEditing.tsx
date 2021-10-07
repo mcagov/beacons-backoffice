@@ -11,10 +11,9 @@ import {
 } from "@material-ui/core";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { FunctionComponent } from "react";
-import { FieldValue } from "../../components/dataPanel/FieldValue";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
-import { IBeacon } from "../../entities/IBeacon";
+import { BeaconTypes, IBeacon } from "../../entities/IBeacon";
 import {
   formatEmergencyContacts,
   formatOwners,
@@ -60,6 +59,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="manufacturer"
                           name="manufacturer"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -78,6 +78,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="model"
                           name="model"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -97,6 +98,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="manufacturerSerialNumber"
                           name="manufacturerSerialNumber"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -116,8 +118,31 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="chkCode"
                           name="chkCode"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
+                      }
+                    />
+
+                    <TabulatedRow
+                      displayKey={
+                        <label htmlFor="beaconType">
+                          <Typography>
+                            {"Beacon type" + WritingStyle.KeyValueSeparator}
+                          </Typography>
+                        </label>
+                      }
+                      value={
+                        <Field as="select" name="beaconType">
+                          <option value="" label={Placeholders.NoData} />
+                          {Object.values(BeaconTypes).map(
+                            (beaconType: string) => {
+                              return (
+                                <option value={beaconType} label={beaconType} />
+                              );
+                            }
+                          )}
+                        </Field>
                       }
                     />
 
@@ -127,7 +152,16 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           {"Protocol" + WritingStyle.KeyValueSeparator}
                         </Typography>
                       }
-                      value={<FieldValue>{beacon.protocolCode}</FieldValue>}
+                      value={
+                        <Field
+                          as={Input}
+                          id="protocol"
+                          name="protocol"
+                          type="string"
+                          fullWidth
+                          placeholder={Placeholders.NoData}
+                        />
+                      }
                     />
 
                     <TabulatedRow
@@ -136,7 +170,16 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           {"Coding" + WritingStyle.KeyValueSeparator}
                         </Typography>
                       }
-                      value={<FieldValue>{beacon.codingMethod}</FieldValue>}
+                      value={
+                        <Field
+                          as={Input}
+                          id="coding"
+                          name="coding"
+                          type="string"
+                          fullWidth
+                          placeholder={Placeholders.NoData}
+                        />
+                      }
                     />
 
                     <TabulatedRow
@@ -153,6 +196,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="csta"
                           name="csta"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -172,6 +216,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="mti"
                           name="mti"
                           type="string"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -233,6 +278,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="batteryExpiryDate"
                           name="batteryExpiryDate"
                           type="date"
+                          fullWidth
                           placeholder={Placeholders.NoData}
                         />
                       }
@@ -253,6 +299,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           id="lastServicedDate"
                           name="lastServicedDate"
                           type="date"
+                          fullWidth
                         />
                       }
                     />

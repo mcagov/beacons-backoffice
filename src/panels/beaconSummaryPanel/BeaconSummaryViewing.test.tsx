@@ -7,7 +7,7 @@ describe("BeaconSummaryViewing", () => {
   it("displays fields with blank string as the 'no data' placeholder", async () => {
     const beaconWithUndefinedField = {
       ...beaconFixture,
-      protocolCode: "",
+      protocol: "",
     };
 
     render(<BeaconSummaryViewing beacon={beaconWithUndefinedField} />);
