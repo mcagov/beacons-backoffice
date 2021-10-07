@@ -1,11 +1,9 @@
-import { screen } from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import { makeServer } from "server";
 import {
   iShouldSeeText,
-  whenIClickButtonFoundByTestId,
-  whenIClickButtonFoundByText,
-  whenITypeInInputFoundByPlaceholder,
-  whenNotesPanelIsRendered,
+  iClickButtonFoundByTestId,
+  iClickButtonFoundByText,
 } from "utils/integrationTestSelectors";
 import { v4 } from "uuid";
 import { notesFixture } from "../../fixtures/notes.fixture";
@@ -13,6 +11,9 @@ import { IAuthGateway } from "../../gateways/auth/IAuthGateway";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { NotesGateway } from "../../gateways/notes/NotesGateway";
 import { noNotesMessage } from "./NotesViewing";
+import {NotesPanel} from "./NotesPanel";
+import userEvent from "@testing-library/user-event";
+import {INote} from "../../entities/INote";
 
 describe("NotesPanel", () => {
   let authGateway: IAuthGateway;
@@ -21,7 +22,7 @@ describe("NotesPanel", () => {
 
   let server: any;
 
-  beforeEach(() => {
+  beforeAll(() => {
     server = makeServer({ environment: "test" });
     authGateway = {
       getAccessToken: jest.fn().mockResolvedValue("Test access token"),
@@ -30,61 +31,52 @@ describe("NotesPanel", () => {
     beaconId = v4();
   });
 
-  afterEach(() => {
+  afterAll(() => {
     server.shutdown();
   });
 
   it("notes integration test", async () => {
-    // displays a message if there are no notes for a record
-    whenNotesPanelIsRendered(gateway, beaconId);
-
+    whenThereAreNoNotesForARecord();
     iShouldSeeText(noNotesMessage);
 
-    // adds a general note
-    whenIClickButtonFoundByText(/add a new note/i);
-
-    whenIClickButtonFoundByTestId(/general-note-type/i);
-
-    whenITypeInInputFoundByPlaceholder("Add a note here");
-
-    whenIClickButtonFoundByTestId(/save/i);
-
+    whenIAddAGeneralNote(notesFixture[0].text);
     iShouldSeeText("MCA / MCC Notes");
+    iShouldSeeMyNote(notesFixture[0])
 
-    iShouldSeeText(notesFixture[0].createdDate);
-
-    iShouldSeeText(notesFixture[0].type);
-
-    iShouldSeeText(notesFixture[0].text);
-
-    iShouldSeeText(notesFixture[0].fullName);
-
-    // allows me to submit an incident note
-
-    whenIClickButtonFoundByText(/add a new note/i);
-
-    whenIClickButtonFoundByTestId(/incident-note-type/i);
-
-    whenITypeInInputFoundByPlaceholder("Add a note here");
-
-    whenIClickButtonFoundByTestId(/save/i);
-
-    iShouldSeeText("MCA / MCC Notes");
-
-    iShouldSeeText(notesFixture[1].createdDate);
-
-    iShouldSeeText(notesFixture[1].type);
-
-    iShouldSeeText(notesFixture[1].text);
-
-    iShouldSeeText(notesFixture[1].fullName);
-
-    // shouldn't let the user submit the form if at least one field is empty
-
-    whenIClickButtonFoundByText(/add a new note/i);
-
-    whenIClickButtonFoundByTestId(/incident-note-type/i);
-
-    expect(await screen.findByTestId(/save/i)).toBeDisabled();
+    whenIAddAnIncidentNote(notesFixture[1].text);
+    iShouldSeeMyNote(notesFixture[1])
   });
+
+  const whenThereAreNoNotesForARecord = () => {
+    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
+  }
+
+  const iTypeMyNote = async (
+    noteText: string
+  ) => {
+    const noteInputField = await screen.findByPlaceholderText("Add a note here");
+    userEvent.type(noteInputField, noteText);
+  };
+
+  const whenIAddAGeneralNote = (noteText: string) => {
+    iClickButtonFoundByText(/add a new note/i);
+    iClickButtonFoundByTestId(/general-note-type/i);
+    iTypeMyNote(noteText);
+    iClickButtonFoundByTestId(/save/i);
+  }
+
+  const whenIAddAnIncidentNote = (noteText: string) => {
+    iClickButtonFoundByText(/add a new note/i);
+    iClickButtonFoundByTestId(/incident-note-type/i);
+    iTypeMyNote(noteText);
+    iClickButtonFoundByTestId(/save/i);
+  }
+
+  const iShouldSeeMyNote = (note: INote) => {
+    iShouldSeeText(note.createdDate);
+    iShouldSeeText(note.type);
+    iShouldSeeText(note.text);
+    iShouldSeeText(note.fullName);
+  }
 });
+
