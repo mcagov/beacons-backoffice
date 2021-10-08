@@ -5,9 +5,7 @@ export const iShouldSeeText = async (text: string) => {
   expect(await screen.findByText(text)).toBeVisible();
 };
 
-export const iClickButtonFoundByText = async (
-  buttonText: string | RegExp
-) => {
+export const iClickButtonFoundByText = async (buttonText: string | RegExp) => {
   const button = await screen.findByText(buttonText);
   userEvent.click(button);
 };
@@ -18,4 +16,3 @@ export const iClickButtonFoundByTestId = async (
   const button = await screen.findByTestId(testIdText);
   userEvent.click(button);
 };
-

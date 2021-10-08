@@ -1,19 +1,19 @@
-import {render, screen} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { makeServer } from "server";
 import {
-  iShouldSeeText,
   iClickButtonFoundByTestId,
   iClickButtonFoundByText,
+  iShouldSeeText,
 } from "utils/integrationTestSelectors";
 import { v4 } from "uuid";
+import { INote } from "../../entities/INote";
 import { notesFixture } from "../../fixtures/notes.fixture";
 import { IAuthGateway } from "../../gateways/auth/IAuthGateway";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
 import { NotesGateway } from "../../gateways/notes/NotesGateway";
+import { NotesPanel } from "./NotesPanel";
 import { noNotesMessage } from "./NotesViewing";
-import {NotesPanel} from "./NotesPanel";
-import userEvent from "@testing-library/user-event";
-import {INote} from "../../entities/INote";
 
 describe("NotesPanel", () => {
   let authGateway: IAuthGateway;
@@ -41,20 +41,20 @@ describe("NotesPanel", () => {
 
     whenIAddAGeneralNote(notesFixture[0].text);
     iShouldSeeText("MCA / MCC Notes");
-    iShouldSeeMyNote(notesFixture[0])
+    iShouldSeeMyNote(notesFixture[0]);
 
     whenIAddAnIncidentNote(notesFixture[1].text);
-    iShouldSeeMyNote(notesFixture[1])
+    iShouldSeeMyNote(notesFixture[1]);
   });
 
   const whenThereAreNoNotesForARecord = () => {
     render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
-  }
+  };
 
-  const iTypeMyNote = async (
-    noteText: string
-  ) => {
-    const noteInputField = await screen.findByPlaceholderText("Add a note here");
+  const iTypeMyNote = async (noteText: string) => {
+    const noteInputField = await screen.findByPlaceholderText(
+      "Add a note here"
+    );
     userEvent.type(noteInputField, noteText);
   };
 
@@ -63,20 +63,19 @@ describe("NotesPanel", () => {
     iClickButtonFoundByTestId(/general-note-type/i);
     iTypeMyNote(noteText);
     iClickButtonFoundByTestId(/save/i);
-  }
+  };
 
   const whenIAddAnIncidentNote = (noteText: string) => {
     iClickButtonFoundByText(/add a new note/i);
     iClickButtonFoundByTestId(/incident-note-type/i);
     iTypeMyNote(noteText);
     iClickButtonFoundByTestId(/save/i);
-  }
+  };
 
   const iShouldSeeMyNote = (note: INote) => {
     iShouldSeeText(note.createdDate);
     iShouldSeeText(note.type);
     iShouldSeeText(note.text);
     iShouldSeeText(note.fullName);
-  }
+  };
 });
-
