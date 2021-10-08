@@ -1,37 +1,56 @@
-import { render, screen } from "@testing-library/react";
-import { notesFixture } from "../../fixtures/notes.fixture";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
-import { formatMonth } from "../../utils/dateTime";
-import { NoNotesMessage, NotesPanel } from "./NotesPanel";
+import { Placeholders } from "../../utils/writingStyle";
+import { NotesPanel } from "./NotesPanel";
 
 describe("NotesPanel", () => {
-  let gateway: INotesGateway;
+  let notesGateway: INotesGateway;
   let beaconId: string;
-  it("should display the notes of a record", async () => {
-    gateway = {
-      getNotes: jest.fn().mockResolvedValue(notesFixture),
+
+  beforeEach(() => {
+    notesGateway = {
+      getNotes: jest.fn().mockResolvedValue([]),
+      createNote: jest.fn(),
     };
-    beaconId = "123445";
-
-    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
-
-    expect(await screen.findByText("MCA / MCC Notes")).toBeVisible();
-    for (const note of notesFixture) {
-      expect(
-        await screen.findByText(formatMonth(note.createdDate))
-      ).toBeVisible();
-      expect(await screen.findByText(new RegExp(note.type, "i"))).toBeVisible();
-      expect(await screen.findByText(note.text)).toBeVisible();
-      expect(await screen.findByText(note.fullName)).toBeVisible();
-    }
+    beaconId = "12345";
   });
 
-  it("displays a message if there are no notes for a record", async () => {
-    gateway = { getNotes: jest.fn().mockResolvedValue([]) };
-    beaconId = "24601";
+  it("calls the injected NotesGateway", async () => {
+    render(<NotesPanel notesGateway={notesGateway} beaconId={beaconId} />);
 
-    render(<NotesPanel notesGateway={gateway} beaconId={beaconId} />);
+    await waitFor(() => {
+      expect(notesGateway.getNotes).toHaveBeenCalled();
+    });
+  });
 
-    expect(await screen.findByText(NoNotesMessage)).toBeVisible();
+  it("displays an error if notes lookup fails for any reason", async () => {
+    notesGateway.getNotes = jest.fn().mockImplementation(() => {
+      throw Error();
+    });
+    jest.spyOn(console, "error").mockImplementation(() => {}); // Avoid console error failing test
+    render(
+      <NotesPanel notesGateway={notesGateway} beaconId={"does not exist"} />
+    );
+
+    expect(await screen.findByRole("alert")).toBeVisible();
+    expect(
+      await screen.findByText(Placeholders.UnspecifiedError)
+    ).toBeVisible();
+  });
+
+  it("fetches notes data on state change", async () => {
+    render(<NotesPanel notesGateway={notesGateway} beaconId={beaconId} />);
+    expect(notesGateway.getNotes).toHaveBeenCalledTimes(1);
+
+    const addNoteButton = await screen.findByText(/add a new note/i);
+    userEvent.click(addNoteButton);
+    expect(notesGateway.getNotes).toHaveBeenCalledTimes(2);
+
+    const cancelButton = await screen.findByRole("button", {
+      name: "Cancel",
+    });
+    userEvent.click(cancelButton);
+    expect(notesGateway.getNotes).toHaveBeenCalledTimes(3);
   });
 });

@@ -1,95 +1,90 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { PanelButton } from "../../components/dataPanel/EditPanelButton";
+import { ErrorState } from "../../components/dataPanel/PanelErrorState";
+import { LoadingState } from "../../components/dataPanel/PanelLoadingState";
+import { DataPanelStates } from "../../components/dataPanel/States";
 import { INote } from "../../entities/INote";
 import { INotesGateway } from "../../gateways/notes/INotesGateway";
-import { formatMonth } from "../../utils/dateTime";
-import { titleCase } from "../../utils/writingStyle";
+import { Placeholders } from "../../utils/writingStyle";
+import { NotesEditing } from "./NotesEditing";
+import { NotesViewing } from "./NotesViewing";
 
 interface NotesPanelProps {
   notesGateway: INotesGateway;
   beaconId: string;
 }
 
-export const NoNotesMessage = "No notes associated with this record";
-
 export const NotesPanel: FunctionComponent<NotesPanelProps> = ({
   notesGateway,
   beaconId,
 }: NotesPanelProps): JSX.Element => {
   const [notes, setNotes] = useState<INote[]>([]);
+  const [userState, setUserState] = useState<DataPanelStates>(
+    DataPanelStates.Viewing
+  );
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect((): void => {
     const fetchNotes = async (beaconId: string) => {
       try {
+        setLoading(true);
         const notes = await notesGateway.getNotes(beaconId);
         setNotes(notes);
+        setLoading(false);
       } catch (error) {
         console.error(error);
+        setError(true);
       }
     };
 
     fetchNotes(beaconId);
-  }, [beaconId, notesGateway]);
+  }, [userState, beaconId, notesGateway]);
 
-  if (notes.length === 0) {
-    return (
-      <Card>
-        <CardContent>
-          <CardHeader title={NoNotesMessage} />
-        </CardContent>
-      </Card>
-    );
-  }
+  const handleSave = async (note: Partial<INote>): Promise<void> => {
+    try {
+      note.beaconId = beaconId;
+      await notesGateway.createNote(note);
+      setUserState(DataPanelStates.Viewing);
+    } catch (error) {
+      console.error(error);
+      setError(true);
+    }
+  };
+
+  const renderState = (state: DataPanelStates) => {
+    switch (state) {
+      case DataPanelStates.Viewing:
+        return (
+          <>
+            <PanelButton onClick={() => setUserState(DataPanelStates.Editing)}>
+              Add a new note
+            </PanelButton>
+            <NotesViewing notes={notes} />
+          </>
+        );
+      case DataPanelStates.Editing:
+        return (
+          <NotesEditing
+            onSave={handleSave}
+            onCancel={() => setUserState(DataPanelStates.Viewing)}
+          />
+        );
+      default:
+        setError(true);
+    }
+  };
 
   return (
     <Card>
       <CardContent>
-        <CardHeader title="MCA / MCC Notes" />
-        <NotesTable notes={notes} />
+        <>
+          {error && <ErrorState message={Placeholders.UnspecifiedError} />}
+          {loading && <LoadingState />}
+          {error || loading || renderState(userState)}
+        </>
       </CardContent>
     </Card>
-  );
-};
-
-interface INotesTableProps {
-  notes: INote[];
-}
-
-const NotesTable: FunctionComponent<INotesTableProps> = ({
-  notes,
-}: INotesTableProps): JSX.Element => {
-  return (
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Type of note</TableCell>
-            <TableCell>Note</TableCell>
-            <TableCell>Noted by</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {notes.map((note) => (
-            <TableRow key={note.id}>
-              <TableCell>{formatMonth(note.createdDate)}</TableCell>
-              <TableCell>{titleCase(note.type)}</TableCell>
-              <TableCell>{note.text}</TableCell>
-              <TableCell>{note.fullName}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
   );
 };
