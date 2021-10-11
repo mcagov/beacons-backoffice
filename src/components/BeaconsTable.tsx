@@ -33,7 +33,7 @@ interface BeaconTableListRow {
   id: string;
   lastModifiedDate: string;
   beaconStatus: string;
-  beaconType: "BEACON" | "LEGACY_BEACON";
+  beaconType: string;
 }
 
 export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
@@ -158,12 +158,12 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
               sortValue
             );
             const beacons = response._embedded.beaconSearch.map(
-              (item: IBeaconSearchResultData) => ({
+              (item: IBeaconSearchResultData): BeaconTableListRow => ({
                 lastModifiedDate: item.lastModifiedDate,
                 beaconStatus: item.beaconStatus,
                 hexId: item.hexId,
-                ownerName: item.ownerName,
-                useActivities: item.useActivities,
+                ownerName: item.ownerName ?? "N/A",
+                useActivities: item.useActivities ?? "N/A",
                 id: item.id,
                 beaconType: item.beaconType,
               })

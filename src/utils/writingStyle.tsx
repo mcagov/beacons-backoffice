@@ -69,9 +69,10 @@ export const formatEmergencyContacts = (
 ): string => `${emergencyContacts.length} listed`;
 
 export const formatFieldValue = (
-  value: string | undefined,
+  value: string | number | undefined | null,
   valueType?: FieldValueTypes
 ): JSX.Element => {
+  if (typeof value === "number") return <b>{value.toString()}</b>;
   if (value) return <b>{value.toLocaleUpperCase()}</b>;
   if (valueType === FieldValueTypes.MULTILINE) return <></>;
 

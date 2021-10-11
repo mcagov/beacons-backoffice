@@ -188,4 +188,16 @@ describe("formatFieldValue()", () => {
       <b>ANYTHING</b>
     );
   });
+
+  it("handles number types", () => {
+    expect(formatFieldValue(12345)).toEqual(<b>12345</b>);
+  });
+
+  it("handles undefined", () => {
+    expect(formatFieldValue(undefined)).toEqual(<i>{Placeholders.NoData}</i>);
+  });
+
+  it("handles null", () => {
+    expect(formatFieldValue(null)).toEqual(<i>{Placeholders.NoData}</i>);
+  });
 });

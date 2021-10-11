@@ -11,12 +11,15 @@ export interface IBeaconSearchResult {
 
 export interface IBeaconSearchResultData {
   id: string;
+  hexId: string;
+  createdDate: string;
   lastModifiedDate: string;
   beaconStatus: string;
-  hexId: string;
-  ownerName: string;
-  useActivities: string;
-  beaconType: "BEACON" | "LEGACY_BEACON";
+  beaconType: string;
+  ownerName: string | null;
+  ownerEmail: string | null;
+  accountHolderId: string | null;
+  useActivities: string | null;
   _links: {
     self: {
       href: string;
