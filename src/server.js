@@ -5,6 +5,7 @@ import { applicationConfig } from "./config";
 import { beaconSearchResultFixture } from "./fixtures/beaconSearchResult.fixture";
 import { manyBeaconsApiResponseFixture } from "./fixtures/manyBeaconsApiResponse.fixture";
 import { singleBeaconApiResponseFixture } from "./fixtures/singleBeaconApiResponse.fixture";
+import { singleLegacyBeaconApiResponseFixture } from "./fixtures/singleLegacyBeaconApiResponse.fixture";
 
 export function makeServer({ environment = "development" } = {}) {
   console.log("Stubbing the Beacons API using Mirage...");
@@ -48,7 +49,6 @@ export function makeServer({ environment = "development" } = {}) {
       this.get(
         `${applicationConfig.apiUrl}/beacon-search/search/find-all`,
         () => {
-          // TODO: Update manyBeaconsApiResponseFixture to match endpoint
           return beaconSearchResultFixture;
         }
       );
@@ -62,6 +62,10 @@ export function makeServer({ environment = "development" } = {}) {
 
       this.get(`${applicationConfig.apiUrl}/beacons/:id`, () => {
         return singleBeaconApiResponseFixture;
+      });
+
+      this.get(`${applicationConfig.apiUrl}/legacy-beacon/:id`, () => {
+        return singleLegacyBeaconApiResponseFixture;
       });
 
       this.patch(`${applicationConfig.apiUrl}/beacons/:id`, () => {
