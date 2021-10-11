@@ -4,7 +4,7 @@ import { deepFreeze } from "../utils";
 export const beaconSearchResultFixture = deepFreeze<IBeaconSearchResult>({
   page: {
     size: 20,
-    totalElements: 3,
+    totalElements: 4,
     totalPages: 1,
     number: 0,
   },

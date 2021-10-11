@@ -15,6 +15,8 @@ describe("<BeaconsTable>", () => {
     };
   });
 
+  const numberOfMockedBeacons = beaconSearchResultFixture.page.totalElements;
+
   it("renders a table", async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
@@ -35,10 +37,12 @@ describe("<BeaconsTable>", () => {
     expect(await screen.findByText("Hex me difficultly")).toBeVisible();
   });
 
-  it("displays 3 rows when 3 beacons are returned from the gateway", async () => {
+  it(`displays ${numberOfMockedBeacons} rows when ${numberOfMockedBeacons} beacons are returned from the gateway`, async () => {
     render(<BeaconsTable beaconsGateway={beaconsGatewayDouble} />);
 
-    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(3);
+    expect(await screen.findAllByTestId("beacons-table-row")).toHaveLength(
+      numberOfMockedBeacons
+    );
   });
 
   // it("can click on the hex ID to see more details about the beacon", async () => {
