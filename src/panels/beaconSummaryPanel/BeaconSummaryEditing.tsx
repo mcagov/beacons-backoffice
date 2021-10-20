@@ -10,10 +10,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { PanelViewingState } from "../../components/dataPanel/PanelViewingState";
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
 import { BeaconTypes, IBeacon } from "../../entities/IBeacon";
+import manufacturerModelJson from "../../lib/manufacturerModel/manufacturerModel.json";
 import {
   formatEmergencyContacts,
   formatOwners,
@@ -27,6 +28,32 @@ export const BeaconSummaryEditing: FunctionComponent<{
   onSave: (beacon: IBeacon) => void;
   onCancel: () => void;
 }> = ({ beacon, onSave, onCancel }) => {
+  const [models, setModels] = useState<JSX.Element[]>([]);
+
+  useEffect(() => {
+    setModels(populateModelOptions(beacon.manufacturer));
+  }, []);
+
+  const handleManufacturerChange = (event: any) => {
+    setModels(populateModelOptions(event.target.value));
+  };
+
+  const populateModelOptions = (manufacturer: string) => {
+    let options: JSX.Element[] = [];
+    if (beacon.model) {
+      options.push(<option value={beacon.model} label={beacon.model} />);
+    }
+
+    // @ts-ignore
+    const models: string[] = manufacturerModelJson[manufacturer];
+    if (models) {
+      models.forEach((model: string) => {
+        options.push(<option value={model} label={model} />);
+      });
+    }
+    return options;
+  };
+
   return (
     <Formik
       initialValues={beacon}
@@ -38,7 +65,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
         setSubmitting(false);
       }}
     >
-      {() => (
+      {(props) => (
         <Form>
           <Grid container direction="row" justifyContent={"flex-start"}>
             <Grid item xs={12} sm={6}>
@@ -55,13 +82,25 @@ export const BeaconSummaryEditing: FunctionComponent<{
                       }
                       value={
                         <Field
-                          as={Input}
-                          id="manufacturer"
+                          as="select"
                           name="manufacturer"
-                          type="string"
-                          fullWidth
-                          placeholder={Placeholders.NoData}
-                        />
+                          onChange={(e: any) => {
+                            props.handleChange(e);
+                            handleManufacturerChange(e);
+                          }}
+                        >
+                          <option value="" label={Placeholders.NoData} />
+                          {Object.keys(manufacturerModelJson).map(
+                            (manufacturer: string) => {
+                              return (
+                                <option
+                                  value={manufacturer}
+                                  label={manufacturer}
+                                />
+                              );
+                            }
+                          )}
+                        </Field>
                       }
                     />
                     <TabulatedRow
@@ -73,14 +112,10 @@ export const BeaconSummaryEditing: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field
-                          as={Input}
-                          id="model"
-                          name="model"
-                          type="string"
-                          fullWidth
-                          placeholder={Placeholders.NoData}
-                        />
+                        <Field as="select" name="model">
+                          <option value="" label={Placeholders.NoData} />
+                          {models}
+                        </Field>
                       }
                     />
 
