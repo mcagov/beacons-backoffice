@@ -182,6 +182,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       options={{
         filtering: true,
         search: true,
+        debounceInterval: 2000,
         pageSize: 20,
       }}
       components={{
