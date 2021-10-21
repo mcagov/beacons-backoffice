@@ -23,6 +23,12 @@ import {
   WritingStyle,
 } from "../../utils/writingStyle";
 
+const populateModelOptions = (manufacturer: string): JSX.Element[] => {
+  // @ts-ignore
+  const models: string[] = manufacturerModelJson[manufacturer] ?? [];
+  return models.map((model) => <option value={model} label={model} />);
+};
+
 export const BeaconSummaryEditing: FunctionComponent<{
   beacon: IBeacon;
   onSave: (beacon: IBeacon) => void;
@@ -30,29 +36,16 @@ export const BeaconSummaryEditing: FunctionComponent<{
 }> = ({ beacon, onSave, onCancel }) => {
   const [models, setModels] = useState<JSX.Element[]>([]);
 
+  const handleManufacturerChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const models = populateModelOptions(event.target.value);
+    setModels(models);
+  };
+
   useEffect(() => {
     setModels(populateModelOptions(beacon.manufacturer));
-  }, []);
-
-  const handleManufacturerChange = (event: any) => {
-    setModels(populateModelOptions(event.target.value));
-  };
-
-  const populateModelOptions = (manufacturer: string) => {
-    let options: JSX.Element[] = [];
-    if (beacon.model) {
-      options.push(<option value={beacon.model} label={beacon.model} />);
-    }
-
-    // @ts-ignore
-    const models: string[] = manufacturerModelJson[manufacturer];
-    if (models) {
-      models.forEach((model: string) => {
-        options.push(<option value={model} label={model} />);
-      });
-    }
-    return options;
-  };
+  }, [beacon.manufacturer, beacon.model]);
 
   return (
     <Formik
@@ -87,6 +80,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                           onChange={(e: any) => {
                             props.handleChange(e);
                             handleManufacturerChange(e);
+                            props.setFieldValue("model", "N/A");
                           }}
                         >
                           <option value="" label={Placeholders.NoData} />
@@ -112,7 +106,11 @@ export const BeaconSummaryEditing: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field as="select" name="model">
+                        <Field
+                          as="select"
+                          name="model"
+                          onChange={props.handleChange}
+                        >
                           <option value="" label={Placeholders.NoData} />
                           {models}
                         </Field>
