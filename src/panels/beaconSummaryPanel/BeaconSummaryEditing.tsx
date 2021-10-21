@@ -15,6 +15,8 @@ import { PanelViewingState } from "../../components/dataPanel/PanelViewingState"
 import { TabulatedRow } from "../../components/dataPanel/TabulatedRow";
 import { BeaconTypes, IBeacon } from "../../entities/IBeacon";
 import manufacturerModelJson from "../../lib/manufacturerModel/manufacturerModel.json";
+import mtiJson from "../../lib/mti/mtis.json";
+import protocolJson from "../../lib/protocol/protocols.json";
 import {
   formatEmergencyContacts,
   formatOwners,
@@ -76,6 +78,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                       value={
                         <Field
                           as="select"
+                          style={{ minWidth: 330 }}
                           name="manufacturer"
                           onChange={(e: any) => {
                             props.handleChange(e);
@@ -108,6 +111,7 @@ export const BeaconSummaryEditing: FunctionComponent<{
                       value={
                         <Field
                           as="select"
+                          style={{ minWidth: 330 }}
                           name="model"
                           onChange={props.handleChange}
                         >
@@ -166,7 +170,11 @@ export const BeaconSummaryEditing: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field as="select" name="beaconType">
+                        <Field
+                          as="select"
+                          style={{ minWidth: 330 }}
+                          name="beaconType"
+                        >
                           <option value="" label={Placeholders.NoData} />
                           {Object.values(BeaconTypes).map(
                             (beaconType: string) => {
@@ -187,13 +195,19 @@ export const BeaconSummaryEditing: FunctionComponent<{
                       }
                       value={
                         <Field
-                          as={Input}
-                          id="protocol"
+                          as="select"
                           name="protocol"
-                          type="string"
-                          fullWidth
-                          placeholder={Placeholders.NoData}
-                        />
+                          style={{ minWidth: 330 }}
+                        >
+                          <option value="" label={Placeholders.NoData} />
+                          {Object.values(protocolJson).map(
+                            (protocol: string) => {
+                              return (
+                                <option value={protocol} label={protocol} />
+                              );
+                            }
+                          )}
+                        </Field>
                       }
                     />
 
@@ -244,14 +258,12 @@ export const BeaconSummaryEditing: FunctionComponent<{
                         </label>
                       }
                       value={
-                        <Field
-                          as={Input}
-                          id="mti"
-                          name="mti"
-                          type="string"
-                          fullWidth
-                          placeholder={Placeholders.NoData}
-                        />
+                        <Field as="select" name="mti" style={{ minWidth: 330 }}>
+                          <option value="" label={Placeholders.NoData} />
+                          {Object.values(mtiJson).map((protocol: string) => {
+                            return <option value={protocol} label={protocol} />;
+                          })}
+                        </Field>
                       }
                     />
 
