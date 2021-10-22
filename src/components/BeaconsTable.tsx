@@ -18,7 +18,7 @@ import {
 } from "@material-ui/icons";
 import { IBeaconsGateway } from "gateways/beacons/IBeaconsGateway";
 import MaterialTable, { Icons, MTableBodyRow } from "material-table";
-import React, { forwardRef, FunctionComponent } from "react";
+import React, { forwardRef, FunctionComponent, useState } from "react";
 import { Placeholders } from "utils/writingStyle";
 import { IBeaconSearchResultData } from "../entities/IBeaconSearchResult";
 
@@ -67,9 +67,12 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <MaterialTable
       icons={tableIcons}
+      isLoading={isLoading}
       columns={[
         {
           title: "Last modified date",
@@ -131,6 +134,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       ]}
       data={(query) =>
         new Promise(async (resolve, reject) => {
+          setIsLoading(true);
           const term = query.search;
           let statusFilterValue = "";
           let useFilterValue = "";
@@ -168,6 +172,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
                 beaconType: item.beaconType,
               })
             );
+            setIsLoading(false);
             resolve({
               data: beacons,
               page: response.page.number,
@@ -175,6 +180,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
             });
           } catch (error) {
             console.error("Could not fetch beacons", error);
+            setIsLoading(false);
           }
         })
       }
@@ -182,6 +188,7 @@ export const BeaconsTable: FunctionComponent<IBeaconsTableProps> = ({
       options={{
         filtering: true,
         search: true,
+        searchFieldVariant: "outlined",
         debounceInterval: 2000,
         pageSize: 20,
       }}
