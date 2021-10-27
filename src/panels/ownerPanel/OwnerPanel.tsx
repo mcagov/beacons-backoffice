@@ -62,9 +62,12 @@ export const OwnerPanel: FunctionComponent<OwnerSummaryPanelProps> = ({
       value: [
         owner?.addressLine1,
         owner?.addressLine2,
+        owner?.addressLine3,
+        owner?.addressLine4,
         owner?.townOrCity,
         owner?.county,
         owner?.postcode,
+        owner?.country,
       ],
       valueType: FieldValueTypes.MULTILINE,
     },
