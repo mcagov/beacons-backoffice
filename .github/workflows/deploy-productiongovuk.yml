@@ -6,7 +6,6 @@ jobs:
   deploy:
     name: Deploy Production Gov Uk Environment
     runs-on: ubuntu-latest
-    needs: [unit_tests, prettier_check, lint_check, build]
     if: github.ref == 'refs/heads/main'
     environment: productiongovuk
     env:
