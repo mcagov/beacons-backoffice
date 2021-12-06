@@ -81,10 +81,10 @@ const App: FunctionComponent = () => {
             <Route exact path="/">
               <BeaconRecordsListView beaconsGateway={beaconsGateway} />
             </Route>
-            <Route path="/beacons/:id">
+            <Route path={`/beacons/:id`}>
               <SingleBeaconRecordViewWithParam />
             </Route>
-            <Route path="/legacy-beacons/:id">
+            <Route path={`/legacy-beacons/:id`}>
               <SingleLegacyBeaconRecordViewWithParam />
             </Route>
           </Switch>

@@ -1,7 +1,7 @@
 export const applicationConfig = {
-  apiUrl: process.env.REACT_APP_API_URL,
-  azureADClientId: process.env.REACT_APP_AAD_CLIENT_ID,
-  azureADTenantId: process.env.REACT_APP_AAD_TENANT_ID,
-  azureADAPIScopeURI: process.env.REACT_APP_AAD_API_SCOPE_URI,
+  apiUrl: "../spring-api",
+  azureADClientId: "8fb0f9ea-6351-4251-bcca-85e298bda8e7",
+  azureADTenantId: "3fd408b5-82e6-4dc0-a36c-6e2aa815db3e",
+  azureADAPIScopeURI: `api://8fb0f9ea-6351-4251-bcca-85e298bda8e7/access_as_user`,
   apiTimeoutMs: 30000,
 };

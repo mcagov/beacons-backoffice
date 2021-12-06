@@ -14,6 +14,7 @@ export interface ILegacyBeaconResponseMapper {
 
 export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
   public map(beaconApiResponse: ILegacyBeaconResponse): ILegacyBeacon {
+    debugger;
     return {
       pkBeaconId: beaconApiResponse.data.attributes.beacon.pkBeaconId,
       statusCode: beaconApiResponse.data.attributes.beacon.statusCode,
@@ -150,7 +151,7 @@ export class LegacyBeaconResponseMapper implements ILegacyBeaconResponseMapper {
           rssSsrNumber: use.rssSsrNumber || "",
           callSign: use.callSign || "",
           imoNumber: use.imoNumber || "",
-          mmsiNumber: use.mmsiNumber || 0,
+          mmsiNumber: use.mmsiNumber,
           fishingVesselPln: use.fishingVesselPln || "",
           hullIdNumber: use.hullIdNumber || "",
           cg66RefNumber: use.cg66RefNumber || "",

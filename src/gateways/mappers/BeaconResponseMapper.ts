@@ -30,6 +30,7 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
       ),
       chkCode: beaconApiResponse.data.attributes.chkCode || "",
       mti: beaconApiResponse.data.attributes.mti || "",
+      referenceNumber: beaconApiResponse.data.attributes.referenceNumber,
       svdr:
         beaconApiResponse.data.attributes.svdr == null
           ? ""
@@ -84,12 +85,9 @@ export class BeaconResponseMapper implements IBeaconResponseMapper {
         telephoneNumber: owner.attributes.telephoneNumber || "",
         addressLine1: owner.attributes.addressLine1 || "",
         addressLine2: owner.attributes.addressLine2 || "",
-        addressLine3: owner.attributes.addressLine3 || "",
-        addressLine4: owner.attributes.addressLine4 || "",
         townOrCity: owner.attributes.townOrCity || "",
         county: owner.attributes.county || "",
         postcode: owner.attributes.postcode || "",
-        country: owner.attributes.country || "",
       };
     });
   }

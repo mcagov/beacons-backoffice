@@ -44,6 +44,8 @@ const getFields = (use: ILegacyUse): IField[] => [
   { key: "SSR / RSS number", value: use?.rssSsrNumber },
   { key: "Hull ID number", value: use?.hullIdNumber },
   { key: "Official number", value: use?.officialNumber },
+  { key: "MMSI", value: use?.mmsiNumber?.toString() },
+  { key: "Call sign", value: use?.callSign },
 
   { key: "AOD serial number", value: use?.aodSerialNumber },
 
@@ -61,7 +63,6 @@ const getFields = (use: ILegacyUse): IField[] => [
   { key: "MOD Variant", value: use?.modVariant },
   { key: "Activation mode", value: use?.activationMode },
 
-  { key: "Call sign", value: use?.callSign },
   { key: "Survival craft type", value: use?.survivalCraftType },
   { key: "Bit 24 address hex", value: use?.bit24AddressHex },
 
