@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "backoffice_static" {
-  bucket = "${module.beacons_label.name}-${module.beacons_label.environment}"
+  bucket = "${module.beacons_label.name}-${module.beacons_label.environment}-redirect"
   tags   = module.beacons_label.tags
   acl    = "public-read"
 
