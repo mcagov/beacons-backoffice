@@ -2,21 +2,22 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/aws" {
-  version     = "3.55.0"
-  constraints = "~> 3.0"
+  version     = "4.21.0"
+  constraints = "~> 4.21"
   hashes = [
-    "h1:Ls8MD4Olzybw9n0mP5Lr1S2PnZzlSKrpxvYN9u2p/dM=",
-    "h1:pQzssRQ6BMdyO65Lq5PRx766l8swjcCNKrNyCkcJa6I=",
-    "zh:1795562df65e9e5a604c90fac17ab1a706bc398b38271a11bc43565d45532595",
-    "zh:266fd71ace988b5fecd72dae5f2f503e953a4d2ea51d8d490d22d1218b1407dc",
-    "zh:4b2daf1038352fb33df40a2bf9033f66383bb1f6509df70da08f86f4539df9f3",
-    "zh:59fa40d453baa15cee845fd62d8c807fc4d5204a5560ee7e54ebeef3a3143404",
-    "zh:5ad9f515354c654d53849d1193ee56e335b3b9cf8e8cbfa98479114e87089cc3",
-    "zh:69c3ebd945ce747e0b30315656bc8b4aec2f2486013c2a78d04890bff96d137d",
-    "zh:6bdb22a77b4d85b6d9f2403bce23d6c3c932dadd7c7541395cbbd51ec101842e",
-    "zh:7d5ba001be98432d6a1d385679a720cf0d6e6c0b1ee7d45384d2d6213e262b21",
-    "zh:ce4b85f470605c5cd24f8acfe05c6546d962a32ecf69a61034f0884c2e79fbcf",
-    "zh:d0b20e4e9e877279520162b7979e9cb8aa961cf06fb37d9f3e4ac7023c177545",
-    "zh:e029951f18e9dadd8929dddc752a5b354a4c9956b8ec1b67f4db7bc641199d22",
+    "h1:eeuRCgJ2aEsVvCl0UOU99Rx58L2NMpM4Q5XdsfO4sr8=",
+    "h1:laCXW8oQgDRQ4jzYQ9rUToNW0wPZS6FzeYuX6dGQa9Y=",
+    "zh:16529a8ac663845da9214a75f5a32a2d0daf393612e46259b6dff10f1b8b50ed",
+    "zh:1ae36386d4862a489a3981a482a537c16f8a1588a445b60f173d1f13fcc3552e",
+    "zh:5ab0f63784f7216528855272b341d3cbfbf378dc6ee23796debead505aff58a2",
+    "zh:5f28fec15d2e58623b0cdb610e36703b3035fb3a61289c6d8a4705fca5144cb8",
+    "zh:60b664b6d34b27609b3b4273dffa41ff2c6d15bb01e326bcd6a40944f9cc9839",
+    "zh:6a9010783b1c4574956e047d9981e96f8d4bbdd7057496ad35bb81acc0efa862",
+    "zh:8631ceb0187605305e2045f1f6aded046ba17e0cad64663011dd55c8a20330ec",
+    "zh:891ac1b0053c435b939462b1872ab383e72a8de05454164def2b96a362f7a729",
+    "zh:92bccfd7517abeda2ac6ddb78f1819742cafdba87af2074929d57cd7f2256c22",
+    "zh:9b12af85486a96aedd8d7984b0ff811a4b42e3d88dad1a3fb4c0b580d04fa425",
+    "zh:ad169953f8b9441624064815bd4b82b12ab20ba3e2f033ecf019d6a25ae42175",
+    "zh:b46eccb3bec96ace8863cd0302de475dd22e4bdd2176ddb82e76f998424e7ac3",
   ]
 }
