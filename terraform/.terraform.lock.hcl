@@ -2,21 +2,25 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/aws" {
-  version     = "3.55.0"
-  constraints = "~> 3.0"
+  version     = "4.46.0"
+  constraints = "~> 4.46"
   hashes = [
-    "h1:Ls8MD4Olzybw9n0mP5Lr1S2PnZzlSKrpxvYN9u2p/dM=",
-    "h1:pQzssRQ6BMdyO65Lq5PRx766l8swjcCNKrNyCkcJa6I=",
-    "zh:1795562df65e9e5a604c90fac17ab1a706bc398b38271a11bc43565d45532595",
-    "zh:266fd71ace988b5fecd72dae5f2f503e953a4d2ea51d8d490d22d1218b1407dc",
-    "zh:4b2daf1038352fb33df40a2bf9033f66383bb1f6509df70da08f86f4539df9f3",
-    "zh:59fa40d453baa15cee845fd62d8c807fc4d5204a5560ee7e54ebeef3a3143404",
-    "zh:5ad9f515354c654d53849d1193ee56e335b3b9cf8e8cbfa98479114e87089cc3",
-    "zh:69c3ebd945ce747e0b30315656bc8b4aec2f2486013c2a78d04890bff96d137d",
-    "zh:6bdb22a77b4d85b6d9f2403bce23d6c3c932dadd7c7541395cbbd51ec101842e",
-    "zh:7d5ba001be98432d6a1d385679a720cf0d6e6c0b1ee7d45384d2d6213e262b21",
-    "zh:ce4b85f470605c5cd24f8acfe05c6546d962a32ecf69a61034f0884c2e79fbcf",
-    "zh:d0b20e4e9e877279520162b7979e9cb8aa961cf06fb37d9f3e4ac7023c177545",
-    "zh:e029951f18e9dadd8929dddc752a5b354a4c9956b8ec1b67f4db7bc641199d22",
+    "h1:EZB4OgvytV38JpWyye9zoMQ0bfT9yB9xSXM5NY3Lrws=",
+    "h1:WFBUQj7XI7gknCtGR+3yDhdlUiDYrONOA8HA7h2yWqY=",
+    "zh:1678e6a4bdb3d81a6713adc62ca0fdb8250c584e10c10d1daca72316e9db8df2",
+    "zh:329903acf86ef6072502736dff4c43c2b50f762a958f76aa924e2d74c7fca1e3",
+    "zh:33db8131fe0ec7e1d9f30bc9f65c2440e9c1f708d681b6062757a351f1df7ce6",
+    "zh:3a3b010bc393784c16f4b6cdce7f76db93d5efa323fce4920bfea9e9ba6abe44",
+    "zh:979e2713a5759a7483a065e149e3cb69db9225326fc0457fa3fc3a48aed0c63f",
+    "zh:9b12af85486a96aedd8d7984b0ff811a4b42e3d88dad1a3fb4c0b580d04fa425",
+    "zh:9efcf0067e16ad53da7504178a05eb2118770b4ae00c193c10ecad4cbfce308e",
+    "zh:a10655bf1b6376ab7f3e55efadf54dc70f7bd07ca11369557c312095076f9d62",
+    "zh:b0394dd42cbd2a718a7dd7ae0283f04769aaf8b3d52664e141da59c0171a11ab",
+    "zh:b958e614c2cf6d9c05a6ad5e94dc5c04b97ebfb84415da068be5a081b5ebbe24",
+    "zh:ba5069e624210c63ad9e633a8eb0108b21f2322bc4967ba2b82d09168c466888",
+    "zh:d7dfa597a17186e7f4d741dd7111849f1c0dd6f7ebc983043d8262d2fb37b408",
+    "zh:e8a641ca2c99f96d64fa2725875e797273984981d3e54772a2823541c44e3cd3",
+    "zh:f89898b7067c4246293a8007f59f5cfcac7b8dd251d39886c7a53ba596251466",
+    "zh:fb1e1df1d5cc208e08a850f8e84423bce080f01f5e901791c79df369d3ed52f2",
   ]
 }
